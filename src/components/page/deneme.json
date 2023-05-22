@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_page_denemes",
+  "info": {
+    "displayName": "body",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "hero": {
+      "type": "component",
+      "repeatable": true,
+      "component": "hero.hero"
+    },
+    "slider": {
+      "type": "component",
+      "repeatable": true,
+      "component": "slider-item.slider-item"
+    }
+  }
+}

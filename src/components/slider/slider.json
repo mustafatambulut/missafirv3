@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_slider_sliders",
+  "info": {
+    "displayName": "items",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "item": {
+      "type": "component",
+      "repeatable": true,
+      "component": "slider-item.slider-item"
+    }
+  }
+}

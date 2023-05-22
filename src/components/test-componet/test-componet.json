@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_test_componet_test_componets",
+  "info": {
+    "displayName": "testComponet",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "testComponet": {
+      "type": "text"
+    },
+    "type": {
+      "type": "string",
+      "default": "testComponent"
+    }
+  }
+}

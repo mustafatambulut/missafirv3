@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_link_menu_link_menus",
+  "info": {
+    "displayName": "linkMenu",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "linkMenu": {
+      "type": "component",
+      "repeatable": true,
+      "component": "link.link"
+    },
+    "menuName": {
+      "type": "string"
+    }
+  }
+}

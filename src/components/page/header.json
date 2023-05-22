@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_page_headers",
+  "info": {
+    "displayName": "header"
+  },
+  "options": {},
+  "attributes": {
+    "logo": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "links": {
+      "displayName": "link",
+      "type": "component",
+      "repeatable": true,
+      "component": "links.link"
+    }
+  }
+}

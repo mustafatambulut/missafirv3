@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "pages",
+  "info": {
+    "singularName": "page",
+    "pluralName": "pages",
+    "displayName": "page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "home": {
+      "type": "dynamiczone",
+      "components": [
+        "page.header",
+        "page.deneme"
+      ]
+    }
+  }
+}
