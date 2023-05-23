@@ -7,6 +7,7 @@
 ```bash
  git clone git@bitbucket.org:missafir/missafirv3.git
  cd missafirv3
+ cp .env.local .env
 ```
 
 2. Install dependencies:
