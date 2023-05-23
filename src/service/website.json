@@ -1,0 +1,75 @@
+{
+  "header": {
+    "logo": {
+      "title": {
+        "tr": {
+          "title": "Missafir",
+          "route": "\/",
+          "target": "self"
+        },
+        "en": {
+          "title": "Missafir",
+          "route": "\/",
+          "target": "self"
+        }
+      },
+      "img": {
+        "tr": {
+          "src": "https:\/\/www.missafir.com\/wp-content\/uploads\/2022\/12\/logo-2.svg"
+        },
+        "en": {
+          "src": "https:\/\/www.missafir.com\/wp-content\/uploads\/2022\/12\/logo-2.svg"
+        }
+      }
+    },
+    "menu": [
+      {
+        "title": "Ev Ara",
+        "route": "\/search",
+        "type": "link"
+      },
+      {
+        "title": "Ev Sahibi Ol",
+        "route": "\/ev-sahibi-ol",
+        "type": "button"
+      },
+      {
+        "title": "Biz Kimiz?",
+        "route": "\/biz-kimiz",
+        "type": "link"
+      }
+    ],
+    "langSelector": {
+      "tr": {
+        "title": "T\u00fcrk\u00e7e",
+        "slug": "tr",
+        "flag": "https:\/\/cdn.missafir.com\/flags\/tr.svg"
+      },
+      "en": {
+        "title": "English",
+        "slug": "en",
+        "flag": "https:\/\/cdn.missafir.com\/flags\/en.svg"
+      }
+    },
+    "userMenu": [
+      {
+        "title": "Giri\u015f Yap \/ Kay\u0131t Ol",
+        "route": "#loginSignup",
+        "type": "button"
+      },
+      {
+        "title": "Seyahatlerim",
+        "route": "#loginSignup",
+        "type": "link"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "title": "Ev Sahibi Giri\u015fi",
+        "route": "https:\/\/owner.missafir.com\/",
+        "type": "link"
+      }
+    ]
+  }
+}
