@@ -1,57 +1,57 @@
-# 🚀 Getting started with Strapi
+## MİSSAFİR V3
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/developer-docs/latest/developer-resources/cli/CLI.html) (CLI) which lets you scaffold and manage your project in seconds.
+### Installing
 
-### `develop`
+1. Clone this repository:
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/developer-docs/latest/developer-resources/cli/CLI.html#strapi-develop)
-
-```
-npm run develop
-# or
-yarn develop
+```bash
+ git clone git@bitbucket.org:missafir/missafirv3-strapi.git
+ cd missafirv3-strapi
+ cp .env.example .env
 ```
 
-### `start`
+2. Import local database and add related info to .env
 
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/developer-docs/latest/developer-resources/cli/CLI.html#strapi-start)
-
-```
-npm run start
-# or
-yarn start
+```bash
+git clone git@bitbucket.org:snippets/missafir/5qe5MX/missafirv3-strapi-database.git
 ```
 
-### `build`
+3. Install dependencies:
 
-Build your admin panel. [Learn more](https://docs.strapi.io/developer-docs/latest/developer-resources/cli/CLI.html#strapi-build)
-
-```
-npm run build
-# or
-yarn build
+```bash
+ yarn
 ```
 
-## ⚙️ Deployment
+## Running the app locally
 
-Strapi gives you many possible deployment options for your project. Find the one that suits you on the [deployment section of the documentation](https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/deployment.html).
+4. To run the app locally, you can use:
 
-## 📚 Learn more
+```bash
+  yarn develop
+```
 
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://docs.strapi.io) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
+You should now be able to see the admin panel running at `http://localhost:1337/admin` in your web browser.
 
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
+## All Endpoints
 
-## ✨ Community
+```             
+  yarn strapi routes:list        
+```
 
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
+## Usage CLI
 
----
+```             
+  yarn strapi        
+```
 
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+## Building
+
+To build the Missafir V3 locally, you can use:
+
+```bash
+  yarn build
+```
+
+### Versions
+
+- Strapi:4.10.5

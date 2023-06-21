@@ -16,7 +16,8 @@
       "type": "dynamiczone",
       "components": [
         "page.header",
-        "page.deneme"
+        "page.deneme",
+        "sub-footer.sub-footer"
       ]
     }
   }

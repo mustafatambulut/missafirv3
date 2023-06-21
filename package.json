@@ -1,8 +1,7 @@
 {
-  "name": "poc-strapi",
+  "name": "missafirv3-strapi",
   "private": true,
   "version": "0.1.0",
-  "description": "A Strapi application",
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
@@ -15,11 +14,12 @@
     "@strapi/plugin-users-permissions": "4.10.5",
     "@strapi/strapi": "4.10.5",
     "mysql": "2.18.1",
-    "strapi-plugin-menus": "^1.4.1",
-    "strapi-plugin-populate-deep": "^2.0.0"
+    "strapi-plugin-menus": "^1.4.3",
+    "strapi-plugin-populate-deep": "^2.0.0",
+    "strapi-plugin-website-preview": "^1.0.5"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "missafir"
   },
   "strapi": {
     "uuid": "4c788fbb-2419-4541-8529-7cc47768f7a4"
@@ -27,6 +27,5 @@
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
-  },
-  "license": "MIT"
+  }
 }

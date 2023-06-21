@@ -1930,10 +1930,10 @@
   resolved "https://registry.yarnpkg.com/@react-dnd/shallowequal/-/shallowequal-4.0.2.tgz#d1b4befa423f692fa4abf1c79209702e7d8ae4b4"
   integrity sha512-/RVXdLvJxLg4QKvMoM5WlwNR9ViO9z8B/qPcc+C0Sa/teJY7QG7kJ441DwzOjMYEY7GmU4dj5EcGHIkKZiQZCA==
 
-"@remix-run/router@1.6.2":
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.6.2.tgz#bbe75f8c59e0b7077584920ce2cc76f8f354934d"
-  integrity sha512-LzqpSrMK/3JBAVBI9u3NWtOhWNw5AMQfrUFYB0+bDHTSw17z++WJLsPsxAuK+oSddsxk4d7F/JcdDPM1M5YAhA==
+"@remix-run/router@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.6.3.tgz#8205baf6e17ef93be35bf62c37d2d594e9be0dad"
+  integrity sha512-EXJysQ7J3veRECd0kZFQwYYd5sJMcq2O/m60zu1W2l3oVQ9xtub8jTOtYRE0+M2iomyG/W3Ps7+vp2kna0C27Q==
 
 "@rushstack/ts-command-line@^4.7.7":
   version "4.13.2"
@@ -8242,12 +8242,12 @@ react-router-dom@5.3.4:
     tiny-warning "^1.0.0"
 
 react-router-dom@^6.2.1:
-  version "6.11.2"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.11.2.tgz#324d55750ffe2ecd54ca4ec6b7bc7ab01741f170"
-  integrity sha512-JNbKtAeh1VSJQnH6RvBDNhxNwemRj7KxCzc5jb7zvDSKRnPWIFj9pO+eXqjM69gQJ0r46hSz1x4l9y0651DKWw==
+  version "6.13.0"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.13.0.tgz#6651f456bb2af42ef14f6880123b1f575539e81f"
+  integrity sha512-6Nqoqd7fgwxxVGdbiMHTpDHCYPq62d7Wk1Of7B82vH7ZPwwsRaIa22zRZKPPg413R5REVNiyuQPKDG1bubcOFA==
   dependencies:
-    "@remix-run/router" "1.6.2"
-    react-router "6.11.2"
+    "@remix-run/router" "1.6.3"
+    react-router "6.13.0"
 
 react-router@5.3.4:
   version "5.3.4"
@@ -8264,12 +8264,12 @@ react-router@5.3.4:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-router@6.11.2:
-  version "6.11.2"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.11.2.tgz#006301c4da1a173d7ad76b7ecd2da01b9dd3837a"
-  integrity sha512-74z9xUSaSX07t3LM+pS6Un0T55ibUE/79CzfZpy5wsPDZaea1F8QkrsiyRnA2YQ7LwE/umaydzXZV80iDCPkMg==
+react-router@6.13.0:
+  version "6.13.0"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.13.0.tgz#7e4427a271dae0cafbdb88c56ccbd9b1434ee93f"
+  integrity sha512-Si6KnfEnJw7gUQkNa70dlpI1bul46FuSxX5t5WwlUBxE25DAz2BjVkwaK8Y2s242bQrZPXCpmwLPtIO5pv4tXg==
   dependencies:
-    "@remix-run/router" "1.6.2"
+    "@remix-run/router" "1.6.3"
 
 react-select@5.7.0:
   version "5.7.0"
@@ -9170,10 +9170,10 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.3.3.tgz#a54f06eb245fdcfef53d56f3c0251f1d5c3d01fe"
   integrity sha512-Rz6yejtVyWnVjC1RFvNmYL10kgjC49EOghxWn0RFqlCHGFpQx+Xe7yW3I4ceK1SGrWIGMjD5Kbue8W/udkbMJg==
 
-strapi-plugin-menus@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-menus/-/strapi-plugin-menus-1.4.1.tgz#c3fb500a300ce369a9c45f02fd2c1b4107679990"
-  integrity sha512-CcguAuS6a88lFav9Vll0G80jgno2FlXUSZIxicU5m6ODo4mSUpZeM19N9VTBvJn7cpyWPcKFcMsIOyTF2jKp8g==
+strapi-plugin-menus@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-menus/-/strapi-plugin-menus-1.4.3.tgz#070ad153d092b92dd15745c22883309ae3f9d962"
+  integrity sha512-w1eC7Q+ssoGvcnOvOZoQdj/Z5cckYNGJItHXcua0CmBSQCBPnIGobKMpuKNktcK3KboxUQrrLVGJ3A7TA1Omog==
   dependencies:
     axios "^0.27.2"
     lodash "4.17.21"
@@ -9194,6 +9194,11 @@ strapi-plugin-populate-deep@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/strapi-plugin-populate-deep/-/strapi-plugin-populate-deep-2.0.0.tgz#dd558eaef2fe47583a63536964b46a945e93f555"
   integrity sha512-IsdXZPjRiOnaczoQaXI6xfxnFqUhR70uW1VCRbY4a3hEmmocpCpIUGx7TiHdNPJOZuDiueTgEIQ4V5XEru9Lvw==
+
+strapi-plugin-website-preview@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-website-preview/-/strapi-plugin-website-preview-1.0.5.tgz#2b18ba5193422214dbecb657dd5f1f21c2b2b0f4"
+  integrity sha512-CxArigfFz0SSbU4hX10sEjX1T/y0EHxlHkad+0V9rDgdoZQDU8/F7So+U64YeqE+z5/y7Hmfepxb8i2tdNcr3Q==
 
 stream-chain@2.2.5, stream-chain@^2.2.5:
   version "2.2.5"
