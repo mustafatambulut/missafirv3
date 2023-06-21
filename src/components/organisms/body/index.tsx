@@ -19,7 +19,7 @@ const Body = async () => {
   });
 
   // console.log("----------------------");
-  // console.log(data);
+  // console.log(attributes);
   // console.log("----------------------");
 
   const components = flattenDepth(values(omit(data, ["id", "__component"])));
