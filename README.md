@@ -10,10 +10,12 @@
  cp .env.example .env
 ```
 
-2. Import local database and add related info to .env
+2. Create empty database. DB name: missafir_db
 
 ```bash
-git clone git@bitbucket.org:snippets/missafir/5qe5MX/missafirv3-strapi-database.git
+yarn strapi import -f export_20230622143626.tar.gz
+'The import will delete all assets and data in your database. Are you sure you want to proceed?' answer question 
+Yes
 ```
 
 3. Install dependencies:
@@ -34,13 +36,13 @@ You should now be able to see the admin panel running at `http://localhost:1337/
 
 ## All Endpoints
 
-```             
+```bash            
   yarn strapi routes:list        
 ```
 
 ## Usage CLI
 
-```             
+```bash             
   yarn strapi        
 ```
 
