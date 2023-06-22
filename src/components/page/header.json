@@ -13,6 +13,21 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "buton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "link.link"
+    },
+    "langugages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "link.link"
+    },
+    "userMenu": {
+      "type": "component",
+      "repeatable": true,
+      "component": "link.link"
     }
   }
 }
