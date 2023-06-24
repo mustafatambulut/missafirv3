@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useId } from "react";
 import { find, get } from "lodash";
 import Select, { components } from "react-select";
 
@@ -23,7 +23,7 @@ const LanguageSelect: React.FC<ISelectLang> = ({
 
   return (
     <Select
-      id="msfr-lng-select"
+      instanceId={useId()}
       imageShow
       options={languages}
       onChange={handleOnChange}
