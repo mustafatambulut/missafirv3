@@ -1,9 +1,9 @@
-import { find, flattenDepth, get, map, omit, values } from "lodash";
+//import { find, flattenDepth, get, map, omit, values } from "lodash";
 
-import { getPage } from "@/service";
+//import { getPage } from "@/service";
 
 import Hero from "@/components/molecules/hero";
-import Slider from "@/components/molecules/slider";
+//import Slider from "@/components/molecules/slider";
 
 const Body = async () => {
   //todo: devam edecek
@@ -13,16 +13,16 @@ const Body = async () => {
   //   __component: "body.body"
   // });
 
-  const { attributes } = await getPage();
-  const data = find(get(attributes, "home"), {
-    __component: "body.body"
-  });
+  // const { attributes } = await getPage();
+  // const data = find(get(attributes, "home"), {
+  //   __component: "body.body"
+  // });
 
   // console.log("----------------------");
   // console.log(attributes);
   // console.log("----------------------");
 
-  const components = flattenDepth(values(omit(data, ["id", "__component"])));
+  //const components = flattenDepth(values(omit(data, ["id", "__component"])));
 
   // const test = [];
   // components.map((component) => (
@@ -37,22 +37,22 @@ const Body = async () => {
   //   ssr: true
   // });
 
-  return (<div>aşflw</div>);
+  return <Hero />;
 
-  return (
-    <div>
-      {map(components, (component, key) => (
-        <div key={key}>
-          {get(component, "type") === "hero" ? (
-            <Hero data={component} />
-          ) : get(component, "type") === "slider" ? (
-            <Slider data={component} />
-          ) : (
-            ""
-          )}
-        </div>
-      ))}
-    </div>
-  );
+  // return (
+  //   <div>
+  //     {map(components, (component, key) => (
+  //       <div key={key}>
+  //         {get(component, "type") === "hero" ? (
+  //           <Hero data={component} />
+  //         ) : get(component, "type") === "slider" ? (
+  //           <Slider data={component} />
+  //         ) : (
+  //           ""
+  //         )}
+  //       </div>
+  //     ))}
+  //   </div>
+  // );
 };
 export default Body;
