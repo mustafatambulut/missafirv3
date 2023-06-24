@@ -1,6 +1,7 @@
 export interface IMenu {
-  links: ILink;
+  links: ILink[] | undefined;
   className?: string;
+  isCollapsable: boolean;
 }
 
 export interface ILink {
