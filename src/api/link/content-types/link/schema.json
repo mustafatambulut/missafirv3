@@ -20,6 +20,9 @@
     },
     "link": {
       "type": "string"
+    },
+    "value": {
+      "type": "string"
     }
   }
 }
