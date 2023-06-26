@@ -10,13 +10,14 @@
  cp .env.example .env
 ```
 
-2. Create empty database. DB name: missafir_db
+2. Create empty database. DB name: `missafir_db`
 
 ```bash
-yarn strapi import -f export_20230626135243.tar.gz
-'The import will delete all assets and data in your database. Are you sure you want to proceed?' answer question 
-Yes
+yarn strapi import -f export_20230626213758.tar.gz
 ```
+
+> `The import will delete all assets and data in your database. Are you sure you want to proceed?` answer to the question
+> `Yes`
 
 3. Install dependencies:
 
