@@ -1,18 +1,15 @@
 {
-  "collectionName": "components_components_buttons",
+  "collectionName": "components_components_features",
   "info": {
-    "displayName": "Button",
+    "displayName": "Feature",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "label": {
+    "title": {
       "type": "string"
     },
     "image": {
-      "type": "string"
-    },
-    "link": {
       "type": "string"
     }
   }

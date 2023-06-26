@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_components_benefits",
+  "info": {
+    "displayName": "Benefit"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

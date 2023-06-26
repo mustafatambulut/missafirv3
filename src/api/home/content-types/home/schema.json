@@ -16,6 +16,29 @@
       "type": "component",
       "repeatable": false,
       "component": "sections.header"
+    },
+    "Body": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.hero",
+        "sections.benefit-guest",
+        "sections.cities",
+        "sections.benefit-owner",
+        "sections.premium",
+        "sections.banner",
+        "sections.potential-income",
+        "sections.summary",
+        "sections.tech-experience",
+        "sections.testemonial",
+        "sections.partners"
+      ]
+    },
+    "footer": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.menu",
+        "sections.footer-brand"
+      ]
     }
   }
 }

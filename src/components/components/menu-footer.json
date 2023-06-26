@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_components_menu_footers",
+  "info": {
+    "displayName": "MenuFooter"
+  },
+  "options": {},
+  "attributes": {
+    "footer_links": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::footer-link.footer-link"
+    }
+  }
+}

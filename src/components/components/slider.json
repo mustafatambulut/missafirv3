@@ -1,12 +1,15 @@
 {
   "collectionName": "components_components_sliders",
   "info": {
-    "displayName": "Slider"
+    "displayName": "CitySlider",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "slider_id": {
-      "type": "string"
+    "cities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::city.city"
     }
   }
 }

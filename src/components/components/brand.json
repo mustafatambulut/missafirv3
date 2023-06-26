@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_components_brands",
+  "info": {
+    "displayName": "Brand"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    }
+  }
+}

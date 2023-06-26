@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_components_timelines",
+  "info": {
+    "displayName": "Timeline",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "buttonName": {
+      "type": "string"
+    },
+    "buttonLink": {
+      "type": "string"
+    },
+    "buttonImage": {
+      "type": "string"
+    }
+  }
+}
