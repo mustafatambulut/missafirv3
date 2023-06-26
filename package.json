@@ -12,7 +12,7 @@
   "dependencies": {
     "@strapi/plugin-i18n": "4.10.5",
     "@strapi/plugin-users-permissions": "4.10.5",
-    "@strapi/strapi": "4.10.5",
+    "@strapi/strapi": "v4.11.2",
     "mysql": "2.18.1",
     "strapi-plugin-menus": "^1.4.3",
     "strapi-plugin-populate-deep": "^2.0.0",

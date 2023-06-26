@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_components_menus",
+  "info": {
+    "displayName": "menu",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "links": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::link.link"
+    },
+    "image": {
+      "type": "string"
+    }
+  }
+}
