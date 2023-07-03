@@ -1,13 +1,26 @@
-export interface ISelectLang {
+export interface ILanguageSelect {
+  id: number;
+  image: any;
+  links: ILanguageSelectLinks;
   variant?: string;
   showIndicator?: boolean;
-  languages: ILanguage[] | undefined;
 }
 
-export interface ILanguage {
+export interface ILanguageSelectLinks {
+  data: ILanguageSelectData[];
+}
+
+export interface ILanguageSelectData {
   id: number;
+  attributes: ILanguageSelectAttributes;
+}
+
+export interface ILanguageSelectAttributes {
   label: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  link: string;
+  image: string;
   value: string;
-  url: string | null;
-  iconSrc: string;
 }

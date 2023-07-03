@@ -1,7 +1,6 @@
 import { get, map, size } from "lodash";
 
 import { IMenu } from "@/components/molecules/menu/types";
-
 import MenuItem from "@/components/atoms/menuItem";
 import SubMenu from "@/components/atoms/subMenu";
 

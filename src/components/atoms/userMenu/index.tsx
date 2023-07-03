@@ -1,10 +1,11 @@
-import { IUser } from "@/components/atoms/user/types";
-
+import { get, map } from "lodash";
 import Image from "next/image";
+
+import { IUserMenu } from "@/components/atoms/userMenu/types";
 
 import HeartIcon from "../../../../public/images/heart-white.svg";
 
-const User = ({ variant = "" }: IUser) => {
+const User = ({ variant = "", id, image, links }: IUserMenu) => {
   return (
     <ul className="menu lg:menu-horizontal w-16 bg-transparent p-0">
       <li>
@@ -12,34 +13,33 @@ const User = ({ variant = "" }: IUser) => {
           <summary
             className={`justify-start ${
               variant === "dark" && "text-white"
-            } p-0 focus:bg-transparent font-base mb-2 sm:mb-0`}>
+            } p-0 focus:bg-transparent font-base mb-2 lg:mb-0`}>
             <Image
               src={`${
-                variant === "dark"
+                image || variant === "dark"
                   ? "/images/user-light.svg"
                   : "/images/user-dark.svg"
               }`}
               alt="user"
               width={24}
               height={24}
-              className="rounded-full bg-grey-100 p-1 sm:rounded-none sm:bg-transparent sm:p-0"
+              className="rounded-full bg-grey-100 p-lgrounded-none lg:bg-transparent lg:p-0"
             />
           </summary>
-          <ul className="before:hidden m-0 p-0 sm:p-2 sm:m-6 sm:mr-0 sm:right-0">
+          <ul className="before:hidden m-0 p-0 lg:p-2 lg:m-6 lg:mr-0 lg:right-0">
+            {map(get(links, "data"), (menuItem) => (
+              <li key={get(menuItem, "id")}>
+                <a
+                  href={get(menuItem, "attributes.link")}
+                  className="pl-0 lg:pl-2 active:bg-transparent text-black text-lg">
+                  {get(menuItem, "attributes.label")}
+                </a>
+              </li>
+            ))}
             <li>
-              <a className="pl-0 sm:pl-2 active:bg-transparent text-black text-lg">
-                Sign Up
-              </a>
-            </li>
-            <li>
-              <a className="pl-0 sm:pl-2 active:bg-transparent text-primary sm:text-black text-lg">
-                Login
-              </a>
-            </li>
-            <li>
-              <a className="pl-0 sm:pl-2 active:bg-transparent text-primary sm:text-black text-lg">
+              <a className="pl-0 lg:pl-2 active:bg-transparent text-primary lg:text-black text-lg">
                 <span>Become a homeowner</span>
-                <HeartIcon className="fill-primary sm:hidden" />
+                <HeartIcon className="fill-primary lg:hidden" />
               </a>
             </li>
           </ul>

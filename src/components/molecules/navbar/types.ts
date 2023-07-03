@@ -1,46 +1,22 @@
-import { ILanguage } from "@/components/atoms/languageSelect/types";
+import { ILanguageSelect } from "@/components/atoms/languageSelect/types";
+import { IUserMenu } from "@/components/atoms/userMenu/types";
 
 export interface INavbar {
-  navbarItems: INavbarItems | undefined;
-}
-
-export interface INavbarItems {
   logo: ILogo;
-  button: Button;
-  languages: ILanguage[];
+  button: INavbarButton[];
+  langMenu: ILanguageSelect;
+  userMenu: IUserMenu;
 }
 
 export interface ILogo {
-  data: IData;
-}
-
-export interface IData {
   id: number;
-  attributes: IAttributes;
+  link: string;
+  image: string;
 }
 
-export interface IAttributes {
-  name: string;
-  alternativeText: any;
-  caption: any;
-  width: number;
-  height: number;
-  formats: any;
-  hash: string;
-  ext: string;
-  mime: string;
-  size: number;
-  url: string;
-  previewUrl: any;
-  provider: string;
-  provider_metadata: any;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface Button {
+export interface INavbarButton {
   id: number;
+  image: string;
   label: string;
-  url: string;
-  iconSrc: any;
+  link: string;
 }

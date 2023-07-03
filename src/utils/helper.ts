@@ -1,6 +1,5 @@
 import { find, get } from "lodash";
 import { getMenu, getPage } from "@/service";
-import { ILink } from "@/components/molecules/menu/types";
 
 interface IMenu {
   parent: {
@@ -288,58 +287,252 @@ export const getDummyDataByType = (type: string) => {
     ],
     dummyNavbarItems: {
       logo: {
-        data: {
-          id: 7,
-          attributes: {
-            name: "logo-2.svg",
-            alternativeText: null,
-            caption: null,
-            width: 570,
-            height: 97,
-            formats: null,
-            hash: "logo_2_bfcd17cc2b",
-            ext: ".svg",
-            mime: "image/svg+xml",
-            size: 7.1,
-            url: "images/missafir-logo.svg",
-            previewUrl: null,
-            provider: "local",
-            provider_metadata: null,
-            createdAt: "2023-05-13T10:52:30.817Z",
-            updatedAt: "2023-05-22T19:29:24.954Z"
-          }
+        id: 1,
+        link: "/",
+        image: "images/missafir-logo.svg"
+      },
+      button: [
+        {
+          id: 2,
+          image: "",
+          label: "Become a homeower",
+          link: "https://homes.missafir.com/"
+        }
+      ],
+      langMenu: {
+        id: 4,
+        image: null,
+        links: {
+          data: [
+            {
+              id: 2,
+              attributes: {
+                label: "en",
+                createdAt: "2023-06-26T08:27:36.676Z",
+                updatedAt: "2023-06-26T10:34:37.660Z",
+                publishedAt: "2023-06-26T08:27:37.274Z",
+                link: "http://localhost:3000/en",
+                image: "/images/flags/english.svg",
+                value: "en"
+              }
+            },
+            {
+              id: 3,
+              attributes: {
+                label: "me",
+                createdAt: "2023-06-26T08:28:06.017Z",
+                updatedAt: "2023-06-26T10:34:50.534Z",
+                publishedAt: "2023-06-26T08:28:06.571Z",
+                link: "http://localhost:3000/me",
+                image: "/images/flags/montenegrin.svg",
+                value: "me"
+              }
+            },
+            {
+              id: 1,
+              attributes: {
+                label: "tr",
+                createdAt: "2023-06-26T08:24:58.860Z",
+                updatedAt: "2023-06-26T10:34:09.958Z",
+                publishedAt: "2023-06-26T08:27:17.551Z",
+                link: "http://localhost:3000/tr",
+                image: "/images/flags/turkish.svg",
+                value: "tr"
+              }
+            }
+          ]
         }
       },
-      button: {
-        id: 32,
-        label: "Become a homeower ",
-        url: "https://homes.missafir.com/",
-        iconSrc: null
-      },
-      languages: [
-        {
-          id: 33,
-          label: "TR",
-          value: "tr",
-          url: null,
-          iconSrc: "/images/flags/turkish.svg"
-        },
-        {
-          id: 34,
-          label: "ME",
-          value: "me",
-          url: null,
-          iconSrc: "/images/flags/montenegrin.svg"
-        },
-        {
-          id: 35,
-          label: "EN",
-          value: "en",
-          url: null,
-          iconSrc: "/images/flags/english.svg"
+      userMenu: {
+        id: 5,
+        image: "",
+        links: {
+          data: [
+            {
+              id: 5,
+              attributes: {
+                label: "Sign in",
+                createdAt: "2023-06-26T09:23:49.032Z",
+                updatedAt: "2023-06-26T09:24:39.220Z",
+                publishedAt: "2023-06-26T09:24:39.216Z",
+                link: "http://localhost:3000/login",
+                image: null,
+                value: null
+              }
+            },
+            {
+              id: 6,
+              attributes: {
+                label: "Sign up",
+                createdAt: "2023-06-26T09:24:25.989Z",
+                updatedAt: "2023-06-26T09:24:26.581Z",
+                publishedAt: "2023-06-26T09:24:26.577Z",
+                link: "http://localhost:3000/register",
+                image: null,
+                value: null
+              }
+            }
+          ]
         }
-      ]
+      }
     }
   };
+  // const denemeDummy = {
+  //   data: {
+  //     id: 1,
+  //     attributes: {
+  //       createdAt: "2023-06-26T08:26:48.909Z",
+  //       updatedAt: "2023-06-26T18:35:10.101Z",
+  //       publishedAt: "2023-06-26T08:28:19.300Z",
+  //       header: {
+  //         id: 1,
+  //         logo: {
+  //           id: 1,
+  //           link: "http://localhost:3000",
+  //           image:
+  //             "https://www.missafir.com/wp-content/uploads/2022/12/logo-2.svg"
+  //         },
+  //         langMenu: {
+  //           id: 4,
+  //           image: null,
+  //           links: {
+  //             data: [
+  //               {
+  //                 id: 2,
+  //                 attributes: {
+  //                   label: "en",
+  //                   createdAt: "2023-06-26T08:27:36.676Z",
+  //                   updatedAt: "2023-06-26T10:34:37.660Z",
+  //                   publishedAt: "2023-06-26T08:27:37.274Z",
+  //                   link: "http://localhost:3000/en",
+  //                   image:
+  //                     "https://ownerv2.missafir.com/assets/flags/english.svg",
+  //                   value: "en"
+  //                 }
+  //               },
+  //               {
+  //                 id: 3,
+  //                 attributes: {
+  //                   label: "me",
+  //                   createdAt: "2023-06-26T08:28:06.017Z",
+  //                   updatedAt: "2023-06-26T10:34:50.534Z",
+  //                   publishedAt: "2023-06-26T08:28:06.571Z",
+  //                   link: "http://localhost:3000/me",
+  //                   image:
+  //                     "https://ownerv2.missafir.com/assets/flags/montenegrin.svg",
+  //                   value: "me"
+  //                 }
+  //               },
+  //               {
+  //                 id: 1,
+  //                 attributes: {
+  //                   label: "tr",
+  //                   createdAt: "2023-06-26T08:24:58.860Z",
+  //                   updatedAt: "2023-06-26T10:34:09.958Z",
+  //                   publishedAt: "2023-06-26T08:27:17.551Z",
+  //                   link: "http://localhost:3000/tr",
+  //                   image:
+  //                     "https://ownerv2.missafir.com/assets/flags/turkish.svg",
+  //                   value: "tr"
+  //                 }
+  //               }
+  //             ]
+  //           }
+  //         },
+  //         userMenu: {
+  //           id: 5,
+  //           image:
+  //             "https://img.icons8.com/?size=512&id=vrjuWgj4Ipxl&format=png",
+  //           links: {
+  //             data: [
+  //               {
+  //                 id: 5,
+  //                 attributes: {
+  //                   label: "Sign in",
+  //                   createdAt: "2023-06-26T09:23:49.032Z",
+  //                   updatedAt: "2023-06-26T09:24:39.220Z",
+  //                   publishedAt: "2023-06-26T09:24:39.216Z",
+  //                   link: "http://localhost:3000/login",
+  //                   image: null,
+  //                   value: null
+  //                 }
+  //               },
+  //               {
+  //                 id: 6,
+  //                 attributes: {
+  //                   label: "Sign up",
+  //                   createdAt: "2023-06-26T09:24:25.989Z",
+  //                   updatedAt: "2023-06-26T09:24:26.581Z",
+  //                   publishedAt: "2023-06-26T09:24:26.577Z",
+  //                   link: "http://localhost:3000/register",
+  //                   image: null,
+  //                   value: null
+  //                 }
+  //               }
+  //             ]
+  //           }
+  //         },
+  //         button: [
+  //           {
+  //             id: 2,
+  //             image:
+  //               "https://cdn-icons-png.flaticon.com/512/10263/10263030.png",
+  //             label: "test button",
+  //             link: "http://localhost:3000/test"
+  //           }
+  //         ]
+  //       },
+  //       Body: [
+  //         {
+  //           id: 2,
+  //           __component: "sections.hero",
+  //           image:"/images/hero-image.png",
+  //           title: "Home wherever you go"
+  //         },
+  //         {
+  //           id: 1,
+  //           __component: "sections.summary",
+  //           header: {
+  //             id: 2,
+  //             title: "A Brief Summary of Our Processes",
+  //             description:
+  //               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
+  //           },
+  //           body: null
+  //         },
+  //         {
+  //           id: 3,
+  //           __component: "sections.benefit-guest",
+  //           header: {
+  //             id: 3,
+  //             title: "Best cities to discover",
+  //             description:
+  //               "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n"
+  //           }
+  //         },
+  //         {
+  //           id: 3,
+  //           __component: "sections.cities",
+  //           header: {
+  //             id: 4,
+  //             title: "cities title",
+  //             description:
+  //               "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n"
+  //           },
+  //           body: {
+  //             id: 3
+  //           }
+  //         }
+  //       ],
+  //       footer: []
+  //     }
+  //   },
+  //   meta: {}
+  // };
   return get(dummyItems, `[${type}]`);
+};
+
+export const isMobileView = () => {
+  "use client";
+  return get(window, "screen.width") <= 600;
 };

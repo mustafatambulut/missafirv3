@@ -1,18 +1,13 @@
 "use client";
-import React, { useState, useId } from "react";
+import React, { useState } from "react";
+import Image from "next/image";
 import { find, get } from "lodash";
 import Select, { components } from "react-select";
 
-import { ISelectLang } from "@/components/atoms/languageSelect/types";
-
-import Image from "next/image";
+import { ILanguageSelect } from "@/components/atoms/languageSelect/types";
 import SelectLangOptionImage from "@/components/atoms/selectLangOptionImage";
 
-const LanguageSelect: React.FC<ISelectLang> = ({
-  variant,
-  languages,
-  showIndicator
-}) => {
+const LanguageSelect = ({ variant, links, showIndicator }: ILanguageSelect) => {
   const [currentLocale] = useState("en");
 
   const handleMenuOpen = () => null;
@@ -23,9 +18,8 @@ const LanguageSelect: React.FC<ISelectLang> = ({
 
   return (
     <Select
-      instanceId={useId()}
       imageShow
-      options={languages}
+      options={get(links, "data")}
       onChange={handleOnChange}
       isSearchable={false}
       onMenuOpen={handleMenuOpen}
@@ -35,13 +29,16 @@ const LanguageSelect: React.FC<ISelectLang> = ({
       imageWidthClassName="w-6 lg:w-2 lg:w-6"
       indicatorClassName="pl-0 pr-2"
       indicatorArrowClassName="fill-owner"
-      controlClassName="cursor-pointer shadow-none bg-transparent  text-xs sm:text-base sm:h-[44px] rounded-[10px] border-white"
+      controlClassName="cursor-pointer shadow-none bg-transparent  text-xs lg:text-base lg:h-[44px] rounded-[10px] border-white"
       optionClassName="my-1 p-0 m-0 text-gray-600 rounded-lg cursor-pointer hover:bg-gray-100 focus:text-black focus:bg-gray-hover"
       singleValueClassName="flex items-center gap-x-0.5 justify-around"
       singleValueChildrenClassName={`${
         variant === "dark" ? "text-white" : "text-black"
       }`}
-      defaultValue={find(languages, ["value", currentLocale])}
+      defaultValue={find(get(links, "data"), [
+        "attributes.value",
+        currentLocale
+      ])}
       theme={(theme) => ({
         ...theme,
         borderRadius: 0,
@@ -64,13 +61,6 @@ const LanguageSelect: React.FC<ISelectLang> = ({
             {...props}
             className={`${get(props, "selectProps.menuClassName")}`}>
             <div>{get(props, "children")}</div>
-            {get(props, "selectProps.footerShow") && (
-              <div className="py-5 border-t capitalize text-gray-400 bg-white sticky bottom-0">
-                <a href="/properties" className="link link-hover">
-                  See all properties
-                </a>
-              </div>
-            )}
           </components.MenuList>
         ),
         SingleValue: (props) => (
@@ -87,7 +77,7 @@ const LanguageSelect: React.FC<ISelectLang> = ({
                       "w-8 lg:w-10"
                     } rounded-full`}>
                     <Image
-                      src={get(props, "data.iconSrc")}
+                      src={get(props, "data.attributes.image")}
                       width={24}
                       height={24}
                       alt="select"
@@ -100,11 +90,11 @@ const LanguageSelect: React.FC<ISelectLang> = ({
                   {get(props, "selectProps.selectTitle")}
                 </span>
                 <span
-                  className={`text-sm truncate font-moderat-regular ml-2 ${get(
+                  className={`text-sm uppercase ml-2 ${get(
                     props,
                     "selectProps.singleValueChildrenClassName"
                   )}`}>
-                  {get(props, "children")}
+                  {get(props, "data.attributes.label")}
                 </span>
               </div>
             </div>
@@ -124,10 +114,12 @@ const LanguageSelect: React.FC<ISelectLang> = ({
             {...props}>
             <div className="flex gap-x-2 items-center justify-center">
               <SelectLangOptionImage
-                image={get(props, "data.iconSrc")}
+                image={get(props, "data.attributes.image")}
                 className="w-6 p-0 m-0"
               />
-              <span className="text-sm py-2">{get(props, "data.label")}</span>
+              <span className="text-sm py-2 uppercase">
+                {get(props, "data.attributes.label")}
+              </span>
             </div>
           </components.Option>
         ),

@@ -1,22 +1,23 @@
 "use client";
 import React, { useRef } from "react";
-import { get } from "lodash";
+import { get, map } from "lodash";
 
 import Image from "next/image";
 import { getDummyDataByType } from "@/utils/helper";
 
 import { INavbar } from "@/components/molecules/navbar/types";
 
-import User from "@/components/atoms/user";
+import UserMenu from "../../atoms/userMenu";
 import Button from "@/components/atoms/button";
 import LanguageSelect from "@/components/atoms/languageSelect";
 import Menu from "@/components/molecules/menu";
 
 import HeartIcon from "../../../../public/images/heart-white.svg";
 
-const Navbar: React.FC<INavbar> = ({ navbarItems }) => {
+const Navbar = ({ navbarItems }: INavbar) => {
   const drawerCloseRef = useRef<HTMLInputElement>(null);
   const dummyMenuItems = getDummyDataByType("dummyMenuItems");
+
   const handleDrawerClose = () => {
     drawerCloseRef.current?.click();
   };
@@ -29,12 +30,12 @@ const Navbar: React.FC<INavbar> = ({ navbarItems }) => {
         className="drawer-toggle"
       />
       <div className="drawer-content flex flex-col">
-        <div className="w-full navbar sm:py-8 sm:px-10">
+        <div className="w-full navbar lg:py-8 lg:px-10">
           <div className="flex-1">
-            <a href="/">
+            <a href={get(navbarItems, "logo.link") || ""}>
               <Image
-                className="w-[122px] sm:w-[172px]"
-                src={get(navbarItems, "logo.data.attributes.url") || ""}
+                className="w-[122px] lg:w-[172px]"
+                src={get(navbarItems, "logo.image") || ""}
                 alt="logo"
                 width={172}
                 height={32}
@@ -42,19 +43,32 @@ const Navbar: React.FC<INavbar> = ({ navbarItems }) => {
             </a>
           </div>
           <div className="flex gap-6">
-            <Button variant="primary" className="hidden sm:flex">
-              <HeartIcon className="mr-2 fill-white" />
-              <span>{get(navbarItems, "button.label")}</span>
-            </Button>
-            <div className="hidden sm:block">
+            {map(get(navbarItems, "button"), (button) => (
+              <Button
+                link={get(button, "link")}
+                key={button.id}
+                variant="primary"
+                className="hidden lg:flex">
+                <HeartIcon className="mr-2 fill-white" />
+                <span>{get(button, "label")}</span>
+              </Button>
+            ))}
+            <div className="hidden lg:block">
               <LanguageSelect
+                id={get(navbarItems, "langMenu.id")}
+                image={get(navbarItems, "langMenu.image")}
+                links={get(navbarItems, "langMenu.links")}
                 showIndicator={false}
-                languages={get(navbarItems, "languages")}
                 variant={"dark"}
               />
             </div>
-            <div className="hidden sm:flex">
-              <User variant="dark" />
+            <div className="hidden lg:flex">
+              <UserMenu
+                id={get(navbarItems, "userMenu.id")}
+                image={get(navbarItems, "userMenu.image")}
+                links={get(navbarItems, "userMenu.links")}
+                variant="dark"
+              />
             </div>
           </div>
           <div className="flex-none lg:hidden">
@@ -76,7 +90,12 @@ const Navbar: React.FC<INavbar> = ({ navbarItems }) => {
         <label htmlFor="missafir-drawer" className="drawer-overlay"></label>
         <div className="p-8 w-full h-full bg-white relative flex flex-col overflow-y-auto">
           <div className="border-b border-gray-100 pb-5 mb-5 flex items-start justify-between">
-            <User variant="light" />
+            <UserMenu
+              id={get(navbarItems, "userMenu.id")}
+              image={get(navbarItems, "userMenu.image")}
+              links={get(navbarItems, "userMenu.links")}
+              variant="light"
+            />
             <Image
               onClick={handleDrawerClose}
               src="/images/close.svg"
@@ -90,8 +109,10 @@ const Navbar: React.FC<INavbar> = ({ navbarItems }) => {
           </div>
           <div className="w-[116px] mb-5">
             <LanguageSelect
+              id={get(navbarItems, "langMenu.id")}
+              image={get(navbarItems, "langMenu.image")}
+              links={get(navbarItems, "langMenu.links")}
               showIndicator={true}
-              languages={get(navbarItems, "languages")}
               variant={"light"}
             />
           </div>

@@ -23,7 +23,7 @@ const Footer = async () => {
       {/*  <Menu links={links} />*/}
       {/*</footer>*/}
       <footer className="footer border-t px-10 pt-20 pb-10 lg:flex">
-        <div className="w-full flex flex-col items-center sm:block sm:w-[327px] ">
+        <div className="w-full flex flex-col items-center lg:block lg:w-[327px] ">
           <a href="/">
             <Image
               src="/images/missafir-logo-black.svg"
@@ -32,7 +32,7 @@ const Footer = async () => {
               height={32}
             />
           </a>
-          <p className="my-3 text-center sm:text-left">
+          <p className="my-3 text-center lg:text-left">
             Lorem ipsum dolor sit amet. Et saepe omnis sit architecto repellat
             qui culpa nihil sit impedit
           </p>
@@ -40,7 +40,7 @@ const Footer = async () => {
             <HeartIcon className="mr-2 fill-white" />
             <span>Become a homeowner</span>
           </Button>
-          <div className="flex justify-between w-full sm:w-3/4 mt-8">
+          <div className="flex justify-between w-full lg:w-3/4 mt-8">
             <a href="#" className="rounded-full bg-grey-50 p-1">
               <FacebookIcon className="m-0" />
             </a>
@@ -58,7 +58,7 @@ const Footer = async () => {
             </a>
           </div>
         </div>
-        <div className="hidden sm:flex sm:flex-1 lg:pl-14">
+        <div className="hidden lg:flex lg:flex-1 lg:pl-14">
           <Menu isCollapsable={false} links={dummyMenuItems} />
         </div>
       </footer>

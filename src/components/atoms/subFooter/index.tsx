@@ -10,14 +10,14 @@ const SubFooter = async ({ className = "" }: ISubFooter) => {
   return (
     <footer className={`footer footer-center p-5 ${className}`}>
       {/*<p>{description}</p>*/}
-      <div className="flex justify-between w-full">
+      <div className="flex justify-between py-1 w-full flex-col-reverse lg:flex-row">
         <div className="grid grid-rows-1 grid-cols-2 gap-3">
-          <div className="flex items-center">
+          <div className="flex items-center justify-start">
             <span>Made with</span>
             <HeartIcon className="fill-primary mx-2" />
             <span>in Istanbul</span>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center justify-end">
             <span>by</span>
             <Image
               src="/images/missafirtech.svg"
@@ -27,7 +27,7 @@ const SubFooter = async ({ className = "" }: ISubFooter) => {
             />
           </div>
         </div>
-        <div className="grid grid-rows-1 grid-cols-2 gap-4">
+        <div className="grid grid-rows-1 grid-cols-2 gap-4 mb-2 lg:mb-0">
           <a href="#" className="text-grey-500">
             Terms of Use
           </a>
