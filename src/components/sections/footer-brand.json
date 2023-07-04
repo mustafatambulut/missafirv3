@@ -1,7 +1,8 @@
 {
   "collectionName": "components_sections_footer_brands",
   "info": {
-    "displayName": "FooterBrand"
+    "displayName": "FooterBrand",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -11,9 +12,10 @@
       "component": "components.content"
     },
     "body": {
+      "displayName": "body",
       "type": "component",
       "repeatable": false,
-      "component": "components.menu-body"
+      "component": "components.body"
     }
   }
 }

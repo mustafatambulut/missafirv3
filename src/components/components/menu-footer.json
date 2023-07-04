@@ -1,7 +1,8 @@
 {
   "collectionName": "components_components_menu_footers",
   "info": {
-    "displayName": "MenuFooter"
+    "displayName": "MenuFooter",
+    "description": ""
   },
   "options": {},
   "attributes": {

@@ -1,10 +1,14 @@
 {
   "collectionName": "components_components_menu_bodies",
   "info": {
-    "displayName": "MenuBody"
+    "displayName": "MenuBody",
+    "description": ""
   },
   "options": {},
   "attributes": {
+    "title": {
+      "type": "string"
+    },
     "menu_links": {
       "type": "relation",
       "relation": "oneToMany",

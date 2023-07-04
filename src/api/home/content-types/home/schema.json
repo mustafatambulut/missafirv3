@@ -10,14 +10,23 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "header": {
       "type": "component",
       "repeatable": false,
-      "component": "sections.header"
+      "component": "sections.header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
-    "Body": {
+    "body": {
       "type": "dynamiczone",
       "components": [
         "sections.hero",
@@ -31,14 +40,32 @@
         "sections.tech-experience",
         "sections.testemonial",
         "sections.partners"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "footer": {
-      "type": "dynamiczone",
-      "components": [
-        "sections.menu",
-        "sections.footer-brand"
-      ]
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.menu"
+    },
+    "footerBrand": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.footer-brand"
     }
   }
 }
