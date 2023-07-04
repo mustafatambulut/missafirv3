@@ -10,14 +10,13 @@
  cp .env.example .env
 ```
 
-2. Create empty database. DB name: `missafir_db`
+2. Create empty database. DB name: `missafir_db` run seed command for dummy data generation
+
+> ⚠️ Important! This command will remove all data 
 
 ```bash
-yarn strapi import -f export_20230626213758.tar.gz
+yarn seed
 ```
-
-> `The import will delete all assets and data in your database. Are you sure you want to proceed?` answer to the question
-> `Yes`
 
 3. Install dependencies:
 
@@ -25,7 +24,7 @@ yarn strapi import -f export_20230626213758.tar.gz
  yarn
 ```
 
-## Running the app locally
+## 🚀 Running the app locally
 
 4. To run the app locally, you can use:
 

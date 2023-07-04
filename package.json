@@ -6,9 +6,12 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "seed": "shouldRunSeed=true strapi develop"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.2"
+  },
   "dependencies": {
     "@strapi/plugin-i18n": "4.10.5",
     "@strapi/plugin-users-permissions": "4.10.5",

@@ -11,20 +11,20 @@
       "repeatable": false,
       "component": "components.logo"
     },
-    "langMenu": {
-      "type": "component",
-      "repeatable": false,
-      "component": "components.menu"
-    },
     "userMenu": {
       "type": "component",
       "repeatable": false,
       "component": "components.menu"
     },
-    "button": {
+    "buttons": {
       "type": "component",
       "repeatable": true,
       "component": "components.button"
+    },
+    "languageMenu": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.lang-menu"
     }
   }
 }
