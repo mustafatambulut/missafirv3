@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'missafir-regular';
+    src: url(/fonts/missafir-sans-regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'missafir-semi-bold';
+    src: url(/fonts/missafir-sans-semibold.otf) format('opentype');
+}
+
+body {
+    font-family: 'missafir-regular', sans-serif;
+}
+
+.toggle{
+    box-shadow: var(--handleoffsetcalculator) 0 0 2px #F1F3F3 inset, 0 0 0 2px #f1f3f3 inset, var(--togglehandleborder);
+    background-color: #E3E6E8;
+    border-color: #F1F3F3;
+}
+.toggle:checked {
+    box-shadow: var(--handleoffsetcalculator) 0 0 2px #D01E50 inset, 0 0 0 2px #D01E50 inset, var(--togglehandleborder);
+    background-color: #F6D2DC;
+    border-color: #D01E50;
+}

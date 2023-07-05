@@ -23,21 +23,21 @@ const User = ({ variant = "", id, image, links }: IUserMenu) => {
               alt="user"
               width={24}
               height={24}
-              className="rounded-full bg-grey-100 p-lgrounded-none lg:bg-transparent lg:p-0"
+              className="rounded-full bg-gray-100 p-lgrounded-none lg:bg-transparent lg:p-0"
             />
           </summary>
-          <ul className="before:hidden m-0 p-0 lg:p-2 lg:m-6 lg:mr-0 lg:right-0">
+          <ul className="before:hidden m-0 p-0 lg:p-2 lg:m-6 lg:mr-0 lg:right-0 text-gray-700 lg:text-gray-600 font-missafir-semi-bold">
             {map(get(links, "data"), (menuItem) => (
               <li key={get(menuItem, "id")}>
                 <a
                   href={get(menuItem, "attributes.link")}
-                  className="pl-0 lg:pl-2 active:bg-transparent text-black text-lg">
+                  className="pl-0 lg:pl-2 active:bg-transparent text-lg">
                   {get(menuItem, "attributes.label")}
                 </a>
               </li>
             ))}
             <li>
-              <a className="pl-0 lg:pl-2 active:bg-transparent text-primary lg:text-black text-lg">
+              <a className="pl-0 lg:pl-2 active:bg-transparent text-primary lg:text-gray-600  text-lg">
                 <span>Become a homeowner</span>
                 <HeartIcon className="fill-primary lg:hidden" />
               </a>

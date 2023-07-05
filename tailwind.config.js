@@ -1,5 +1,7 @@
 /** @type {import("tailwindcss").Config} */
 const plugin = require("tailwindcss/plugin");
+const defaultTheme = require("tailwindcss/defaultTheme")
+
 const config = {
   important: true,
   content: [
@@ -11,7 +13,11 @@ const config = {
     extend: {
       fontSize: {
         xxs: "0.63rem",
-        xxl: "1.38rem"
+        xxl: "1.38rem",
+        22: "1.37rem",
+        21: "1.36rem",
+        42: "2.63rem",
+        54: "3.39rem",
       },
       colors: {
         primary: {
@@ -20,10 +26,10 @@ const config = {
           100: "#F6D2DC",
           200: "#F2A6BB",
           300: "#EC799A",
-          400: "#E54D78",
+          400: "#E37896",
           500: "#D01E50",
-          600: "#B21A45",
-          700: "#861334",
+          600: "#D01E50",
+          700: "#A61840",
           800: "#590D22",
           900: "#2D0611"
         },
@@ -32,10 +38,10 @@ const config = {
           100: "#D2F5F9",
           200: "#A4ECF4",
           300: "#77E2EE",
-          400: "#49D9E9",
+          400: "#6EA5AB",
           500: "#0E6973",
-          600: "#16A6B6",
-          700: "#117C88",
+          600: "#0E6973",
+          700: "#0B545C",
           800: "#0B535B",
           900: "#06292D"
         },
@@ -51,7 +57,7 @@ const config = {
           800: "#203246",
           900: "#101923"
         },
-        grey: {
+        gray: {
           50: "#F2F2F2",
           100: "#E6E6E6",
           200: "#CCCCCC",
@@ -63,6 +69,10 @@ const config = {
           800: "#333333",
           900: "#1A1A1A"
         }
+      },
+      fontFamily: {
+        "missafir-regular": ["missafir-regular", ...defaultTheme.fontFamily.sans],
+        "missafir-semi-bold": ["missafir-semi-bold", ...defaultTheme.fontFamily.sans]
       }
     }
   },
@@ -73,8 +83,85 @@ const config = {
           backgroundColor: `${config.theme.extend.colors.primary["600"]} !important`,
           color: "#fff !important",
           borderColor: `${config.theme.extend.colors.primary["600"]} !important`,
+          "&.btn-outline": {
+            backgroundColor: `transparent !important`,
+            color: `${config.theme.extend.colors.primary["600"]} !important`,
+            borderWidth: "2px !important"
+          },
           "&:hover": {
-            backgroundColor: `${config.theme.extend.colors.primary["600"]} !important`
+            backgroundColor: `${config.theme.extend.colors.primary["400"]} !important`,
+            borderColor: `${config.theme.extend.colors.primary["400"]} !important`,
+            "&.btn-outline": {
+              backgroundColor: `transparent !important`,
+              color: `${config.theme.extend.colors.primary["400"]} !important`
+            }
+          },
+          "&:active": {
+            backgroundColor: `${config.theme.extend.colors.primary["700"]} !important`,
+            borderColor: `${config.theme.extend.colors.primary["700"]} !important`,
+            "&.btn-outline": {
+              backgroundColor: `transparent !important`,
+              color: `${config.theme.extend.colors.primary["700"]} !important`
+            }
+          },
+          "&:disabled": {
+            backgroundColor: `${config.theme.extend.colors.gray["100"]} !important`,
+            borderColor: `${config.theme.extend.colors.gray["100"]} !important`,
+            "&.btn-outline": {
+              backgroundColor: `transparent !important`,
+              color: `${config.theme.extend.colors.gray["100"]} !important`
+            }
+          }
+        },
+        ".btn-secondary": {
+          backgroundColor: `${config.theme.extend.colors.secondary["600"]} !important`,
+          color: "#fff !important",
+          borderColor: `${config.theme.extend.colors.secondary["600"]} !important`,
+          "&:hover": {
+            backgroundColor: `${config.theme.extend.colors.secondary["400"]} !important`,
+            borderColor: `${config.theme.extend.colors.secondary["400"]} !important`
+          },
+          "&:active": {
+            backgroundColor: `${config.theme.extend.colors.secondary["700"]} !important`,
+            borderColor: `${config.theme.extend.colors.secondary["700"]} !important`
+          },
+          "&:disabled": {
+            backgroundColor: `${config.theme.extend.colors.gray["100"]} !important`,
+            borderColor: `${config.theme.extend.colors.gray["100"]} !important`
+          }
+        },
+        ".btn-darkblue": {
+          backgroundColor: `${config.theme.extend.colors.darkblue["600"]} !important`,
+          color: "#fff !important",
+          borderColor: `${config.theme.extend.colors.darkblue["600"]} !important`,
+          "&:hover": {
+            backgroundColor: `${config.theme.extend.colors.darkblue["400"]} !important`,
+            borderColor: `${config.theme.extend.colors.darkblue["400"]} !important`
+          },
+          "&:active": {
+            backgroundColor: `${config.theme.extend.colors.darkblue["700"]} !important`,
+            borderColor: `${config.theme.extend.colors.darkblue["700"]} !important`
+          },
+          "&:disabled": {
+            backgroundColor: `${config.theme.extend.colors.gray["100"]} !important`,
+            borderColor: `${config.theme.extend.colors.gray["100"]} !important`
+          }
+        },
+        ".btn-ghost": {
+          backgroundColor: `transparent !important`,
+          color: `${config.theme.extend.colors.primary["600"]} !important`,
+          border: `none !important`,
+          "&:hover": {
+            backgroundColor: `transparent !important`,
+            color: `${config.theme.extend.colors.primary["400"]} !important`
+          },
+          "&:active": {
+            backgroundColor: `transparent !important`,
+            color: `${config.theme.extend.colors.primary["700"]} !important`
+          },
+          "&:disabled": {
+            backgroundColor: `transparent !important`,
+            color: `${config.theme.extend.colors.gray["100"]} !important`
           }
         }
       });

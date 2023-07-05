@@ -2,7 +2,7 @@
 
 //import { getPage } from "@/service";
 
-import Hero from "@/components/molecules/hero";
+import Hero from "@/components/molecules/hero/Hero";
 //import Slider from "@/components/molecules/slider";
 
 const Body = async () => {
@@ -37,7 +37,11 @@ const Body = async () => {
   //   ssr: true
   // });
 
-  return <Hero />;
+  return (
+      <div>
+        <Hero />
+      </div>
+  );
 
   // return (
   //   <div>

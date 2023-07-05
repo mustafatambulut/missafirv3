@@ -1,4 +1,4 @@
-import { ISelectLangOptionImage } from "@/components/atoms/selectLangOptionImage/types";
+import { ISelectLangOptionImage } from "@/components/atoms/languageSelectOptionImage/types";
 
 import Image from "next/image";
 

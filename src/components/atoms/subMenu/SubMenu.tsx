@@ -2,9 +2,14 @@ import { get, map } from "lodash";
 
 import { ISubMenu } from "@/components/atoms/subMenu/types";
 
-import MenuItem from "@/components/atoms/menuItem";
+import MenuItem from "@/components/atoms/menuItem/MenuItem";
 
-const Submenu = ({ isCollapsable, name, items }: ISubMenu) => {
+const Submenu = ({
+  isCollapsable,
+  name,
+  items,
+  variant = "default"
+}: ISubMenu) => {
   return (
     <li>
       {isCollapsable ? (
@@ -15,7 +20,8 @@ const Submenu = ({ isCollapsable, name, items }: ISubMenu) => {
           <ul className="before:hidden ml-0 pl-0">
             {map(items, (link, key) => (
               <MenuItem
-                linkClassName="hover:bg-transparent !text-lg text-grey-700 font-light p-0 mb-2"
+                variant={variant}
+                linkClassName="hover:bg-transparent text-gray-700 font-light p-0 mb-2"
                 item={get(link, "attributes")}
                 key={key}
               />
@@ -24,12 +30,13 @@ const Submenu = ({ isCollapsable, name, items }: ISubMenu) => {
         </details>
       ) : (
         <ul className="menu border-none before:hidden">
-          <li className="menu-title text-grey-800 text-xs uppercase p-0 mb-4">
+          <li className="menu-title text-gray-800 text-xs uppercase p-0 mb-4 font-bold">
             {name}
           </li>
           {map(items, (link, key) => (
             <MenuItem
-              linkClassName="hover:bg-transparent !text-lg text-grey-500 p-0 mb-2"
+                variant={variant}
+              linkClassName="hover:bg-transparent text-gray-500 p-0 mb-2"
               item={get(link, "attributes")}
               key={key}
             />

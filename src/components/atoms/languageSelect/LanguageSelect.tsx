@@ -5,7 +5,7 @@ import { find, get } from "lodash";
 import Select, { components } from "react-select";
 
 import { ILanguageSelect } from "@/components/atoms/languageSelect/types";
-import SelectLangOptionImage from "@/components/atoms/selectLangOptionImage";
+import SelectLangOptionImage from "../languageSelectOptionImage/LanguageSelectOptionImage";
 
 const LanguageSelect = ({ variant, links, showIndicator }: ILanguageSelect) => {
   const [currentLocale] = useState("en");
@@ -30,9 +30,9 @@ const LanguageSelect = ({ variant, links, showIndicator }: ILanguageSelect) => {
       indicatorClassName="pl-0 pr-2"
       indicatorArrowClassName="fill-owner"
       controlClassName="cursor-pointer shadow-none bg-transparent  text-xs lg:text-base lg:h-[44px] rounded-[10px] border-white"
-      optionClassName="my-1 p-0 m-0 text-gray-600 rounded-lg cursor-pointer hover:bg-gray-100 focus:text-black focus:bg-gray-hover"
+      optionClassName="my-1 p-0 m-0 text-gray-600 rounded-lg cursor-pointer hover:bg-gray-100 focus:text-black focus:bg-gray-hover lg:text-lg"
       singleValueClassName="flex items-center gap-x-0.5 justify-around"
-      singleValueChildrenClassName={`${
+      singleValueChildrenClassName={`text-base uppercase ml-2 lg:text-lg ${
         variant === "dark" ? "text-white" : "text-black"
       }`}
       defaultValue={find(get(links, "data"), [
@@ -90,7 +90,7 @@ const LanguageSelect = ({ variant, links, showIndicator }: ILanguageSelect) => {
                   {get(props, "selectProps.selectTitle")}
                 </span>
                 <span
-                  className={`text-sm uppercase ml-2 ${get(
+                  className={`${get(
                     props,
                     "selectProps.singleValueChildrenClassName"
                   )}`}>
@@ -117,7 +117,7 @@ const LanguageSelect = ({ variant, links, showIndicator }: ILanguageSelect) => {
                 image={get(props, "data.attributes.image")}
                 className="w-6 p-0 m-0"
               />
-              <span className="text-sm py-2 uppercase">
+              <span className="text-sm lg:text-lg py-2 uppercase font-missafir-semi-bold">
                 {get(props, "data.attributes.label")}
               </span>
             </div>
@@ -133,7 +133,7 @@ const LanguageSelect = ({ variant, links, showIndicator }: ILanguageSelect) => {
         IndicatorSeparator: () => null
       }}
       className={`text-sm ${
-        variant !== "dark" && "bg-grey-100"
+        variant !== "dark" && "bg-gray-100"
       } rounded-[12px]`}
     />
   );

@@ -1,6 +1,6 @@
 import { getDummyDataByType } from "@/utils/helper";
 
-import Navbar from "@/components/molecules/navbar";
+import Navbar from "@/components/molecules/navbar/Navbar";
 
 const Header = async () => {
   //const links = await getMenuByComponent(HEADER_MENU);

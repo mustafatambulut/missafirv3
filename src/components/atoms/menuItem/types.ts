@@ -2,6 +2,7 @@ export interface IMenuItem {
   linkClassName?: string;
   listClassName?: string;
   item: IItem | any;
+  variant?: string;
 }
 
 export interface IItem {

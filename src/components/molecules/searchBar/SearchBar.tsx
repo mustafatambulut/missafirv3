@@ -4,10 +4,10 @@ import { get } from "lodash";
 
 import { isMobileView } from "@/utils/helper";
 
-import Guests from "@/components/atoms/guests";
-import Button from "@/components/atoms/button";
-import DatePicker from "@/components/atoms/datePicker";
-import DestinationSelect from "@/components/atoms/destinationSelect";
+import Guests from "@/components/atoms/guests/Guests";
+import Button from "@/components/atoms/button/Button";
+import DatePicker from "@/components/atoms/datePicker/DatePicker";
+import DestinationSelect from "@/components/atoms/destinationSelect/DestinationSelect";
 
 import SearchIcon from "../../../../public/images/search-icon.svg";
 import SearchIconWhite from "../../../../public/images/search-white.svg";
@@ -137,13 +137,13 @@ const SearchBar = () => {
         <div className="flex-1 mb-3 lg:mb-0 w-full">
           {isMobileView() ? (
             <label
-              htmlFor="my-drawer"
+              htmlFor="msfr-search-drawer"
               onClick={() => setActiveSearchItem("bookingDestination")}
-              className="drawer-button py-1 px-4 !h-[56px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-grey-600">
+              className="drawer-button py-1 px-4 !h-[56px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-600">
               {bookingDestination ? (
                 <div className="ml-3">{get(bookingDestination, "label")}</div>
               ) : (
-                <div className="ml-1 flex">
+                <div className="ml-1 flex text-base">
                   <SearchIcon className="mr-3" /> <span>Where?</span>
                 </div>
               )}
@@ -160,12 +160,12 @@ const SearchBar = () => {
         <div className="flex-1 mb-3 lg:mb-0 w-full">
           {isMobileView() ? (
             <label
-              htmlFor="my-drawer"
+              htmlFor="msfr-search-drawer"
               onClick={() => setActiveSearchItem("bookingDate")}
-              className="drawer-button py-1 px-4 !h-[56px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-grey-600">
+              className="drawer-button py-1 px-4 !h-[56px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-600">
               {get(bookingDate, "startDate") || get(bookingDate, "endDate") ? (
                 <div className="ml-3">
-                  <div className="flex text-grey-800">
+                  <div className="flex text-gray-800">
                     <span>
                       {get(bookingDate, "startDate")?.format("DD MMM")}
                     </span>
@@ -174,7 +174,7 @@ const SearchBar = () => {
                   </div>
                 </div>
               ) : (
-                <div className="ml-1 flex items-center">
+                <div className="ml-1 flex items-center text-base">
                   <CalendarIcon className="mr-3" />
                   <span>Dates</span>
                 </div>
@@ -192,9 +192,9 @@ const SearchBar = () => {
           {isMobileView() ? (
             <div className="flex">
               <label
-                htmlFor="my-drawer"
+                htmlFor="msfr-search-drawer"
                 onClick={() => setActiveSearchItem("bookingGuests")}
-                className="drawer-button py-1 px-4 !h-[56px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-grey-600">
+                className="drawer-button py-1 px-4 !h-[56px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-600">
                 {get(bookingGuests, "adults") > 0 ||
                 get(bookingGuests, "kids") > 0 ||
                 get(bookingGuests, "pets") ? (
@@ -215,7 +215,7 @@ const SearchBar = () => {
                   </div>
                 ) : (
                   <div className="flex">
-                    <div className="ml-1 flex items-center">
+                    <div className="ml-1 flex items-center text-base">
                       <GuestsIcon className="mr-3" />
                       <span>Guests</span>
                     </div>
@@ -223,7 +223,7 @@ const SearchBar = () => {
                 )}
               </label>
               <Button
-                variant="primary"
+                variant="btn-primary"
                 className="rounded-2xl !h-[56px] ml-3 w-[72px] lg:w-auto">
                 <SearchIconWhite />
               </Button>
@@ -235,7 +235,7 @@ const SearchBar = () => {
                 setBookingGuests={setBookingGuests}
               />
               <Button
-                variant="primary"
+                variant="btn-primary"
                 className="rounded-2xl !h-[56px] ml-3 w-[72px] lg:w-auto">
                 {isMobileView() ? <SearchIcon /> : <span>Search</span>}
               </Button>
@@ -247,14 +247,14 @@ const SearchBar = () => {
         <div className="drawer">
           <input
             ref={drawerCloseRef}
-            id="my-drawer"
+            id="msfr-search-drawer"
             type="checkbox"
             className="drawer-toggle"
           />
           <div className="drawer-content"></div>
           <div className="drawer-side">
-            <label htmlFor="my-drawer" className="drawer-overlay"></label>
-            <div className="p-3 w-full h-full bg-white flex flex-col overflow-y-auto">
+            <label htmlFor="msfr-search-drawer" className="drawer-overlay"></label>
+            <div className="p-3 w-full min-h-full bg-white flex flex-col overflow-y-auto">
               <div className="flex justify-between items-center p-2 mb-3">
                 <div onClick={handleClickBackButton}>
                   <ArrowLeftIcon />
@@ -307,7 +307,7 @@ const SearchBar = () => {
                   {clearButtonVisibilityStatus() && (
                     <Button
                       onClick={handleClearClick}
-                      variant="link"
+                      variant="btn-link"
                       className="text-primary bg-transparent shadow-none border-none">
                       Clear
                     </Button>
@@ -316,7 +316,7 @@ const SearchBar = () => {
                     onClick={handleApplyClick}
                     disabled={applyButtonDisabledStatus()}
                     className="ml-2"
-                    variant="primary">
+                    variant="btn-primary">
                     Apply
                   </Button>
                 </section>

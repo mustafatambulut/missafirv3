@@ -13,7 +13,7 @@ import ClearIcon from "../../../../public/images/clear-icon.svg";
 import LocationIcon from "../../../../public/images/location.svg";
 import SearchIcon from "../../../../public/images/search-icon.svg";
 
-import "./index.css";
+import "./DestinationSelect.css";
 import "swiper/css";
 import { IDestinationSelect } from "@/components/atoms/destinationSelect/types";
 
@@ -125,31 +125,31 @@ const DestinationSelect = ({
         id={`id-${componentId}`}
         inputId={`input-${componentId}`}
         classNames={{
-          control: (state) => (state.isFocused ? "lg:bg-grey-50" : "bg-white")
+          control: (state) => (state.isFocused ? "lg:bg-gray-50" : "bg-white")
         }}
         defaultOptions
         loadOptions={loadOptions}
         instanceId="msfr-destination-select"
         onChange={handleOnChange}
         maxMenuHeight={isMobileView() ? 500 : 400}
-        controlClassName="w-full border-none shadow-none rounded-2xl !h-[56px] lg:h-full"
+        controlClassName="w-full border-none shadow-none rounded-2xl h-[56px]"
         controlInnerClassName="flex w-full text-left items-center px-4 py-0.5 h-full"
         placeholderClassName="m-0"
-        placeholderInnerClassName="text-grey-600 font-semibold"
+        placeholderInnerClassName="text-gray-600 text-base lg:text-lg font-missafir-semi-bold"
         valueContainerClassName="pl-0"
         indicatorsContainerClassName="absolute right-2 top-[50%] transform translate-y-[-50%]"
         inputClassName={`m-0 p-0 ${
           isMobileView() ? "rsi-container absolute w-full" : null
         }`}
         menuClassName="rounded-xl mt-5 z-20 shadow-none"
-        whereTitleClassName="text-grey-600 w-full text-sm hidden lg:block"
+        whereTitleClassName="text-gray-600 w-full text-sm hidden lg:block"
         searchIconClassName="mr-3 hidden lg:block"
         optionClassName="bg-transparent text-left cursor-pointer m-0 pt-2 pb-0 px-0 lg:px-3"
         optionInnerClassName="rounded flex items-start p-1"
-        optionLabelClassName="text-grey-800"
-        optionContentClassName="text-grey-500"
+        optionLabelClassName="text-gray-800 lg:text-base text-xs mt-1 font-missafir-semi-bold"
+        optionContentClassName="text-gray-500 text-xs"
         groupHeadingClassName="px-4"
-        groupHeadingInnerClassName="text-left normal-case"
+        groupHeadingInnerClassName="text-left normal-case text-gray-500 text-sm font-missafir-semi-bold"
         isClearable
         isSearchable
         {...(isMobileView() && { menuIsOpen: true })}

@@ -3,9 +3,9 @@ import React from "react";
 import { getDummyDataByType } from "@/utils/helper";
 
 import Image from "next/image";
-import Menu from "@/components/molecules/menu";
-import Button from "@/components/atoms/button";
-import SubFooter from "@/components/atoms/subFooter";
+import Menu from "@/components/molecules/menu/Menu";
+import Button from "@/components/atoms/button/Button";
+import SubFooter from "@/components/atoms/subFooter/SubFooter";
 
 import HeartIcon from "../../../../public/images/heart-white.svg";
 import YoutubeIcon from "../../../../public/images/youtube-icon.svg";
@@ -14,7 +14,7 @@ import FacebookIcon from "../../../../public/images/facebook-icon.svg";
 import LinkedinIcon from "../../../../public/images/linkedin-icon.svg";
 import InstagramIcon from "../../../../public/images/instagram-icon.svg";
 
-const Footer = async () => {
+const Footer = () => {
   //const links = await getMenuByComponent(FOOTER_MENU);
   const dummyMenuItems = getDummyDataByType("dummyMenuItems");
   return (
@@ -32,34 +32,35 @@ const Footer = async () => {
               height={32}
             />
           </a>
-          <p className="my-3 text-center lg:text-left">
+          <p className="my-3 text-center lg:text-left text-base font-missafir-semi-bold text-gray-600">
             Lorem ipsum dolor sit amet. Et saepe omnis sit architecto repellat
             qui culpa nihil sit impedit
           </p>
-          <Button variant="primary">
-            <HeartIcon className="mr-2 fill-white" />
+          <Button
+            variant="btn-primary"
+            leftIcon={<HeartIcon className="fill-white" />}>
             <span>Become a homeowner</span>
           </Button>
           <div className="flex justify-between w-full lg:w-3/4 mt-8">
-            <a href="#" className="rounded-full bg-grey-50 p-1">
+            <a href="#" className="rounded-full bg-gray-50 p-1">
               <FacebookIcon className="m-0" />
             </a>
-            <a href="#" className="rounded-full bg-grey-50 p-1">
+            <a href="#" className="rounded-full bg-gray-50 p-1">
               <InstagramIcon />
             </a>
-            <a href="#" className="rounded-full bg-grey-50 p-1">
+            <a href="#" className="rounded-full bg-gray-50 p-1">
               <LinkedinIcon />
             </a>
-            <a href="#" className="rounded-full bg-grey-50 p-1">
+            <a href="#" className="rounded-full bg-gray-50 p-1">
               <TwitterIcon />
             </a>
-            <a href="#" className="rounded-full bg-grey-50 p-1">
+            <a href="#" className="rounded-full bg-gray-50 p-1">
               <YoutubeIcon />
             </a>
           </div>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:pl-14">
-          <Menu isCollapsable={false} links={dummyMenuItems} />
+          <Menu variant="footer" isCollapsable={false} links={dummyMenuItems} />
         </div>
       </footer>
       {/* @ts-expect-error Server Component */}

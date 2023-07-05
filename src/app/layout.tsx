@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
-import Header from "@/components/molecules/header";
-import Footer from "@/components/molecules/footer";
+import Header from "@/components/molecules/header/Header";
+import Footer from "@/components/molecules/footer/Footer";
 
 import { HOME } from "@/app/constants";
 

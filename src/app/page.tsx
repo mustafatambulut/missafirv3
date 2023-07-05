@@ -1,4 +1,4 @@
-import Body from "@/components/organisms/body";
+import Body from "@/components/organisms/body/Body";
 
 const Index = () => {
   return (

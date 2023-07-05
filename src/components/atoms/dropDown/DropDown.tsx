@@ -2,7 +2,7 @@ import { map } from "lodash";
 
 import { IDropDown } from "@/components/atoms/dropDown/types";
 
-import MenuItem from "@/components/atoms/menuItem";
+import MenuItem from "@/components/atoms/menuItem/MenuItem";
 
 const DropDown = ({
   name,

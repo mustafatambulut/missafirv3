@@ -7,10 +7,10 @@ import { getDummyDataByType } from "@/utils/helper";
 
 import { INavbar } from "@/components/molecules/navbar/types";
 
-import UserMenu from "../../atoms/userMenu";
-import Button from "@/components/atoms/button";
-import LanguageSelect from "@/components/atoms/languageSelect";
-import Menu from "@/components/molecules/menu";
+import UserMenu from "../../atoms/userMenu/UserMenu";
+import Button from "@/components/atoms/button/Button";
+import LanguageSelect from "@/components/atoms/languageSelect/LanguageSelect";
+import Menu from "@/components/molecules/menu/Menu";
 
 import HeartIcon from "../../../../public/images/heart-white.svg";
 
@@ -45,11 +45,11 @@ const Navbar = ({ navbarItems }: INavbar) => {
           <div className="flex gap-6">
             {map(get(navbarItems, "button"), (button) => (
               <Button
+                leftIcon={<HeartIcon className="fill-white" />}
                 link={get(button, "link")}
                 key={button.id}
-                variant="primary"
+                variant="btn-primary"
                 className="hidden lg:flex">
-                <HeartIcon className="mr-2 fill-white" />
                 <span>{get(button, "label")}</span>
               </Button>
             ))}
@@ -116,7 +116,7 @@ const Navbar = ({ navbarItems }: INavbar) => {
               variant={"light"}
             />
           </div>
-          <div className="mt-auto flex flex-col text-grey-500">
+          <div className="mt-auto flex flex-col text-gray-500">
             <a href="#" className="mb-2 text-xs">
               Terms of Use
             </a>

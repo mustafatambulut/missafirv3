@@ -8,10 +8,10 @@ import { DayPickerRangeController } from "react-dates";
 import { isMobileView } from "@/utils/helper";
 import { IBookingDate, IDatePicker } from "@/components/atoms/datePicker/types";
 
-import Button from "@/components/atoms/button";
+import Button from "@/components/atoms/button/Button";
 
 import "react-dates/lib/css/_datepicker.css";
-import "./index.css";
+import "./DatePicker.css";
 
 import CalendarIcon from "../../../../public/images/calendar.svg";
 
@@ -34,7 +34,9 @@ const DatePicker = ({
   };
 
   const handleChangeMonth = (date: moment.Moment) => {
-    setIsPrevButtonHidden(date.unix() === initialMonth.unix());
+    setIsPrevButtonHidden(
+      date.format("YYYY/MM/DD") === initialMonth.format("YYYY/MM/DD")
+    );
   };
 
   useEffect(() => {
@@ -50,8 +52,8 @@ const DatePicker = ({
       <section className="w-full flex justify-end p-2 bg-white">
         <Button
           onClick={() => setBookingDate({ startDate: null, endDate: null })}
-          variant="link"
-          className="text-grey-600 bg-transparent shadow-none border-none">
+          variant="btn-link"
+          className="text-gray-600 bg-transparent shadow-none border-none">
           Clear
         </Button>
         <Button
@@ -60,7 +62,7 @@ const DatePicker = ({
             setShowDatePicker(false);
           }}
           className="ml-2"
-          variant="primary">
+          variant="btn-primary">
           Done
         </Button>
       </section>
@@ -69,40 +71,52 @@ const DatePicker = ({
 
   return (
     <div
-      className={`py-1 lg:px-4 h-full cursor-pointer w-full rounded-2xl relative  ${
+      className={`py-1 lg:px-4 lg:h-[56px] cursor-pointer w-full rounded-2xl relative  ${
         isPrevButtonHidden && "prev-hidden"
-      } ${showDatePicker ? "lg:bg-grey-50" : "bg-white"}`}>
+      } ${showDatePicker ? "lg:bg-gray-50" : "bg-white"}`}>
       <div
         className="lg:flex lg:items-center h-full"
         onClick={() => setShowDatePicker(true)}>
         <CalendarIcon className="hidden lg:block" />
-        <div className="lg:flex lg:flex-col lg:ml-3 h-full">
-          <span className="text-grey-600 text-left hidden lg:block">Dates</span>
+        <div className="lg:flex lg:flex-col lg:ml-3 h-full lg:justify-center">
+          <span className="text-gray-600 text-left hidden lg:block lg:text-21">
+            Dates
+          </span>
           {!isMobileView() && (
             <>
               {get(bookingDate, "startDate") || get(bookingDate, "endDate") ? (
-                <div className="flex text-grey-800">
+                <div className="flex text-gray-800">
                   <span>{get(bookingDate, "startDate")?.format("DD MMM")}</span>
                   <span className="mx-1">-</span>
                   <span>{get(bookingDate, "endDate")?.format("DD MMM")}</span>
                 </div>
               ) : (
-                <span className="text-grey-600">Choose date</span>
+                <span className="text-gray-600 block lg:hidden">
+                  Choose date
+                </span>
               )}
             </>
           )}
           {showDatePicker && (
             <div className="lg:absolute lg:top-20 lg:left-0 lg:z-20 w-full h-full">
               <DayPickerRangeController
-                startDate={get(bookingDate, "startDate")}
-                endDate={get(bookingDate, "endDate")}
                 numberOfMonths={2}
+                transitionDuration={0}
                 minDate={initialMonth}
                 hideKeyboardShortcutsPanel
-                focusedInput={focusedInput || "startDate"}
+                calendarInfoPosition="bottom"
                 onDatesChange={onDatesChange}
                 onFocusChange={onFocusChange}
                 showKeyboardShortcuts={false}
+                noNavButtons={isMobileView()}
+                daySize={isMobileView() ? 50 : 39}
+                onPrevMonthClick={handleChangeMonth}
+                onNextMonthClick={handleChangeMonth}
+                noNavPrevButton={isPrevButtonHidden}
+                initialVisibleMonth={() => initialMonth}
+                endDate={get(bookingDate, "endDate")}
+                focusedInput={focusedInput || "startDate"}
+                startDate={get(bookingDate, "startDate")}
                 renderCalendarInfo={
                   !isMobileView()
                     ? get(bookingDate, "startDate") &&
@@ -110,20 +124,14 @@ const DatePicker = ({
                       renderControls
                     : null
                 }
-                noNavPrevButton={isPrevButtonHidden}
-                onPrevMonthClick={handleChangeMonth}
-                onNextMonthClick={handleChangeMonth}
-                initialVisibleMonth={() => initialMonth}
-                daySize={isMobileView() ? 50 : 39}
                 onOutsideClick={() =>
                   !isMobileView() && setShowDatePicker(false)
                 }
                 orientation={
                   isMobileView() ? "verticalScrollable" : "horizontal"
                 }
-                transitionDuration={0}
-                calendarInfoPosition="bottom"
-                noNavButtons={isMobileView()}
+                enableOutsideDays={false}
+                isOutsideRange={(day) => day.isBefore(initialMonth, "day")}
               />
             </div>
           )}
