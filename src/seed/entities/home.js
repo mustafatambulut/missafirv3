@@ -7,6 +7,9 @@ module.exports = {
     const cityEntity = "api::city.city";
     const languageEntity = "api::language.language";
     const userLinkEntity = "api::user-link.user-link";
+    const menuLinkEntity = "api::menu-link.menu-link";
+    const brandLinkEntity = "api::brand-link.brand-link";
+    const footerLinkEntity = "api::footer-link.footer-link";
 
     await destroyAll(entity);
 
@@ -180,6 +183,33 @@ module.exports = {
             ]
           },
         ],
+        footer: {
+          header: {
+            image: faker.image.avatar(),
+            description: faker.lorem.paragraph(),
+            buttonImage: faker.image.avatar(),
+            buttonLabel: faker.lorem.word(),
+            buttonLink: faker.internet.url()
+          },
+          body: [
+            {
+              title: faker.lorem.sentence(),
+              menu_links: await strapi.db.query(menuLinkEntity).findMany({}),
+            }
+          ],
+          footer: {
+            footer_links: await strapi.db.query(footerLinkEntity).findMany({}),
+          }
+        },
+        footerBrand: {
+          header: {
+            title: faker.lorem.sentence(),
+            description: faker.lorem.paragraph(),
+          },
+          body: {
+            brand_links: await strapi.db.query(brandLinkEntity).findMany({}),
+          }
+        },
         createdAt: new Date(),
         updatedAt: new Date(),
         publishedAt: new Date(),
