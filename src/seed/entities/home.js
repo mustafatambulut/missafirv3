@@ -35,7 +35,6 @@ module.exports = {
             publishedAt: new Date()
           },
           languageMenu: {
-            image: faker.image.avatar(),
             languages: await strapi.db.query(languageEntity).findMany({}),
             publishedAt: new Date()
           }

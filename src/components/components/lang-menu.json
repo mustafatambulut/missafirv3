@@ -1,13 +1,11 @@
 {
   "collectionName": "components_components_lang_menus",
   "info": {
-    "displayName": "LangMenu"
+    "displayName": "LangMenu",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "image": {
-      "type": "string"
-    },
     "languages": {
       "type": "relation",
       "relation": "oneToMany",
