@@ -1,11 +1,17 @@
-import Body from "@/components/organisms/body/Body";
+// import Body from "@/components/organisms/body/Body";
+// import { BODY, HOME } from "@/app/constants";
+// import { getPageDataByComponent } from "@/utils/helper";
 
-const Index = () => {
+const Home = () => {
+  // const { logo, buttons, langMenu, userMenu } = (await getPageDataByComponent(
+  //   HOME,
+  //   BODY
+  // )) as IHome;
   return (
     <div>
-      <Body />
+      home page
     </div>
   );
 };
 
-export default Index;
+export default Home;

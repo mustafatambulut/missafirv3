@@ -1,27 +1,18 @@
-import React from "react";
+import { HOME } from "@/app/constants";
+import { getPageDataByComponent } from "@/utils/helper";
+import { IFooter } from "@/components/molecules/footer/types";
+import { FOOTER } from "@/components/molecules/footer/constant";
 
-import { getDummyDataByType } from "@/utils/helper";
+import FooterBrand from "@/components/atoms/footerBrand/FooterBrand";
 
-import Image from "next/image";
-import Menu from "@/components/molecules/menu/Menu";
-import Button from "@/components/atoms/button/Button";
-import SubFooter from "@/components/atoms/subFooter/SubFooter";
+const Footer = async () => {
+  const { header, body, footer } = (await getPageDataByComponent(
+    HOME,
+    FOOTER
+  )) as IFooter;
 
-import HeartIcon from "../../../../public/images/heart-white.svg";
-import YoutubeIcon from "../../../../public/images/youtube-icon.svg";
-import TwitterIcon from "../../../../public/images/twitter-icon.svg";
-import FacebookIcon from "../../../../public/images/facebook-icon.svg";
-import LinkedinIcon from "../../../../public/images/linkedin-icon.svg";
-import InstagramIcon from "../../../../public/images/instagram-icon.svg";
-
-const Footer = () => {
-  //const links = await getMenuByComponent(FOOTER_MENU);
-  const dummyMenuItems = getDummyDataByType("dummyMenuItems");
   return (
     <div className="">
-      {/*<footer className="flex h-28 p-3 items-center justify-center bg-indigo-400 text-white">*/}
-      {/*  <Menu links={links} />*/}
-      {/*</footer>*/}
       <footer className="footer border-t px-10 pt-20 pb-10 lg:flex">
         <div className="w-full flex flex-col items-center lg:block lg:w-[327px] ">
           <a href="/">
@@ -63,10 +54,10 @@ const Footer = () => {
           <Menu variant="footer" isCollapsable={false} links={dummyMenuItems} />
         </div>
       </footer>
-      {/* @ts-expect-error Server Component */}
-      <SubFooter className="flex justify-between bg-gray-50 text-xs" />
+      <FooterBrand className="flex justify-between bg-gray-400 text-white text-xs" />
     </div>
-  );
+
+
 };
 
 export default Footer;

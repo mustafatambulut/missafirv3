@@ -1,6 +1,5 @@
 /** @type {import("tailwindcss").Config} */
 const plugin = require("tailwindcss/plugin");
-const defaultTheme = require("tailwindcss/defaultTheme")
 
 const config = {
   important: true,
@@ -71,8 +70,16 @@ const config = {
         }
       },
       fontFamily: {
-        "missafir-regular": ["missafir-regular", ...defaultTheme.fontFamily.sans],
-        "missafir-semi-bold": ["missafir-semi-bold", ...defaultTheme.fontFamily.sans]
+        "mi-sans": ["Missafir-Sans"],
+        "mi-sans-semi-bold": ["Missafir-Sans-Semi-bold"],
+        "bariol-bold": ["Bariol-bold-webfont"],
+        "bariol-bold-italic": ["Bariol-bold-italic-webfont"],
+        "bariol-bold-light": ["Bariol-bold-light-webfont"],
+        "bariol-bold-light-italic": ["Bariol-bold-light-italic-webfont"],
+        "bariol-bold-regular": ["Bariol-bold-regular-webfont"],
+        "bariol-bold-regular-italic": ["Bariol-bold-regular-italic-webfont"],
+        "bariol-bold-thin": ["Bariol-bold-thin-webfont"],
+        "bariol-bold-thin-italic": ["Bariol-bold-thin-italic-webfont"]
       }
     }
   },

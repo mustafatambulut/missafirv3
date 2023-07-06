@@ -1,25 +1,17 @@
-import { getDummyDataByType } from "@/utils/helper";
+import Image from "next/image";
+import { get } from "lodash";
 
+import { HOME } from "@/app/constants";
+import { getPageDataByComponent } from "@/utils/helper";
+import { IHeader } from "@/components/molecules/header/types";
+import { HEADER } from "@/components/molecules/header/constants";
 import Navbar from "@/components/molecules/navbar/Navbar";
 
 const Header = async () => {
-  //const links = await getMenuByComponent(HEADER_MENU);
-  //const data = await getPageDataByComponent(currentPage, PAGE_HEADER);
-  const dummyNavbarItems = getDummyDataByType("dummyNavbarItems");
+  const { logo, buttons, languageMenu, userMenu } =
+    (await getPageDataByComponent(HOME, HEADER)) as IHeader;
+
   return (
-    // <div className="p-4 flex justify-between bg-yellow-200">
-    //   <div>
-    //     <img
-    //       width={200}
-    //       src={`${process.env.API_URL_DEV}${get(
-    //         get(data, "logo"),
-    //         "data.attributes.url"
-    //       )}`}
-    //       alt="image"
-    //     />
-    //   </div>
-    //   <Menu links={links} />
-    // </div>
     <div className="fixed top-0 w-full">
       <Navbar navbarItems={dummyNavbarItems} />
     </div>
