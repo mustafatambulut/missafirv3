@@ -9,18 +9,20 @@ const {footerLinks} = require("./entities/footerLinks");
 
 module.exports = {
   async seeder(strapi) {
-    console.log("--------------------------------------------------------")
-    console.log("Seeder started...\n")
+    console.log("--------------------------------------------------------");
+    console.log("Seeder started...\n");
 
-    await Promise.all([
-      home(strapi),
-      cities(strapi),
-      userLinks(strapi),
-      menuLinks(strapi),
-      languages(strapi),
-      brandLinks(strapi),
-      footerLinks(strapi),
-    ]);
+    const promises = [
+      new Promise((resolve) => resolve(cities(strapi))),
+      new Promise((resolve) => resolve(userLinks(strapi))),
+      new Promise((resolve) => resolve(menuLinks(strapi))),
+      new Promise((resolve) => resolve(languages(strapi))),
+      new Promise((resolve) => resolve(brandLinks(strapi))),
+      new Promise((resolve) => resolve(footerLinks(strapi))),
+      new Promise((resolve) => resolve(home(strapi)))
+    ];
+
+    await Promise.all(promises).then(() => console.log("Seeder finished...\n"));
 
     console.log("--------------------------------------------------------")
   }
