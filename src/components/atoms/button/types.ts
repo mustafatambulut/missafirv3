@@ -1,7 +1,7 @@
 import React, { JSX } from "react";
 
 export interface IButton {
-  className?: string;
+  target?: "_blank" | "_parent" | "_self" | "_top";
   variant?:
     | "btn-primary"
     | "btn-secondary"
@@ -10,9 +10,9 @@ export interface IButton {
     | "btn-link";
   children: JSX.Element | string | JSX.Element[];
   onClick?: React.MouseEventHandler<HTMLElement> | undefined;
-  disabled?: boolean;
   link?: string;
-  leftIcon?: JSX.Element;
-  rightIcon?: JSX.Element;
+  className?: string;
+  isRtl?: boolean;
   outline?: boolean;
+  disabled?: boolean;
 }
