@@ -13,7 +13,7 @@ export const metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html>
-      <body>
+      <body suppressHydrationWarning={true}>
         <Header />
         {children}
         <Footer />
