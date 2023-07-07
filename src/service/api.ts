@@ -4,7 +4,9 @@ import { get } from "lodash";
 export const isProduction = () => process.env.NODE_ENV === "production";
 
 const api = axios.create({
-  baseURL: isProduction() ? process.env.API_URL_PROD : process.env.API_URL_DEV,
+  baseURL: isProduction()
+    ? process.env.NEXT_PUBLIC_API_URL_PROD
+    : process.env.NEXT_PUBLIC_API_URL_DEV,
   headers: {
     Authorization: isProduction() ? `Bearer ${process.env.API_KEY}` : ""
   }
