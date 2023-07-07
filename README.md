@@ -36,7 +36,7 @@ To build the Missafir V3 locally, you can use:
 
 ### Versions
 
-- React: 18.2.6
+- React: 18.2.8
 - Next: 13.4.3
-- Typescript: 5.0.4
+- Typescript: 5.1.3
 - Tailwindcss: 3.3.2
