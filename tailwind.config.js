@@ -10,13 +10,16 @@ const config = {
   ],
   theme: {
     extend: {
+      borderRadius: {
+        x: "0.6 rem" // 10px
+      },
       fontSize: {
         xxs: "0.63rem",
         xxl: "1.38rem",
         22: "1.37rem",
         21: "1.36rem",
         42: "2.63rem",
-        54: "3.39rem",
+        54: "3.39rem"
       },
       colors: {
         primary: {

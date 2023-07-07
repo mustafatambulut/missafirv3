@@ -1,5 +1,5 @@
 export interface IUserMenu {
-    id: number;
+    id?: number;
     image?: string;
     links: IUserMenuLinks;
     variant: string;
