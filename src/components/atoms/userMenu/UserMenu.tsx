@@ -1,47 +1,70 @@
-import { get, map } from "lodash";
+import Link from "next/link";
 import Image from "next/image";
+import { get, map } from "lodash";
+import classNames from "classnames";
 
 import { IUserMenu } from "@/components/atoms/userMenu/types";
 
-import HeartIcon from "../../../../public/images/heart-white.svg";
+import Button from "@/components/atoms/button/Button";
+import FooterMenu from "@/components/molecules/footerMenu/FooterMenu";
 
-const User = ({ variant = "", id, image, links }: IUserMenu) => {
+const UserMenu = ({ variant = "", data }: IUserMenu) => {
+  const summaryClass = classNames(
+    "justify-start p-0 focus:bg-transparent font-base mb-2 lg:mb-0",
+    {
+      "text-white": variant === "dark"
+    }
+  );
+
   return (
     <ul className="menu lg:menu-horizontal w-16 bg-transparent p-0">
       <li>
         <details className="active:bg-transparent">
-          <summary
-            className={`justify-start ${
-              variant === "dark" && "text-white"
-            } p-0 focus:bg-transparent font-base mb-2 lg:mb-0`}>
+          <summary className={summaryClass}>
             <Image
               src={`${
-                image || variant === "dark"
+                get(data, "image") || variant === "dark"
                   ? "/images/user-light.svg"
                   : "/images/user-dark.svg"
               }`}
               alt="user"
               width={24}
               height={24}
-              className="rounded-full bg-gray-100 p-lgrounded-none lg:bg-transparent lg:p-0"
+              className="rounded-full bg-gray-100 lg:bg-transparent lg:p-0"
             />
           </summary>
-          <ul className="before:hidden m-0 p-0 lg:p-2 lg:m-6 lg:mr-0 lg:right-0 text-gray-700 lg:text-gray-600 font-missafir-semi-bold">
-            {map(get(links, "data"), (menuItem) => (
+          <ul className="before:hidden m-0 p-0 lg:p-2 lg:m-6 lg:mr-0 lg:right-0 text-gray-700 lg:text-gray-600 font-mi-semi-bold">
+            {map(get(data, "links.data"), (menuItem) => (
               <li key={get(menuItem, "id")}>
-                <a
+                <Link
                   href={get(menuItem, "attributes.link")}
                   className="pl-0 lg:pl-2 active:bg-transparent text-lg">
                   {get(menuItem, "attributes.label")}
-                </a>
+                </Link>
+                <FooterMenu
+                  className="md:hidden"
+                  items={get(data, "footerMenu.body")}
+                />
               </li>
             ))}
-            <li>
-              <a className="pl-0 lg:pl-2 active:bg-transparent text-primary lg:text-gray-600  text-lg">
-                <span>Become a homeowner</span>
-                <HeartIcon className="fill-primary lg:hidden" />
-              </a>
-            </li>
+            {map(get(data, "buttons"), (button, key) => (
+              <li key={key}>
+                <Button
+                  isRtl={false}
+                  link={get(button, "link")}
+                  variant="btn-ghost"
+                  className="pl-0 lg:pl-2 active:bg-transparent text-primary">
+                  <Image
+                    src={get(button, "image") || ""}
+                    width="0"
+                    height="0"
+                    className="w-5 h-auto"
+                    alt=""
+                  />
+                  <span>{get(button, "label")}</span>
+                </Button>
+              </li>
+            ))}
           </ul>
         </details>
       </li>
@@ -99,4 +122,4 @@ const User = ({ variant = "", id, image, links }: IUserMenu) => {
   );
 };
 
-export default User;
+export default UserMenu;

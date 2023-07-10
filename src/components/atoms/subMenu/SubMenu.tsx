@@ -5,13 +5,14 @@ import { ISubMenu } from "@/components/atoms/subMenu/types";
 import MenuItem from "@/components/atoms/menuItem/MenuItem";
 
 const Submenu = ({
-  isCollapsable,
   name,
   items,
+  isCollapsable,
+  className = "",
   variant = "default"
 }: ISubMenu) => {
   return (
-    <li>
+    <li className={className}>
       {isCollapsable ? (
         <details className="active:bg-white active:text-black mb-3">
           <summary className="pl-0 focus:bg-white flex justify-start text-xxl mb-3">
@@ -35,7 +36,7 @@ const Submenu = ({
           </li>
           {map(items, (link, key) => (
             <MenuItem
-                variant={variant}
+              variant={variant}
               linkClassName="hover:bg-transparent text-gray-500 p-0 mb-2"
               item={get(link, "attributes")}
               key={key}

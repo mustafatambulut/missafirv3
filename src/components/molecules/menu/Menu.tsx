@@ -1,13 +1,16 @@
 import { get, map, size } from "lodash";
 
-import SubMenu from "@/components/atoms/subMenu/SubMenu";
 import { IMenu } from "@/components/molecules/menu/types";
+
+import SubMenu from "@/components/atoms/subMenu/SubMenu";
 import MenuItem from "@/components/atoms/menuItem/MenuItem";
 
 const Menu = ({
   links,
-  className = "",
   isCollapsable,
+  className = "",
+  subMenuClass = "",
+  menuItemClass = "",
   variant = "default"
 }: IMenu) => {
   return (
@@ -16,16 +19,18 @@ const Menu = ({
       {map(links, (link, key) => {
         return size(get(link, "attributes.children.data")) ? (
           <SubMenu
+            key={key}
             variant={variant}
+            className={subMenuClass}
             isCollapsable={isCollapsable}
             name={get(link, "attributes.title")}
             items={get(link, "attributes.children.data")}
-            key={key}
           />
         ) : (
           <MenuItem
             key={key}
             variant={variant}
+            className={menuItemClass}
             item={get(link, "attributes")}
           />
         );

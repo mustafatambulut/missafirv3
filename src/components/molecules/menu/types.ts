@@ -1,6 +1,8 @@
 export interface IMenu {
   links: ILink;
   className?: string;
+  subMenuClass?: string;
+  menuItemClass?: string;
   isCollapsable?: boolean;
   variant?: "default" | "footer" | "header";
 }
