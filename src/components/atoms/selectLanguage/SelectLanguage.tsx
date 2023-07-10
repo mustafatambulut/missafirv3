@@ -16,31 +16,34 @@ import DropdownIndicator from "@/components/atoms/dropdownIndicator/DropdownIndi
 const SelectLanguage = ({
   variant,
   languages,
-  showIndicator
+  showIndicator,
+  className = ""
 }: ISelectLanguage) => {
   const [currentLocale] = useState("EN");
-  const selectClass = classNames("text-sm rounded-xl", {
+  const selectClass = classNames(`text-sm rounded-xl ${className}`, {
     "bg-gray-700": variant === "dark",
-    "bg-gray-100": variant !== "dark"
+    "bg-none": variant === "ghost",
+    "bg-gray-100": variant === "gray"
   });
-
-  const singleValueChildClass = classNames(
-    "text-base uppercase ml-2 mx-4 lg:text-lg",
-    {
-      "text-white": variant === "dark",
-      "text-black": variant !== "dark"
-    }
-  );
 
   const optionClass = classNames(
     "my-1 p-0 m-0 rounded-lg cursor-pointer focus:text-black lg:text-lg",
     {
-      "text-white": variant === "dark",
-      "text-black": variant !== "dark",
       "bg-gray-700": variant === "dark",
-      "focus:bg-gray-hover": variant !== "dark",
       "hover:bg-gray-600": variant === "dark",
-      "hover:bg-gray-100": variant !== "dark"
+      // "text-white": variant === "dark" || variant === "ghost",
+      "text-white": variant === "dark",
+      "hover:bg-gray-100": variant === "ghost" || variant === "gray",
+      "focus:bg-gray-hover": variant === "ghost" || variant === "gray"
+    }
+  );
+
+  const singleValueChildrenClassName = classNames(
+    // "text-base uppercase ml-2 mx-4 lg:text-lg",
+    "text-base uppercase ml-2 mx-4 text-lg",
+    {
+      "text-white": variant === "dark" || variant === "ghost",
+      "text-black": variant === "gray"
     }
   );
 
@@ -64,24 +67,24 @@ const SelectLanguage = ({
         primary: "white"
       }
     }),
+    menuClass,
     optionClass,
     selectClass,
-    menuClass,
-    singleValueChildClass
+    singleValueChildrenClassName
   };
 
   return (
     <Select
-      menuClassName={get(config, "menuClass")}
+      imageWidthClassName="w-6"
       menuListClassName="m-0 p-1"
       indicatorClassName="pl-0 pr-2"
       indicatorArrowClassName="fill-owner"
       className={get(config, "selectClass")}
-      imageWidthClassName="w-6 lg:w-2 lg:w-6"
+      menuClassName={get(config, "menuClass")}
       optionClassName={get(config, "optionClass")}
       singleValueClassName="flex items-center gap-x-0.5 justify-around"
-      singleValueChildrenClassName={get(config, "singleValueChildClass")}
-      controlClassName="cursor-pointer shadow-none bg-transparent text-xs lg:text-base lg:h-11 rounded-x border-white"
+      singleValueChildrenClassName={singleValueChildrenClassName}
+      controlClassName="cursor-pointer shadow-none bg-transparent text-xs lg:text-base h-11 rounded-x border-white"
       components={{
         Option: Option,
         Control: Control,
