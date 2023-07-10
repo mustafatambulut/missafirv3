@@ -11,7 +11,7 @@ const config = {
   theme: {
     extend: {
       borderRadius: {
-        x: "0.6 rem" // 10px
+        x: "0.6rem" // 10px
       },
       fontSize: {
         xxs: "0.63rem",
@@ -65,7 +65,7 @@ const config = {
           200: "#CCCCCC",
           300: "#B3B3B3",
           400: "#ACB4B9",
-          500: "#A0A0A0",
+          500: "#919BA1",
           600: "#666666",
           700: "#4D4D4D",
           800: "#333333",

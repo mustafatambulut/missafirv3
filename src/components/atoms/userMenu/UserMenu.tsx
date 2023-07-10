@@ -6,7 +6,6 @@ import classNames from "classnames";
 import { IUserMenu } from "@/components/atoms/userMenu/types";
 
 import Button from "@/components/atoms/button/Button";
-import FooterMenu from "@/components/molecules/footerMenu/FooterMenu";
 
 const UserMenu = ({ variant = "", data }: IUserMenu) => {
   const summaryClass = classNames(
@@ -41,10 +40,6 @@ const UserMenu = ({ variant = "", data }: IUserMenu) => {
                   className="pl-0 lg:pl-2 active:bg-transparent text-lg">
                   {get(menuItem, "attributes.label")}
                 </Link>
-                <FooterMenu
-                  className="md:hidden"
-                  items={get(data, "footerMenu.body")}
-                />
               </li>
             ))}
             {map(get(data, "buttons"), (button, key) => (
@@ -69,56 +64,6 @@ const UserMenu = ({ variant = "", data }: IUserMenu) => {
         </details>
       </li>
     </ul>
-
-    // <div
-    //   ref={userDropdownRef}
-    //   onBlur={() => handleOnBlur()}
-    //   onFocus={() => handleOnFocus()}
-    //   className="dropdown dropdown-end  ">
-    //   <label
-    //     tabIndex={0}
-    //     className="avatar flex items-center gap-3 hover:cursor-pointer">
-    //     <div className="w-6 rounded-full text-black">
-    //       {/* todo: profil fotoğrafı endpointe eklenince güncellenecek */}
-    //       {/*<img src={Avatar} alt="user" />*/}
-    //       <Image src="/images/user-image.svg" alt="user" width={24} height={24} />
-    //     </div>
-    //     {/* todo: login olunca fullname gösterilecek */}
-    //     {/*<span className="capitalize whitespace-nowrap hidden md:block">*/}
-    //     {/*  {get(authUser, "fullname")}*/}
-    //     {/*</span>*/}
-    //     {/*<DownArrow />*/}
-    //     <Image src="/images/arrow-down.svg" alt="user" width={16} height={16} className="w-4"/>
-    //   </label>
-    //   <ul
-    //     tabIndex={0}
-    //     className="menu dropdown-content shadow-sm bg-base-100 rounded-box capitalize mt-5 w-60">
-    //     <li onClick={onClickSettings}>
-    //       <a className="hover:bg-gray-hover" href="#">
-    //         {/*<Settings className="fill-gray-400" />*/}
-    //         Sign Up
-    //       </a>
-    //     </li>
-    //     <li onClick={onClickSettings}>
-    //       <a className="hover:bg-gray-hover" href="#">
-    //         {/*<Settings className="fill-gray-400" />*/}
-    //         Login
-    //       </a>
-    //     </li>
-    //     <li onClick={onClickSettings}>
-    //       <a className="hover:bg-gray-hover" href="#">
-    //         {/*<Settings className="fill-gray-400" />*/}
-    //         Become a homeowner
-    //       </a>
-    //     </li>
-    //     {/*<li onClick={onClickLogout}>*/}
-    //     {/*  <div className="hover:bg-gray-hover">*/}
-    //     {/*    /!*<Logout className="fill-gray-400" />*!/*/}
-    //     {/*    Çıkış Yap*/}
-    //     {/*  </div>*/}
-    //     {/*</li>*/}
-    //   </ul>
-    // </div>
   );
 };
 
