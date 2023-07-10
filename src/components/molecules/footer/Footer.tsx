@@ -17,17 +17,18 @@ const Footer = async () => {
     HOME,
     FOOTER
   )) as IFooter;
+
   return (
-    <div className="bottom-0 fixed w-full">
-      <footer className="footer border-t px-10 pt-20 pb-10 lg:flex">
-        <div className="w-full flex flex-col items-center lg:block lg:w-[327px] ">
+    <div>
+      <footer className="footer border-t px-10 pt-10 lg:pt-20 pb-10 lg:flex">
+        <div className="w-full flex flex-col items-center lg:block">
           <Link href="/">
             <Image
               priority
               src={get(header, "image")}
-              width={172}
-              height={32}
-              className="w-auto h-auto"
+              width="0"
+              height="0"
+              className="w-40 lg:w-52 h-auto"
               alt="logo"
             />
           </Link>
@@ -37,6 +38,7 @@ const Footer = async () => {
           <Button
             isRtl={false}
             variant="btn-primary"
+            className="w-64"
             link={get(header, "buttonLink")}>
             <Image
               priority
@@ -48,10 +50,13 @@ const Footer = async () => {
             />
             <span>{get(header, "buttonLabel")}</span>
           </Button>
-          <SocialMenu links={get(footer, "footer_links.data")} />
+          <SocialMenu
+            links={get(footer, "footer_links.data")}
+            className="gap-x-2"
+          />
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:pl-14">
-          <FooterMenu items={body} />
+        <div className="hidden lg:flex">
+          <FooterMenu className="gap-y-4" items={body} />
         </div>
       </footer>
       <FooterBrand className="flex justify-between bg-gray-400 text-white text-xs" />
