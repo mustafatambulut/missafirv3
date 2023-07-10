@@ -1,13 +1,13 @@
-import { get, map } from "lodash";
 import Image from "next/image";
+import { get, map } from "lodash";
 import moment from "moment/moment";
 
 import { IDrawer } from "@/components/molecules/drawer/types";
 
 import UserMenu from "@/components/atoms/userMenu/UserMenu";
 import SelectLanguage from "@/components/atoms/selectLanguage/SelectLanguage";
-import Menu from "@/components/molecules/menu/Menu";
 import DropDownLinkMenu from "@/components/atoms/dropDownLinkMenu/DropDownLinkMenu";
+import Menu from "@/components/molecules/menu/Menu";
 
 const Drawer = ({ drawerCloseRef, data }: IDrawer) => {
   const handleDrawerClose = () => drawerCloseRef.current?.click();
@@ -26,9 +26,9 @@ const Drawer = ({ drawerCloseRef, data }: IDrawer) => {
           />
         </div>
         <div className="border-b border-gray-100 pb-5 mb-5 flex items-start justify-between">
-          {/*{map(get(data, "userMenuData.footerMenu.body"), (item, key) => (*/}
-          {/*  <DropDownLinkMenu items={items} key={key} />*/}
-          {/*))}*/}
+          {map(get(data, "userMenuData.footerMenu.body"), (items, key) => (
+            <DropDownLinkMenu className="" items={items} key={key} />
+          ))}
         </div>
         <div className="w-28 mb-5">
           <SelectLanguage
