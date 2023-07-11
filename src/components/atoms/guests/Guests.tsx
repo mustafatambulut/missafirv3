@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { get } from "lodash";
 
-import { isMobileView } from "@/utils/helper";
+import { IBookingGuests } from "@/components/atoms/guests/types";
 
 import MinusIcon from "../../../../public/images/minus.svg";
 import PlusIcon from "../../../../public/images/plus.svg";
 import GuestsIcon from "../../../../public/images/guests.svg";
-import { IBookingGuests } from "@/components/atoms/guests/types";
 
 const Guests = ({ setBookingGuests, data }: IBookingGuests) => {
+  const isMobileView = () => get(window, "screen.width") <= 600;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const changeAdults = (type: string) => {
     if (type === "plus") {

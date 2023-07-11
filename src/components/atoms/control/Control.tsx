@@ -1,7 +1,7 @@
 import { get } from "lodash";
-import { components } from "react-select";
+import { components, ControlProps } from "react-select";
 
-const Control = ({ ...props }) => {
+const Control = ({ ...props }: ControlProps) => {
   return (
     <components.Control
       className={`${get(props, "selectProps.controlClassName")}`}

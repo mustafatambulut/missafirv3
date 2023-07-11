@@ -5,13 +5,12 @@ import { get } from "lodash";
 import "react-dates/initialize";
 import { DayPickerRangeController } from "react-dates";
 
-import { isMobileView } from "@/utils/helper";
 import { IBookingDate, IDatePicker } from "@/components/atoms/datePicker/types";
 
 import Button from "@/components/atoms/button/Button";
 
-import "react-dates/lib/css/_datepicker.css";
 import "./DatePicker.css";
+import "react-dates/lib/css/_datepicker.css";
 
 import CalendarIcon from "../../../../public/images/calendar.svg";
 
@@ -20,8 +19,10 @@ const DatePicker = ({
   setBookingDate,
   setSkipButtonVisibility
 }: IDatePicker) => {
+  const isMobileView = () => get(window, "screen.width") <= 600;
+
   const initialMonth = moment();
-  const [focusedInput, setFocusedInput] = useState<string | null>("startDate");
+  const [focusedInput, setFocusedInput] = useState<any>("startDate");
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [isPrevButtonHidden, setIsPrevButtonHidden] = useState<boolean>(true);
 
@@ -29,7 +30,7 @@ const DatePicker = ({
     setBookingDate({ startDate, endDate });
   };
 
-  const onFocusChange = (focusedInput: string | null) => {
+  const onFocusChange = (focusedInput: any) => {
     setFocusedInput(focusedInput);
   };
 
@@ -45,7 +46,7 @@ const DatePicker = ({
 
   useEffect(() => {
     get(bookingDate, "startDate") && setSkipButtonVisibility(false);
-  }, [bookingDate]);
+  }, [bookingDate, setSkipButtonVisibility]);
 
   const renderControls = () => {
     return (
@@ -115,7 +116,7 @@ const DatePicker = ({
                 noNavPrevButton={isPrevButtonHidden}
                 initialVisibleMonth={() => initialMonth}
                 endDate={get(bookingDate, "endDate")}
-                focusedInput={focusedInput || "startDate"}
+                focusedInput={focusedInput}
                 startDate={get(bookingDate, "startDate")}
                 renderCalendarInfo={
                   !isMobileView()

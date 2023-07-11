@@ -2,21 +2,21 @@
 import React, { useRef, useState } from "react";
 import { get } from "lodash";
 
-import { isMobileView } from "@/utils/helper";
+import { IBookingDate } from "@/components/atoms/datePicker/types";
 
 import Guests from "@/components/atoms/guests/Guests";
 import Button from "@/components/atoms/button/Button";
 import DatePicker from "@/components/atoms/datePicker/DatePicker";
 import DestinationSelect from "@/components/atoms/destinationSelect/DestinationSelect";
 
-import SearchIcon from "../../../../public/images/search-icon.svg";
-import SearchIconWhite from "../../../../public/images/search-white.svg";
-import CalendarIcon from "../../../../public/images/calendar.svg";
 import GuestsIcon from "../../../../public/images/guests.svg";
+import SearchIcon from "../../../../public/images/search-icon.svg";
+import CalendarIcon from "../../../../public/images/calendar.svg";
 import ArrowLeftIcon from "../../../../public/images/arrow-left.svg";
-import { IBookingDate } from "@/components/atoms/datePicker/types";
+import SearchIconWhite from "../../../../public/images/search-white.svg";
 
 const SearchBar = () => {
+  const isMobileView = () => get(window, "screen.width") <= 600;
   const drawerCloseRef = useRef<HTMLInputElement>(null);
   const [activeSearchItem, setActiveSearchItem] = useState("");
   const [bookingDestination, setBookingDestination] = useState("");
@@ -34,6 +34,7 @@ const SearchBar = () => {
   const handleDrawerClose = () => {
     drawerCloseRef.current?.click();
   };
+
   const handleClickBackButton = () => {
     switch (activeSearchItem) {
       case "bookingDestination":
@@ -253,7 +254,9 @@ const SearchBar = () => {
           />
           <div className="drawer-content"></div>
           <div className="drawer-side">
-            <label htmlFor="msfr-search-drawer" className="drawer-overlay"></label>
+            <label
+              htmlFor="msfr-search-drawer"
+              className="drawer-overlay"></label>
             <div className="p-3 w-full min-h-full bg-white flex flex-col overflow-y-auto">
               <div className="flex justify-between items-center p-2 mb-3">
                 <div onClick={handleClickBackButton}>

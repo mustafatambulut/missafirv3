@@ -6,23 +6,22 @@ import { components } from "react-select";
 import AsyncSelect from "react-select/async";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { isMobileView } from "@/utils/helper";
+import { IDestinationSelect } from "@/components/atoms/destinationSelect/types";
+
+import "swiper/css";
+import "./DestinationSelect.css";
 
 import HistoryIcon from "../../../../public/images/history.svg";
 import ClearIcon from "../../../../public/images/clear-icon.svg";
 import LocationIcon from "../../../../public/images/location.svg";
 import SearchIcon from "../../../../public/images/search-icon.svg";
 
-import "./DestinationSelect.css";
-import "swiper/css";
-import { IDestinationSelect } from "@/components/atoms/destinationSelect/types";
-
 const DestinationSelect = ({
-  setSkipButtonVisibility,
   setActiveSearchItem,
   setBookingDestination,
   componentId
 }: IDestinationSelect) => {
+  const isMobileView = () => get(window, "screen.width") <= 600;
   const destinationOptions = [
     {
       label: "Popular Destinations",
@@ -105,13 +104,17 @@ const DestinationSelect = ({
     );
   };
 
-  const loadOptions = (inputValue: string, callback: (options) => void) => {
+  const loadOptions = (
+    inputValue: string,
+    // eslint-disable-next-line no-unused-vars
+    callback: (inputValue: any) => void
+  ) => {
     setTimeout(() => {
       callback(filterOptions(inputValue));
     }, 1000);
   };
 
-  const handleOnChange = (e) => {
+  const handleOnChange = (e: any) => {
     if (e) {
       setActiveSearchItem("bookingDate");
     }
@@ -127,17 +130,19 @@ const DestinationSelect = ({
         classNames={{
           control: (state) => (state.isFocused ? "lg:bg-gray-50" : "bg-white")
         }}
+        cacheOptions
         defaultOptions
         loadOptions={loadOptions}
         instanceId="msfr-destination-select"
         onChange={handleOnChange}
         maxMenuHeight={isMobileView() ? 500 : 400}
-        controlClassName="w-full border-none shadow-none rounded-2xl h-[56px]"
-        controlInnerClassName="flex w-full text-left items-center px-4 py-0.5 h-full"
-        placeholderClassName="m-0"
-        placeholderInnerClassName="text-gray-600 text-base lg:text-lg font-missafir-semi-bold"
-        valueContainerClassName="pl-0"
-        indicatorsContainerClassName="absolute right-2 top-[50%] transform translate-y-[-50%]"
+        //todo: controlClassName,controlInnerClassName type hatası veriyor buna bakılacak
+        // controlClassName="w-full border-none shadow-none rounded-2xl h-14"
+        // controlInnerClassName="flex w-full text-left items-center px-4 py-0.5 h-full"
+        // placeholderClassName="m-0"
+        // placeholderInnerClassName="text-gray-600 text-base lg:text-lg font-mi-semi-bold"
+        // valueContainerClassName="pl-0"
+        // indicatorsContainerClassName="absolute right-2 top-[50%] transform translate-y-[-50%]"
         inputClassName={`m-0 p-0 ${
           isMobileView() ? "rsi-container absolute w-full" : null
         }`}
@@ -146,25 +151,25 @@ const DestinationSelect = ({
         searchIconClassName="mr-3 hidden lg:block"
         optionClassName="bg-transparent text-left cursor-pointer m-0 pt-2 pb-0 px-0 lg:px-3"
         optionInnerClassName="rounded flex items-start p-1"
-        optionLabelClassName="text-gray-800 lg:text-base text-xs mt-1 font-missafir-semi-bold"
+        optionLabelClassName="text-gray-800 lg:text-base text-xs mt-1 font-mi-semi-bold"
         optionContentClassName="text-gray-500 text-xs"
         groupHeadingClassName="px-4"
-        groupHeadingInnerClassName="text-left normal-case text-gray-500 text-sm font-missafir-semi-bold"
+        groupHeadingInnerClassName="text-left normal-case text-gray-500 text-sm font-mi-semi-bold"
         isClearable
         isSearchable
+        className={`w-full items-center flex ${
+          isMobileView() && "border rounded-2xl"
+        }`}
         {...(isMobileView() && { menuIsOpen: true })}
         components={{
           DropdownIndicator: () => null,
           IndicatorSeparator: () => null,
+          LoadingIndicator: () => null,
           Control: (props) => (
             <components.Control
-              className={`${get(props, "selectProps.controlClassName")}`}
+              className="w-full border-none shadow-none rounded-2xl h-14"
               {...props}>
-              <div
-                className={`${get(
-                  props,
-                  "selectProps.controlInnerClassName"
-                )}`}>
+              <div className="flex w-full text-left items-center px-4 py-0.5 h-full">
                 <div
                   className={`${get(
                     props,
@@ -186,14 +191,8 @@ const DestinationSelect = ({
             </components.Control>
           ),
           Placeholder: (props) => (
-            <components.Placeholder
-              className={`${get(props, "selectProps.placeholderClassName")}`}
-              {...props}>
-              <div
-                className={`${get(
-                  props,
-                  "selectProps.placeholderInnerClassName"
-                )}`}>
+            <components.Placeholder className="m-0" {...props}>
+              <div className="text-gray-600 text-base lg:text-lg font-mi-semi-bold">
                 {isMobileView()
                   ? "Where do you want to go?"
                   : "Search destinations"}
@@ -267,18 +266,13 @@ const DestinationSelect = ({
             </components.Input>
           ),
           ValueContainer: (props) => (
-            <components.ValueContainer
-              className={`${get(props, "selectProps.valueContainerClassName")}`}
-              {...props}>
+            <components.ValueContainer className="pl-0" {...props}>
               {get(props, "children")}
             </components.ValueContainer>
           ),
           IndicatorsContainer: (props) => (
             <components.IndicatorsContainer
-              className={`${get(
-                props,
-                "selectProps.indicatorsContainerClassName"
-              )}`}
+              className="absolute right-2 top-[50%] transform translate-y-[-50%]"
               {...props}>
               {get(props, "children")}
             </components.IndicatorsContainer>
@@ -360,9 +354,6 @@ const DestinationSelect = ({
             </components.GroupHeading>
           )
         }}
-        className={`w-full items-center flex ${
-          isMobileView() && "border rounded-2xl"
-        }`}
       />
     </div>
   );

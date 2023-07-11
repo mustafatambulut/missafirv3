@@ -4,7 +4,7 @@ import { IButton } from "@/components/atoms/button/types";
 
 const Button = ({
   link = "",
-  target = "",
+  target = "_self",
   disabled,
   children,
   isRtl = false,
