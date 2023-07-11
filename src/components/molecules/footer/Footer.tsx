@@ -21,7 +21,7 @@ const Footer = async () => {
   return (
     <div>
       <footer className="footer border-t px-10 pt-10 lg:pt-20 pb-10 lg:flex">
-        <div className="flex flex-col items-center lg:block w-full lg:w-60">
+        <div className="flex flex-col items-center lg:block w-full lg:w-80">
           <Link href="/">
             <Image
               priority
@@ -32,7 +32,7 @@ const Footer = async () => {
               alt="logo"
             />
           </Link>
-          <p className="my-3 text-center lg:text-left text-base font-mi-sans-semi-bold text-gray-600">
+          <p className="my-6 text-center lg:text-left text-base font-mi-sans-semi-bold text-gray-600">
             {get(header, "description")}
           </p>
           <Button
@@ -51,10 +51,10 @@ const Footer = async () => {
           </Button>
           <SocialMenu
             links={get(footer, "footer_links.data")}
-            className="gap-x-2 mt-2"
+            className="gap-x-2 mt-6"
           />
         </div>
-        <div className="hidden lg:flex lg:flex-1 gap-x-48 lg:pl-36">
+        <div className="hidden lg:flex lg:flex-1 gap-x-48 lg:pl-32">
           <FooterMenu className="gap-y-3 flex flex-col" items={body} />
         </div>
       </footer>

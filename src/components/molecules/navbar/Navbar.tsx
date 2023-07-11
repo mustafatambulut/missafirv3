@@ -23,7 +23,7 @@ const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
               width="0"
               height="0"
               priority
-              className="w-[107px] lg:w-[172px] h-auto"
+              className="w-28 lg:w-44 h-auto"
               alt="missafir-logo"
             />
           </Link>
