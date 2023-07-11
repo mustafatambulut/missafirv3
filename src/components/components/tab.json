@@ -1,18 +1,18 @@
 {
   "collectionName": "components_components_tabs",
   "info": {
-    "displayName": "Tab"
+    "displayName": "Tab",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "title": {
       "type": "string"
     },
-    "image": {
-      "type": "string"
-    },
-    "description": {
-      "type": "text"
+    "sliders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::slider.slider"
     }
   }
 }
