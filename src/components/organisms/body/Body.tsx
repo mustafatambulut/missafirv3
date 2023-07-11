@@ -1,4 +1,6 @@
 import dynamic from "next/dynamic";
+import Premium from "@/components/atoms/premium/Premium";
+import Cities from "@/components/molecules/cities/Cities";
 
 const Body = async () => {
   const Hero = dynamic(() => import("@/components/molecules/hero/Hero"), {
@@ -8,6 +10,8 @@ const Body = async () => {
   return (
     <div>
       <Hero />
+      <Premium />
+      <Cities />
     </div>
   );
 };

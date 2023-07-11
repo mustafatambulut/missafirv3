@@ -20,7 +20,7 @@ const Footer = async () => {
 
   return (
     <div>
-      <footer className="footer border-t px-10 pt-10 lg:pt-20 pb-10 lg:flex">
+      <footer className="footer border-t lg:border-none px-10 pt-10 lg:pt-20 pb-10 lg:flex">
         <div className="flex flex-col items-center lg:block w-full lg:w-80">
           <Link href="/">
             <Image
