@@ -3,7 +3,7 @@ import { Button } from "@/components/molecules/header/types";
 
 export interface IUserMenu {
   id?: number;
-  variant: string;
+  variant?: "dark" | "gray" | "ghost";
   data: Data;
 }
 

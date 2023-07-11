@@ -25,7 +25,7 @@ const FooterBrand = async ({ className = "" }: FooterBrandProps) => {
       <div>
         <Menu
           isCollapsable={false}
-          menuItemClass="text-base"
+          menuItemClass="text-15 text-gray-500 font-mi-sans-semi-bold"
           className="flex-row gap-x-7"
           links={get(body, "brand_links.data")}
         />

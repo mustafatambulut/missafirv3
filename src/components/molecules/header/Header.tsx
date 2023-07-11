@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import classNames from "classnames";
 import { get } from "lodash";
 
 import { HOME } from "@/app/constants";
-import { getPageDataByComponent } from "@/utils/helper";
+import { getPageDataByComponent, getScrollPosition } from "@/utils/helper";
 import { IHeader } from "@/components/molecules/header/types";
 import { FOOTER } from "@/components/molecules/footer/constant";
 import { HEADER } from "@/components/molecules/header/constants";
@@ -16,9 +17,13 @@ const Header = () => {
   const [header, setHeader] = useState(null);
   const [footerMenu, setFooterMenu] = useState(null);
   const [footerBrand, setFooterBrand] = useState(null);
+  const [isScrolledHeaderActive, setIsScrolledHeaderActive] = useState(false);
   const drawerCloseRef = useRef<HTMLInputElement>(null);
   drawerCloseRef.current?.click();
 
+  const headerClass = classNames("fixed top-0 w-full z-10", {
+    "bg-white shadow-lg": isScrolledHeaderActive,
+  });
   const userMenuData = {
     footerMenu,
     footerBrand,
@@ -48,14 +53,22 @@ const Header = () => {
     setFooterBrand(footerBrand);
   };
 
+  const handleScroll = () => {
+    const scrollPosition = getScrollPosition();
+    setIsScrolledHeaderActive(scrollPosition > 100);
+  };
+
   useEffect(() => {
     fetchData();
+    window.addEventListener("scroll", handleScroll);
+      handleScroll()
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <>
       {header && footerMenu && (
-        <div className="fixed top-0 w-full">
+        <div className={headerClass}>
           <div className="drawer">
             <input
               ref={drawerCloseRef}
@@ -63,7 +76,7 @@ const Header = () => {
               type="checkbox"
               className="drawer-toggle"
             />
-            <Navbar data={navbarData} />
+            <Navbar data={navbarData} isScrolledHeaderActive={isScrolledHeaderActive}/>
             <Drawer data={drawerData} drawerCloseRef={drawerCloseRef} />
           </div>
         </div>

@@ -8,10 +8,11 @@ import { IUserMenu } from "@/components/atoms/userMenu/types";
 import Button from "@/components/atoms/button/Button";
 
 const UserMenu = ({ variant = "", data }: IUserMenu) => {
+
   const summaryClass = classNames(
     "justify-start p-0 focus:bg-transparent font-base mb-2 lg:mb-0",
     {
-      "text-white": variant === "dark"
+      "bg-none text-white": variant === "ghost"
     }
   );
 
@@ -22,17 +23,19 @@ const UserMenu = ({ variant = "", data }: IUserMenu) => {
           <summary className={summaryClass}>
             <Image
               src={`${
-                get(data, "image") || variant === "dark"
+                get(data, "image")
+                  ? get(data, "image")
+                  : variant === "ghost" || variant === "light"
                   ? "/images/user-light.svg"
                   : "/images/user-dark.svg"
               }`}
               alt="user"
               width={24}
               height={24}
-              className="rounded-full bg-gray-100 lg:bg-transparent lg:p-0"
+              className="rounded-full bg-gray-100 p-1 lg:bg-transparent lg:p-0"
             />
           </summary>
-          <ul className="before:hidden m-0 p-0 lg:p-2 lg:m-6 lg:mr-0 lg:right-0 text-gray-700 lg:text-gray-600 font-mi-semi-bold">
+          <ul className="before:hidden m-0 p-0 lg:p-2 lg:m-6 lg:mr-0 lg:right-0 text-gray-700 lg:text-gray-600 font-mi-sans-semi-bold">
             {map(get(data, "links.data"), (menuItem) => (
               <li key={get(menuItem, "id")}>
                 <Link

@@ -39,8 +39,7 @@ const SelectLanguage = ({
   );
 
   const singleValueChildrenClassName = classNames(
-    // "text-base uppercase ml-2 mx-4 lg:text-lg",
-    "text-base uppercase ml-2 mx-4 text-lg",
+    "text-base uppercase ml-2 text-lg",
     {
       "text-white": variant === "dark" || variant === "ghost",
       "text-black": variant === "gray"

@@ -21,7 +21,7 @@ const Footer = async () => {
   return (
     <div>
       <footer className="footer border-t px-10 pt-10 lg:pt-20 pb-10 lg:flex">
-        <div className="w-full flex flex-col items-center lg:block">
+        <div className="flex flex-col items-center lg:block w-full lg:w-[327px]">
           <Link href="/">
             <Image
               priority
@@ -32,13 +32,12 @@ const Footer = async () => {
               alt="logo"
             />
           </Link>
-          <p className="my-3 text-center lg:text-left text-base font-mi-semi-bold text-gray-600">
+          <p className="my-3 text-center lg:text-left text-base font-mi-sans-semi-bold text-gray-600">
             {get(header, "description")}
           </p>
           <Button
             isRtl={false}
             variant="btn-primary"
-            className="w-64"
             link={get(header, "buttonLink")}>
             <Image
               priority
@@ -52,14 +51,14 @@ const Footer = async () => {
           </Button>
           <SocialMenu
             links={get(footer, "footer_links.data")}
-            className="gap-x-2"
+            className="gap-x-2 mt-2"
           />
         </div>
-        <div className="hidden lg:flex">
-          <FooterMenu className="gap-y-4" items={body} />
+        <div className="hidden lg:flex lg:flex-1 lg:justify-between lg:pl-36">
+          <FooterMenu className="gap-y-3 flex flex-col" items={body} />
         </div>
       </footer>
-      <FooterBrand className="flex justify-between bg-gray-400 text-white text-xs" />
+      <FooterBrand className="flex flex-col-reverse lg:flex-row items-center gap-3 lg:justify-between bg-gray-50 text-xs" />
     </div>
   );
 };

@@ -21,7 +21,7 @@ const SocialMenu = ({ links, className = "" }: ISocialMenu) => {
                 src={get(link, "attributes.image")}
                 width="0"
                 height="0"
-                className="w-5 h-auto"
+                className="w-8 h-auto bg-gray-50 p-1 rounded-full"
                 alt="image"
               />
             </Button>

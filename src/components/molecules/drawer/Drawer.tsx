@@ -25,7 +25,7 @@ const Drawer = ({ drawerCloseRef, data }: IDrawer) => {
             height={20}
           />
         </div>
-        <div className="border-b border-gray-100 pb-5 mb-5 flex items-start justify-between">
+        <div className="border-b border-gray-100 pb-5 mb-5 flex flex-col">
           {map(get(data, "userMenuData.footerMenu.body"), (items, key) => (
             <DropDownLinkMenu className="" items={items} key={key} />
           ))}

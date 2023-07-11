@@ -21,7 +21,7 @@ const Option = ({ ...props }: IOption) => {
           image={get(props, "data.attributes.image")}
           className="w-6 p-0 m-0"
         />
-        <span className="text-sm lg:text-lg py-2 uppercase font-mi-semi-bold">
+        <span className="text-sm lg:text-lg py-2 uppercase font-mi-sans-semi-bold">
           {get(props, "data.attributes.label")}
         </span>
       </div>

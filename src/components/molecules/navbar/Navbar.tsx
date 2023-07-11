@@ -8,18 +8,22 @@ import Button from "@/components/atoms/button/Button";
 import UserMenu from "@/components/atoms/userMenu/UserMenu";
 import SelectLanguage from "@/components/atoms/selectLanguage/SelectLanguage";
 
-const Navbar = ({ data }: INavbar) => {
+const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
   return (
     <div className="drawer-content flex flex-col">
       <div className="w-full navbar lg:py-8 lg:px-10">
         <div className="flex-1">
           <Link href={get(data, "header.logo.link")}>
             <Image
-              src={get(data, "header.logo.image")}
+              src={
+                isScrolledHeaderActive
+                  ? "/images/missafir-logo-black.svg"
+                  : get(data, "header.logo.image")
+              }
               width="0"
               height="0"
               priority
-              className="w-40 h-auto"
+              className="w-[107px] lg:w-[172px] h-auto"
               alt="missafir-logo"
             />
           </Link>
@@ -44,19 +48,26 @@ const Navbar = ({ data }: INavbar) => {
           ))}
           <div className="hidden lg:block">
             <SelectLanguage
-              variant="ghost"
+              variant={isScrolledHeaderActive ? "gray" : "ghost"}
               showIndicator={false}
               languages={get(data, "header.languageMenu.languages")}
             />
           </div>
           <div className="hidden lg:flex">
-            <UserMenu variant="dark" data={get(data, "userMenuData")} />
+            <UserMenu
+              variant={isScrolledHeaderActive ? "gray" : "ghost"}
+              data={get(data, "userMenuData")}
+            />
           </div>
         </div>
         <div className="flex-none lg:hidden">
           <label htmlFor="missafir-drawer" className="btn btn-square btn-ghost">
             <Image
-              src="/images/open-menu.svg"
+              src={`${
+                isScrolledHeaderActive
+                  ? "/images/open-menu-black.svg"
+                  : "/images/open-menu.svg"
+              }`}
               alt="open"
               width={20}
               height={20}

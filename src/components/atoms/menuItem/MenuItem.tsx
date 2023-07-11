@@ -13,7 +13,7 @@ const MenuItem = ({
   const linkClass = classNames(
     `p-0 active:bg-white capitalize ${linkClassName}`,
     {
-      "font-mi-semi-bold": variant === "footer"
+      "font-mi-sans-semi-bold": variant === "footer"
     }
   );
   return (

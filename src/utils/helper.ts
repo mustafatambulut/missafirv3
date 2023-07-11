@@ -15,3 +15,7 @@ export const getPageDataByComponent = async (
   forEach(components, (comp) => (result[comp] = get(attributes, comp)));
   return result;
 };
+
+export const getScrollPosition = () => {
+  return window.pageYOffset;
+};
