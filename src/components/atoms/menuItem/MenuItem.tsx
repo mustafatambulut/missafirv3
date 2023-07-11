@@ -11,7 +11,7 @@ const MenuItem = ({
   variant = "default"
 }: IMenuItem) => {
   const linkClass = classNames(
-    `p-0 active:bg-white capitalize ${linkClassName}`,
+    `p-0 active:bg-white capitalize hover:bg-transparent ${linkClassName}`,
     {
       "font-mi-sans-semi-bold": variant === "footer"
     }

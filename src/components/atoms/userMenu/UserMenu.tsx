@@ -10,7 +10,7 @@ import Button from "@/components/atoms/button/Button";
 const UserMenu = ({ variant = "", data }: IUserMenu) => {
 
   const summaryClass = classNames(
-    "justify-start p-0 focus:bg-transparent font-base mb-2 lg:mb-0",
+    "justify-start p-0 focus:bg-transparent hover:bg-transparent font-base mb-2 lg:mb-0",
     {
       "bg-none text-white": variant === "ghost"
     }

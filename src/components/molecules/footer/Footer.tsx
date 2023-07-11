@@ -21,7 +21,7 @@ const Footer = async () => {
   return (
     <div>
       <footer className="footer border-t px-10 pt-10 lg:pt-20 pb-10 lg:flex">
-        <div className="flex flex-col items-center lg:block w-full lg:w-[327px]">
+        <div className="flex flex-col items-center lg:block w-full lg:w-60">
           <Link href="/">
             <Image
               priority
@@ -54,7 +54,7 @@ const Footer = async () => {
             className="gap-x-2 mt-2"
           />
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-between lg:pl-36">
+        <div className="hidden lg:flex lg:flex-1 gap-x-48 lg:pl-36">
           <FooterMenu className="gap-y-3 flex flex-col" items={body} />
         </div>
       </footer>
