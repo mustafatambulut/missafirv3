@@ -1,12 +1,13 @@
 {
   "collectionName": "components_sections_heroes",
   "info": {
-    "displayName": "Hero"
+    "displayName": "Hero",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "image": {
-      "type": "string"
+      "type": "text"
     },
     "title": {
       "type": "string"
