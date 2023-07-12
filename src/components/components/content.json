@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_components_contents",
+  "info": {
+    "displayName": "content",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "text"
+    }
+  }
+}

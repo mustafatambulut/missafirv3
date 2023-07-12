@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "brand_links",
+  "info": {
+    "singularName": "brand-link",
+    "pluralName": "brand-links",
+    "displayName": "BrandLink",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}

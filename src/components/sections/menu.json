@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_sections_menus",
+  "info": {
+    "displayName": "Footer",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.menu-header"
+    },
+    "body": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.menu-body"
+    },
+    "footer": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.menu-footer"
+    }
+  }
+}

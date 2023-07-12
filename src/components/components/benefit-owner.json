@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_components_benefit_owners",
+  "info": {
+    "displayName": "BenefitOwner"
+  },
+  "options": {},
+  "attributes": {
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.content"
+    }
+  }
+}

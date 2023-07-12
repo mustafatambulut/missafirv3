@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_components_sliders",
+  "info": {
+    "displayName": "CitiesBody",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "cities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::city.city"
+    }
+  }
+}

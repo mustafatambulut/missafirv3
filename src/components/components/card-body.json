@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_components_card_bodies",
+  "info": {
+    "displayName": "Card",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "header_label": {
+      "type": "string"
+    },
+    "header_image": {
+      "type": "string"
+    },
+    "info": {
+      "type": "text"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "footer_desc": {
+      "type": "string"
+    }
+  }
+}

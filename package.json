@@ -6,13 +6,16 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "seed": "shouldRunSeed=true strapi develop"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.2"
+  },
   "dependencies": {
     "@strapi/plugin-i18n": "4.10.5",
     "@strapi/plugin-users-permissions": "4.10.5",
-    "@strapi/strapi": "4.10.5",
+    "@strapi/strapi": "v4.11.2",
     "mysql": "2.18.1",
     "strapi-plugin-menus": "^1.4.3",
     "strapi-plugin-populate-deep": "^2.0.0",

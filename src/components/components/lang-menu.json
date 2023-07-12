@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_components_lang_menus",
+  "info": {
+    "displayName": "LangMenu",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "languages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::language.language"
+    }
+  }
+}

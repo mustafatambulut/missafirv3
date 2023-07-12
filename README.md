@@ -10,10 +10,12 @@
  cp .env.example .env
 ```
 
-2. Import local database and add related info to .env
+2. Create empty database. DB name: `missafir_db` run seed command for dummy data generation
+
+> ⚠️ Important! This command will remove all data 
 
 ```bash
-git clone git@bitbucket.org:snippets/missafir/5qe5MX/missafirv3-strapi-database.git
+yarn seed
 ```
 
 3. Install dependencies:
@@ -22,7 +24,7 @@ git clone git@bitbucket.org:snippets/missafir/5qe5MX/missafirv3-strapi-database.
  yarn
 ```
 
-## Running the app locally
+## 🚀 Running the app locally
 
 4. To run the app locally, you can use:
 
@@ -34,13 +36,13 @@ You should now be able to see the admin panel running at `http://localhost:1337/
 
 ## All Endpoints
 
-```             
+```bash            
   yarn strapi routes:list        
 ```
 
 ## Usage CLI
 
-```             
+```bash             
   yarn strapi        
 ```
 

@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_components_bodies",
+  "info": {
+    "displayName": "body"
+  },
+  "options": {},
+  "attributes": {
+    "brand_links": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::brand-link.brand-link"
+    }
+  }
+}

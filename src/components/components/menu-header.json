@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_components_menu_headers",
+  "info": {
+    "displayName": "MenuHeader",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "buttonImage": {
+      "type": "string"
+    },
+    "buttonLabel": {
+      "type": "string"
+    },
+    "buttonLink": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_components_user_menus",
+  "info": {
+    "displayName": "UserMenu"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "string"
+    },
+    "user_links": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-link.user-link"
+    }
+  }
+}
