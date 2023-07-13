@@ -18,6 +18,7 @@
     "@strapi/strapi": "v4.11.2",
     "mysql": "2.18.1",
     "strapi-plugin-menus": "^1.4.3",
+    "strapi-plugin-netlify-deployments": "^2.0.0",
     "strapi-plugin-populate-deep": "^2.0.0",
     "strapi-plugin-website-preview": "^1.0.5"
   },
