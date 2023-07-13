@@ -1,55 +1,61 @@
 "use client";
 import React from "react";
-import Image from "next/image";
-import { get, map } from "lodash";
+import { map } from "lodash";
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 import { ISlider } from "@/components/molecules/slider/types";
 
 import "swiper/css";
+import "./Slider.css";
 import "swiper/css/navigation";
-import Card from "@/components/atoms/card/Card";
-
-// import NextArrow from "../../../../public/images/next-arrow.svg";
-// import PrevArrow from "../../../../public/images/prev-arrow.svg";
+import "swiper/css/pagination";
 
 const Slider = ({
-  slides,
   spaceBetween,
   slidesPerView,
   withPagination = false,
   withNavigation = false,
   customNavigation = null,
+  customPagination = null,
+  children,
+  sliderContainerClassName = "",
+  sliderWrapperClassName = "",
+  sliderIdentifier
 }: ISlider) => {
   return (
-    <div className="relative">
+    <div className={`relative ${sliderContainerClassName}`}>
       <Swiper
-        className="pr-40"
+        style={{
+          "--swiper-pagination-color": "#D01E50",
+          "--swiper-pagination-bullet-inactive-color": "#FFFFFF",
+          "--swiper-pagination-bullet-inactive-opacity": "1"
+        }}
+        className={`${sliderWrapperClassName}`}
         spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
         modules={[Navigation, Pagination]}
         pagination={withPagination}
+        {...(customPagination
+          ? {
+              pagination: customPagination
+            }
+          : withPagination
+          ? { pagination: true }
+          : null)}
         {...(customNavigation
           ? {
               navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev"
+                nextEl: `.swiper-button-next.${sliderIdentifier}`,
+                prevEl: `.swiper-button-prev.${sliderIdentifier}`
               }
             }
           : withNavigation
           ? { navigation: true }
           : null)}>
-        {map(slides, (item, key) => (
-          <SwiperSlide key={key}>
-            <Card>
-              <Image
-                src={get(item, "attributes.image")}
-                alt="image"
-                fill={true}
-              />
-            </Card>
-          </SwiperSlide>
-        ))}
+        {map(children, (item, key) => {
+          return <SwiperSlide key={key}>{item}</SwiperSlide>;
+        })}
       </Swiper>
       {customNavigation && customNavigation}
     </div>

@@ -17,14 +17,15 @@ const config = {
         xxs: "0.63rem",
         xxl: "1.38rem",
         15: "0.94rem",
-        22: "1.37rem",
         21: "1.36rem",
+        22: "1.37rem",
+        28: "1.75rem",
         42: "2.63rem",
         54: "3.39rem"
       },
       colors: {
         primary: {
-          DEFAULT: "#B21A45",
+          DEFAULT: "#D01E50",
           25: "#FFF6F9",
           50: "#FCE9EE",
           100: "#FAE9EE",

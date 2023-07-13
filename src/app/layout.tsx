@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
-import Header from "@/components/molecules/header/Header";
-import Footer from "@/components/molecules/footer/Footer";
+// import Header from "@/components/molecules/header/Header";
+// import Footer from "@/components/molecules/footer/Footer";
 
 import "./styles/globals.css";
 
@@ -14,9 +14,9 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html>
       <body className="font-mi-sans" suppressHydrationWarning={true}>
-        <Header />
+        {/*<Header />*/}
         {children}
-        <Footer />
+        {/*<Footer />*/}
       </body>
     </html>
   );

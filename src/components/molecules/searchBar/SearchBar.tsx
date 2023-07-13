@@ -1,7 +1,7 @@
 "use client";
-/*eslint-disable*/
 import React, { useRef, useState } from "react";
 import { get } from "lodash";
+import { isMobile } from "react-device-detect";
 
 import { IBookingDate } from "@/components/atoms/datePicker/types";
 
@@ -17,7 +17,6 @@ import ArrowLeftIcon from "../../../../public/images/arrow-left.svg";
 import SearchIconWhite from "../../../../public/images/search-white.svg";
 
 const SearchBar = () => {
-  // const isMobileView = () => get(window, "screen.width") <= 600;
   const drawerCloseRef = useRef<HTMLInputElement>(null);
   const [activeSearchItem, setActiveSearchItem] = useState("");
   const [bookingDestination, setBookingDestination] = useState("");
@@ -137,8 +136,7 @@ const SearchBar = () => {
     <>
       <div className="flex flex-col lg:flex-row rounded-2xl lg:bg-white w-full items-center lg:p-2 lg:h-[72px]">
         <div className="flex-1 mb-3 lg:mb-0 w-full">
-          {/*{isMobileView() ? (*/}
-          {true == 0 ? (
+          {isMobile ? (
             <label
               htmlFor="msfr-search-drawer"
               onClick={() => setActiveSearchItem("bookingDestination")}
@@ -161,8 +159,7 @@ const SearchBar = () => {
           )}
         </div>
         <div className="flex-1 mb-3 lg:mb-0 w-full">
-          {/*{isMobileView() ? (*/}
-          {true == 0 ? (
+          {isMobile ? (
             <label
               htmlFor="msfr-search-drawer"
               onClick={() => setActiveSearchItem("bookingDate")}
@@ -193,8 +190,7 @@ const SearchBar = () => {
           )}
         </div>
         <div className="flex-1 mb-3 lg:mb-0 w-full">
-          {/*{isMobileView() ? (*/}
-          {true == 0 ? (
+          {isMobile ? (
             <div className="flex">
               <label
                 htmlFor="msfr-search-drawer"
@@ -242,15 +238,13 @@ const SearchBar = () => {
               <Button
                 variant="btn-primary"
                 className="rounded-2xl !h-[56px] ml-3 w-[72px] lg:w-auto">
-                {/*{isMobileView() ? <SearchIcon /> : <span>Search</span>}*/}
-                {true == 0 ? <SearchIcon /> : <span>Search</span>}
+                {isMobile ? <SearchIcon /> : <span>Search</span>}
               </Button>
             </div>
           )}
         </div>
       </div>
-      {/*{isMobileView() && (*/}
-      {true == 0 && (
+      {isMobile && (
         <div className="drawer">
           <input
             ref={drawerCloseRef}

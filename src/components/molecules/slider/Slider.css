@@ -1,0 +1,8 @@
+.swiper-button-disabled {
+    background-color: #f1f3f3!important;
+    opacity: 1!important;
+}
+
+.swiper-button-disabled svg {
+    filter: invert(72%) sepia(2%) saturate(11%) hue-rotate(336deg) brightness(85%) contrast(80%);
+}

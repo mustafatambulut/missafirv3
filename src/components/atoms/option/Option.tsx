@@ -1,12 +1,10 @@
 import { get } from "lodash";
 import classNames from "classnames";
-import { components } from "react-select";
-
-import { IOption } from "@/components/atoms/option/types";
+import { components, OptionProps } from "react-select";
 
 import OptionImage from "@/components/atoms/optionImage/OptionImage";
 
-const Option = ({ ...props }: IOption) => {
+const Option = ({ ...props }: OptionProps) => {
   const optionClass = classNames(
     `${get(props, "selectProps.optionClassName")}`,
     {

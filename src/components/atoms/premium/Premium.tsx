@@ -25,7 +25,7 @@ const Premium = () => {
   return (
     <>
       {premium && (
-        <div className="px-4 lg:px-8 mt-4">
+        <div className="px-4 lg:px-8 mt-14">
           <Card
             className="text-white rounded-xl"
             style={{ backgroundImage: `url(${get(premium, "body.image")})` }}>

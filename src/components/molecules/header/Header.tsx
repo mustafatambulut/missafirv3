@@ -21,7 +21,7 @@ const Header = () => {
   const drawerCloseRef = useRef<HTMLInputElement>(null);
   drawerCloseRef.current?.click();
 
-  const headerClass = classNames("fixed top-0 w-full z-10", {
+  const headerClass = classNames("fixed top-0 w-full z-40", {
     "bg-white shadow-lg": isScrolledHeaderActive
   });
 
