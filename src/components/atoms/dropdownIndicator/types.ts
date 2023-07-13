@@ -1,10 +1,10 @@
-import { JSX } from "react";
+// import { JSX } from "react";
 
 export interface IDropdownIndicator {
-  props: Props;
+  props: any;
   showIndicator?: boolean;
 }
-
-export interface Props {
-  children: JSX.Element | string | JSX.Element[];
-}
+//
+// export interface Props {
+//   children: JSX.Element | string | JSX.Element[];
+// }

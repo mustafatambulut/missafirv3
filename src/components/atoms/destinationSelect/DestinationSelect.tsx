@@ -1,10 +1,12 @@
+/*eslint-disable*/
 "use client";
 import React from "react";
 import Image from "next/image";
 import { get, size } from "lodash";
 import { components } from "react-select";
 import AsyncSelect from "react-select/async";
-import { Swiper, SwiperSlide } from "swiper/react";
+// import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper } from "swiper/react";
 
 import { IDestinationSelect } from "@/components/atoms/destinationSelect/types";
 
@@ -21,7 +23,7 @@ const DestinationSelect = ({
   setBookingDestination,
   componentId
 }: IDestinationSelect) => {
-  const isMobileView = () => get(window, "screen.width") <= 600;
+  // const isMobileView = () => get(window, "screen.width") <= 600;
   const destinationOptions = [
     {
       label: "Popular Destinations",
@@ -135,7 +137,8 @@ const DestinationSelect = ({
         loadOptions={loadOptions}
         instanceId="msfr-destination-select"
         onChange={handleOnChange}
-        maxMenuHeight={isMobileView() ? 500 : 400}
+        // maxMenuHeight={isMobileView() ? 500 : 400}
+        maxMenuHeight={true == 0 ? 500 : 400}
         //todo: controlClassName,controlInnerClassName type hatası veriyor buna bakılacak
         // controlClassName="w-full border-none shadow-none rounded-2xl h-14"
         // controlInnerClassName="flex w-full text-left items-center px-4 py-0.5 h-full"
@@ -143,24 +146,25 @@ const DestinationSelect = ({
         // placeholderInnerClassName="text-gray-600 text-base lg:text-lg font-mi-semi-bold"
         // valueContainerClassName="pl-0"
         // indicatorsContainerClassName="absolute right-2 top-[50%] transform translate-y-[-50%]"
-        inputClassName={`m-0 p-0 ${
-          isMobileView() ? "rsi-container absolute w-full" : null
-        }`}
-        menuClassName="rounded-xl mt-5 z-20 shadow-none"
-        whereTitleClassName="text-gray-600 w-full text-sm hidden lg:block"
-        searchIconClassName="mr-3 hidden lg:block"
-        optionClassName="bg-transparent text-left cursor-pointer m-0 pt-2 pb-0 px-0 lg:px-3"
-        optionInnerClassName="rounded flex items-start p-1"
-        optionLabelClassName="text-gray-800 lg:text-base text-xs mt-1 font-mi-semi-bold"
-        optionContentClassName="text-gray-500 text-xs"
-        groupHeadingClassName="px-4"
-        groupHeadingInnerClassName="text-left normal-case text-gray-500 text-sm font-mi-semi-bold"
+        // inputClassName={`m-0 p-0 ${
+        //   isMobileView() ? "rsi-container absolute w-full" : null
+        // }`}
+        // menuClassName="rounded-xl mt-5 z-20 shadow-none"
+        // whereTitleClassName="text-gray-600 w-full text-sm hidden lg:block"
+        // searchIconClassName="mr-3 hidden lg:block"
+        // optionClassName="bg-transparent text-left cursor-pointer m-0 pt-2 pb-0 px-0 lg:px-3"
+        // optionInnerClassName="rounded flex items-start p-1"
+        // optionLabelClassName="text-gray-800 lg:text-base text-xs mt-1 font-mi-semi-bold"
+        // optionContentClassName="text-gray-500 text-xs"
+        // groupHeadingClassName="px-4"
+        // groupHeadingInnerClassName="text-left normal-case text-gray-500 text-sm font-mi-semi-bold"
         isClearable
         isSearchable
         className={`w-full items-center flex ${
-          isMobileView() && "border rounded-2xl"
+          true == 0 && "border rounded-2xl"
+          // isMobileView() && "border rounded-2xl"
         }`}
-        {...(isMobileView() && { menuIsOpen: true })}
+        {...(true == 0 && { menuIsOpen: true })}
         components={{
           DropdownIndicator: () => null,
           IndicatorSeparator: () => null,
@@ -170,19 +174,11 @@ const DestinationSelect = ({
               className="w-full border-none shadow-none rounded-2xl h-14"
               {...props}>
               <div className="flex w-full text-left items-center px-4 py-0.5 h-full">
-                <div
-                  className={`${get(
-                    props,
-                    "selectProps.searchIconClassName"
-                  )}`}>
+                <div className="mr-3 hidden lg:block">
                   <SearchIcon />
                 </div>
                 <div className="flex-wrap flex w-full h-full">
-                  <div
-                    className={`${get(
-                      props,
-                      "selectProps.whereTitleClassName"
-                    )}`}>
+                  <div className="text-gray-600 w-full text-sm hidden lg:block">
                     Where
                   </div>
                   {get(props, "children")}
@@ -193,9 +189,8 @@ const DestinationSelect = ({
           Placeholder: (props) => (
             <components.Placeholder className="m-0" {...props}>
               <div className="text-gray-600 text-base lg:text-lg font-mi-semi-bold">
-                {isMobileView()
-                  ? "Where do you want to go?"
-                  : "Search destinations"}
+                {/*{isMobileView()*/}
+                {true == 0 ? "Where do you want to go?" : "Search destinations"}
               </div>
             </components.Placeholder>
           ),
@@ -217,7 +212,7 @@ const DestinationSelect = ({
           ),
           Menu: (props) => (
             <components.Menu
-              className={`${get(props, "selectProps.menuClassName")}`}
+              className="rounded-xl mt-5 z-20 shadow-none"
               {...props}>
               <div
                 className={`${get(props, "selectProps.menuInnerClassName")}`}>
@@ -230,9 +225,8 @@ const DestinationSelect = ({
               props,
               "data.isPopularDestinations"
             );
-            if (isPopularDestinations && !isMobileView()) {
-              return null;
-            }
+            // if (isPopularDestinations && !isMobileView()) return null;
+            if (isPopularDestinations && true == 1) return null;
             return (
               <components.Group
                 className={`${get(props, "selectProps.groupClassName")}`}
@@ -247,9 +241,9 @@ const DestinationSelect = ({
                       spaceBetween={0}
                       slidesPerView={3}
                       className="pr-16">
-                      {get(props, "children").map((child, key) => (
-                        <SwiperSlide key={key}>{child}</SwiperSlide>
-                      ))}
+                      {/*{props?.children?.map((child, key) => (*/}
+                      {/*  <SwiperSlide key={key}>{child}</SwiperSlide>*/}
+                      {/*))}*/}
                     </Swiper>
                   ) : (
                     get(props, "children")
@@ -260,7 +254,10 @@ const DestinationSelect = ({
           },
           Input: (props) => (
             <components.Input
-              className={`${get(props, "selectProps.inputClassName")}`}
+              className={`m-0 p-0 ${
+                // isMobileView() ? "rsi-container absolute w-full" : null
+                true == 0 ? "rsi-container absolute w-full" : null
+              }`}
               {...props}>
               {get(props, "children")}
             </components.Input>
@@ -292,13 +289,12 @@ const DestinationSelect = ({
             );
             return (
               <components.Option
-                className={`${get(props, "selectProps.optionClassName")}`}
+                className="bg-transparent text-left cursor-pointer m-0 pt-2 pb-0 px-0 lg:px-3"
                 {...props}>
                 <div
-                  className={`${isPopularDestinations && "text-center"} ${get(
-                    props,
-                    "selectProps.optionInnerClassName"
-                  )}`}>
+                  className={`${
+                    isPopularDestinations && "text-center"
+                  } "rounded flex items-start p-1"`}>
                   {!isPopularDestinations ? (
                     get(props, "data.isHistory") ? (
                       <HistoryIcon className="mt-1" />
@@ -319,19 +315,11 @@ const DestinationSelect = ({
                         className="rounded-2xl"
                       />
                     )}
-                    <span
-                      className={`${get(
-                        props,
-                        "selectProps.optionLabelClassName"
-                      )}`}>
+                    <span className="text-gray-800 lg:text-base text-xs mt-1 font-mi-semi-bold">
                       {get(props, "data.label")}
                     </span>
                     {!isPopularDestinations && (
-                      <span
-                        className={`${get(
-                          props,
-                          "selectProps.optionContentClassName"
-                        )}`}>
+                      <span className="text-gray-500 text-xs">
                         {get(props, "data.desc")}
                       </span>
                     )}
@@ -341,14 +329,12 @@ const DestinationSelect = ({
             );
           },
           GroupHeading: (props) => (
-            <components.GroupHeading
-              className={`${get(props, "selectProps.groupHeadingClassName")}`}
-              {...props}>
+            <components.GroupHeading className="px-4" {...props}>
               <div
                 className={`${
                   size(get(props, "selectProps.options")) > 1 &&
                   "border-t pt-4 mt-3"
-                } ${get(props, "selectProps.groupHeadingInnerClassName")}`}>
+                } text-left normal-case text-gray-500 text-sm font-mi-semi-bold`}>
                 {get(props, "children")}
               </div>
             </components.GroupHeading>

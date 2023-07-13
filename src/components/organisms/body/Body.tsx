@@ -1,10 +1,6 @@
-import dynamic from "next/dynamic";
+import Hero from "@/components/molecules/hero/Hero";
 
-const Body = async () => {
-  const Hero = dynamic(() => import("@/components/molecules/hero/Hero"), {
-    suspense: false
-  });
-
+const Body = () => {
   return (
     <div>
       <Hero />
