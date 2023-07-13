@@ -1,27 +1,19 @@
-import { find, get } from "lodash";
-import { getMenu, getPage } from "@/service";
-import { PAGE_HEADER } from "@/components/molecules/header/constants";
+import { forEach, get, isArray } from "lodash";
 
-interface IMenu {
-  parent: {
-    data: object;
-  };
-}
+import { getPage } from "@/service/api";
 
-export const getMenuByComponent: any = async (component: string) => {
-  const res = await getMenu();
-  const menuData: IMenu | undefined = find<IMenu>(res, (menu: IMenu) => {
-    return get(menu, "attributes.title") === component;
-  });
-  return get(menuData, "attributes.items.data");
-};
-
-export const getPageDataByComponent: any = async (
+export const getPageDataByComponent = async (
   page: string,
-  component: string
+  components?: string | []
 ) => {
-  const { attributes } = await getPage();
-  return find(get(attributes, "home"), {
-    __component: component
-  });
+  const { attributes } = await getPage(page);
+  const result = [];
+
+  if (!isArray(components)) {
+    return get(attributes, components);
+  }
+  forEach(components, (comp) => (result[comp] = get(attributes, comp)));
+  return result;
 };
+
+export const getScrollPosition = () => window.scrollY;

@@ -1,6 +1,10 @@
 export interface IMenu {
-  links: ILink;
+  links: ILink[];
   className?: string;
+  subMenuClass?: string;
+  menuItemClass?: string;
+  isCollapsable?: boolean;
+  variant?: "default" | "footer" | "header";
 }
 
 export interface ILink {
@@ -9,13 +13,14 @@ export interface ILink {
 }
 
 export interface Attributes {
-  order: number;
-  title: string;
-  url: string;
-  target: string;
-  createdAt: string;
-  updatedAt: string;
-  children: Children;
+  label?: string;
+  title?: string;
+  url?: string;
+  link?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  publishedAt?: Date;
+  children?: Children;
 }
 
 export interface Children {
