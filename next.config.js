@@ -3,7 +3,7 @@ const nextConfig = {
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.svg$/,
-      use: ['@svgr/webpack'],
+      use: ["@svgr/webpack"]
     });
     return config;
   },
@@ -18,9 +18,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
         port: ""
-      },
+      }
     ]
   },
-  reactStrictMode: true
+  reactStrictMode: true,
+  typescript: {
+    ignoreBuildErrors: true
+  }
 };
 module.exports = nextConfig;

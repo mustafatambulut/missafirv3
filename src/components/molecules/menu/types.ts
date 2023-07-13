@@ -1,5 +1,5 @@
 export interface IMenu {
-  links: ILink;
+  links: ILink[];
   className?: string;
   subMenuClass?: string;
   menuItemClass?: string;
@@ -17,6 +17,9 @@ export interface Attributes {
   title?: string;
   url?: string;
   link?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  publishedAt?: Date;
   children?: Children;
 }
 

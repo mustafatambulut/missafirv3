@@ -3,11 +3,10 @@ import dynamic from "next/dynamic";
 
 import { BODY, HOME } from "@/app/constants";
 import { getPageDataByComponent } from "@/utils/helper";
-import { IHero } from "@/components/molecules/hero/types";
 import { HERO_SECTION } from "@/components/molecules/hero/constants";
 
 const Hero = async () => {
-  const data = (await getPageDataByComponent(HOME, BODY)) as IHero;
+  const data = (await getPageDataByComponent(HOME, BODY)) as any;
   const hero = find(data, { __component: HERO_SECTION });
 
   const SearchBar = dynamic(

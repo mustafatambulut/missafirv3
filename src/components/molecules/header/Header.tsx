@@ -22,8 +22,9 @@ const Header = () => {
   drawerCloseRef.current?.click();
 
   const headerClass = classNames("fixed top-0 w-full z-10", {
-    "bg-white shadow-lg": isScrolledHeaderActive,
+    "bg-white shadow-lg": isScrolledHeaderActive
   });
+
   const userMenuData = {
     footerMenu,
     footerBrand,
@@ -61,7 +62,7 @@ const Header = () => {
   useEffect(() => {
     fetchData();
     window.addEventListener("scroll", handleScroll);
-      handleScroll()
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -76,7 +77,10 @@ const Header = () => {
               type="checkbox"
               className="drawer-toggle"
             />
-            <Navbar data={navbarData} isScrolledHeaderActive={isScrolledHeaderActive}/>
+            <Navbar
+              data={navbarData}
+              isScrolledHeaderActive={isScrolledHeaderActive}
+            />
             <Drawer data={drawerData} drawerCloseRef={drawerCloseRef} />
           </div>
         </div>

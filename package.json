@@ -30,6 +30,7 @@
     "react-datepicker": "^4.14.1",
     "react-dates": "^21.8.0",
     "react-detect-click-outside": "^1.1.7",
+    "react-device-detect": "^2.2.3",
     "react-dom": "18.2.0",
     "react-select": "^5.7.3",
     "swiper": "^9.4.1",
