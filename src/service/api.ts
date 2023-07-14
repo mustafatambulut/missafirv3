@@ -3,7 +3,7 @@ import { get } from "lodash";
 
 export const isProduction = () => process.env.NODE_ENV === "production";
 
-const api = axios.create({
+const api = await axios.create({
   baseURL: isProduction()
     ? process.env.NEXT_PUBLIC_API_URL_PROD
     : process.env.NEXT_PUBLIC_API_URL_DEV,
