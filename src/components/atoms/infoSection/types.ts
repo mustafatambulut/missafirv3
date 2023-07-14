@@ -1,5 +1,5 @@
 export interface IInfoSection {
-  info: IInfoSectionData[];
+  info?: IInfoSectionData[];
   collapsable?: boolean;
 }
 

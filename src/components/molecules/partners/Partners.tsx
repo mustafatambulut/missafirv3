@@ -1,32 +1,54 @@
-import {groupArrayBySize} from "@/utils/helper";
+"use client";
+import { useEffect, useState } from "react";
+import { filter, first, get, map } from "lodash";
+
+import { BODY, HOME } from "@/app/constants";
+import { getPageDataByComponent, groupArrayBySize } from "@/utils/helper";
 
 import Marquee from "@/components/atoms/marquee/Marquee";
-import { IPartners } from "@/components/molecules/partners/types";
+import Section from "@/components/molecules/section/Section";
 
-const Partners = ({ header, body }: IPartners) => {
-  const marqueeItems = groupArrayBySize(body, 20);
+const Partners = () => {
+  const [partners, setPartners] = useState(null);
+
+  const fetchData = async () => {
+    const response = await getPageDataByComponent(HOME, BODY);
+    const partners = first(
+      filter(response, (item) => item["__component"] === "sections.partners")
+    );
+    setPartners({
+      header: partners.header,
+      body: groupArrayBySize(partners.body, 10)
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
-    <div className="lg:px-40">
-      <div className="flex flex-col items-center mb-10">
-        <div className="text-[28px] lg:text-[42px] font-mi-sans-semi-bold mb-8 text-center">
-          {header.title}
-        </div>
-        <p className="lg:px-60 text-lg lg:text-xl text-center text-gray-600">
-          {header.description}
-        </p>
-      </div>
-      {marqueeItems.map((item, index) => {
-        return (
-          <Marquee
-            items={item}
-            key={index}
-            className="mb-4"
-            direction={index % 2 === 0 ? "left" : "right"}
-          />
-        );
-      })}
-    </div>
+    <>
+      {partners && (
+        <Section
+          className="px-4 lg:px-20 mt-14"
+          title={get(partners, "header.title")}
+          description={get(partners, "header.description")}>
+          <div className="flex flex-col">
+            {map(get(partners, "body"), (item, index) => {
+              return (
+                <Marquee
+                  items={item}
+                  marqueeItemClassName="mx-2 rounded-xl shadow-[0px_2px_10px_0px_#00000014] relative p-1 h-20 lg:h-28 w-40 lg:w-60 flex justify-center items-center"
+                  key={index}
+                  className="p-2"
+                  direction={index % 2 === 0 ? "left" : "right"}
+                />
+              );
+            })}
+          </div>
+        </Section>
+      )}
+    </>
   );
 };
 

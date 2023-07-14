@@ -1,14 +1,42 @@
 "use client";
 import { useState } from "react";
-import { IInfoSection } from "@/components/atoms/infoSection/types";
+
+import {
+  IInfoSection,
+  IInfoSectionData
+} from "@/components/atoms/infoSection/types";
+
+import Section from "@/components/molecules/section/Section";
+
 import DownArrowPrimary from "../../../../public/images/down-arrow-primary.svg";
 import UpArrowPrimary from "../../../../public/images/up-arrow-primary.svg";
 
-const InfoSection = ({ info, collapsable = false }: IInfoSection) => {
+const InfoSection = ({ collapsable = false }: IInfoSection) => {
   const [showContent, setShowContent] = useState(false);
-
+  const info: IInfoSectionData[] = [
+    {
+      header: "Lorem ipsum dolor sit amet",
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam sit amet sodales malesuada, elit nunc faucibus eros, nec aliquet elit nibh eu eros. Quisque sed semper nisl. Fusce sed semper nisl."
+    },
+    {
+      header: "Lorem ipsum dolor sit amet",
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam sit amet sodales malesuada, elit nunc faucibus eros, nec aliquet elit nibh eu eros. Quisque sed semper nisl. Fusce sed semper nisl."
+    },
+    {
+      header: "Lorem ipsum dolor sit amet",
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam sit amet sodales malesuada, elit nunc faucibus eros, nec aliquet elit nibh eu eros. Quisque sed semper nisl. Fusce sed semper nisl."
+    },
+    {
+      header: "Lorem ipsum dolor sit amet",
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam sit amet sodales malesuada, elit nunc faucibus eros, nec aliquet elit nibh eu eros. Quisque sed semper nisl. Fusce sed semper nisl."
+    },
+    {
+      header: "Lorem ipsum dolor sit amet",
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam sit amet sodales malesuada, elit nunc faucibus eros, nec aliquet elit nibh eu eros. Quisque sed semper nisl. Fusce sed semper nisl."
+    }
+  ];
   return (
-    <div className="px-5 lg:px-10">
+    <Section className="px-4 lg:px-10 my-14 lg:mt-14">
       <div
         className={`grid grid-cols-1 gap-6 ${
           collapsable && showContent
@@ -34,7 +62,7 @@ const InfoSection = ({ info, collapsable = false }: IInfoSection) => {
         <span className="mr-2">Devamını oku</span>
         {collapsable && showContent ? <UpArrowPrimary /> : <DownArrowPrimary />}
       </div>
-    </div>
+    </Section>
   );
 };
 

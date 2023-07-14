@@ -4,6 +4,9 @@ import News from "@/components/molecules/news/News";
 import Hero from "@/components/molecules/hero/Hero";
 import Cities from "@/components/molecules/cities/Cities";
 import ListingDetails from "@/components/molecules/listingDetail/ListingDetails";
+import Testimonials from "@/components/molecules/testimonials/Testimonials";
+import Partners from "@/components/molecules/partners/Partners";
+import InfoSection from "@/components/atoms/infoSection/InfoSection";
 
 const Body = () => {
   return (
@@ -12,8 +15,11 @@ const Body = () => {
       <Cities />
       <ListingDetails />
       <Premium />
+      <Testimonials />
+      <Partners />
       <BenefitOwner />
       <News />
+      <InfoSection collapsable={true} />
     </div>
   );
 };
