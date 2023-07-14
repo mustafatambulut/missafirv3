@@ -53,26 +53,29 @@ const Cities = () => {
           <Slider
             sliderIdentifier="cities"
             slidesPerView={isMobile ? 1 : 3}
-            spaceBetween={20}
+            spaceBetween={isMobile ? 12 : 14}
             customNavigation={<CustomNavigation />}
-            sliderWrapperClassName={isMobile ? "pr-20" : ""}>
+            sliderWrapperClassName={isMobile ? "pr-20" : "pr-40"}>
             {map(get(cities, "cities.data"), (city, key) => (
               <Card
-                className="shadow-[0px_1px_20px_0px_#00000014] rounded-xl"
-                key={key}>
-                <Image
-                  src={get(city, "attributes.image") || ""}
-                  alt="image"
-                  width={350}
-                  height={232}
-                  className={`w-full object-cover`}
-                />
-                <h2 className="font-mi-sans-semi-bold text-22 lg:text-28 text-[#515151]">
-                  {get(city, "attributes.title")}
-                </h2>
-                <p className="text-lg lg:text-xl text-[#A9A9A9]">
-                  {get(city, "attributes.description")}
-                </p>
+                key={key}
+                className="p-4 border border-[#EEEEEE] rounded-2xl">
+                <div className="w-full h-40 lg:h-60 relative">
+                  <Image
+                    src={get(city, "attributes.image") || ""}
+                    alt="image"
+                    className="object-cover rounded-2xl"
+                    fill={true}
+                  />
+                </div>
+                <div className="p-2">
+                  <h2 className="font-mi-sans-semi-bold text-22 lg:text-28 text-[#515151]">
+                    {get(city, "attributes.title")}
+                  </h2>
+                  <p className="text-lg lg:text-xl text-[#A9A9A9]">
+                    {get(city, "attributes.description")}
+                  </p>
+                </div>
               </Card>
             ))}
           </Slider>

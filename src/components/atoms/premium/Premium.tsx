@@ -27,12 +27,12 @@ const Premium = () => {
       {premium && (
         <div className="px-4 lg:px-8 mt-14">
           <Card
-            className="text-white rounded-xl"
+            className="text-white rounded-xl p-8"
             style={{ backgroundImage: `url(${get(premium, "body.image")})` }}>
             <h2 className="text-4xl font-mi-sans-semi-bold">
               {get(premium, "header.title")}
             </h2>
-            <p className="text-xl">{get(premium, "body.title")}</p>
+            <p className="text-xl py-4">{get(premium, "body.title")}</p>
             <Button
               variant="btn-white"
               className="w-40 text-2xl"

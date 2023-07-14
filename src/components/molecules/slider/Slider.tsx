@@ -31,7 +31,7 @@ const Slider = ({
           "--swiper-pagination-bullet-inactive-color": "#FFFFFF",
           "--swiper-pagination-bullet-inactive-opacity": "1"
         }}
-        className={`${sliderWrapperClassName}`}
+        className={`${sliderWrapperClassName} ${sliderIdentifier}`}
         spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
         modules={[Navigation, Pagination]}

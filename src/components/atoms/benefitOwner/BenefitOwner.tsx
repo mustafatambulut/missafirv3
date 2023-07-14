@@ -34,9 +34,9 @@ const BenefitOwner = () => {
           className="px-4 lg:px-8 mt-14"
           title={get(benefit, "header.title")}
           description={get(benefit, "header.description")}>
-          <div className="grid grid-cols-1 lg:grid-cols-3">
+          <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-8 lg:my-20">
             {map(get(benefit, "body"), (benefit, key) => (
-              <Card key={key}>
+              <Card key={key} className="mb-12 lg:mb-0">
                 <div className="flex flex-col items-center">
                   <Image
                     className="mb-7"
@@ -48,7 +48,7 @@ const BenefitOwner = () => {
                   <h3 className="text-center mb-3 text-28 font-mi-sans-semi-bold text-gray-800">
                     {get(benefit, "title")}
                   </h3>
-                  <div className="text-center text-gray-600 tex-2xl">
+                  <div className="text-center text-gray-600 tex-2xl line-clamp-3">
                     {get(benefit, "description")}
                   </div>
                 </div>

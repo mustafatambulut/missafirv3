@@ -62,9 +62,9 @@ const News = () => {
           className="px-4 lg:px-8 mt-14"
           title={get(news, "header.title")}
           description={get(news, "header.description")}>
-          <div className="grid grid-cols-1 lg:grid-cols-4">
+          <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-x-5">
             {map(get(news, "body"), (newItem, key) => (
-              <Card key={key}>
+              <Card key={key} className="mb-10 lg:mb-0">
                 <div className="shadow-[0px_1px_20px_0px_#00000014] rounded-2xl">
                   <div className="w-full h-60 relative">
                     <Link href="/">
@@ -72,7 +72,7 @@ const News = () => {
                         src={get(newItem, "image") || ""}
                         alt="image"
                         fill={true}
-                        className="rounded-t-2xl"
+                        className="rounded-t-2xl object-cover"
                       />
                     </Link>
                   </div>
@@ -103,7 +103,9 @@ const News = () => {
               variant="btn-primary"
               link="/"
               className="mt-10 bg-primary-50 text-primary border-primary-25 hover:bg-primary hover:border-primary group">
-              <span className="group-hover:text-white">See All Blogs</span>
+              <span className="group-hover:text-white text-xl font-mi-sans-semi-bold">
+                See All Blogs
+              </span>
               <RightArrow className="scale-50 fill-primary group-hover:fill-white" />
             </Button>
           </div>
