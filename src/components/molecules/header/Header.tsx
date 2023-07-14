@@ -12,6 +12,7 @@ import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
 
 import Drawer from "@/components/molecules/drawer/Drawer";
 import Navbar from "@/components/molecules/navbar/Navbar";
+import { isMobile } from "react-device-detect";
 
 const Header = () => {
   const [header, setHeader] = useState(null);
@@ -19,7 +20,6 @@ const Header = () => {
   const [footerBrand, setFooterBrand] = useState(null);
   const [isScrolledHeaderActive, setIsScrolledHeaderActive] = useState(false);
   const drawerCloseRef = useRef<HTMLInputElement>(null);
-  drawerCloseRef.current?.click();
 
   const headerClass = classNames("fixed top-0 w-full z-40", {
     "bg-white shadow-lg": isScrolledHeaderActive
@@ -81,7 +81,9 @@ const Header = () => {
               data={navbarData}
               isScrolledHeaderActive={isScrolledHeaderActive}
             />
-            <Drawer data={drawerData} drawerCloseRef={drawerCloseRef} />
+            {isMobile && (
+              <Drawer data={drawerData} drawerCloseRef={drawerCloseRef} />
+            )}
           </div>
         </div>
       )}
