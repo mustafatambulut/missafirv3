@@ -18,7 +18,7 @@ const MenuItem = ({
   );
   return (
     <li className={`${className}`}>
-      <Link href={get(item, "link")} className={linkClass}>
+      <Link href={get(item, "link") || ""} className={linkClass}>
         {get(item, "label")}
       </Link>
     </li>

@@ -1,10 +1,9 @@
-/*eslint-disable*/
 "use client";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { get } from "lodash";
 import "react-dates/initialize";
-import * as rdd from "react-device-detect";
+import { isMobile } from "react-device-detect";
 import { DayPickerRangeController } from "react-dates";
 
 import { IBookingDate, IDatePicker } from "@/components/atoms/datePicker/types";
@@ -41,9 +40,7 @@ const DatePicker = ({
   };
 
   useEffect(() => {
-    // console.log(rdd);
-    // rdd && setShowDatePicker(true);
-    true == 0 && setShowDatePicker(true);
+    isMobile && setShowDatePicker(true);
   }, []);
 
   useEffect(() => {
@@ -85,7 +82,7 @@ const DatePicker = ({
           <span className="text-gray-600 text-left hidden lg:block lg:text-21">
             Dates
           </span>
-          {true == 0 && (
+          {!isMobile && (
             <>
               {get(bookingDate, "startDate") || get(bookingDate, "endDate") ? (
                 <div className="flex text-gray-800">
@@ -111,8 +108,8 @@ const DatePicker = ({
                 onDatesChange={onDatesChange}
                 onFocusChange={onFocusChange}
                 showKeyboardShortcuts={false}
-                noNavButtons={true == 0}
-                daySize={true == 0 ? 50 : 39}
+                noNavButtons={isMobile}
+                daySize={isMobile ? 50 : 39}
                 onPrevMonthClick={handleChangeMonth}
                 onNextMonthClick={handleChangeMonth}
                 noNavPrevButton={isPrevButtonHidden}
@@ -121,14 +118,14 @@ const DatePicker = ({
                 focusedInput={focusedInput}
                 startDate={get(bookingDate, "startDate")}
                 renderCalendarInfo={
-                  true == 0
+                  !isMobile
                     ? get(bookingDate, "startDate") &&
                       get(bookingDate, "endDate") &&
                       renderControls
                     : null
                 }
-                onOutsideClick={() => true == 0 && setShowDatePicker(false)}
-                orientation={true == 0 ? "verticalScrollable" : "horizontal"}
+                onOutsideClick={() => !isMobile && setShowDatePicker(false)}
+                orientation={isMobile ? "verticalScrollable" : "horizontal"}
                 enableOutsideDays={false}
                 isOutsideRange={(day) => day.isBefore(initialMonth, "day")}
               />

@@ -1,12 +1,11 @@
-/*eslint-disable*/
 "use client";
 import React from "react";
 import Image from "next/image";
-import { get, size } from "lodash";
+import { get, map, size } from "lodash";
 import { components } from "react-select";
 import AsyncSelect from "react-select/async";
-// import { Swiper, SwiperSlide } from "swiper/react";
-import { Swiper } from "swiper/react";
+import { isMobile } from "react-device-detect";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import { IDestinationSelect } from "@/components/atoms/destinationSelect/types";
 
@@ -23,7 +22,6 @@ const DestinationSelect = ({
   setBookingDestination,
   componentId
 }: IDestinationSelect) => {
-  // const isMobileView = () => get(window, "screen.width") <= 600;
   const destinationOptions = [
     {
       label: "Popular Destinations",
@@ -137,34 +135,13 @@ const DestinationSelect = ({
         loadOptions={loadOptions}
         instanceId="msfr-destination-select"
         onChange={handleOnChange}
-        // maxMenuHeight={isMobileView() ? 500 : 400}
-        maxMenuHeight={true == 0 ? 500 : 400}
-        //todo: controlClassName,controlInnerClassName type hatası veriyor buna bakılacak
-        // controlClassName="w-full border-none shadow-none rounded-2xl h-14"
-        // controlInnerClassName="flex w-full text-left items-center px-4 py-0.5 h-full"
-        // placeholderClassName="m-0"
-        // placeholderInnerClassName="text-gray-600 text-base lg:text-lg font-mi-semi-bold"
-        // valueContainerClassName="pl-0"
-        // indicatorsContainerClassName="absolute right-2 top-[50%] transform translate-y-[-50%]"
-        // inputClassName={`m-0 p-0 ${
-        //   isMobileView() ? "rsi-container absolute w-full" : null
-        // }`}
-        // menuClassName="rounded-xl mt-5 z-20 shadow-none"
-        // whereTitleClassName="text-gray-600 w-full text-sm hidden lg:block"
-        // searchIconClassName="mr-3 hidden lg:block"
-        // optionClassName="bg-transparent text-left cursor-pointer m-0 pt-2 pb-0 px-0 lg:px-3"
-        // optionInnerClassName="rounded flex items-start p-1"
-        // optionLabelClassName="text-gray-800 lg:text-base text-xs mt-1 font-mi-semi-bold"
-        // optionContentClassName="text-gray-500 text-xs"
-        // groupHeadingClassName="px-4"
-        // groupHeadingInnerClassName="text-left normal-case text-gray-500 text-sm font-mi-semi-bold"
+        maxMenuHeight={isMobile ? 500 : 400}
         isClearable
         isSearchable
         className={`w-full items-center flex ${
-          true == 0 && "border rounded-2xl"
-          // isMobileView() && "border rounded-2xl"
+          isMobile && "border rounded-2xl"
         }`}
-        {...(true == 0 && { menuIsOpen: true })}
+        {...(isMobile && { menuIsOpen: true })}
         components={{
           DropdownIndicator: () => null,
           IndicatorSeparator: () => null,
@@ -189,8 +166,7 @@ const DestinationSelect = ({
           Placeholder: (props) => (
             <components.Placeholder className="m-0" {...props}>
               <div className="text-gray-600 text-base lg:text-lg font-mi-semi-bold">
-                {/*{isMobileView()*/}
-                {true == 0 ? "Where do you want to go?" : "Search destinations"}
+                {isMobile ? "Where do you want to go?" : "Search destinations"}
               </div>
             </components.Placeholder>
           ),
@@ -225,8 +201,9 @@ const DestinationSelect = ({
               props,
               "data.isPopularDestinations"
             );
-            // if (isPopularDestinations && !isMobileView()) return null;
-            if (isPopularDestinations && true == 1) return null;
+            if (isPopularDestinations && !isMobile) {
+              return null;
+            }
             return (
               <components.Group
                 className={`${get(props, "selectProps.groupClassName")}`}
@@ -241,9 +218,12 @@ const DestinationSelect = ({
                       spaceBetween={0}
                       slidesPerView={3}
                       className="pr-16">
-                      {/*{props?.children?.map((child, key) => (*/}
-                      {/*  <SwiperSlide key={key}>{child}</SwiperSlide>*/}
-                      {/*))}*/}
+                      {map(
+                        get(props, "!children"),
+                        (child: React.ReactNode, key) => (
+                          <SwiperSlide key={key}>{child}</SwiperSlide>
+                        )
+                      )}
                     </Swiper>
                   ) : (
                     get(props, "children")
@@ -255,8 +235,7 @@ const DestinationSelect = ({
           Input: (props) => (
             <components.Input
               className={`m-0 p-0 ${
-                // isMobileView() ? "rsi-container absolute w-full" : null
-                true == 0 ? "rsi-container absolute w-full" : null
+                isMobile ? "rsi-container absolute w-full" : null
               }`}
               {...props}>
               {get(props, "children")}
@@ -294,7 +273,7 @@ const DestinationSelect = ({
                 <div
                   className={`${
                     isPopularDestinations && "text-center"
-                  } "rounded flex items-start p-1"`}>
+                  } rounded flex items-start p-1`}>
                   {!isPopularDestinations ? (
                     get(props, "data.isHistory") ? (
                       <HistoryIcon className="mt-1" />

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import Select from "react-select";
+import Select, { Theme } from "react-select";
 import { find, get } from "lodash";
 import classNames from "classnames";
 
@@ -57,7 +57,7 @@ const SelectLanguage = ({
       "attributes.value",
       currentLocale
     ]),
-    theme: (theme) => ({
+    theme: (theme: Theme) => ({
       ...theme,
       borderRadius: 0,
       colors: {

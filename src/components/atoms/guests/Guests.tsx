@@ -1,7 +1,7 @@
-/*eslint-disable*/
 "use client";
 import React, { useEffect, useState } from "react";
 import { get } from "lodash";
+import { isMobile } from "react-device-detect";
 
 import { IBookingGuests } from "@/components/atoms/guests/types";
 
@@ -10,7 +10,6 @@ import PlusIcon from "../../../../public/images/plus.svg";
 import GuestsIcon from "../../../../public/images/guests.svg";
 
 const Guests = ({ setBookingGuests, data }: IBookingGuests) => {
-  // const isMobileView = () => get(window, "screen.width") <= 600;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const changeAdults = (type: string) => {
     if (type === "plus") {
@@ -35,19 +34,19 @@ const Guests = ({ setBookingGuests, data }: IBookingGuests) => {
   };
 
   useEffect(() => {
-    true == 0 && setIsDropdownOpen(true);
+    isMobile && setIsDropdownOpen(true);
   }, []);
   return (
     <div className="dropdown text-gray-800 w-full lg:h-[56px] text-left rounded-2xl lg:px-4 lg:focus-within:bg-gray-50">
       <label
         tabIndex={0}
         className="cursor-pointer w-full flex items-center !h-[56px] lg:h-full"
-        onClick={() => !true == 0 && setIsDropdownOpen(!isDropdownOpen)}>
+        onClick={() => !isMobile && setIsDropdownOpen(!isDropdownOpen)}>
         <GuestsIcon className="hidden lg:block" />
         <div className="flex flex-col lg:ml-3">
           <span
             className={`text-21 text-gray-600 ${
-              true == 0 &&
+              isMobile &&
               (get(data, "adults") || get(data, "kids") || get(data, "pets")) &&
               "hidden"
             }`}>
@@ -67,7 +66,7 @@ const Guests = ({ setBookingGuests, data }: IBookingGuests) => {
       <ul
         tabIndex={0}
         className={`left-0 ${
-          !true == 0
+          !isMobile
             ? "dropdown-content menu z-[1] p-2 shadow bg-base-100 rounded-box w-full mt-6"
             : "mt-4"
         } `}>

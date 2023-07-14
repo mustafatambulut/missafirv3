@@ -17,14 +17,15 @@ const config = {
         xxs: "0.63rem",
         xxl: "1.38rem",
         15: "0.94rem",
-        22: "1.37rem",
         21: "1.36rem",
+        22: "1.37rem",
+        28: "1.75rem",
         42: "2.63rem",
         54: "3.39rem"
       },
       colors: {
         primary: {
-          DEFAULT: "#B21A45",
+          DEFAULT: "#D01E50",
           25: "#FFF6F9",
           50: "#FCE9EE",
           100: "#FAE9EE",
@@ -175,7 +176,41 @@ const config = {
             backgroundColor: `transparent !important`,
             color: `${config.theme.extend.colors.gray["100"]} !important`
           }
-        }
+        },
+        ".btn-white": {
+          backgroundColor: `white !important`,
+          color: `${config.theme.extend.colors.primary["600"]} !important`,
+          borderColor: `${config.theme.extend.colors.primary["600"]} !important`,
+          "&.btn-outline": {
+            backgroundColor: `transparent !important`,
+            color: `${config.theme.extend.colors.primary["600"]} !important`,
+            borderWidth: "2px !important"
+          },
+          "&:hover": {
+            backgroundColor: `${config.theme.extend.colors.primary["400"]} !important`,
+            borderColor: `${config.theme.extend.colors.primary["400"]} !important`,
+            "&.btn-outline": {
+              backgroundColor: `transparent !important`,
+              color: `${config.theme.extend.colors.primary["400"]} !important`
+            }
+          },
+          "&:active": {
+            backgroundColor: `${config.theme.extend.colors.primary["700"]} !important`,
+            borderColor: `${config.theme.extend.colors.primary["700"]} !important`,
+            "&.btn-outline": {
+              backgroundColor: `transparent !important`,
+              color: `${config.theme.extend.colors.primary["700"]} !important`
+            }
+          },
+          "&:disabled": {
+            backgroundColor: `${config.theme.extend.colors.gray["100"]} !important`,
+            borderColor: `${config.theme.extend.colors.gray["100"]} !important`,
+            "&.btn-outline": {
+              backgroundColor: `transparent !important`,
+              color: `${config.theme.extend.colors.gray["100"]} !important`
+            }
+          }
+        },
       });
     }),
     require("daisyui")

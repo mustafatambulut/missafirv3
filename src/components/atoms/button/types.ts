@@ -7,7 +7,8 @@ export interface IButton {
     | "btn-secondary"
     | "btn-square"
     | "btn-ghost"
-    | "btn-link";
+    | "btn-link"
+    | "btn-white";
   children: JSX.Element | string | JSX.Element[];
   onClick?: React.MouseEventHandler<HTMLElement> | undefined;
   link?: string;
