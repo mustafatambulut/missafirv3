@@ -5,9 +5,10 @@ import Image from "next/image";
 import { get, map } from "lodash";
 import { isMobile } from "react-device-detect";
 
-import "./ListingDetails.css";
 import Badge from "@/components/atoms/badge/Badge";
 import Slider from "@/components/molecules/slider/Slider";
+
+import "./ListingDetails.css";
 
 import PreviousIcon from "../../../../public/images/chevron-left.svg";
 import NextIcon from "../../../../public/images/chevron-right.svg";
@@ -36,9 +37,9 @@ const ListingDetails = () => {
 
   const listingsData = {
     header: {
-      title: "Discover best houses for an unique experience",
+      title: "Kusursuz bir konaklama için en iyi kiralık ev ve villalar",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed don eiusmod tempor incididunt ut labore et"
+        "İş seyahati, yeni keşifler ve tatil için kiralık ev bakınıyorsanız, sizin için en iyilerini seçtik."
     },
     body: {
       tabItems: [
