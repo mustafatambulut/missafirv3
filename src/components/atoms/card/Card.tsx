@@ -1,11 +1,12 @@
-import {ICard} from "@/components/atoms/card/types";
+"use client";
 
-const Card = ({ children,...props }:ICard) => {
+import { ICard } from "@/components/atoms/card/types";
+
+const Card = ({ children, ...props }: ICard) => {
   return (
     <div className="card" {...props}>
-      <div className="card-body p-6 cursor-default">{children}</div>
+      <div className="card-body p-0 cursor-default">{children}</div>
     </div>
   );
 };
-
 export default Card;

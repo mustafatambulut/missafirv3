@@ -1,6 +1,6 @@
 import React from "react";
-
 export interface ICard {
-  children: React.ReactNode;
-  className?: string;
+    children: React.ReactNode;
+    className?: string;
+    style?: React.CSSProperties;
 }
