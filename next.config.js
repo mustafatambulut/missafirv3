@@ -5,6 +5,7 @@ const nextConfig = {
       test: /\.svg$/,
       use: ["@svgr/webpack"]
     });
+    config.experiments = { ...config.experiments, topLevelAwait: true };
     return config;
   },
   images: {
