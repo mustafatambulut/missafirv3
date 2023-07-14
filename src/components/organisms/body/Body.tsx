@@ -7,6 +7,7 @@ import ListingDetails from "@/components/molecules/listingDetail/ListingDetails"
 import Testimonials from "@/components/molecules/testimonials/Testimonials";
 import Partners from "@/components/molecules/partners/Partners";
 import InfoSection from "@/components/atoms/infoSection/InfoSection";
+import TechExperience from "@/components/molecules/techExperience/TechExperience";
 
 const Body = () => {
   return (
@@ -15,6 +16,7 @@ const Body = () => {
       <Cities />
       <ListingDetails />
       <Premium />
+      <TechExperience />
       <Testimonials />
       <Partners />
       <BenefitOwner />

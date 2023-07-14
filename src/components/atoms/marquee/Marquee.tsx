@@ -14,14 +14,8 @@ const Marquee = ({
   return (
     <ReactFastMarquee speed={speed} direction={direction} className={className}>
       {map(items, (item, index) => (
-        <div className={marqueeItemClassName}>
-          <Image
-            key={index}
-            src={item.image}
-            alt="image"
-            width={160}
-            height={50}
-          />
+        <div className={marqueeItemClassName} key={index}>
+          <Image src={item.image} alt="image" width={160} height={50} />
         </div>
       ))}
     </ReactFastMarquee>
