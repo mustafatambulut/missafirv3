@@ -1,11 +1,9 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
-import Header from "@/components/molecules/header";
-import Footer from "@/components/molecules/footer";
+import Header from "@/components/molecules/header/Header";
+import Footer from "@/components/molecules/footer/Footer";
 
-import { HOME } from "@/app/constants";
-
-import "./globals.css";
+import "./styles/globals.css";
 
 export const metadata = {
   title: "Create Next App",
@@ -15,8 +13,8 @@ export const metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html>
-      <body>
-        <Header currentPage={HOME} />
+      <body className="font-mi-sans" suppressHydrationWarning={true}>
+        <Header />
         {children}
         <Footer />
       </body>

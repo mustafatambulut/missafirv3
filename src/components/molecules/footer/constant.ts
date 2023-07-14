@@ -1,1 +1,1 @@
-export const FOOTER_MENU: string = "footer-menu";
+export const FOOTER: string = "footer";

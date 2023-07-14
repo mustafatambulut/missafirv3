@@ -1,0 +1,59 @@
+.CalendarDay__default, .CalendarDay__default:hover, .CalendarDay__default:active {
+    border: none;
+    border-radius: 100%;
+}
+
+.CalendarDay__default:hover, .CalendarDay__default:active {
+    background-color: #CF1E51;
+    color: #ffffff;
+}
+
+.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
+    background: #CF1E51;
+    border: none;
+    color: #fff;
+}
+
+.CalendarDay__selected_span, .CalendarDay__selected_span:hover, .CalendarDay__selected_span:active, .CalendarDay__after_hovered_start, .CalendarDay__hovered_span {
+    background: #F1F3F3;
+    border: none;
+    color: #000000;
+
+}
+
+.CalendarDay__selected_span.CalendarDay__lastDayOfWeek,.CalendarDay__hovered_span.CalendarDay__lastDayOfWeek {
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+}
+
+.CalendarDay__selected_span.CalendarDay__firstDayOfWeek,.CalendarDay__hovered_span.CalendarDay__firstDayOfWeek {
+    border-top-left-radius: 100%;
+    border-bottom-left-radius: 100%;
+}
+
+
+.prev-hidden .CalendarMonth_caption {
+    text-align: left;
+    font-size: 18px;
+}
+.DayPicker__verticalScrollable.DayPicker__hidden{
+    visibility: visible;
+}
+.DayPicker__verticalScrollable .DayPicker_transitionContainer__verticalScrollable{
+    position: inherit;
+}
+.DayPicker__withBorder.DayPicker__verticalScrollable{
+    box-shadow: none;
+}
+.DayPicker_weekHeader__verticalScrollable {
+    display: none;
+}
+.CalendarMonthGrid__vertical_scrollable, .CalendarMonthGrid__vertical_scrollable .CalendarMonth_table{
+    width: 100%!important;
+}
+.CalendarMonthGrid__vertical_scrollable .CalendarMonth{
+    padding: 0!important;
+}
+.DayPicker_transitionContainer__verticalScrollable{
+    padding-top: 0;
+}

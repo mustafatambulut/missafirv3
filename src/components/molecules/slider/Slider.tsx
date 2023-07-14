@@ -1,50 +1,64 @@
 "use client";
-import { get, map } from "lodash";
+import React from "react";
+import { map } from "lodash";
+import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+
+import { ISlider } from "@/components/molecules/slider/types";
 
 import "swiper/css";
+import "./Slider.css";
 import "swiper/css/navigation";
-import Image from "next/image";
-import NextArrow from "../../../../public/images/next-arrow.svg";
-import PrevArrow from "../../../../public/images/prev-arrow.svg";
-import React from "react";
-import { ISlider } from "@/components/molecules/techExperience/types";
+import "swiper/css/pagination";
 
-const Slider = ({ slides }: ISlider) => {
+const Slider = ({
+  spaceBetween,
+  slidesPerView,
+  withPagination = false,
+  withNavigation = false,
+  customNavigation = null,
+  customPagination = null,
+  children,
+  sliderContainerClassName = "",
+  sliderWrapperClassName = "",
+  sliderIdentifier
+}: ISlider) => {
   return (
-    <Swiper
-      spaceBetween={0}
-      slidesPerView={1}
-      modules={[Navigation]}
-      navigation={{
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
-      }}>
-      {map(slides, (item, key) => (
-        <SwiperSlide key={key}>
-          <div className="flex flex-col items-center px-6 lg:px-0">
-            <Image
-              src={get(item, "image")}
-              alt="image"
-              width={447}
-              height={559}
-              className="my-12"
-            />
-            <p className="text-center line-clamp-4 text-sm lg:text-2xl text-gray-600">
-              {item.description}
-            </p>
-          </div>
-        </SwiperSlide>
-      ))}
-      <div className="swiper-button-prev rounded-full shadow w-[60px] h-[60px] after:hidden hidden lg:flex">
-        <PrevArrow />
-      </div>
-      <div className="swiper-button-next rounded-full shadow w-[60px] h-[60px] after:hidden hidden lg:flex">
-        <NextArrow />
-      </div>
-    </Swiper>
+    <div className={`relative ${sliderContainerClassName}`}>
+      <Swiper
+        style={{
+          "--swiper-pagination-color": "#D01E50",
+          "--swiper-pagination-bullet-inactive-color": "#FFFFFF",
+          "--swiper-pagination-bullet-inactive-opacity": "1"
+        }}
+        className={`${sliderWrapperClassName} ${sliderIdentifier}`}
+        spaceBetween={spaceBetween}
+        slidesPerView={slidesPerView}
+        modules={[Navigation, Pagination]}
+        pagination={withPagination}
+        {...(customPagination
+          ? {
+              pagination: customPagination
+            }
+          : withPagination
+          ? { pagination: true }
+          : null)}
+        {...(customNavigation
+          ? {
+              navigation: {
+                nextEl: `.swiper-button-next.${sliderIdentifier}`,
+                prevEl: `.swiper-button-prev.${sliderIdentifier}`
+              }
+            }
+          : withNavigation
+          ? { navigation: true }
+          : null)}>
+        {map(children, (item, key) => {
+          return <SwiperSlide key={key}>{item}</SwiperSlide>;
+        })}
+      </Swiper>
+      {customNavigation && customNavigation}
+    </div>
   );
 };
-
 export default Slider;
