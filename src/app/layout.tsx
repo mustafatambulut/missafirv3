@@ -13,6 +13,10 @@ export const metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html>
+      <head>
+        <title>Missafirv3 Beta</title>
+        <meta name="google-site-verification" content="L7xAcVXBfqNFTj_VSqCaZU-gKHXK-T7chpoLJZE3FYU" />
+      </head>
       <body className="font-mi-sans" suppressHydrationWarning={true}>
         <Header />
         {children}
