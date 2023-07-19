@@ -9,6 +9,7 @@ module.exports = {
     const userLinkEntity = "api::user-link.user-link";
     const menuLinkEntity = "api::menu-link.menu-link";
     const brandLinkEntity = "api::brand-link.brand-link";
+    const timeLineEntity = "api::timeline-step.timeline-step";
     const footerLinkEntity = "api::footer-link.footer-link";
 
     await destroyAll(entity);
@@ -105,6 +106,10 @@ module.exports = {
               image: faker.image.avatar(),
               link: faker.internet.url(),
             }
+          },
+          {
+            __component: "sections.timeline",
+            timeline_steps: await strapi.db.query(timeLineEntity).findMany({}),
           },
           {
             __component: "sections.potential-income",

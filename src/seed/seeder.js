@@ -1,6 +1,7 @@
 'use strict';
 const {home} = require("./entities/home");
 const {cities} = require("./entities/cities");
+const {timeLine} = require("./entities/timeLine");
 const {menuLinks} = require("./entities/menuLinks");
 const {userLinks} = require("./entities/userLinks");
 const {languages} = require("./entities/languages");
@@ -19,7 +20,8 @@ module.exports = {
       new Promise((resolve) => resolve(languages(strapi))),
       new Promise((resolve) => resolve(brandLinks(strapi))),
       new Promise((resolve) => resolve(footerLinks(strapi))),
-      new Promise((resolve) => resolve(home(strapi)))
+      new Promise((resolve) => resolve(timeLine(strapi))),
+      new Promise((resolve) => resolve(home(strapi))),
     ];
 
     await Promise.all(promises).then(() => console.log("Seeder finished...\n"));

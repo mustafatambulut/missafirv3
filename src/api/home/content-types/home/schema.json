@@ -39,7 +39,8 @@
         "sections.summary",
         "sections.testemonial",
         "sections.partners",
-        "sections.tech-experience"
+        "sections.tech-experience",
+        "sections.timeline"
       ],
       "pluginOptions": {
         "i18n": {

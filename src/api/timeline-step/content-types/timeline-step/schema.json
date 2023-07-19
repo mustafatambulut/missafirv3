@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "timeline_steps",
+  "info": {
+    "singularName": "timeline-step",
+    "pluralName": "timeline-steps",
+    "displayName": "TimelineStep"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "buttonLabel": {
+      "type": "string"
+    },
+    "buttonLink": {
+      "type": "text"
+    }
+  }
+}

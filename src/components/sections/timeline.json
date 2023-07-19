@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_components_timelines",
+  "info": {
+    "displayName": "Timeline",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "timeline_steps": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::timeline-step.timeline-step"
+    }
+  }
+}
