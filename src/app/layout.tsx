@@ -15,9 +15,13 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
     <html>
       <head>
         <title>Missafirv3 Beta</title>
-        <meta name="google-site-verification" content="L7xAcVXBfqNFTj_VSqCaZU-gKHXK-T7chpoLJZE3FYU" />
+        <meta
+          name="google-site-verification"
+          content="L7xAcVXBfqNFTj_VSqCaZU-gKHXK-T7chpoLJZE3FYU"
+        />
       </head>
       <body className="font-mi-sans" suppressHydrationWarning={true}>
+        <div id="drawer-container"></div>
         <Header />
         {children}
         <Footer />

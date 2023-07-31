@@ -9,8 +9,11 @@ import SelectLanguage from "@/components/atoms/selectLanguage/SelectLanguage";
 import DropDownLinkMenu from "@/components/atoms/dropDownLinkMenu/DropDownLinkMenu";
 import Menu from "@/components/molecules/menu/Menu";
 
-const Drawer = ({ drawerCloseRef, data }: IDrawer) => {
-  const handleDrawerClose = () => drawerCloseRef.current?.click();
+const Drawer = ({ drawerCloseRef, data, setIsDrawerOpen }: IDrawer) => {
+  const handleDrawerClose = () => {
+    drawerCloseRef.current?.click();
+    setIsDrawerOpen(false);
+  };
   return (
     <div className="drawer-side">
       <label htmlFor="missafir-drawer" className="drawer-overlay"></label>

@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import classNames from "classnames";
 import { get } from "lodash";
+import classNames from "classnames";
+import { isMobile } from "react-device-detect";
 
 import { HOME } from "@/app/constants";
 import { getPageDataByComponent, getScrollPosition } from "@/utils/helper";
@@ -12,12 +13,12 @@ import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
 
 import Drawer from "@/components/molecules/drawer/Drawer";
 import Navbar from "@/components/molecules/navbar/Navbar";
-import { isMobile } from "react-device-detect";
 
 const Header = () => {
   const [header, setHeader] = useState(null);
   const [footerMenu, setFooterMenu] = useState(null);
   const [footerBrand, setFooterBrand] = useState(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isScrolledHeaderActive, setIsScrolledHeaderActive] = useState(false);
   const drawerCloseRef = useRef<HTMLInputElement>(null);
 
@@ -66,6 +67,12 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    isDrawerOpen
+      ? document.body.classList.add("overflow-hidden")
+      : document.body.classList.remove("overflow-hidden");
+  }, [isDrawerOpen]);
+
   return (
     <>
       {header && footerMenu && (
@@ -78,11 +85,16 @@ const Header = () => {
               className="drawer-toggle"
             />
             <Navbar
+              setIsDrawerOpen={setIsDrawerOpen}
               data={navbarData}
               isScrolledHeaderActive={isScrolledHeaderActive}
             />
             {isMobile && (
-              <Drawer data={drawerData} drawerCloseRef={drawerCloseRef} />
+              <Drawer
+                data={drawerData}
+                drawerCloseRef={drawerCloseRef}
+                setIsDrawerOpen={setIsDrawerOpen}
+              />
             )}
           </div>
         </div>
