@@ -219,7 +219,7 @@ const DestinationSelect = ({
                       slidesPerView={3}
                       className="pr-16">
                       {map(
-                        get(props, "!children"),
+                        get(props, "children"),
                         (child: React.ReactNode, key) => (
                           <SwiperSlide key={key}>{child}</SwiperSlide>
                         )
