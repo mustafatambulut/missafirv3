@@ -1,6 +1,7 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { get } from "lodash";
+import { createPortal } from "react-dom";
 import { isMobile } from "react-device-detect";
 
 import { IBookingDate } from "@/components/atoms/datePicker/types";
@@ -18,6 +19,7 @@ import SearchIconWhite from "../../../../public/images/search-white.svg";
 
 const SearchBar = () => {
   const drawerCloseRef = useRef<HTMLInputElement>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [activeSearchItem, setActiveSearchItem] = useState("");
   const [bookingDestination, setBookingDestination] = useState("");
   const [skipButtonVisibility, setSkipButtonVisibility] = useState(true);
@@ -30,9 +32,9 @@ const SearchBar = () => {
     kids: 0,
     pets: false
   });
-
   const handleDrawerClose = () => {
     drawerCloseRef.current?.click();
+    setIsDrawerOpen(false);
   };
 
   const handleClickBackButton = () => {
@@ -131,6 +133,16 @@ const SearchBar = () => {
         break;
     }
   };
+  const handleOpenDrawer = (searchItem) => {
+    setIsDrawerOpen((v) => !v);
+    setActiveSearchItem(searchItem);
+  };
+
+  useEffect(() => {
+    isDrawerOpen
+      ? document.body.classList.add("overflow-hidden")
+      : document.body.classList.remove("overflow-hidden");
+  }, [isDrawerOpen]);
 
   return (
     <>
@@ -139,19 +151,23 @@ const SearchBar = () => {
           {isMobile ? (
             <label
               htmlFor="msfr-search-drawer"
-              onClick={() => setActiveSearchItem("bookingDestination")}
-              className="drawer-button py-1 px-4 !h-[56px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-600">
-              {bookingDestination ? (
-                <div className="ml-3">{get(bookingDestination, "label")}</div>
-              ) : (
-                <div className="ml-1 flex text-base">
-                  <SearchIcon className="mr-3" /> <span>Where?</span>
+              onClick={() => handleOpenDrawer("bookingDestination")}
+              className="drawer-button py-1 px-4 !h-[58px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-700">
+              <div className="ml-1 flex items-center text-base">
+                <SearchIcon className="mr-3" />
+                <div className="flex flex-col items-start">
+                  <span>Where?</span>
+                  {bookingDestination && (
+                    <div className="text-lg font-mi-sans-semi-bold">
+                      {get(bookingDestination, "label")}
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </label>
           ) : (
             <DestinationSelect
-              setActiveSearchItem={setActiveSearchItem}
+              setActiveSearchItem={handleOpenDrawer}
               componentId="desktop-destination"
               setSkipButtonVisibility={setSkipButtonVisibility}
               setBookingDestination={setBookingDestination}
@@ -162,24 +178,28 @@ const SearchBar = () => {
           {isMobile ? (
             <label
               htmlFor="msfr-search-drawer"
-              onClick={() => setActiveSearchItem("bookingDate")}
-              className="drawer-button py-1 px-4 !h-[56px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-600">
-              {get(bookingDate, "startDate") || get(bookingDate, "endDate") ? (
-                <div className="ml-3">
-                  <div className="flex text-gray-800">
-                    <span>
-                      {get(bookingDate, "startDate")?.format("DD MMM")}
-                    </span>
-                    <span className="mx-1">-</span>
-                    <span>{get(bookingDate, "endDate")?.format("DD MMM")}</span>
-                  </div>
-                </div>
-              ) : (
-                <div className="ml-1 flex items-center text-base">
-                  <CalendarIcon className="mr-3" />
+              onClick={() => handleOpenDrawer("bookingDate")}
+              className="drawer-button py-1 px-4 !h-[58px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-700">
+              <div className="flex items-center text-base">
+                <CalendarIcon className="mr-3" />
+                <div className="flex flex-col items-start">
                   <span>Dates</span>
+                  {(get(bookingDate, "startDate") ||
+                    get(bookingDate, "endDate")) && (
+                    <div className="text-lg font-mi-sans-semi-bold">
+                      <div className="flex text-gray-700">
+                        <span>
+                          {get(bookingDate, "startDate")?.format("DD MMM")}
+                        </span>
+                        <span className="mx-1">-</span>
+                        <span>
+                          {get(bookingDate, "endDate")?.format("DD MMM")}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </label>
           ) : (
             <DatePicker
@@ -194,38 +214,39 @@ const SearchBar = () => {
             <div className="flex">
               <label
                 htmlFor="msfr-search-drawer"
-                onClick={() => setActiveSearchItem("bookingGuests")}
-                className="drawer-button py-1 px-4 !h-[56px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-600">
-                {get(bookingGuests, "adults") > 0 ||
-                get(bookingGuests, "kids") > 0 ||
-                get(bookingGuests, "pets") ? (
-                  <div className="flex ml-3">
-                    {get(bookingGuests, "adults") > 0 && (
-                      <span className="mr-2">
-                        {get(bookingGuests, "adults")} Adults
-                      </span>
-                    )}
-                    {get(bookingGuests, "kids") > 0 && (
-                      <span className="mr-2">
-                        {get(bookingGuests, "kids")} Kids
-                      </span>
-                    )}
-                    {get(bookingGuests, "pets") && (
-                      <span className="mr-2">Pets</span>
-                    )}
-                  </div>
-                ) : (
-                  <div className="flex">
-                    <div className="ml-1 flex items-center text-base">
-                      <GuestsIcon className="mr-3" />
+                onClick={() => handleOpenDrawer("bookingGuests")}
+                className="drawer-button py-1 px-4 !h-[58px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-700">
+                <div className="flex">
+                  <div className="flex items-center text-base">
+                    <GuestsIcon className="mr-3" />
+                    <div className="flex flex-col items-start">
                       <span>Guests</span>
+                      {(get(bookingGuests, "adults") > 0 ||
+                        get(bookingGuests, "kids") > 0 ||
+                        get(bookingGuests, "pets")) && (
+                        <div className="flex text-lg font-mi-sans-semi-bold">
+                          {get(bookingGuests, "adults") > 0 && (
+                            <span className="mr-2">
+                              {get(bookingGuests, "adults")} Adults
+                            </span>
+                          )}
+                          {get(bookingGuests, "kids") > 0 && (
+                            <span className="mr-2">
+                              {get(bookingGuests, "kids")} Kids
+                            </span>
+                          )}
+                          {get(bookingGuests, "pets") && (
+                            <span className="mr-2">Pets</span>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
-                )}
+                </div>
               </label>
               <Button
                 variant="btn-primary"
-                className="rounded-2xl !h-[56px] ml-3 w-[72px] lg:w-auto">
+                className="rounded-2xl !h-[58px] ml-3 w-[72px] lg:w-auto">
                 <SearchIconWhite />
               </Button>
             </div>
@@ -234,6 +255,7 @@ const SearchBar = () => {
               <Guests
                 data={bookingGuests}
                 setBookingGuests={setBookingGuests}
+                setSkipButtonVisibility={setSkipButtonVisibility}
               />
               <Button
                 variant="btn-primary"
@@ -244,69 +266,74 @@ const SearchBar = () => {
           )}
         </div>
       </div>
-      {isMobile && (
-        <div className="drawer">
-          <input
-            ref={drawerCloseRef}
-            id="msfr-search-drawer"
-            type="checkbox"
-            className="drawer-toggle"
-          />
-          <div className="drawer-content"></div>
-          <div className="drawer-side">
-            <label
-              htmlFor="msfr-search-drawer"
-              className="drawer-overlay"></label>
-            <div className="p-3 w-full min-h-full bg-white flex flex-col overflow-y-auto">
-              <div className="flex justify-between items-center p-2 mb-3">
-                <div onClick={handleClickBackButton}>
-                  <ArrowLeftIcon />
-                </div>
-                {skipButtonVisibility && (
-                  <div
-                    className="text-primary mr-2"
-                    onClick={handleClickSkipButton}>
-                    Skip
+      {isMobile &&
+        createPortal(
+          <div className="drawer z-50">
+            <input
+              ref={drawerCloseRef}
+              id="msfr-search-drawer"
+              type="checkbox"
+              className="drawer-toggle"
+            />
+            <div className="drawer-content"></div>
+            <div className="drawer-side">
+              <label
+                htmlFor="msfr-search-drawer"
+                className="drawer-overlay"></label>
+              <div className="p-3 w-full min-h-full bg-white flex flex-col overflow-y-auto">
+                <div className="flex justify-between items-center p-2 mb-3">
+                  <div onClick={handleClickBackButton}>
+                    <ArrowLeftIcon />
                   </div>
-                )}
-              </div>
-              <div
-                className={
-                  activeSearchItem === "bookingDestination"
-                    ? "block h-full"
-                    : "hidden"
-                }>
-                <DestinationSelect
-                  setActiveSearchItem={setActiveSearchItem}
-                  componentId="mobile-destination"
-                  setSkipButtonVisibility={setSkipButtonVisibility}
-                  setBookingDestination={setBookingDestination}
-                />
-              </div>
-              <div
-                className={
-                  activeSearchItem === "bookingDate" ? "block h-full" : "hidden"
-                }>
-                <DatePicker
-                  bookingDate={bookingDate}
-                  setBookingDate={setBookingDate}
-                  setSkipButtonVisibility={setSkipButtonVisibility}
-                />
-              </div>
-              <div
-                className={
-                  activeSearchItem === "bookingGuests"
-                    ? "block h-full"
-                    : "hidden"
-                }>
-                <Guests
-                  data={bookingGuests}
-                  setBookingGuests={setBookingGuests}
-                />
+                  {skipButtonVisibility && (
+                    <div
+                      className="text-primary mr-2"
+                      onClick={handleClickSkipButton}>
+                      Skip
+                    </div>
+                  )}
+                </div>
+                <div
+                  className={
+                    activeSearchItem === "bookingDestination"
+                      ? "block h-full"
+                      : "hidden"
+                  }>
+                  <DestinationSelect
+                    setActiveSearchItem={handleOpenDrawer}
+                    componentId="mobile-destination"
+                    setSkipButtonVisibility={setSkipButtonVisibility}
+                    setBookingDestination={setBookingDestination}
+                  />
+                </div>
+                <div
+                  className={
+                    activeSearchItem === "bookingDate"
+                      ? "block h-full"
+                      : "hidden"
+                  }>
+                  <DatePicker
+                    bookingDate={bookingDate}
+                    setBookingDate={setBookingDate}
+                    setSkipButtonVisibility={setSkipButtonVisibility}
+                  />
+                </div>
+                <div
+                  className={
+                    activeSearchItem === "bookingGuests"
+                      ? "block h-full"
+                      : "hidden"
+                  }>
+                  <Guests
+                    data={bookingGuests}
+                    setBookingGuests={setBookingGuests}
+                    setSkipButtonVisibility={setSkipButtonVisibility}
+                  />
+                </div>
               </div>
               {(activeSearchItem === "bookingGuests" ||
                 activeSearchItem === "bookingDate") && (
-                <section className="w-full flex justify-end p-2 bg-white">
+                <section className="flex justify-end p-2 bg-white fixed lef-0 bottom-0 w-full">
                   {clearButtonVisibilityStatus() && (
                     <Button
                       onClick={handleClearClick}
@@ -325,9 +352,9 @@ const SearchBar = () => {
                 </section>
               )}
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.getElementById("drawer-container")
+        )}
     </>
   );
 };
