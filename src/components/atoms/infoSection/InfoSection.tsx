@@ -8,7 +8,7 @@ import {
 
 import Section from "@/components/molecules/section/Section";
 
-import DownArrowPrimary from "../../../../public/images/down-arrow-primary.svg";
+import DownArrow from "../../../../public/images/chevron-down.svg";
 import UpArrowPrimary from "../../../../public/images/up-arrow-primary.svg";
 
 const InfoSection = ({ collapsable = false }: IInfoSection) => {
@@ -60,7 +60,11 @@ const InfoSection = ({ collapsable = false }: IInfoSection) => {
         className="bg-white cursor-pointer text-[#D01E50] text-base lg:text-2xl flex items-center"
         onClick={() => setShowContent((v) => !v)}>
         <span className="mr-2">Devamını oku</span>
-        {collapsable && showContent ? <UpArrowPrimary /> : <DownArrowPrimary />}
+        {collapsable && showContent ? (
+          <UpArrowPrimary />
+        ) : (
+          <DownArrow className="fill-primary" />
+        )}
       </div>
     </Section>
   );

@@ -6,7 +6,7 @@ export interface ISlider {
   sliderIdentifier: string;
   withPagination?: boolean;
   withNavigation?: boolean;
-  children: React.ReactNode[];
+  children: React.ReactNode[] | React.ReactNode;
   sliderWrapperClassName?: string;
   sliderContainerClassName?: string;
   customSlide?: null | React.ReactNode;
