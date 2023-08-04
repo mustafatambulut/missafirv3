@@ -120,7 +120,7 @@ const Profile = () => {
         icon: (
           <SettingIcon
             className={`scale-125 fill-gray ${
-              activeTab === 0 && "fill-primary"
+              activeTab === 4 && "fill-primary"
             }`}
           />
         ),
