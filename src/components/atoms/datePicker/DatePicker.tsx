@@ -123,7 +123,7 @@ const DatePicker = ({
       <div
         className="lg:flex lg:items-center h-full"
         onClick={() => setShowDatePicker(true)}>
-        <CalendarIcon className="hidden lg:block" />
+        <CalendarIcon className="hidden lg:block fill-gray-800" />
         <div className="lg:flex lg:flex-col lg:ml-3 h-full lg:justify-center">
           <span className="text-gray-600 text-left hidden lg:block lg:text-21">
             Dates

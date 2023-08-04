@@ -181,7 +181,7 @@ const SearchBar = () => {
               onClick={() => handleOpenDrawer("bookingDate")}
               className="drawer-button py-1 px-4 !h-[58px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-700">
               <div className="flex items-center text-base">
-                <CalendarIcon className="mr-3" />
+                <CalendarIcon className="mr-3 fill-gray-800" />
                 <div className="flex flex-col items-start">
                   <span>Dates</span>
                   {(get(bookingDate, "startDate") ||
