@@ -42,13 +42,12 @@ const SingleValue = ({ ...props }: ISingleValue) => {
                 imageHeight={get(props, "selectProps.optionImageHeight") || 0}
               />
             )}
-            {get(props, "selectProps.imageShow") &&
-              !isEmpty(get(props, "data.attributes.icon")) &&
+            {!isEmpty(get(props, "data.attributes.icon")) &&
               get(props, "data.attributes.icon")}
           </>
         )}
         <div className="grid grid-cols-1">
-          <span className={`text-xs capitalize`}>
+          <span className="text-xs capitalize">
             {get(props, "selectProps.selectTitle")}
           </span>
           <span
