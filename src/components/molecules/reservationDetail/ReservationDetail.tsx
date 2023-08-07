@@ -87,7 +87,7 @@ const ReservationDetail = () => {
           <div className="mt-3 gap-y-5 flex flex-col">
             {map([1, 2, 3, 4, 5], (item, key) => {
               return (
-                <Card className="rounded-xl shadow-[0px_1px_5px_0px_#00000014]">
+                <Card className="rounded-xl shadow-base-blur-5">
                   <div className="flex items-center justify-start">
                     <div className="w-[160px] h-[126px] lg:h-[151px] relative">
                       <Image
@@ -129,7 +129,7 @@ const ReservationDetail = () => {
             spaceBetween={18}>
             {map([1, 2, 3, 4, 5], (item, key) => {
               return (
-                <Card className="rounded-xl shadow-[0px_1px_5px_0px_#00000014]">
+                <Card className="rounded-xl shadow-base-blur-5">
                   <div className="flex items-center justify-start">
                     <div className="w-[160px] h-[126px] lg:h-[151px] relative">
                       <Image
@@ -240,7 +240,7 @@ const ReservationDetail = () => {
           </div>
 
           <div className="flex gap-3 items-start">
-            <div className="rounded-full shadow-[0px_1px_10px_0px_#0000000a] w-[40px] h-[40px] flex justify-center items-center text-gray-600 text-base">
+            <div className="rounded-full shadow-thin-blur-10 w-[40px] h-[40px] flex justify-center items-center text-gray-600 text-base">
               JD
             </div>
             <div className="flex-1 rounded-xl b border text-sm lg:text-xl font-mi-sans-semi-bold text-gray-600 p-3">

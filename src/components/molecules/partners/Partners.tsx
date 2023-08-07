@@ -38,7 +38,7 @@ const Partners = () => {
               return (
                 <Marquee
                   items={item}
-                  marqueeItemClassName="mx-2 rounded-xl shadow-[0px_2px_10px_0px_#00000014] relative p-1 h-20 lg:h-28 w-40 lg:w-60 flex justify-center items-center"
+                  marqueeItemClassName="mx-2 rounded-xl shadow-base-blur-10 relative p-1 h-20 lg:h-28 w-40 lg:w-60 flex justify-center items-center"
                   key={index}
                   className="p-2"
                   direction={index % 2 === 0 ? "left" : "right"}

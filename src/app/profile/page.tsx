@@ -21,13 +21,15 @@ import ConfirmedIcon from "../../../public/images/confirmed.svg";
 import CancelledIcon from "../../../public/images/cancelled.svg";
 
 const Profile = () => {
-  const [activeTab, setActiveTab] = useState(0);
-  const [activeFilter, setActiveFilter] = useState(0);
+  const [activeTab, setActiveTab] = useState<number>(0);
+  const [activeFilter, setActiveFilter] = useState<number>(0);
+
   const filterOptionIconClass = (index: number): string => {
     return classNames("fill-gray", {
       "fill-primary": activeFilter === index
     });
   };
+
   const filterOptionButtonClass = (index: number): string => {
     return classNames(
       "outline-none px-0 text-xl cursor-pointer flex gap-x-3 items-center hover:text-gray text-gray transition-none",
@@ -36,6 +38,7 @@ const Profile = () => {
       }
     );
   };
+
   const tabMenuItemClass = (index: number): string => {
     return classNames(
       "tab lg:border-gray-50 lg:px-5 pb-3 lg:py-4 h-auto whitespace-nowrap lg:flex-wrap w-full before:hidden flex justify-start items-center border-b-none text-gray-600 text-sm lg:text-xl font-mi-sans-semi-bold px-0 border-b-transparent",
@@ -44,12 +47,13 @@ const Profile = () => {
       }
     );
   };
+
   const tabMenuIconClass = (index: number): string => {
     return classNames("scale-125 fill-gray hover:text-gray-600", {
       "fill-primary": activeTab === index
     });
   };
-
+  // todo: dil seçeneği ekleyince güncellenecek
   const filterOptions = [
     {
       attributes: {
@@ -85,6 +89,7 @@ const Profile = () => {
     }
   ];
 
+  // todo: dil seçeneği ekleyince güncellenecek
   const tabData = {
     tabItems: [
       {
@@ -113,15 +118,15 @@ const Profile = () => {
   return (
     <div className="tab-container flex flex-col lg:flex-row pt-28 px-5 lg:px-40 lg:gap-x-7">
       <div className="lg:w-1/4">
-        <div className="tabs lg:divide-y flex-nowrap overflow-x-auto no-scrollbar flex flex-row lg:flex-col gap-3 lg:gap-0 lg:items-start lg:shadow-[0px_1px_10px_0px_#00000014] lg:rounded-xl">
+        <div className="tabs lg:divide-y flex-nowrap overflow-x-auto no-scrollbar flex flex-row lg:flex-col gap-3 lg:gap-0 lg:items-start lg:shadow-base-blur-10 lg:rounded-xl">
           {map(get(tabData, "tabItems"), (listingTab, key) => (
             <div
               key={key}
               className={tabMenuItemClass(key)}
               onClick={() => setActiveTab(key)}>
               <div className="flex gap-3 items-center">
-                <div className="hidden lg:block">{listingTab.icon}</div>
-                <span>{listingTab.label}</span>
+                <div className="hidden lg:block">{get(listingTab, "icon")}</div>
+                <span>{get(listingTab, "label")}</span>
               </div>
               {key === activeTab && isMobile && (
                 <div className="absolute bottom-0 left-0 w-full bg-primary rounded-t-xl h-1"></div>
@@ -146,7 +151,8 @@ const Profile = () => {
                 className={filterOptionButtonClass(key)}
                 variant="btn-ghost"
                 onClick={() => setActiveFilter(key)}>
-                {filter.attributes.icon} <span>{filter.attributes.label}</span>
+                {get(filter, "attributes.icon")}
+                <span>{get(filter, "attributes.label")}</span>
               </Button>
             ))}
           </div>
@@ -155,9 +161,7 @@ const Profile = () => {
             <SelectSort />
           </div>
         </div>
-
         <ReservationList />
-
         <ReservationDetail />
       </div>
     </div>

@@ -10,6 +10,14 @@ const config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        "base-blur-5": "0 1px 5px 0 rgba(0, 0, 0, 0.08)",
+        "base-blur-10": "0 1px 10px 0 rgba(0, 0, 0, 0.08)",
+        "base-blur-20": "0 1px 20px 0 rgba(0, 0, 0, 0.08)",
+        "thin-blur-10": "0 1px 10px 0 rgba(0, 0, 0, 0.04)",
+        "bold-blur-20": "0 2px 20px 0 rgba(186, 186, 186, 0.1)",
+        "bold-blur-20-dark": "0 2px 20px 0 rgba(0, 0, 0, 0.1)"
+      },
       borderRadius: {
         x: "0.6rem" // 10px
       },

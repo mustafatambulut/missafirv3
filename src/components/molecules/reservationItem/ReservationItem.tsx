@@ -86,7 +86,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
             // onClick={handleClick}
           >
             <Card>
-              <div className="flex gap-3 lg:gap-6 shadow-[0px_1px_20px_0px_#00000014] rounded-l-xl lg:rounded-xl relative bg-white">
+              <div className="flex gap-3 lg:gap-6 shadow-base-blur-20 rounded-l-xl lg:rounded-xl relative bg-white">
                 <div className="w-40 lg:w-72 h-48 lg:h-64 relative">
                   <Slider
                     sliderIdentifier="reservations-image"

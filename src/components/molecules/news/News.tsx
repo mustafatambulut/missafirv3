@@ -65,7 +65,7 @@ const News = () => {
           <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-x-5">
             {map(get(news, "body"), (newItem, key) => (
               <Card key={key} className="mb-10 lg:mb-0">
-                <div className="shadow-[0px_1px_20px_0px_#00000014] rounded-2xl">
+                <div className="shadow-base-blur-20 rounded-2xl">
                   <div className="w-full h-60 relative">
                     <Link href="/">
                       <Image
