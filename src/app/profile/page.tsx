@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { get, map } from "lodash";
+import classNames from "classnames";
 import { isMobile } from "react-device-detect";
 
 import Button from "@/components/atoms/button/Button";
@@ -22,6 +23,32 @@ import CancelledIcon from "../../../public/images/cancelled.svg";
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [activeFilter, setActiveFilter] = useState(0);
+  const filterOptionIconClass = (index: number): string => {
+    return classNames("fill-gray", {
+      "fill-primary": activeFilter === index
+    });
+  };
+  const filterOptionButtonClass = (index: number): string => {
+    return classNames(
+      "outline-none px-0 text-xl cursor-pointer flex gap-x-3 items-center hover:text-gray text-gray transition-none",
+      {
+        "text-primary hover:text-primary": activeFilter === index
+      }
+    );
+  };
+  const tabMenuItemClass = (index: number): string => {
+    return classNames(
+      "tab lg:border-gray-50 lg:px-5 pb-3 lg:py-4 h-auto whitespace-nowrap lg:flex-wrap w-full before:hidden flex justify-start items-center border-b-none text-gray-600 text-sm lg:text-xl font-mi-sans-semi-bold px-0 border-b-transparent",
+      {
+        "tab-active text-primary": activeTab === index
+      }
+    );
+  };
+  const tabMenuIconClass = (index: number): string => {
+    return classNames("scale-125 fill-gray hover:text-gray-600", {
+      "fill-primary": activeTab === index
+    });
+  };
 
   const filterOptions = [
     {
@@ -29,11 +56,7 @@ const Profile = () => {
         type: "filter",
         value: "all",
         label: "All",
-        icon: (
-          <AllIcon
-            className={`fill-gray ${activeFilter === 0 && "fill-primary"}`}
-          />
-        )
+        icon: <AllIcon className={filterOptionIconClass(0)} />
       }
     },
     {
@@ -41,11 +64,7 @@ const Profile = () => {
         type: "filter",
         value: "confirmed",
         label: "Confirmed",
-        icon: (
-          <ConfirmedIcon
-            className={`fill-gray ${activeFilter === 1 && "fill-primary"}`}
-          />
-        )
+        icon: <ConfirmedIcon className={filterOptionIconClass(1)} />
       }
     },
     {
@@ -53,11 +72,7 @@ const Profile = () => {
         type: "filter",
         value: "pending",
         label: "Pending",
-        icon: (
-          <PlaneIcon
-            className={`fill-gray ${activeFilter === 2 && "fill-primary"}`}
-          />
-        )
+        icon: <PlaneIcon className={filterOptionIconClass(2)} />
       }
     },
     {
@@ -65,11 +80,7 @@ const Profile = () => {
         type: "filter",
         value: "cancelled",
         label: "Cancelled",
-        icon: (
-          <CancelledIcon
-            className={`fill-gray ${activeFilter === 3 && "fill-primary"}`}
-          />
-        )
+        icon: <CancelledIcon className={filterOptionIconClass(3)} />
       }
     }
   ];
@@ -77,53 +88,23 @@ const Profile = () => {
   const tabData = {
     tabItems: [
       {
-        icon: (
-          <UserIcon
-            className={`scale-125 fill-gray ${
-              activeTab === 0 && "fill-primary"
-            }`}
-          />
-        ),
+        icon: <UserIcon className={tabMenuIconClass(0)} />,
         label: "Temel Bilgiler"
       },
       {
-        icon: (
-          <FileIcon
-            className={`scale-125 fill-gray ${
-              activeTab === 1 && "fill-primary"
-            }`}
-          />
-        ),
+        icon: <FileIcon className={tabMenuIconClass(1)} />,
         label: "Geçmiş Rezervasyonlar"
       },
       {
-        icon: (
-          <CommentIcon
-            className={`scale-125 fill-gray ${
-              activeTab === 2 && "fill-primary"
-            }`}
-          />
-        ),
+        icon: <CommentIcon className={tabMenuIconClass(2)} />,
         label: "Değerlendirmeler"
       },
       {
-        icon: (
-          <HeartIcon
-            className={`scale-125 fill-gray ${
-              activeTab === 3 && "fill-primary"
-            }`}
-          />
-        ),
+        icon: <HeartIcon className={tabMenuIconClass(3)} />,
         label: "İstek Listelerim"
       },
       {
-        icon: (
-          <SettingIcon
-            className={`scale-125 fill-gray ${
-              activeTab === 4 && "fill-primary"
-            }`}
-          />
-        ),
+        icon: <SettingIcon className={tabMenuIconClass(4)} />,
         label: "Ayarlar"
       }
     ]
@@ -136,11 +117,7 @@ const Profile = () => {
           {map(get(tabData, "tabItems"), (listingTab, key) => (
             <div
               key={key}
-              className={`tab lg:border-gray-50 lg:px-5 pb-3 lg:py-4 h-auto whitespace-nowrap lg:flex-wrap w-full before:hidden flex justify-start items-center border-b-none text-grey-600 text-sm lg:text-xl font-mi-sans-semi-bold px-0 ${
-                key === activeTab
-                  ? "tab-active text-primary"
-                  : "border-b-transparent"
-              }`}
+              className={tabMenuItemClass(key)}
               onClick={() => setActiveTab(key)}>
               <div className="flex gap-3 items-center">
                 <div className="hidden lg:block">{listingTab.icon}</div>
@@ -166,9 +143,7 @@ const Profile = () => {
           <div className="hidden lg:flex gap-4">
             {map(filterOptions, (filter, key) => (
               <Button
-                className={`outline-none px-0 text-xl cursor-pointer flex gap-x-3 items-center hover:text-gray text-gray transition-none ${
-                  activeFilter === key && "text-primary hover:text-primary"
-                }`}
+                className={filterOptionButtonClass(key)}
                 variant="btn-ghost"
                 onClick={() => setActiveFilter(key)}>
                 {filter.attributes.icon} <span>{filter.attributes.label}</span>
