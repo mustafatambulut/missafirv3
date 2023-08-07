@@ -1,8 +1,9 @@
-import React from "react";
+import { ReactNode } from "react";
 
 export interface IReservationItem {
   reservation: IReservationItemProps;
 }
+
 export interface IReservationItemProps {
   title: string;
   code: string;
@@ -21,7 +22,7 @@ export interface Price {
 }
 
 export interface Status {
-  icon: React.ReactNode;
+  icon: ReactNode;
   type: string;
   color: string;
   label: string;

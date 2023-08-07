@@ -1,5 +1,5 @@
 import React from "react";
-import { map } from "lodash";
+import { map, size } from "lodash";
 
 import ReservationItem from "@/components/molecules/reservationItem/ReservationItem";
 
@@ -8,7 +8,8 @@ import ConfirmedIcon from "../../../../public/images/confirmed.svg";
 import CancelledIcon from "../../../../public/images/cancelled.svg";
 
 const ReservationList = () => {
-  const reservations = [
+  // todo: test için eklendi silinecek
+  const mockReservations = [
     {
       title: "Outstanding Flat with Calming View at Nisantasi",
       code: "HMDY9WNE29",
@@ -143,10 +144,11 @@ const ReservationList = () => {
   return (
     <>
       <div className="text-sm lg:text-lg text-gray-800">
-        5 geçmiş rezervasyon
+        {/*// todo: dinamikleştirilecek*/}
+        {size(mockReservations)} geçmiş rezervasyon
       </div>
       <div className="relative gap-y-5 flex flex-col">
-        {map(reservations, (reservation, key) => (
+        {map(mockReservations, (reservation, key) => (
           <ReservationItem reservation={reservation} key={key} />
         ))}
       </div>
