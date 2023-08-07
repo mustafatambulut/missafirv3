@@ -3,7 +3,7 @@ import Body from "@/components/organisms/body/Body";
 const Home = () => {
   return (
     <div>
-      <Body />
+      {/*<Body />*/}
     </div>
   );
 };

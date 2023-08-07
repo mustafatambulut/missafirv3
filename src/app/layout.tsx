@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import ReduxProvider from "@/redux/provider";
 
 import Header from "@/components/molecules/header/Header";
 import Footer from "@/components/molecules/footer/Footer";
@@ -18,9 +19,11 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         <meta name="google-site-verification" content="L7xAcVXBfqNFTj_VSqCaZU-gKHXK-T7chpoLJZE3FYU" />
       </head>
       <body className="font-mi-sans" suppressHydrationWarning={true}>
-        <Header />
-        {children}
-        <Footer />
+        <ReduxProvider>
+          <Header />
+          {children}
+          <Footer />
+        </ReduxProvider>
       </body>
     </html>
   );

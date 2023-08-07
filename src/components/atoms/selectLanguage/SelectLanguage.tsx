@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import Select, { Theme } from "react-select";
 import { find, get } from "lodash";
 import classNames from "classnames";
+import Select, { Theme } from "react-select";
 
 import { ISelectLanguage } from "@/components/atoms/selectLanguage/types";
 

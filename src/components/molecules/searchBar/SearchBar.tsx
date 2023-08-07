@@ -134,7 +134,7 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row rounded-2xl lg:bg-white w-full items-center lg:p-2 lg:h-[72px]">
+      <div className="flex flex-col lg:flex-row rounded-2xl lg:bg-white w-full items-center lg:p-2 lg:h-20">
         <div className="flex-1 mb-3 lg:mb-0 w-full">
           {isMobile ? (
             <label
