@@ -5,14 +5,14 @@ import Image from "next/image";
 import { get, map } from "lodash";
 import { isMobile } from "react-device-detect";
 
-import Badge from "@/components/atoms/badge/Badge";
-import Slider from "@/components/molecules/slider/Slider";
-
 import "./ListingDetails.css";
 
-import PreviousIcon from "../../../../public/images/chevron_left.svg";
-import NextIcon from "../../../../public/images/chevron_right.svg";
+import Badge from "@/components/atoms/badge/Badge";
+import Slider from "@/components/molecules/slider/Slider";
 import Section from "@/components/molecules/section/Section";
+
+import NextIcon from "../../../../public/images/chevron_right.svg";
+import PreviousIcon from "../../../../public/images/chevron_left.svg";
 
 const CustomNavigation = () => {
   return (

@@ -1,13 +1,14 @@
 "use client";
 import React from "react";
-import { get, map } from "lodash";
-import Image from "next/image";
-import Card from "@/components/atoms/card/Card";
 import Link from "next/link";
+import Image from "next/image";
+import { get, map } from "lodash";
+
+import Card from "@/components/atoms/card/Card";
 import Button from "@/components/atoms/button/Button";
+import Section from "@/components/molecules/section/Section";
 
 import RightArrow from "../../../../public/images/chevron_right.svg";
-import Section from "@/components/molecules/section/Section";
 
 const News = () => {
   const news = {
