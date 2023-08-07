@@ -21,6 +21,7 @@ const ReservationDetail = () => {
           return (
             <div className="w-[440px] h-[248px]">
               <Image
+                //todo: ev1.jpeg ve ev2.jpeg geçici olarak eklendi silinecekler.
                 src={key % 2 === 0 ? "/images/ev1.jpeg" : "/images/ev2.jpeg"}
                 alt="home"
                 key={key}
@@ -90,6 +91,7 @@ const ReservationDetail = () => {
                   <div className="flex items-center justify-start">
                     <div className="w-[160px] h-[126px] lg:h-[151px] relative">
                       <Image
+                        //todo: ev1.jpeg ve ev2.jpeg geçici olarak eklendi silinecekler.
                         src={
                           key % 2 === 0
                             ? "/images/ev1.jpeg"
@@ -131,6 +133,7 @@ const ReservationDetail = () => {
                   <div className="flex items-center justify-start">
                     <div className="w-[160px] h-[126px] lg:h-[151px] relative">
                       <Image
+                        //todo: ev1.jpeg ve ev2.jpeg geçici olarak eklendi silinecekler.
                         src={
                           key % 2 === 0
                             ? "/images/ev1.jpeg"
