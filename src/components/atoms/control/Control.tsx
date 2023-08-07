@@ -3,14 +3,16 @@ import { get, has, size } from "lodash";
 import { components, ControlProps } from "react-select";
 
 const Control = ({ ...props }: ControlProps) => {
-  const checkIsCustomColor = (which: string) => {
-    if (size(props.getValue()) > 0) {
-      const selectedValue = get(props.getValue()[0], "attributes");
-      if (has(selectedValue, "type")) {
-        return selectedValue.type === "filter" && selectedValue.value === which;
-      }
-    }
+  const checkIsCustomColor = (color: string): boolean => {
+    if (!size(props.getValue())) return;
+
+    const selectedValue = get(props.getValue(), "0.attributes");
+    if (!has(selectedValue, "type")) return;
+
+    const { type, value } = selectedValue;
+    return type === "filter" && value === color;
   };
+
   const controlClass = classNames(
     `${get(props, "selectProps.controlClassName")}`,
     {
@@ -20,6 +22,7 @@ const Control = ({ ...props }: ControlProps) => {
       "border-green-light": checkIsCustomColor("confirmed")
     }
   );
+
   return (
     <components.Control className={controlClass} {...props}>
       <div className={`${get(props, "selectProps.controlInnerClassName")}`}>
