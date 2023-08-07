@@ -14,8 +14,8 @@ import Badge from "@/components/atoms/badge/Badge";
 import Slider from "@/components/molecules/slider/Slider";
 
 const ReservationItem = ({ reservation }: IReservationItem) => {
-  const [percent, setPercent] = useState(0);
-  const [left, setLeft] = useState(0);
+  const [percent, setPercent] = useState<number>(0);
+  const [left, setLeft] = useState<number>(0);
 
   const itemRef = useRef();
   const actionRef = useRef();
@@ -36,18 +36,16 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
   });
 
   const handleStop = () => {
-    if (percent > 30) {
-      const w = actionRef.current.offsetWidth;
-      const leftWithAction = left > 0 ? w : w * -1;
-      setLeft(leftWithAction);
-    } else {
-      setLeft(0);
-    }
+    if (percent < 30) return setLeft(0);
+
+    const w = get(actionRef, "current.offsetWidth");
+    const leftWithAction = left > 0 ? w : w * -1;
+    setLeft(leftWithAction);
   };
 
   const handleDrag = (e, data) => {
-    const w = itemRef.current.offsetWidth;
-    const x = data.x < 0 ? data.x * -1 : data.x;
+    const w = get(itemRef, "current.offsetWidth");
+    const x = get(data, "x") < 0 ? get(data, "x") * -1 : get(data, "x");
     const p = (x / w) * 100;
 
     setPercent(p);
@@ -60,6 +58,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
       return `<span class="${className}"></span>`;
     }
   };
+
   return (
     <Link href="#">
       <div className={reservationWrapperClass}>
@@ -74,7 +73,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
           disabled={!isMobile}
           bounds={{ right: 0 }}
           axis="x"
-          handle={`.item`}
+          handle=".item"
           defaultPosition={{ x: 0, y: 0 }}
           position={{ x: left, y: 0 }}
           onDrag={handleDrag}
@@ -82,9 +81,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
           <div
             ref={itemRef}
             className="item"
-            style={{ transform: `translate3d(${left}px, 0, 0px)` }}
-            // onClick={handleClick}
-          >
+            style={{ transform: `translate3d(${left}px, 0, 0)` }}>
             <Card>
               <div className="flex gap-3 lg:gap-6 shadow-base-blur-20 rounded-l-xl lg:rounded-xl relative bg-white">
                 <div className="w-40 lg:w-72 h-48 lg:h-64 relative">
@@ -98,7 +95,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
                       <div key={key} className="lg:w-72 h-48 lg:h-64">
                         <Image
                           key={key}
-                          src={image.src || ""}
+                          src={get(image, "src")}
                           alt="reservation"
                           fill={true}
                           className="rounded-tl-xl rounded-bl-xl object-cover"
@@ -107,7 +104,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
                     ))}
                   </Slider>
                   <div className="absolute left-2 top-2 grid grid-cols-1 gap-y-2 z-10">
-                    {map(reservation.badges, (badge, key) => (
+                    {map(get(reservation, "badges"), (badge, key) => (
                       <Badge
                         key={key}
                         color={get(badge, "color")}
