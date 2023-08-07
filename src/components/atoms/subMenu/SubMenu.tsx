@@ -15,7 +15,7 @@ const Submenu = ({
     <li className={className}>
       {isCollapsable ? (
         <details className="active:bg-white active:text-black mb-3">
-          <summary className="pl-0 focus:bg-white flex justify-start text-xxl mb-3">
+          <summary className="pl-0 focus:bg-white flex justify-start text-22 mb-3">
             {name}
           </summary>
           <ul className="before:hidden ml-0 pl-0">

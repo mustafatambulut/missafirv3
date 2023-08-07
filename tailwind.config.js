@@ -14,14 +14,13 @@ const config = {
         x: "0.6rem" // 10px
       },
       fontSize: {
-        xxs: "0.63rem",
-        xxl: "1.38rem",
-        15: "0.94rem",
-        21: "1.36rem",
-        22: "1.37rem",
-        28: "1.75rem",
-        42: "2.63rem",
-        54: "3.39rem"
+        xxs: "0.6rem", // 10px
+        15: "0.94rem", // 15px
+        21: "1.31rem", // 21px
+        22: "1.38rem", // 22px
+        28: "1.75rem", // 28px
+        42: "2.63rem", // 42px
+        54: "3.37rem" // 54px
       },
       colors: {
         primary: {
