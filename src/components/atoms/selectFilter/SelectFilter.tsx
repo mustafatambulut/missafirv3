@@ -10,10 +10,10 @@ import SingleValue from "@/components/atoms/singleValue/SingleValue";
 import SelectMenuList from "@/components/atoms/selectMenuList/SelectMenuList";
 import DropdownIndicator from "@/components/atoms/dropdownIndicator/DropdownIndicator";
 
-import AllIcon from "../../../../public/images/allicon.svg";
-import PlaneIcon from "../../../../public/images/planeicon.svg";
-import ConfirmedIcon from "../../../../public/images/confirmedicon.svg";
-import CancelledIcon from "../../../../public/images/cancelledicon.svg";
+import AllIcon from "../../../../public/images/circles.svg";
+import PlaneIcon from "../../../../public/images/plane.svg";
+import ConfirmedIcon from "../../../../public/images/confirmed.svg";
+import CancelledIcon from "../../../../public/images/cancelled.svg";
 
 const SelectFilter = () => {
   const filterOptions = [

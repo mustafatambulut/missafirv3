@@ -11,8 +11,8 @@ import Card from "@/components/atoms/card/Card";
 import Slider from "@/components/molecules/slider/Slider";
 import Section from "@/components/molecules/section/Section";
 
-import PreviousIcon from "../../../../public/images/secondary-arrow-left.svg";
-import NextIcon from "../../../../public/images/secondary-arrow-right.svg";
+import PreviousIcon from "../../../../public/images/arrow_left.svg";
+import NextIcon from "../../../../public/images/arrow_right.svg";
 
 import "./Cities.css";
 

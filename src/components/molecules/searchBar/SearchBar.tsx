@@ -12,10 +12,10 @@ import DatePicker from "@/components/atoms/datePicker/DatePicker";
 import DestinationSelect from "@/components/atoms/destinationSelect/DestinationSelect";
 
 import GuestsIcon from "../../../../public/images/guests.svg";
-import SearchIcon from "../../../../public/images/search-icon.svg";
+import SearchIcon from "../../../../public/images/search.svg";
 import CalendarIcon from "../../../../public/images/calendar.svg";
-import ArrowLeftIcon from "../../../../public/images/arrow-left.svg";
-import SearchIconWhite from "../../../../public/images/search-white.svg";
+import ArrowLeftIcon from "../../../../public/images/chevron_left.svg";
+import SearchIconWhite from "../../../../public/images/search_white.svg";
 
 const SearchBar = () => {
   const drawerCloseRef = useRef<HTMLInputElement>(null);
@@ -283,7 +283,7 @@ const SearchBar = () => {
               <div className="p-3 w-full min-h-full bg-white flex flex-col overflow-y-auto">
                 <div className="flex justify-between items-center p-2 mb-3">
                   <div onClick={handleClickBackButton}>
-                    <ArrowLeftIcon />
+                    <ArrowLeftIcon className="fill-gray-600" />
                   </div>
                   {skipButtonVisibility && (
                     <div

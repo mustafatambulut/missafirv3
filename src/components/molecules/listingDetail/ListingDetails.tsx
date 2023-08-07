@@ -10,8 +10,8 @@ import Slider from "@/components/molecules/slider/Slider";
 
 import "./ListingDetails.css";
 
-import PreviousIcon from "../../../../public/images/chevron-left.svg";
-import NextIcon from "../../../../public/images/chevron-right.svg";
+import PreviousIcon from "../../../../public/images/chevron_left.svg";
+import NextIcon from "../../../../public/images/chevron_right.svg";
 import Section from "@/components/molecules/section/Section";
 
 const CustomNavigation = () => {

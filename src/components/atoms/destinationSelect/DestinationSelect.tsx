@@ -13,9 +13,9 @@ import "swiper/css";
 import "./DestinationSelect.css";
 
 import HistoryIcon from "../../../../public/images/history.svg";
-import ClearIcon from "../../../../public/images/clear-icon.svg";
+import ClearIcon from "../../../../public/images/clear.svg";
 import LocationIcon from "../../../../public/images/location.svg";
-import SearchIcon from "../../../../public/images/search-icon.svg";
+import SearchIcon from "../../../../public/images/search.svg";
 
 const DestinationSelect = ({
   setActiveSearchItem,

@@ -8,7 +8,7 @@ import Button from "@/components/atoms/button/Button";
 import Slider from "@/components/molecules/slider/Slider";
 
 import CalendarIcon from "../../../../public/images/calendar.svg";
-import UserIcon from "../../../../public/images/user-dark.svg";
+import UserIcon from "../../../../public/images/user_dark.svg";
 
 const ReservationDetail = () => {
   return (

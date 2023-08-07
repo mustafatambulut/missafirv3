@@ -4,8 +4,8 @@ import { map } from "lodash";
 import ReservationItem from "@/components/molecules/reservationItem/ReservationItem";
 
 import PendingIcon from "../../../../public/images/waitround.svg";
-import ConfirmedIcon from "../../../../public/images/confirmedicon.svg";
-import CancelledIcon from "../../../../public/images/cancelledicon.svg";
+import ConfirmedIcon from "../../../../public/images/confirmed.svg";
+import CancelledIcon from "../../../../public/images/cancelled.svg";
 
 const ReservationList = () => {
   const reservations = [

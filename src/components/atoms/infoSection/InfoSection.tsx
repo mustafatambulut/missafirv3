@@ -8,8 +8,8 @@ import {
 
 import Section from "@/components/molecules/section/Section";
 
-import DownArrow from "../../../../public/images/chevron-down.svg";
-import UpArrowPrimary from "../../../../public/images/up-arrow-primary.svg";
+import DownArrow from "../../../../public/images/chevron_down.svg";
+import UpArrowPrimary from "../../../../public/images/chevron_up.svg";
 
 const InfoSection = ({ collapsable = false }: IInfoSection) => {
   const [showContent, setShowContent] = useState(false);

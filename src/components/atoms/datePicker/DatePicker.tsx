@@ -14,9 +14,9 @@ import "./DatePicker.css";
 import "react-dates/lib/css/_datepicker.css";
 
 import CalendarIcon from "../../../../public/images/calendar.svg";
-import RoundedInfo from "../../../../public/images/rounded-info.svg";
-import ChevronLeft from "../../../../public/images/chevron-left.svg";
-import ChevronRight from "../../../../public/images/chevron-right.svg";
+import RoundedInfo from "../../../../public/images/rounded_info.svg";
+import ChevronLeft from "../../../../public/images/chevron_left.svg";
+import ChevronRight from "../../../../public/images/chevron_right.svg";
 
 const DatePicker = ({
   bookingDate,

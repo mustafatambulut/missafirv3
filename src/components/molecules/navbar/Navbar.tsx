@@ -17,14 +17,14 @@ const Navbar = ({ data, isScrolledHeaderActive, setIsDrawerOpen }: INavbar) => {
             <Image
               src={
                 isScrolledHeaderActive
-                  ? "/images/missafir-logo-black.svg"
+                  ? "/images/missafir_logo_black.svg"
                   : get(data, "header.logo.image")
               }
               width="0"
               height="0"
               priority
               className="w-28 lg:w-44 h-auto"
-              alt="missafir-logo"
+              alt="missafir_logo"
             />
           </Link>
         </div>

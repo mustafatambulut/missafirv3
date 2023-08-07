@@ -12,8 +12,8 @@ import { getPageDataByComponent } from "@/utils/helper";
 import { BODY, HOME } from "@/app/constants";
 import Card from "@/components/atoms/card/Card";
 import Image from "next/image";
-import PreviousIcon from "../../../../public/images/secondary-arrow-left.svg";
-import NextIcon from "../../../../public/images/secondary-arrow-right.svg";
+import PreviousIcon from "../../../../public/images/arrow_left.svg";
+import NextIcon from "../../../../public/images/arrow_right.svg";
 
 const CustomNavigation = () => {
   return (

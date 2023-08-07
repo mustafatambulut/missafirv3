@@ -3,7 +3,7 @@ import { get, has, size } from "lodash";
 import { components } from "react-select";
 
 import { IDropdownIndicator } from "@/components/atoms/dropdownIndicator/types";
-import DownArrow from "../../../../public/images/chevron-down.svg";
+import DownArrow from "../../../../public/images/chevron_down.svg";
 
 const DropdownIndicator = ({ props, showIndicator }: IDropdownIndicator) => {
   const checkIsCustomColor = (which: string) => {

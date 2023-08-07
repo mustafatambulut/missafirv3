@@ -6,7 +6,7 @@ import Card from "@/components/atoms/card/Card";
 import Link from "next/link";
 import Button from "@/components/atoms/button/Button";
 
-import RightArrow from "../../../../public/images/chevron-right.svg";
+import RightArrow from "../../../../public/images/chevron_right.svg";
 import Section from "@/components/molecules/section/Section";
 
 const News = () => {
