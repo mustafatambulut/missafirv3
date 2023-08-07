@@ -9,13 +9,13 @@ import SelectFilter from "@/components/atoms/selectFilter/SelectFilter";
 import ReservationList from "@/components/molecules/reservationList/ReservationList";
 import ReservationDetail from "@/components/molecules/reservationDetail/ReservationDetail";
 
-import AllIcon from "../../../public/images/circles.svg";
-import UserIcon from "../../../public/images/user_dark.svg";
 import FileIcon from "../../../public/images/file.svg";
-import CommentIcon from "../../../public/images/comment.svg";
-import HeartIcon from "../../../public/images/heart_outline.svg";
-import SettingIcon from "../../../public/images/setting.svg";
+import AllIcon from "../../../public/images/circles.svg";
 import PlaneIcon from "../../../public/images/plane.svg";
+import UserIcon from "../../../public/images/user_dark.svg";
+import CommentIcon from "../../../public/images/comment.svg";
+import SettingIcon from "../../../public/images/setting.svg";
+import HeartIcon from "../../../public/images/heart_outline.svg";
 import ConfirmedIcon from "../../../public/images/confirmed.svg";
 import CancelledIcon from "../../../public/images/cancelled.svg";
 
