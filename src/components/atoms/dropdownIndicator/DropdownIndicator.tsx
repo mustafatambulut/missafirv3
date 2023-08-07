@@ -1,25 +1,18 @@
 import classNames from "classnames";
-import { get, has, size } from "lodash";
 import { components } from "react-select";
 
 import { IDropdownIndicator } from "@/components/atoms/dropdownIndicator/types";
 import DownArrow from "../../../../public/images/chevron_down.svg";
+import { checkIsCustomColor } from "@/utils/helper";
 
 const DropdownIndicator = ({ props, showIndicator }: IDropdownIndicator) => {
-  const checkIsCustomColor = (which: string) => {
-    if (size(props.getValue()) > 0) {
-      const selectedValue = get(props.getValue()[0], "attributes");
-      if (has(selectedValue, "type")) {
-        return selectedValue.type === "filter" && selectedValue.value === which;
-      }
-    }
-  };
   const dropdownIndicatorClass = classNames("fill-gray", {
-    "fill-gray": checkIsCustomColor("all"),
-    "fill-warning-yellow": checkIsCustomColor("pending"),
-    "fill-error-red": checkIsCustomColor("cancelled"),
-    "fill-success-green": checkIsCustomColor("confirmed")
+    "!fill-gray": checkIsCustomColor(props, "all"),
+    "!fill-warning-yellow": checkIsCustomColor(props, "pending"),
+    "!fill-error-red": checkIsCustomColor(props, "cancelled"),
+    "!fill-success-green": checkIsCustomColor(props, "confirmed")
   });
+
   return (
     <>
       {showIndicator && (
