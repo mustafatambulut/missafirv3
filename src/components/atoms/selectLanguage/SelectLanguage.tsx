@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import Select, { Theme } from "react-select";
 import { find, get } from "lodash";
 import classNames from "classnames";
+import Select, { Theme } from "react-select";
 
 import { ISelectLanguage } from "@/components/atoms/selectLanguage/types";
 
@@ -31,14 +31,13 @@ const SelectLanguage = ({
     {
       "bg-gray-700": variant === "dark",
       "hover:bg-gray-600": variant === "dark",
-      // "text-white": variant === "dark" || variant === "ghost",
       "text-white": variant === "dark",
       "hover:bg-gray-100": variant === "ghost" || variant === "gray",
       "focus:bg-gray-hover": variant === "ghost" || variant === "gray"
     }
   );
 
-  const singleValueChildrenClassName = classNames(
+  const singleValueChildrenClass = classNames(
     "text-base uppercase ml-2 text-lg",
     {
       "text-white": variant === "dark" || variant === "ghost",
@@ -69,7 +68,7 @@ const SelectLanguage = ({
     menuClass,
     optionClass,
     selectClass,
-    singleValueChildrenClassName
+    singleValueChildrenClass
   };
 
   return (
@@ -87,7 +86,7 @@ const SelectLanguage = ({
       menuClassName={get(config, "menuClass")}
       optionSelectedClassName="bg-gray-150 text-black"
       optionClassName={get(config, "optionClass")}
-      singleValueChildrenClassName={singleValueChildrenClassName}
+      singleValueChildrenClassName={get(config, "singleValueChildrenClass")}
       singleValueClassName="flex items-center gap-x-0.5 justify-around"
       optionLabelClassName="text-sm lg:text-lg py-2 uppercase font-mi-sans-semi-bold"
       controlClassName="cursor-pointer shadow-none bg-transparent text-xs lg:text-base h-11 rounded-x border-white"
