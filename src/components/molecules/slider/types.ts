@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 
 export interface ISlider {
   spaceBetween?: number;
@@ -6,12 +6,12 @@ export interface ISlider {
   sliderIdentifier: string;
   withPagination?: boolean;
   withNavigation?: boolean;
-  children: React.ReactNode[] | React.ReactNode;
+  children: ReactNode[] | ReactNode;
   sliderWrapperClassName?: string;
   sliderContainerClassName?: string;
-  customSlide?: null | React.ReactNode;
-  customNavigation?: null | React.ReactNode;
-  customPagination?: null | React.ReactNode;
+  customSlide?: null | ReactNode;
+  customNavigation?: null | ReactNode;
+  customPagination?: null | ReactNode;
 }
 
 export interface ISlide {

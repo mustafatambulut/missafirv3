@@ -1,19 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { filter, first, get, map } from "lodash";
 
-import "./TechExperience.css";
-import "swiper/css";
-import "swiper/css/navigation";
+import { BODY, HOME } from "@/app/constants";
+import { getPageDataByComponent } from "@/utils/helper";
 
+import Card from "@/components/atoms/card/Card";
 import Slider from "@/components/molecules/slider/Slider";
 import Section from "@/components/molecules/section/Section";
-import { getPageDataByComponent } from "@/utils/helper";
-import { BODY, HOME } from "@/app/constants";
-import Card from "@/components/atoms/card/Card";
-import Image from "next/image";
-import PreviousIcon from "../../../../public/images/arrow_left.svg";
+
+import "swiper/css";
+import "./TechExperience.css";
+import "swiper/css/navigation";
+
 import NextIcon from "../../../../public/images/arrow_right.svg";
+import PreviousIcon from "../../../../public/images/arrow_left.svg";
 
 const CustomNavigation = () => {
   return (
