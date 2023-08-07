@@ -3,20 +3,20 @@ import Image from "next/image";
 import { IOptionImage } from "@/components/atoms/optionImage/types";
 
 const OptionImage = ({
-  image,
+  src = "",
   className = "",
   imageClassName = "",
-  imageWidth,
-  imageHeight
+  width,
+  height
 }: IOptionImage) => {
   return (
     <div className={`${className}`}>
       <Image
-        src={image || ""}
+        src={src}
         className={imageClassName}
         alt="image"
-        width={imageWidth}
-        height={imageHeight}
+        width={width}
+        height={height}
       />
     </div>
   );
