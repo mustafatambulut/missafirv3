@@ -20,6 +20,12 @@ const ProfileSidebar = () => {
     });
   };
 
+  const userData = {
+    avatar: "https://i.ibb.co/dm4mntF/avatar.jpg",
+    fullName: "John Doe",
+    email: "johndoe@missafir.com"
+  };
+
   // todo: dil seçeneği ekleyince güncellenecek
   const tabData = {
     tabItems: [
@@ -64,7 +70,7 @@ const ProfileSidebar = () => {
         <div className="avatar">
           <div className="w-12 lg:w-16 rounded-full relative">
             <Image
-              src="https://i.ibb.co/dm4mntF/avatar.jpg"
+              src={get(userData, "avatar")}
               alt="user"
               fill={true}
               className="object-cover"
@@ -73,10 +79,10 @@ const ProfileSidebar = () => {
         </div>
         <div className="flex flex-col items-start justify-center">
           <span className="text-22 lg:text-xl text-gray-800 font-mi-sans-semi-bold">
-            John Doe
+            {get(userData, "fullName")}
           </span>
           <span className="text-base lg:text-lg text-gray-700 whitespace-nowrap max-w-full overflow-hidden">
-            johndoe@missafir.com
+            {get(userData, "email")}
           </span>
         </div>
       </div>
