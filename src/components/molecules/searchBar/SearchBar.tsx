@@ -1,10 +1,14 @@
+/*eslint-disable*/
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { get } from "lodash";
 import { createPortal } from "react-dom";
 import { isMobile } from "react-device-detect";
-
-import { IBookingDate } from "@/components/atoms/datePicker/types";
+import {
+  BOOKING_DATE,
+  BOOKING_GUESTS,
+  BOOKING_DESTINATION
+} from "@/components/molecules/searchBar/constants";
 
 import Guests from "@/components/atoms/guests/Guests";
 import Button from "@/components/atoms/button/Button";
@@ -12,8 +16,8 @@ import DatePicker from "@/components/atoms/datePicker/DatePicker";
 import DestinationSelect from "@/components/atoms/destinationSelect/DestinationSelect";
 
 import GuestsIcon from "../../../../public/images/guests.svg";
-import SearchIcon from "../../../../public/images/search-icon.svg";
 import CalendarIcon from "../../../../public/images/calendar.svg";
+import SearchIcon from "../../../../public/images/search-icon.svg";
 import ArrowLeftIcon from "../../../../public/images/arrow-left.svg";
 import SearchIconWhite from "../../../../public/images/search-white.svg";
 
@@ -359,4 +363,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default withSearchBar(SearchBar);

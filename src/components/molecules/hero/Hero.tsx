@@ -9,6 +9,8 @@ import { HERO_SECTION } from "@/components/molecules/hero/constants";
 
 import Loading from "@/components/atoms/loading/Loading";
 import SearchBar from "@/components/molecules/searchBar/SearchBar";
+import { isMobile } from "react-device-detect";
+import MobileSearchBar from "@/components/molecules/mobileSearchBar/MobileSearchBar";
 
 const Hero = () => {
   const [hero, setHero] = useState<IFooter>(null);
@@ -32,7 +34,7 @@ const Hero = () => {
           <p className="text-42 text-left lg:text-54 text-white lg:mb-3 font-mi-semi-bold">
             {get(hero, "title")}
           </p>
-          <SearchBar />
+          {isMobile ? <MobileSearchBar /> : <SearchBar />}
         </div>
       </div>
     </Loading>
