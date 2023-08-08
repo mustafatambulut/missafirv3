@@ -20,7 +20,8 @@ const ProfileSidebar = () => {
     });
   };
 
-  const userData = {
+  // todo: test amacıyla eklenmiştir, silinecek
+  const mockUserData = {
     avatar: "https://i.ibb.co/dm4mntF/avatar.jpg",
     fullName: "John Doe",
     email: "johndoe@missafir.com"
