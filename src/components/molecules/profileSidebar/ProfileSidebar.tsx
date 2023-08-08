@@ -12,7 +12,7 @@ import SettingIcon from "../../../../public/images/setting.svg";
 import HeartIcon from "../../../../public/images/heart_outline.svg";
 
 const ProfileSidebar = () => {
-  const [activeTab, setActiveTab] = useState<number>(1);
+  const [activeTab, setActiveTab] = useState<number>(0);
   const [isMobileDevice, setIsMobileDevice] = useState<boolean>(false);
   const tabMenuIconClass = (index: number): string => {
     return classNames("scale-125 fill-gray hover:text-gray-600", {

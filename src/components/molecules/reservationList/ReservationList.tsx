@@ -215,6 +215,11 @@ const ReservationList = () => {
 
   return (
     <>
+      <div className="hidden lg:flex justify-between items-center">
+        <h1 className="text-gray-800 font-mi-sans-semi-bold text-28">
+          Geçmiş Rezervasyonlar
+        </h1>
+      </div>
       <div className="grid grid-cols-1 gap-y-2">
         <div className="mt-4 lg:mt-0">
           <div className="hidden lg:flex gap-4">
