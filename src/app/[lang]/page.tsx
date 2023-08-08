@@ -1,9 +1,9 @@
 import Body from "@/components/organisms/body/Body";
 
-const Home = () => {
+const Home = async () => {
   return (
     <div>
-      {/*<Body />*/}
+      <Body />
     </div>
   );
 };

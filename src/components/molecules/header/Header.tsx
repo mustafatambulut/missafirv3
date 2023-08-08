@@ -28,7 +28,6 @@ const Header = () => {
   useEffect(() => {
     if (size(entities)) {
       const data = head(entities);
-      console.log(data);
       setHeader(get(data, "header"));
       setFooterMenu(get(data, "footer"));
       setFooterBrand(get(data, "footerBrand"));

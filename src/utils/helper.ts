@@ -2,10 +2,7 @@ import { forEach, get, isArray } from "lodash";
 
 import { getPage } from "@/service/api";
 
-export const getPageDataByComponent = async (
-  page: string,
-  components?: string | []
-) => {
+export const getPageDataByComponent = async (page: string, components?: string | []) => {
   const { attributes } = await getPage(page);
   const result = [];
 
@@ -24,3 +21,5 @@ export const groupArrayBySize = (array, size) => {
 };
 
 export const getScrollPosition = () => window.scrollY;
+
+export const getCurrentLang = () => localStorage.getItem("lang");
