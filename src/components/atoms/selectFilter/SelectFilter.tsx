@@ -3,6 +3,8 @@ import React from "react";
 import { get } from "lodash";
 import Select, { Theme } from "react-select";
 
+import { ISelectFilter } from "@/components/atoms/selectFilter/types";
+
 import Option from "@/components/atoms/option/Option";
 import Control from "@/components/atoms/control/Control";
 import SelectMenu from "@/components/atoms/selectMenu/SelectMenu";
@@ -15,7 +17,7 @@ import PlaneIcon from "../../../../public/images/plane.svg";
 import ConfirmedIcon from "../../../../public/images/confirmed.svg";
 import CancelledIcon from "../../../../public/images/cancelled.svg";
 
-const SelectFilter = () => {
+const SelectFilter = ({ onChange }: ISelectFilter) => {
   // todo: dil seçeneği ekleyince güncellenecek
   const filterOptions = [
     {
@@ -69,6 +71,7 @@ const SelectFilter = () => {
   };
   return (
     <Select
+      onChange={(e) => onChange(get(e, "attributes.value"))}
       className="min-w-[170px]"
       controlInnerClassName="flex w-full"
       singleValueClassName="flex gap-3"

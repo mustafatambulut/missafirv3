@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
-import { get, map, size } from "lodash";
+import { filter, get, map, size } from "lodash";
 
 import Button from "@/components/atoms/button/Button";
 import SelectFilter from "@/components/atoms/selectFilter/SelectFilter";
@@ -14,19 +14,19 @@ import ConfirmedIcon from "../../../../public/images/confirmed.svg";
 import CancelledIcon from "../../../../public/images/cancelled.svg";
 
 const ReservationList = () => {
-  const [activeFilter, setActiveFilter] = useState<number>(0);
-
-  const filterOptionIconClass = (index: number): string => {
+  const [activeFilter, setActiveFilter] = useState<string>("all");
+  const [filteredReservations, setFilteredReservations] = useState<any[]>([]);
+  const filterOptionIconClass = (type: string): string => {
     return classNames("fill-gray", {
-      "fill-primary": activeFilter === index
+      "fill-primary": activeFilter === type
     });
   };
 
-  const filterOptionButtonClass = (index: number): string => {
+  const filterOptionButtonClass = (type: string): string => {
     return classNames(
       "outline-none px-0 text-xl cursor-pointer flex gap-x-3 items-center hover:text-gray text-gray transition-none",
       {
-        "text-primary hover:text-primary": activeFilter === index
+        "text-primary hover:text-primary": type === activeFilter
       }
     );
   };
@@ -172,7 +172,7 @@ const ReservationList = () => {
         type: "filter",
         value: "all",
         label: "All",
-        icon: <AllIcon className={filterOptionIconClass(0)} />
+        icon: <AllIcon className={filterOptionIconClass("all")} />
       }
     },
     {
@@ -180,7 +180,7 @@ const ReservationList = () => {
         type: "filter",
         value: "confirmed",
         label: "Confirmed",
-        icon: <ConfirmedIcon className={filterOptionIconClass(1)} />
+        icon: <ConfirmedIcon className={filterOptionIconClass("confirmed")} />
       }
     },
     {
@@ -188,7 +188,7 @@ const ReservationList = () => {
         type: "filter",
         value: "pending",
         label: "Pending",
-        icon: <PlaneIcon className={filterOptionIconClass(2)} />
+        icon: <PlaneIcon className={filterOptionIconClass("pending")} />
       }
     },
     {
@@ -196,10 +196,23 @@ const ReservationList = () => {
         type: "filter",
         value: "cancelled",
         label: "Cancelled",
-        icon: <CancelledIcon className={filterOptionIconClass(3)} />
+        icon: <CancelledIcon className={filterOptionIconClass("cancelled")} />
       }
     }
   ];
+
+  useEffect(() => {
+    if (activeFilter === "all") {
+      setFilteredReservations(mockReservations);
+    } else {
+      setFilteredReservations(
+        filter(mockReservations, (reservation) => {
+          return reservation.status.type === activeFilter;
+        })
+      );
+    }
+  }, [activeFilter]);
+
   return (
     <>
       <div className="grid grid-cols-1 gap-y-2">
@@ -208,16 +221,16 @@ const ReservationList = () => {
             {map(filterOptions, (filter, key) => (
               <Button
                 key={key}
-                className={filterOptionButtonClass(key)}
+                className={filterOptionButtonClass(filter.attributes.value)}
                 variant="btn-ghost"
-                onClick={() => setActiveFilter(key)}>
+                onClick={() => setActiveFilter(filter.attributes.value)}>
                 {get(filter, "attributes.icon")}
                 <span>{get(filter, "attributes.label")}</span>
               </Button>
             ))}
           </div>
           <div className="lg:hidden flex justify-between">
-            <SelectFilter />
+            <SelectFilter onChange={setActiveFilter} />
           </div>
         </div>
         <div className="text-sm lg:text-lg text-gray-800">
@@ -226,7 +239,7 @@ const ReservationList = () => {
         </div>
       </div>
       <div className="relative gap-y-5 flex flex-col">
-        {map(mockReservations, (reservation, key) => (
+        {map(filteredReservations, (reservation, key) => (
           <ReservationItem reservation={reservation} key={key} />
         ))}
       </div>
