@@ -1,1 +1,1 @@
-export const HERO_SECTION = "sections.hero";
+export const HERO_SECTION: string = "sections.hero";
