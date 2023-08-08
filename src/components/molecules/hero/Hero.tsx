@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { find, get, head, size } from "lodash";
+import { isMobile } from "react-device-detect";
 
 import { BODY } from "@/app/constants";
 import { useAppSelector } from "@/app/hooks";
@@ -9,7 +10,6 @@ import { HERO_SECTION } from "@/components/molecules/hero/constants";
 
 import Loading from "@/components/atoms/loading/Loading";
 import SearchBar from "@/components/molecules/searchBar/SearchBar";
-import { isMobile } from "react-device-detect";
 import MobileSearchBar from "@/components/molecules/mobileSearchBar/MobileSearchBar";
 
 const Hero = () => {
