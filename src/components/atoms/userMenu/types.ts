@@ -1,9 +1,10 @@
 import { Body } from "@/components/molecules/footer/types";
 import { Button } from "@/components/molecules/header/types";
+import { IFooterBrand } from "@/components/atoms/footerBrand/types";
 
 export interface IUserMenu {
   id?: number;
-  variant?: "dark" | "gray" | "ghost";
+  variant?: "dark" | "gray" | "ghost" | "light" | "";
   data: Data;
 }
 
@@ -12,6 +13,7 @@ export interface Data {
   footerMenu: Body;
   buttons?: Button[] | null;
   links: IUserMenuLinks;
+  footerBrand: IFooterBrand;
 }
 
 export interface IUserMenuLinks {

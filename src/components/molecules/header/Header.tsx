@@ -19,6 +19,7 @@ const Header = () => {
   const [header, setHeader] = useState(null);
   const [footerMenu, setFooterMenu] = useState(null);
   const [footerBrand, setFooterBrand] = useState(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isScrolledHeaderActive, setIsScrolledHeaderActive] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -53,6 +54,7 @@ const Header = () => {
     if (header && userMenuData) {
       return (
         <Navbar
+          setIsDrawerOpen={setIsDrawerOpen}
           data={navbarData}
           isScrolledHeaderActive={isScrolledHeaderActive}
         />
@@ -62,7 +64,11 @@ const Header = () => {
 
   const DrawerComponent = (): ReactNode => {
     if (isMobile) {
-      return <Drawer data={drawerData} drawerCloseRef={drawerCloseRef} />;
+      return <Drawer
+        data={drawerData}
+        drawerCloseRef={drawerCloseRef}
+        setIsDrawerOpen={setIsDrawerOpen}
+      />;
     }
   };
 
@@ -86,6 +92,12 @@ const Header = () => {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    isDrawerOpen
+      ? document.body.classList.add("overflow-hidden")
+      : document.body.classList.remove("overflow-hidden");
+  }, [isDrawerOpen]);
 
   return (
     <Loading

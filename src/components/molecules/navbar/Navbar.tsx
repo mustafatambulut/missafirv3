@@ -8,7 +8,7 @@ import Button from "@/components/atoms/button/Button";
 import UserMenu from "@/components/atoms/userMenu/UserMenu";
 import SelectLanguage from "@/components/atoms/selectLanguage/SelectLanguage";
 
-const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
+const Navbar = ({ data, isScrolledHeaderActive, setIsDrawerOpen }: INavbar) => {
   const handleLogoSource = () => {
     return isScrolledHeaderActive
       ? "/images/missafir-logo-black.svg"
@@ -73,7 +73,10 @@ const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
           </div>
         </div>
         <div className="flex-none lg:hidden">
-          <label htmlFor="missafir-drawer" className="btn btn-square btn-ghost">
+          <label
+            htmlFor="missafir-drawer"
+            onClick={() => setIsDrawerOpen(true)}
+            className="btn btn-square btn-ghost">
             <Image
               src={handleOpenMenuSource()}
               alt="open"

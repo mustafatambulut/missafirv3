@@ -1,59 +1,142 @@
-.CalendarDay__default, .CalendarDay__default:hover, .CalendarDay__default:active {
-    border: none;
+.CalendarDay {
+    border: none !important;
+}
+
+.CalendarDay .day-content {
+    height: 36px !important;
+    width: 36px !important;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.CalendarDay__selected {
+    background-color: #FCE9EE !important;
+
+}
+
+.CalendarMonth_table tr {
+    border-bottom: 5px solid #FFFFFF;
+}
+
+.CalendarDay:not(.CalendarDay__selected_span,.CalendarDay__hovered_span,.CalendarDay__selected,.CalendarDay__blocked_out_of_range):hover {
+    background-color: transparent !important;
+}
+
+.CalendarDay:not(.CalendarDay__selected_span,.CalendarDay__hovered_span,.CalendarDay__selected,.CalendarDay__blocked_out_of_range):hover > .day-content {
+    background-color: #ECA5B9 !important;
+    color: #FFFFFF !important;
     border-radius: 100%;
 }
 
-.CalendarDay__default:hover, .CalendarDay__default:active {
-    background-color: #CF1E51;
-    color: #ffffff;
+.CalendarDay:not(.CalendarDay__selected_span,.CalendarDay__hovered_span,.CalendarDay__selected,.CalendarDay__blocked_out_of_range):hover > .day-content .day-dot {
+    color: #FFFFFF !important;
 }
 
-.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
-    background: #CF1E51;
-    border: none;
-    color: #fff;
+.CalendarDay__selected .day-content {
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    background-color: #D01E50 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.CalendarDay__selected_span, .CalendarDay__selected_span:hover, .CalendarDay__selected_span:active, .CalendarDay__after_hovered_start, .CalendarDay__hovered_span {
-    background: #F1F3F3;
-    border: none;
-    color: #000000;
-
+.CalendarDay__selected .day-content .day-dot {
+    color: #FFFFFF !important;
 }
 
-.CalendarDay__selected_span.CalendarDay__lastDayOfWeek,.CalendarDay__hovered_span.CalendarDay__lastDayOfWeek {
-    border-top-right-radius: 100%;
-    border-bottom-right-radius: 100%;
-}
 
-.CalendarDay__selected_span.CalendarDay__firstDayOfWeek,.CalendarDay__hovered_span.CalendarDay__firstDayOfWeek {
+.CalendarDay__selected_start {
     border-top-left-radius: 100%;
     border-bottom-left-radius: 100%;
 }
 
+.CalendarDay__selected_start .day-content {
+    margin-right: auto;
+}
+
+.CalendarDay__selected_end {
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+}
+
+.CalendarDay__selected_end .day-content {
+    margin-left: auto;
+}
+
+.CalendarDay__selected_span, .CalendarDay__hovered_span {
+    background-color: #FCE9EE !important;
+    color: #000000 !important;
+}
+
+.CalendarDay__selected_span .day-content .day-dot, .CalendarDay__hovered_span .day-content .day-dot {
+    color: #FFFFFF !important;
+}
+
+.CalendarDay__selected_span.CalendarDay__lastDayOfWeek, .CalendarDay__hovered_span.CalendarDay__lastDayOfWeek {
+    background-image: linear-gradient(to right, #fce9ee, #fbeff5, #fbf4fa, #fcfafd, #ffffff);
+}
+
+.CalendarDay__selected_span.CalendarDay__firstDayOfWeek, .CalendarDay__hovered_span.CalendarDay__firstDayOfWeek {
+    background-image: linear-gradient(to left, #fce9ee, #fbeff5, #fbf4fa, #fcfafd, #ffffff);
+}
+
+.CalendarMonth_caption {
+    text-align: center !important;
+}
+
+.nav-button {
+    position: absolute;
+    top: 14px;
+    line-height: .78;
+    border-radius: 3px;
+    padding: 6px 9px;
+}
+
+.nav-button.nav-button-next {
+    right: 22px;
+}
+
+.nav-button.nav-button-prev {
+    left: 22px;
+}
 
 .prev-hidden .CalendarMonth_caption {
     text-align: left;
     font-size: 18px;
 }
-.DayPicker__verticalScrollable.DayPicker__hidden{
+
+.DayPicker__verticalScrollable.DayPicker__hidden {
     visibility: visible;
 }
-.DayPicker__verticalScrollable .DayPicker_transitionContainer__verticalScrollable{
+
+.DayPicker__verticalScrollable .DayPicker_transitionContainer__verticalScrollable {
     position: inherit;
 }
-.DayPicker__withBorder.DayPicker__verticalScrollable{
+
+.DayPicker__withBorder.DayPicker__verticalScrollable {
     box-shadow: none;
 }
+
 .DayPicker_weekHeader__verticalScrollable {
-    display: none;
+    padding: 0 !important;
 }
-.CalendarMonthGrid__vertical_scrollable, .CalendarMonthGrid__vertical_scrollable .CalendarMonth_table{
-    width: 100%!important;
+
+.CalendarMonthGrid__vertical_scrollable, .CalendarMonthGrid__vertical_scrollable .CalendarMonth_table {
+    width: 100% !important;
 }
-.CalendarMonthGrid__vertical_scrollable .CalendarMonth{
-    padding: 0!important;
+
+.CalendarMonthGrid__vertical_scrollable .CalendarMonth {
+    padding: 0 !important;
 }
-.DayPicker_transitionContainer__verticalScrollable{
+
+.DayPicker_transitionContainer__verticalScrollable {
     padding-top: 0;
+}
+
+.booking-date .DayPicker, .booking-date .DayPicker .DayPicker_transitionContainer{
+    border-radius: 12px!important;
 }

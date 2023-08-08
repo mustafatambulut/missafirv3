@@ -9,7 +9,11 @@ import MinusIcon from "../../../../public/images/minus.svg";
 import PlusIcon from "../../../../public/images/plus.svg";
 import GuestsIcon from "../../../../public/images/guests.svg";
 
-const Guests = ({ setBookingGuests, data }: IBookingGuests) => {
+const Guests = ({
+  setBookingGuests,
+  data,
+  setSkipButtonVisibility
+}: IBookingGuests) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const changeAdults = (type: string) => {
     if (type === "plus") {
@@ -36,6 +40,20 @@ const Guests = ({ setBookingGuests, data }: IBookingGuests) => {
   useEffect(() => {
     isMobile && setIsDropdownOpen(true);
   }, []);
+
+  useEffect(() => {
+    if (
+      isMobile &&
+      get(data, "adults") === 0 &&
+      get(data, "kids") === 0 &&
+      !get(data, "pets")
+    ) {
+      setSkipButtonVisibility(true);
+    } else {
+      setSkipButtonVisibility(false);
+    }
+  }, [data, setSkipButtonVisibility]);
+
   return (
     <div className="dropdown text-gray-800 w-full lg:h-[56px] text-left rounded-2xl lg:px-4 lg:focus-within:bg-gray-50">
       <label
