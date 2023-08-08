@@ -11,20 +11,20 @@ const ReservationItemContent = ({ reservation }: IReservationItem) => {
   });
   return (
     <div className="flex flex-col gap-1 lg:gap-y-3 justify-center lg:pr-4">
-      <div className="text-gray-700 text-sm lg:text-lg">
+      <div className="text-gray-700 text-sm lg:text-lg order-1">
         {get(reservation, "code")}
       </div>
-      <div className="text-gray-800 text-base lg:text-2xl font-mi-sans-semi-bold line-clamp-2">
+      <div className="text-gray-800 text-base lg:text-2xl font-mi-sans-semi-bold line-clamp-2 order-3 lg:order-2">
         {get(reservation, "title")}
       </div>
-      <div className="text-gray-500 text-sm lg:text-lg">
+      <div className="text-gray-500 text-sm lg:text-lg order-2 lg:order-3">
         {get(reservation, "location")}
       </div>
-      <div className="flex text-gray-600 text-sm lg:text-22 gap-x-4 items-center">
+      <div className="flex text-gray-600 text-sm lg:text-22 gap-x-4 items-center order-4">
         <div>{get(reservation, "dates")}</div>
         <div>{get(reservation, "guests")}</div>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between order-5">
         <div className="listing-item-content-price flex items-end">
           <span className="text-primary text-lg lg:text-28 font-mi-sans-semi-bold">
             {get(reservation, "price.amount")}
