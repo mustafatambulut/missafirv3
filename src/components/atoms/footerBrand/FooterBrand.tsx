@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { get, head, size } from "lodash";
 
 import { useAppSelector } from "@/app/hooks";
@@ -7,6 +7,7 @@ import { IFooter } from "@/components/molecules/footer/types";
 import { FooterBrandProps } from "@/components/atoms/footerBrand/types";
 import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
 
+import Loading from "@/components/atoms/loading/Loading";
 import Menu from "@/components/molecules/menu/Menu";
 
 const FooterBrand = ({ className = "" }: FooterBrandProps) => {
@@ -17,9 +18,9 @@ const FooterBrand = ({ className = "" }: FooterBrandProps) => {
   useEffect(() => {
     if (size(entities)) setData(get(head(entities), FOOTER_BRAND));
   }, [entities]);
-
   return (
-    <Suspense fallback={<p>Loading feed...</p>}>
+    <Loading isLoading={!size(entities)} loader={<p>Loading feed...</p>}>
+      {/*todo: skeleton eklenecek*/}
       <footer className={`footer footer-center p-4 ${className}`}>
         <div className="flex">
           {get(data, "header.title")}
@@ -34,7 +35,7 @@ const FooterBrand = ({ className = "" }: FooterBrandProps) => {
           />
         </div>
       </footer>
-    </Suspense>
+    </Loading>
   );
 };
 

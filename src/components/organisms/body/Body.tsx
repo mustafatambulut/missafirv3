@@ -1,13 +1,13 @@
 import Premium from "@/components/atoms/premium/Premium";
+import InfoSection from "@/components/atoms/infoSection/InfoSection";
 import BenefitOwner from "@/components/atoms/benefitOwner/BenefitOwner";
+import TechExperience from "@/components/molecules/techExperience/TechExperience";
 import News from "@/components/molecules/news/News";
 import Hero from "@/components/molecules/hero/Hero";
 import Cities from "@/components/molecules/cities/Cities";
-import ListingDetails from "@/components/molecules/listingDetail/ListingDetails";
-import Testimonials from "@/components/molecules/testimonials/Testimonials";
 import Partners from "@/components/molecules/partners/Partners";
-import InfoSection from "@/components/atoms/infoSection/InfoSection";
-import TechExperience from "@/components/molecules/techExperience/TechExperience";
+import Testimonials from "@/components/molecules/testimonials/Testimonials";
+import ListingDetails from "@/components/molecules/listingDetail/ListingDetails";
 
 const Body = () => {
   return (

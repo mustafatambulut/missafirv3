@@ -10,13 +10,19 @@ import SelectLanguage from "@/components/atoms/selectLanguage/SelectLanguage";
 
 const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
   const handleLogoSource = () => {
-    return isScrolledHeaderActive ? "/images/missafir-logo-black.svg" : get(data, "header.logo.image");
+    return isScrolledHeaderActive
+      ? "/images/missafir-logo-black.svg"
+      : get(data, "header.logo.image");
   };
 
   const handleVariant = () => (isScrolledHeaderActive ? "gray" : "ghost");
 
   const handleOpenMenuSource = () => {
-    return `${isScrolledHeaderActive ? "/images/open-menu-black.svg" : "/images/open-menu.svg"}`;
+    return `${
+      isScrolledHeaderActive
+        ? "/images/open-menu-black.svg"
+        : "/images/open-menu.svg"
+    }`;
   };
 
   return (
@@ -36,8 +42,19 @@ const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
         </div>
         <div className="flex gap-6">
           {map(get(data, "header.buttons"), (button, key) => (
-            <Button key={key} isRtl={false} link={get(button, "link")} variant="btn-primary" className="hidden lg:flex">
-              <Image src={get(button, "image")} width="0" height="0" className="w-5 h-auto" alt="" />
+            <Button
+              key={key}
+              isRtl={false}
+              link={get(button, "link")}
+              variant="btn-primary"
+              className="hidden lg:flex">
+              <Image
+                src={get(button, "image")}
+                width="0"
+                height="0"
+                className="w-5 h-auto"
+                alt=""
+              />
               <span>{get(button, "label")}</span>
             </Button>
           ))}
@@ -49,12 +66,20 @@ const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
             />
           </div>
           <div className="hidden lg:flex">
-            <UserMenu variant={handleVariant()} data={get(data, "userMenuData")} />
+            <UserMenu
+              variant={handleVariant()}
+              data={get(data, "userMenuData")}
+            />
           </div>
         </div>
         <div className="flex-none lg:hidden">
           <label htmlFor="missafir-drawer" className="btn btn-square btn-ghost">
-            <Image src={handleOpenMenuSource()} alt="open" width={20} height={20} />
+            <Image
+              src={handleOpenMenuSource()}
+              alt="open"
+              width={20}
+              height={20}
+            />
           </label>
         </div>
       </div>
