@@ -71,7 +71,7 @@ const ProfileSidebar = () => {
         <div className="avatar">
           <div className="w-12 lg:w-16 rounded-full relative">
             <Image
-              src={get(userData, "avatar")}
+              src={get(mockUserData, "avatar")}
               alt="user"
               fill={true}
               className="object-cover"
@@ -80,10 +80,10 @@ const ProfileSidebar = () => {
         </div>
         <div className="flex flex-col items-start justify-center">
           <span className="text-22 lg:text-xl text-gray-800 font-mi-sans-semi-bold">
-            {get(userData, "fullName")}
+            {get(mockUserData, "fullName")}
           </span>
           <span className="text-base lg:text-lg text-gray-700 whitespace-nowrap max-w-full overflow-hidden">
-            {get(userData, "email")}
+            {get(mockUserData, "email")}
           </span>
         </div>
       </div>
