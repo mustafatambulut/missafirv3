@@ -1,9 +1,9 @@
 import { createRef, useEffect, useState } from "react";
 import { get, map } from "lodash";
+import classNames from "classnames";
 import OutsideClickHandler from "react-outside-click-handler";
 
 import SortIcon from "../../../../public/images/sort.svg";
-import classNames from "classnames";
 
 const SelectSort = () => {
   const sortMenuRef = createRef();
