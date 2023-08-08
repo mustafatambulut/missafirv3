@@ -16,6 +16,7 @@ import ConfirmedIcon from "../../../../public/images/confirmed.svg";
 import CancelledIcon from "../../../../public/images/cancelled.svg";
 
 const SelectFilter = () => {
+  // todo: dil seçeneği ekleyince güncellenecek
   const filterOptions = [
     {
       attributes: {
@@ -68,7 +69,7 @@ const SelectFilter = () => {
   };
   return (
     <Select
-      className="min-w-[170px] z-50"
+      className="min-w-[170px]"
       controlInnerClassName="flex w-full"
       singleValueClassName="flex gap-3"
       optionClassName="flex gap-3"

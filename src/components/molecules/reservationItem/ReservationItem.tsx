@@ -1,10 +1,10 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { get, map } from "lodash";
 import classNames from "classnames";
 import Draggable from "react-draggable";
+import { get, includes, map } from "lodash";
 import { isMobile } from "react-device-detect";
 
 import { IReservationItem } from "@/components/molecules/reservationItem/types";
@@ -15,11 +15,11 @@ import Slider from "@/components/molecules/slider/Slider";
 import ReservationItemContent from "@/components/atoms/reservationItemContent/ReservationItemContent";
 
 const ReservationItem = ({ reservation }: IReservationItem) => {
-  const [percent, setPercent] = useState<number>(0);
   const [left, setLeft] = useState<number>(0);
-
-  const itemRef = useRef();
-  const actionRef = useRef();
+  const [percent, setPercent] = useState<number>(0);
+  const [isMobileDevice, setIsMobileDevice] = useState<boolean>(false);
+  const itemRef = useRef(null);
+  const actionRef = useRef(null);
 
   const reservationWrapperClass = classNames("relative rounded-xl", {
     "bg-gradient-to-l from-warning-yellow from-40% to-white":
@@ -30,6 +30,12 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
       get(reservation, "status.type") === "cancelled"
   });
 
+  const checkIsNotDraggable = (e) => {
+    const parent = e.target.offsetParent;
+    const tagName = e.target.tagName;
+    return includes(parent.className, "swiper-slide") && tagName === "IMG";
+  };
+
   const handleStop = () => {
     if (percent < 30) return setLeft(0);
 
@@ -39,6 +45,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
   };
 
   const handleDrag = (e, data) => {
+    if (percent === 0 && checkIsNotDraggable(e)) return false;
     const w = get(itemRef, "current.offsetWidth");
     const x = get(data, "x") < 0 ? get(data, "x") * -1 : get(data, "x");
     const p = (x / w) * 100;
@@ -54,6 +61,10 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
     }
   };
 
+  useEffect(() => {
+    setIsMobileDevice(isMobile);
+  }, []);
+
   return (
     <Link href="#">
       <div className={reservationWrapperClass}>
@@ -63,57 +74,95 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
           {get(reservation, "status.icon")}
           {get(reservation, "status.label")}
         </div>
-        <Draggable
-          defaultClassName={`${isMobile && "pr-2"}`}
-          disabled={!isMobile}
-          bounds={{ right: 0 }}
-          axis="x"
-          handle=".item"
-          defaultPosition={{ x: 0, y: 0 }}
-          position={{ x: left, y: 0 }}
-          onDrag={handleDrag}
-          onStop={handleStop}>
-          <div
-            ref={itemRef}
-            className="item"
-            style={{ transform: `translate3d(${left}px, 0, 0)` }}>
-            <Card>
-              <div className="flex gap-3 lg:gap-6 shadow-base-blur-20 rounded-l-xl lg:rounded-xl relative bg-white">
-                <div className="w-40 lg:w-72 h-48 lg:h-64 relative">
-                  <Slider
-                    sliderIdentifier="reservations-image"
-                    slidesPerView={1}
-                    spaceBetween={0}
-                    customPagination={customPagination}
-                    withPagination={true}>
-                    {map(get(reservation, "images"), (image, key) => (
-                      <div key={key} className="lg:w-72 h-48 lg:h-64">
-                        <Image
+        {isMobileDevice ? (
+          <Draggable
+            nodeRef={itemRef}
+            defaultClassName={`${isMobile ? "pr-2" : ""}`}
+            disabled={!isMobile}
+            bounds={{ right: 0 }}
+            axis="x"
+            handle=".item"
+            defaultPosition={{ x: 0, y: 0 }}
+            position={{ x: left, y: 0 }}
+            onDrag={handleDrag}
+            onStop={handleStop}>
+            <div
+              ref={itemRef}
+              className="item"
+              style={{ transform: `translate3d(${left}px, 0, 0)` }}>
+              <Card>
+                <div className="flex gap-3 lg:gap-6 shadow-base-blur-20 rounded-l-xl lg:rounded-xl relative bg-white">
+                  <div className="w-40 lg:w-72 h-48 lg:h-64 relative">
+                    <Slider
+                      sliderIdentifier="reservations-image"
+                      slidesPerView={1}
+                      spaceBetween={0}
+                      withPagination={true}>
+                      {map(get(reservation, "images"), (image, key) => (
+                        <div key={key} className="lg:w-72 h-48 lg:h-64">
+                          <Image
+                            key={key}
+                            src={get(image, "src")}
+                            alt="reservation"
+                            fill={true}
+                            className="rounded-tl-xl rounded-bl-xl object-cover"
+                          />
+                        </div>
+                      ))}
+                    </Slider>
+                    <div className="absolute left-2 top-2 grid grid-cols-1 gap-y-2 z-10">
+                      {map(get(reservation, "badges"), (badge, key) => (
+                        <Badge
                           key={key}
-                          src={get(image, "src")}
-                          alt="reservation"
-                          fill={true}
-                          className="rounded-tl-xl rounded-bl-xl object-cover"
-                        />
-                      </div>
-                    ))}
-                  </Slider>
-                  <div className="absolute left-2 top-2 grid grid-cols-1 gap-y-2 z-10">
-                    {map(get(reservation, "badges"), (badge, key) => (
-                      <Badge
-                        key={key}
-                        color={get(badge, "color")}
-                        className={`bg-white text-lg font-mi-sans-semi-bold p-4 rounded-lg`}>
-                        {get(badge, "label")}
-                      </Badge>
-                    ))}
+                          color={get(badge, "color")}
+                          className={`bg-white text-lg font-mi-sans-semi-bold p-4 rounded-lg`}>
+                          {get(badge, "label")}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
+                  <ReservationItemContent reservation={reservation} />
                 </div>
-                <ReservationItemContent reservation={reservation} />
+              </Card>
+            </div>
+          </Draggable>
+        ) : (
+          <Card>
+            <div className="flex gap-3 lg:gap-6 shadow-base-blur-20 rounded-l-xl lg:rounded-xl relative bg-white">
+              <div className="w-40 lg:w-72 h-48 lg:h-64 relative">
+                <Slider
+                  sliderIdentifier="reservations-image"
+                  slidesPerView={1}
+                  spaceBetween={0}
+                  customPagination={customPagination}
+                  withPagination={true}>
+                  {map(get(reservation, "images"), (image, key) => (
+                    <div key={key} className="lg:w-72 h-48 lg:h-64">
+                      <Image
+                        key={key}
+                        src={get(image, "src")}
+                        alt="reservation"
+                        fill={true}
+                        className="rounded-tl-xl rounded-bl-xl object-cover"
+                      />
+                    </div>
+                  ))}
+                </Slider>
+                <div className="absolute left-2 top-2 grid grid-cols-1 gap-y-2 z-10">
+                  {map(get(reservation, "badges"), (badge, key) => (
+                    <Badge
+                      key={key}
+                      color={get(badge, "color")}
+                      className={`bg-white text-lg font-mi-sans-semi-bold p-4 rounded-lg`}>
+                      {get(badge, "label")}
+                    </Badge>
+                  ))}
+                </div>
               </div>
-            </Card>
-          </div>
-        </Draggable>
+              <ReservationItemContent reservation={reservation} />
+            </div>
+          </Card>
+        )}
       </div>
     </Link>
   );

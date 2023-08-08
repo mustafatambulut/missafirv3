@@ -19,7 +19,8 @@ const SelectLanguage = ({
   showIndicator,
   className = ""
 }: ISelectLanguage) => {
-  const [currentLocale] = useState("EN");
+  //todo: dil seçeneği ekleyince güncellenecek
+  const [currentLocale] = useState("TR");
   const selectClass = classNames(`text-sm rounded-xl ${className}`, {
     "bg-gray-700": variant === "dark",
     "bg-none": variant === "ghost",

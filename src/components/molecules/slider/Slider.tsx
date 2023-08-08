@@ -35,7 +35,6 @@ const Slider = ({
         spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
         modules={[Navigation, Pagination]}
-        pagination={withPagination}
         {...(customPagination
           ? {
               pagination: customPagination

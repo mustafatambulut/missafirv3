@@ -11,9 +11,12 @@ export interface ISlider {
   sliderContainerClassName?: string;
   customSlide?: null | ReactNode;
   customNavigation?: null | ReactNode;
-  customPagination?: null | ReactNode;
+  customPagination?: null | ICustomPagination;
 }
-
+export interface ICustomPagination {
+  clickable?: boolean;
+  renderBullet?: ReactNode;
+}
 export interface ISlide {
   image: string;
   description?: string;

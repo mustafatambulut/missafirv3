@@ -68,8 +68,8 @@ const Navbar = ({ data, isScrolledHeaderActive, setIsDrawerOpen }: INavbar) => {
             <Image
               src={`${
                 isScrolledHeaderActive
-                  ? "/images/open-menu-black.svg"
-                  : "/images/open-menu.svg"
+                  ? "/images/open_menu_black.svg"
+                  : "/images/open_menu.svg"
               }`}
               alt="open"
               width={20}

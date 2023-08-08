@@ -57,7 +57,8 @@ const Header = () => {
 
   const handleScroll = () => {
     const scrollPosition = getScrollPosition();
-    setIsScrolledHeaderActive(scrollPosition > 100);
+    const requiredScrollPosition = isMobile ? 10 : 30;
+    setIsScrolledHeaderActive(scrollPosition > requiredScrollPosition);
   };
 
   useEffect(() => {

@@ -114,14 +114,6 @@ const ReservationDetail = () => {
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-3">
           <div className="text-sm lg:text-xl text-gray-700 flex items-center gap-1">
-            <div className="h-7 w-7 relative">
-              <Image
-                src={get(mockReservation, "platform.logo")}
-                alt={get(mockReservation, "platform.name")}
-                fill={true}
-                className="object-cover"
-              />
-            </div>
             {get(mockReservation, "code")}
           </div>
           <div className="text-lg lg:text-28 font-mi-sans-semi-bold text-gray-800">

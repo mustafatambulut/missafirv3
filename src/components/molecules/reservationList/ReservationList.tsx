@@ -1,13 +1,36 @@
-import React from "react";
-import { map, size } from "lodash";
+"use client";
+import React, { useState } from "react";
+import classNames from "classnames";
+import { get, map, size } from "lodash";
 
+import Button from "@/components/atoms/button/Button";
+import SelectFilter from "@/components/atoms/selectFilter/SelectFilter";
 import ReservationItem from "@/components/molecules/reservationItem/ReservationItem";
 
+import PlaneIcon from "../../../../public/images/plane.svg";
+import AllIcon from "../../../../public/images/circles.svg";
 import PendingIcon from "../../../../public/images/waitround.svg";
 import ConfirmedIcon from "../../../../public/images/confirmed.svg";
 import CancelledIcon from "../../../../public/images/cancelled.svg";
 
 const ReservationList = () => {
+  const [activeFilter, setActiveFilter] = useState<number>(0);
+
+  const filterOptionIconClass = (index: number): string => {
+    return classNames("fill-gray", {
+      "fill-primary": activeFilter === index
+    });
+  };
+
+  const filterOptionButtonClass = (index: number): string => {
+    return classNames(
+      "outline-none px-0 text-xl cursor-pointer flex gap-x-3 items-center hover:text-gray text-gray transition-none",
+      {
+        "text-primary hover:text-primary": activeFilter === index
+      }
+    );
+  };
+
   // todo: test için eklendi silinecek
   const mockReservations = [
     {
@@ -141,11 +164,66 @@ const ReservationList = () => {
       ]
     }
   ];
+
+  // todo: dil seçeneği ekleyince güncellenecek
+  const filterOptions = [
+    {
+      attributes: {
+        type: "filter",
+        value: "all",
+        label: "All",
+        icon: <AllIcon className={filterOptionIconClass(0)} />
+      }
+    },
+    {
+      attributes: {
+        type: "filter",
+        value: "confirmed",
+        label: "Confirmed",
+        icon: <ConfirmedIcon className={filterOptionIconClass(1)} />
+      }
+    },
+    {
+      attributes: {
+        type: "filter",
+        value: "pending",
+        label: "Pending",
+        icon: <PlaneIcon className={filterOptionIconClass(2)} />
+      }
+    },
+    {
+      attributes: {
+        type: "filter",
+        value: "cancelled",
+        label: "Cancelled",
+        icon: <CancelledIcon className={filterOptionIconClass(3)} />
+      }
+    }
+  ];
   return (
     <>
-      <div className="text-sm lg:text-lg text-gray-800">
-        {/*// todo: dinamikleştirilecek*/}
-        {size(mockReservations)} geçmiş rezervasyon
+      <div className="grid grid-cols-1 gap-y-2">
+        <div className="mt-4 lg:mt-0">
+          <div className="hidden lg:flex gap-4">
+            {map(filterOptions, (filter, key) => (
+              <Button
+                key={key}
+                className={filterOptionButtonClass(key)}
+                variant="btn-ghost"
+                onClick={() => setActiveFilter(key)}>
+                {get(filter, "attributes.icon")}
+                <span>{get(filter, "attributes.label")}</span>
+              </Button>
+            ))}
+          </div>
+          <div className="lg:hidden flex justify-between">
+            <SelectFilter />
+          </div>
+        </div>
+        <div className="text-sm lg:text-lg text-gray-800">
+          {/*// todo: dinamikleştirilecek*/}
+          {size(mockReservations)} geçmiş rezervasyon
+        </div>
       </div>
       <div className="relative gap-y-5 flex flex-col">
         {map(mockReservations, (reservation, key) => (

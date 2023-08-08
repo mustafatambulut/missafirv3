@@ -25,6 +25,7 @@ const SingleValue = ({ ...props }: ISingleValue) => {
         get(props, "data.attributes.type") === "filter"
     }
   );
+
   return (
     <components.SingleValue {...props}>
       <div className={singleValueClass}>
@@ -32,14 +33,14 @@ const SingleValue = ({ ...props }: ISingleValue) => {
           <>
             {!isEmpty(get(props, "data.attributes.image")) && (
               <OptionImage
-                image={get(props, "data.attributes.image")}
+                src={get(props, "data.attributes.image")}
                 className={get(
                   props,
                   "selectProps.optionImageWrapperClassName"
                 )}
                 imageClassName={get(props, "selectProps.optionImageClassName")}
-                imageWidth={get(props, "selectProps.optionImageWidth") || 0}
-                imageHeight={get(props, "selectProps.optionImageHeight") || 0}
+                width={get(props, "selectProps.optionImageWidth") || 0}
+                height={get(props, "selectProps.optionImageHeight") || 0}
               />
             )}
             {!isEmpty(get(props, "data.attributes.icon")) &&
