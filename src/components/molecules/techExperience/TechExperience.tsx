@@ -1,159 +1,75 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { filter, first, get, map } from "lodash";
+import { useEffect, useState } from "react";
+import { get, map, pick } from "lodash";
 
-import "./TechExperience.css";
+import { BODY } from "@/app/constants";
+import { TECH_EXPERIENCE_SECTION } from "@/components/molecules/techExperience/constants";
+import useFetchData from "@/app/hooks/useFetchData";
+import { ITechExperience } from "@/components/molecules/techExperience/types";
+
 import "swiper/css";
+import "./TechExperience.css";
 import "swiper/css/navigation";
 
-import Slider from "@/components/molecules/slider/Slider";
+import Loading from "@/components/atoms/loading/Loading";
+import TabTitle from "@/components/atoms/tabTitle/TabTitle";
 import Section from "@/components/molecules/section/Section";
-import { getPageDataByComponent } from "@/utils/helper";
-import { BODY, HOME } from "@/app/constants";
-import Card from "@/components/atoms/card/Card";
-import Image from "next/image";
-import PreviousIcon from "../../../../public/images/secondary-arrow-left.svg";
-import NextIcon from "../../../../public/images/secondary-arrow-right.svg";
-
-const CustomNavigation = () => {
-  return (
-    <>
-      <div className="experience-slider swiper-button-prev rounded-full shadow w-[60px] h-[60px] after:hidden hidden lg:flex">
-        <PreviousIcon className="fill-blue-700" />
-      </div>
-      <div className="experience-slider swiper-button-next rounded-full shadow w-[60px] h-[60px] after:hidden hidden lg:flex">
-        <NextIcon className="fill-blue-700" />
-      </div>
-    </>
-  );
-};
+import TabContent from "@/components/molecules/tabContent/TabContent";
 
 const TechExperience = () => {
-  const [activeTab, setActiveTab] = useState(0);
-  const [techExperience, setTechExperience] = useState(null);
+  const [activeTab, setActiveTab] = useState<number>(0);
+  const [tabContents, setTabContents] = useState(null);
+  const [tabTitles, setTabTitles] = useState(null);
 
-  const fetchData = async () => {
-    const response = await getPageDataByComponent(HOME, BODY);
-    const techExperienceData = first(
-      filter(
-        response,
-        (item) => item["__component"] === "sections.tech-experience"
-      )
-    );
-    setTechExperience(techExperienceData);
-  };
+  const techExperience = useFetchData<ITechExperience>(
+    BODY,
+    TECH_EXPERIENCE_SECTION
+  );
 
   useEffect(() => {
-    fetchData();
-  }, []);
-  const tabData = {
-    tabItems: [{ label: "Owner Panel" }, { label: "GE App" }, { label: "PMS" }],
-    tabContent: [
-      {
-        items: [
-          {
-            image: "https://i.ibb.co/1MrZ78J/Group-114.png",
-            description:
-              "Owner Panel Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
-          },
-          {
-            image: "https://i.ibb.co/1MrZ78J/Group-114.png",
-            description:
-              "Owner Panel 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
-          }
-        ]
-      },
-      {
-        items: [
-          {
-            image: "https://i.ibb.co/1MrZ78J/Group-114.png",
-            description:
-              "GE App Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
-          },
-          {
-            image: "https://i.ibb.co/1MrZ78J/Group-114.png",
-            description:
-              "GE App 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
-          }
-        ]
-      },
-      {
-        items: [
-          {
-            image: "https://i.ibb.co/1MrZ78J/Group-114.png",
-            description:
-              "PMS Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
-          },
-          {
-            image: "https://i.ibb.co/1MrZ78J/Group-114.png",
-            description:
-              "PMS 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
-          }
-        ]
-      }
-    ]
-  };
+    if (!techExperience) return;
+
+    const contents = map(get(techExperience, "body"));
+    setTabContents(map(contents, (content) => pick(content, ["sliders"])));
+    setTabTitles(map(contents, (content) => pick(content, ["title"])));
+  }, [techExperience]);
+
   return (
-    <>
-      {techExperience && (
-        <Section
-          className="px-4 lg:px-8 mt-14"
-          title={get(techExperience, "header.title")}
-          description={get(techExperience, "header.description")}>
-          <div className="tab-container w-full">
-            <div className="tabs w-full flex">
-              {map(get(tabData, "tabItems"), (item, key) => (
-                <a
-                  key={key}
-                  className={`tab tab-bordered flex-1 text-grey-600 text-base lg:text-2xl h-auto pb-1 lg:pb-2 border-b-grey-100 border-b-4 px-0 ${
-                    key === activeTab &&
-                    "tab-active !text-grey-800 border-b-grey-100"
-                  }`}
-                  onClick={() => setActiveTab(key)}>
-                  <span>{item.label}</span>
-                </a>
-              ))}
-            </div>
-            <div className="tab-content lg:px-6">
-              {map(
-                get(tabData, "tabContent"),
-                (tabContentItem, key) =>
-                  key === activeTab && (
-                    <div
-                      key={key}
-                      className={`tab-content-item ${
-                        key === activeTab ? "block" : "hidden"
-                      }`}>
-                      <Slider
-                        sliderIdentifier="experience-slider"
-                        customNavigation={<CustomNavigation />}>
-                        {map(get(tabContentItem, "items"), (item, key) => (
-                          <Card
-                            key={key}
-                            className="py-10"
-                            cardBodyClassName="flex flex-col items-center justify-center">
-                            <Image
-                              className="m-auto"
-                              src={get(item, "image") || ""}
-                              alt="image"
-                              width={268}
-                              height={545}
-                            />
-                            <p className="mt-10 text-gray-600 text-sm lg:text-2xl line-clamp-3 text-center">
-                              {get(item, "description")}
-                            </p>
-                          </Card>
-                        ))}
-                      </Slider>
-                    </div>
-                  )
-              )}
-            </div>
+    <Loading isLoading={!techExperience} loader={<p>Loading feed...</p>}>
+      {/*todo: skeleton eklenecek*/}
+      <Section
+        className="px-4 lg:px-8 mt-14"
+        title={get(techExperience, "header.title")}
+        description={get(techExperience, "header.description")}>
+        <div className="tab-container w-full">
+          <div className="tabs w-full flex">
+            {map(tabTitles, ({ title }, key) => (
+              <TabTitle
+                key={key}
+                id={key}
+                title={title}
+                activeTab={activeTab}
+                onClick={() => setActiveTab(key)}
+              />
+            ))}
           </div>
-        </Section>
-      )}
-    </>
+          <div className="tab-content lg:px-6">
+            {map(tabContents, ({ sliders }, key) => {
+              if (key === activeTab) {
+                return (
+                  <TabContent
+                    key={key}
+                    id={key}
+                    content={sliders}
+                    activeTab={activeTab}
+                  />
+                );
+              }
+            })}
+          </div>
+        </div>
+      </Section>
+    </Loading>
   );
 };
-
 export default TechExperience;
