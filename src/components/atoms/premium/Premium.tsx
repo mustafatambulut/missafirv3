@@ -2,15 +2,16 @@
 import { get } from "lodash";
 
 import { BODY } from "@/app/constants";
-import useFetchData from "@/app/hooks/useFetchData";
 import { PREMIUM_SECTION } from "@/components/atoms/premium/constants";
+import useFetchData from "@/app/hooks/useFetchData";
+import { IPremium } from "@/components/atoms/premium/types";
 
 import Card from "@/components/atoms/card/Card";
 import Button from "@/components/atoms/button/Button";
 import Loading from "@/components/atoms/loading/Loading";
 
 const Premium = () => {
-  const premium = useFetchData(BODY, PREMIUM_SECTION);
+  const premium = useFetchData<IPremium>(BODY, PREMIUM_SECTION);
 
   return (
     <Loading

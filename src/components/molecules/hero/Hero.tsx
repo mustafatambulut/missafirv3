@@ -1,28 +1,18 @@
 "use client";
-import { useEffect, useState } from "react";
-import { find, get, head, size } from "lodash";
+import { get } from "lodash";
 import { isMobile } from "react-device-detect";
 
 import { BODY } from "@/app/constants";
-import { useAppSelector } from "@/redux/hooks";
-import { IFooter } from "@/components/molecules/footer/types";
 import { HERO_SECTION } from "@/components/molecules/hero/constants";
+import useFetchData from "@/app/hooks/useFetchData";
+import { IHero } from "@/components/molecules/hero/types";
 
 import Loading from "@/components/atoms/loading/Loading";
 import SearchBar from "@/components/molecules/searchBar/SearchBar";
 import MobileSearchBar from "@/components/molecules/mobileSearchBar/MobileSearchBar";
 
 const Hero = () => {
-  const [hero, setHero] = useState<IFooter>(null);
-
-  const entities = useAppSelector((state) => state.landingReducer.entities);
-
-  useEffect(() => {
-    if (size(entities)) {
-      const data = get(head(entities), BODY);
-      setHero(find(data, { __component: HERO_SECTION }));
-    }
-  }, [entities]);
+  const hero = useFetchData<IHero>(BODY, HERO_SECTION);
 
   return (
     <Loading isLoading={!get(hero, "image")} loader={<p>Loading feed...</p>}>

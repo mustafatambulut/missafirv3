@@ -1,13 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
 import Image from "next/image";
+import { get, map } from "lodash";
 import { isMobile } from "react-device-detect";
-import { find, get, head, map, size } from "lodash";
 
 import { BODY } from "@/app/constants";
-import { useAppSelector } from "@/redux/hooks";
-import { Attributes, ICity } from "@/components/molecules/cities/types";
 import { CITY_SECTION } from "@/components/molecules/cities/constants";
+import useFetchData from "@/app/hooks/useFetchData";
+import { Attributes, ICity } from "@/components/molecules/cities/types";
 
 import Card from "@/components/atoms/card/Card";
 import Loading from "@/components/atoms/loading/Loading";
@@ -32,15 +31,7 @@ const CustomNavigation = () => {
 };
 
 const Cities = () => {
-  const [cities, setCities] = useState<ICity>(null);
-  const entities = useAppSelector((state) => state.landingReducer.entities);
-
-  useEffect(() => {
-    if (size(entities)) {
-      const data = get(head(entities), BODY);
-      setCities(find(data, { __component: CITY_SECTION }));
-    }
-  }, [entities]);
+  const cities = useFetchData<ICity>(BODY, CITY_SECTION);
 
   const CardComponent = ({ city }: Attributes) => {
     return (
