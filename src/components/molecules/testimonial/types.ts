@@ -1,4 +1,4 @@
-export interface ITestimonials {
+export interface ITestimonial {
   header: ITestimonialsHeader;
   body: ITestimonialsBody[];
 }
@@ -18,4 +18,12 @@ export interface ITestimonialsBody {
   description: string;
   footer_desc: string;
   author: string;
+}
+
+export interface ICardComponent {
+  item: {
+    info: string;
+    header_image: string;
+    footer_desc: string;
+  };
 }
