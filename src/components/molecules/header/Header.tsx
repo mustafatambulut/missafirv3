@@ -7,7 +7,7 @@ import { AppDispatch } from "@/redux/store";
 import { isMobile } from "react-device-detect";
 
 import { HOME } from "@/app/constants";
-import { useAppSelector } from "@/app/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { getScrollPosition } from "@/utils/helper";
 import { fetchDataByPage } from "@/redux/features/landingSlice";
 

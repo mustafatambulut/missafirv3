@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { get, head, size } from "lodash";
 
-import { useAppSelector } from "@/app/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { IFooter } from "@/components/molecules/footer/types";
 import { FooterBrandProps } from "@/components/atoms/footerBrand/types";
 import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
@@ -18,8 +18,9 @@ const FooterBrand = ({ className = "" }: FooterBrandProps) => {
   useEffect(() => {
     if (size(entities)) setData(get(head(entities), FOOTER_BRAND));
   }, [entities]);
+
   return (
-    <Loading isLoading={!size(entities)} loader={<p>Loading feed...</p>}>
+    <Loading isLoading={!data} loader={<p>Loading feed...</p>}>
       {/*todo: skeleton eklenecek*/}
       <footer className={`footer footer-center p-4 ${className}`}>
         <div className="flex">

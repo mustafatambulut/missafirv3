@@ -5,7 +5,7 @@ import { isMobile } from "react-device-detect";
 import { find, get, head, map, size } from "lodash";
 
 import { BODY } from "@/app/constants";
-import { useAppSelector } from "@/app/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { Attributes, ICity } from "@/components/molecules/cities/types";
 import { CITY_SECTION } from "@/components/molecules/cities/constants";
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { get, head, size } from "lodash";
 
-import { useAppSelector } from "@/app/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { IFooter } from "@/components/molecules/footer/types";
 import { FOOTER } from "@/components/molecules/footer/constant";
 

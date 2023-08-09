@@ -4,7 +4,7 @@ import { find, get, head, size } from "lodash";
 import { isMobile } from "react-device-detect";
 
 import { BODY } from "@/app/constants";
-import { useAppSelector } from "@/app/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { IFooter } from "@/components/molecules/footer/types";
 import { HERO_SECTION } from "@/components/molecules/hero/constants";
 
