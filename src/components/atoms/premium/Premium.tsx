@@ -1,26 +1,25 @@
 "use client";
 import { useEffect, useState } from "react";
-import { filter, first, get } from "lodash";
+import { find, get, head, size } from "lodash";
 
-import { BODY, HOME } from "@/app/constants";
-import { getPageDataByComponent } from "@/utils/helper";
+import { BODY } from "@/app/constants";
+import { useAppSelector } from "@/app/hooks";
+import { PREMIUM_SECTION } from "@/components/atoms/premium/constants";
 
 import Card from "@/components/atoms/card/Card";
 import Button from "@/components/atoms/button/Button";
 
 const Premium = () => {
   const [premium, setPremium] = useState(null);
-  const fetchData = async () => {
-    const response = await getPageDataByComponent(HOME, BODY);
-    const premiumData = first(
-      filter(response, (item) => item["__component"] === "sections.premium")
-    );
-    setPremium(premiumData);
-  };
+
+  const entities = useAppSelector((state) => state.landingReducer.entities);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (size(entities)) {
+      const data = get(head(entities), BODY);
+      setPremium(find(data, { __component: PREMIUM_SECTION }));
+    }
+  }, [entities]);
 
   return (
     <>
