@@ -1,9 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
-import { get, head, size } from "lodash";
+import { get } from "lodash";
 
-import { useAppSelector } from "@/redux/hooks";
-import { IFooter } from "@/components/molecules/footer/types";
+import useFetchData from "@/app/hooks/useFetchData";
 import { FooterBrandProps } from "@/components/atoms/footerBrand/types";
 import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
 
@@ -11,13 +9,7 @@ import Loading from "@/components/atoms/loading/Loading";
 import Menu from "@/components/molecules/menu/Menu";
 
 const FooterBrand = ({ className = "" }: FooterBrandProps) => {
-  const [data, setData] = useState<IFooter>(null);
-
-  const entities = useAppSelector((state) => state.landingReducer.entities);
-
-  useEffect(() => {
-    if (size(entities)) setData(get(head(entities), FOOTER_BRAND));
-  }, [entities]);
+  const data = useFetchData(FOOTER_BRAND);
 
   return (
     <Loading isLoading={!data} loader={<p>Loading feed...</p>}>

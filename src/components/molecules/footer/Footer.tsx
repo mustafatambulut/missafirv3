@@ -1,11 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { get, head, size } from "lodash";
+import { get } from "lodash";
 
-import { useAppSelector } from "@/redux/hooks";
-import { IFooter } from "@/components/molecules/footer/types";
+import useFetchData from "@/app/hooks/useFetchData";
 import { FOOTER } from "@/components/molecules/footer/constant";
 
 import Button from "@/components/atoms/button/Button";
@@ -15,13 +13,7 @@ import FooterBrand from "@/components/atoms/footerBrand/FooterBrand";
 import FooterMenu from "@/components/molecules/footerMenu/FooterMenu";
 
 const Footer = () => {
-  const [data, setData] = useState<IFooter>(null);
-
-  const entities = useAppSelector((state) => state.landingReducer.entities);
-
-  useEffect(() => {
-    if (size(entities)) setData(get(head(entities), FOOTER));
-  }, [entities]);
+  const data = useFetchData(FOOTER);
 
   return (
     <Loading
