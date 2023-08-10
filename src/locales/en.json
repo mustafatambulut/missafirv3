@@ -2,6 +2,10 @@
   "reservation": {
     "confirmation": "Confirmation",
     "extra_service": "Extra Service",
-    "payment": "Payment"
+    "payment": "Payment",
+    "review_your_booking_details": "Review your booking details",
+    "key_info": "Key Info",
+    "house_rules": "House Rules",
+    "all_details": "All details"
   }
 }

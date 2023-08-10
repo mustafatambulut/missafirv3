@@ -2,6 +2,10 @@
   "reservation": {
     "confirmation": "Potvrda",
     "extra_service": "Dodatna usluga",
-    "payment": "Plaćanje"
+    "payment": "Plaćanje",
+    "review_your_booking_details": "Pregledajte detalje vaše rezervacije",
+    "key_info": "Ključne informacije",
+    "house_rules": "Pravila kuće",
+    "all_details": "Svi detalji"
   }
 }
