@@ -1,5 +1,7 @@
 {
-  "home": {
-    "title": "merhaba dünya"
+  "reservation": {
+    "confirmation": "Onay",
+    "extra_service": "Ekstra hizmet",
+    "payment": "Ödeme"
   }
 }

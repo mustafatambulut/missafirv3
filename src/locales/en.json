@@ -1,5 +1,7 @@
 {
-  "home": {
-    "title": "Hello world!"
+  "reservation": {
+    "confirmation": "Confirmation",
+    "extra_service": "Extra Service",
+    "payment": "Payment"
   }
 }

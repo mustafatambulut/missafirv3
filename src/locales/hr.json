@@ -1,5 +1,7 @@
 {
-  "home": {
-    "title": "Zdravo svijete!"
+  "reservation": {
+    "confirmation": "Potvrda",
+    "extra_service": "Dodatna usluga",
+    "payment": "Plaćanje"
   }
 }
