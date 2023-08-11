@@ -8,6 +8,7 @@ import { isMobile } from "react-device-detect";
 import { STATUS_CONFIRMATION } from "@/app/[lang]/reservation/constants";
 import { IBookingDetail } from "@/components/organisms/bookingDetail/types";
 
+import Collapse from "@/components/atoms/collapse/Collapse";
 import Slider from "@/components/molecules/slider/Slider";
 
 import Key from "../../../../public/images/key.svg";
@@ -139,9 +140,33 @@ const BookingDetail = ({ className = "" }: IBookingDetail) => {
     </div>
   );
 
+  const AllDetailComponent = () => (
+    <div className="gap-y-6 text-lg hidden lg:block">
+      <h1 className="mb-6 text-2xl font-semibold text-gray-800">
+        {t("all_details")}
+      </h1>
+      <div className="flex flex-row gap-x-60 xl:gap-x-80">
+        <KeyInfoComponent />
+        <HouseRulesComponent />
+      </div>
+    </div>
+  );
+
+  const MobileAllDetailComponent = () => (
+    <Collapse
+      className="gap-y-6 text-lg lg:hidden"
+      titleClass="text-2xl font-semibold text-gray-800 border-b p-0"
+      title={t("all_details")}>
+      <div className="flex flex-col gap-y-6 gap-x-60">
+        <KeyInfoComponent />
+        <HouseRulesComponent />
+      </div>
+    </Collapse>
+  );
+
   return (
     <div className={`flex flex-col gap-y-4 lg:gap-y-9 text-28 ${className}`}>
-      <h1 className="text-22 font-semibold text-gray-800 text-center lg:hidden">
+      <h1 className="text-22 font-semibold text-gray-800 py-0 my-0 lg:hidden">
         {t("confirmation")}
       </h1>
       <h1 className="text-28 font-semibold text-gray-800 hidden lg:block">
@@ -163,15 +188,8 @@ const BookingDetail = ({ className = "" }: IBookingDetail) => {
         </div>
         <PropertiesComponent />
       </div>
-      <div className="gap-y-6 text-lg">
-        <h1 className="mb-6 text-2xl font-semibold text-gray-800">
-          {t("all_details")}
-        </h1>
-        <div className="flex flex-col lg:flex-row gap-y-6 lg:gap-y-0 gap-x-60 xl:gap-x-80">
-          <KeyInfoComponent />
-          <HouseRulesComponent />
-        </div>
-      </div>
+      <AllDetailComponent />
+      <MobileAllDetailComponent />
     </div>
   );
 };
