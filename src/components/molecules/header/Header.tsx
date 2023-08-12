@@ -6,16 +6,16 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { isMobile } from "react-device-detect";
 
-import { getScrollPosition } from "@/utils/helper";
-import useFetchData from "@/app/hooks/useFetchData";
-import { fetchDataByPage } from "@/redux/features/landingSlice";
 import { HOME } from "@/app/constants";
+import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
 import { FOOTER } from "@/components/molecules/footer/constant";
 import { HEADER } from "@/components/molecules/header/constants";
-import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
 import { IHeader } from "@/components/molecules/header/types";
 import { IFooter } from "@/components/molecules/footer/types";
 import { IFooterBrand } from "@/components/atoms/footerBrand/types";
+import { getScrollPosition } from "@/utils/helper";
+import useFetchData from "@/app/hooks/useFetchData";
+import { fetchDataByPage } from "@/redux/features/landingSlice/landingSlice";
 
 import Loading from "@/components/atoms/loading/Loading";
 import Drawer from "@/components/molecules/drawer/Drawer";
