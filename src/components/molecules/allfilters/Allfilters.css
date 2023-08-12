@@ -1,7 +1,8 @@
-#all_filters_modal .modal-box::-webkit-scrollbar, .filter-wrapper::-webkit-scrollbar  {
-    display: none!important;
+#all_filters_modal .modal-box::-webkit-scrollbar, .filter-wrapper::-webkit-scrollbar {
+    display: none !important;
 }
+
 #all_filters_modal .modal-box, .filter-wrapper {
-    -ms-overflow-style: none!important;
-    scrollbar-width: none!important;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
 }
