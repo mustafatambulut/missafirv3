@@ -3,27 +3,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { STATUS_CONFIRMATION } from "@/app/[lang]/reservation/constants";
 import { IReservationState } from "@/redux/features/reservationSlice/types";
 
+// todo: api entegrasyonu sonrası güncellenecek
 const initialState = {
   entities: {
-    currentStep: 1,
-    reservationStatus: STATUS_CONFIRMATION,
     title: "Stylish Apartment Near Popular Touristic Spots",
     location: "Antalya, Turkey",
     images: [
       "../../../../public/images/temp/image-1.jpeg",
       "../../../../public/images/temp/image-2.jpeg"
     ],
-    payment: {
-      nightlyRate: 2000,
-      reservationDay: 11,
-      discountPercent: 25,
-      extras: {
-        label: "cleaning Fee",
-        total: 400
-      },
-      total: 0,
-      cuponCode: null
-    },
     details: [
       {
         keyInfo: {
@@ -42,6 +30,18 @@ const initialState = {
       }
     ]
   },
+  payment: {
+    nightlyRate: 2000,
+    reservationDay: 11,
+    discountPercent: 25,
+    extras: {
+      label: "cleaning Fee",
+      total: 400
+    }
+  },
+  total: 0,
+  cuponCode: null,
+  currentStep: 1,
   status: STATUS_CONFIRMATION
 } as IReservationState;
 
@@ -49,15 +49,31 @@ const reservationSlice = createSlice({
   name: "reservation",
   initialState,
   reducers: {
-    updateReservationStatus: (
-      state: IReservationState,
+    changeStatus: (
+      state: { status: string },
       action: PayloadAction<string>
     ) => {
       state.status = action.payload;
+    },
+    changeCurrentStep: (
+      state: { currentStep?: number },
+      action: PayloadAction<string>
+    ) => {
+      state.currentStep = action.payload;
+    },
+    changeTotal: (state: { total?: number }, action: PayloadAction<string>) => {
+      state.total = action.payload;
+    },
+    changeCuponCode: (
+      state: { cuponCode?: null },
+      action: PayloadAction<string>
+    ) => {
+      state.cuponCode = action.payload;
     }
   }
 });
 
-export const { updateReservationStatus } = reservationSlice.actions;
+export const { changeStatus, changeTotal, changeCuponCode, changeCurrentStep } =
+  reservationSlice.actions;
 
 export default reservationSlice.reducer;

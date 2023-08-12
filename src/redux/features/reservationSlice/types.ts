@@ -6,16 +6,17 @@ import {
 
 export interface IReservationState {
   entities?: Entities;
+  payment?: Payment;
+  total?: number;
+  cuponCode?: null;
+  currentStep?: number;
   status: STATUS_CONFIRMATION | STATUS_EXTRA_SERVICE | STATUS_SUCCESS;
 }
 
 export interface Entities {
-  currentStep?: number;
-  reservationStatus?: string;
   title?: string;
   location?: string;
   images?: string[];
-  payment?: Payment;
   details?: Detail[];
 }
 
@@ -35,8 +36,6 @@ export interface Payment {
   reservationDay?: number;
   discountPercent?: number;
   extras?: Extras;
-  total?: number;
-  cuponCode?: null;
 }
 
 export interface Extras {
