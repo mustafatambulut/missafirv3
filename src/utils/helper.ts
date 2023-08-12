@@ -18,4 +18,4 @@ export const getPageDataByComponent = async (
 
 export const getScrollPosition = () => window.scrollY;
 
-export const getCurrentLang = () => localStorage.getItem("lang");
+export const percentage = (num: number, per: number) => (num / 100) * per;

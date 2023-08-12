@@ -1,22 +1,24 @@
 import { get } from "lodash";
-import { RootState } from "@/redux/store";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { getPage } from "@/service/api";
 
-export const fetchDataByPage = createAsyncThunk("landing/fetchDataByPage", async (page: string) => {
-  const { attributes } = await getPage(page);
-  return attributes;
-});
+export const fetchDataByPage = createAsyncThunk(
+  "landing/fetchDataByPage",
+  async (page: string) => {
+    const { attributes } = await getPage(page);
+    return attributes;
+  }
+);
 
 interface LandingState {
   entities: [];
-  loading: "idle" | "pending" | "succeeded" | "failed";
+  loading: boolean;
 }
 
 const initialState = {
   entities: [],
-  loading: "idle"
+  loading: true
 } as LandingState;
 
 const landingSlice = createSlice({
@@ -24,11 +26,16 @@ const landingSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchDataByPage.fulfilled, (state, action) => {
-      const entities = get(state, "entities");
-      entities.push(get(action, "payload"));
+    builder.addCase(fetchDataByPage.pending, (state: LandingState): void => {
+      state.loading = true;
     });
+    builder.addCase(
+      fetchDataByPage.fulfilled,
+      (state: LandingState, action) => {
+        get(state, "entities").push(get(action, "payload"));
+        state.loading = false;
+      }
+    );
   }
 });
-export const responseData = (state: RootState) => get(state, "landing.value");
 export default landingSlice.reducer;
