@@ -1,5 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import OutsideClickHandler from "react-outside-click-handler";
+
 import { ICollapse } from "@/components/atoms/collapse/types";
 
 import UpArrow from "../../../../public/images/up_arrow.svg";
@@ -13,6 +15,7 @@ const Collapse = ({
   className = "",
   arrowColor = "fill-black"
 }: ICollapse) => {
+  const collapseRef = useRef<HTMLInputElement>(null);
   const [collapsable, setCollapsable] = useState<boolean>(false);
 
   const IconComponent = () => {
@@ -26,21 +29,26 @@ const Collapse = ({
   const ContentComponent = () => {
     return (
       collapsable && (
-        <div className={`collapse-content ${contentClass}`}>{children}</div>
+        <div className={`p-0 collapse-content ${contentClass}`}>{children}</div>
       )
     );
   };
 
+  const handleOutsideClick = () => setCollapsable(false);
+
   return (
-    <div tabIndex={0} className={`collapse  ${className}`}>
-      <div
-        onClick={() => setCollapsable(!collapsable)}
-        className={`collapse-title flex justify-between min-h-0 ${titleClass}`}>
-        {title}
-        <IconComponent />
+    <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+      <div tabIndex={0} className={`collapse ${className}`}>
+        <div
+          ref={collapseRef}
+          onClick={() => setCollapsable(!collapsable)}
+          className={`p-0 collapse-title cursor-pointer flex justify-between min-h-0 ${titleClass}`}>
+          {title}
+          <IconComponent />
+        </div>
+        <ContentComponent />
       </div>
-      <ContentComponent />
-    </div>
+    </OutsideClickHandler>
   );
 };
 export default Collapse;

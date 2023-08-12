@@ -11,7 +11,7 @@ import ShoppingCart from "../../../../public/images/shopping_cart.svg";
 import CustomerReview from "../../../../public/images/customer_review.svg";
 
 const ProgressBar = ({ className = "", currentStep }: IProgressBar) => {
-  const t = useTranslations("reservation");
+  const t = useTranslations();
 
   const steps = [
     {
