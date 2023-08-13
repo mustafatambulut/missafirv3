@@ -2,7 +2,7 @@ import React from "react";
 
 export interface ISlider {
   spaceBetween?: number;
-  slidesPerView?: number;
+  slidesPerView?: number | string;
   sliderIdentifier: string;
   withPagination?: boolean;
   withNavigation?: boolean;
