@@ -34,13 +34,16 @@ const initialState = {
     nightlyRate: 2000,
     reservationDay: 11,
     discountPercent: 25,
+    couponCodePercent: 10,
     extras: {
       label: "cleaning Fee",
       total: 400
     }
   },
   total: 0,
-  cuponCode: null,
+  couponCode: null,
+  isShowCouponCode: false,
+  isApplyCouponCode: false,
   currentStep: 1,
   status: STATUS_CONFIRMATION
 } as IReservationState;
@@ -64,16 +67,34 @@ const reservationSlice = createSlice({
     changeTotal: (state: { total?: number }, action: PayloadAction<string>) => {
       state.total = action.payload;
     },
-    changeCuponCode: (
-      state: { cuponCode?: null },
+    changeCouponCode: (
+      state: { couponCode?: null },
       action: PayloadAction<string>
     ) => {
-      state.cuponCode = action.payload;
+      state.couponCode = action.payload;
+    },
+    changeIsApplyCoupon: (
+      state: { isApplyCouponCode?: boolean },
+      action: PayloadAction<string>
+    ) => {
+      state.isApplyCouponCode = action.payload;
+    },
+    changeIsShowCouponCode: (
+      state: { isShowCouponCode?: boolean },
+      action: PayloadAction<string>
+    ) => {
+      state.isShowCouponCode = action.payload;
     }
   }
 });
 
-export const { changeStatus, changeTotal, changeCuponCode, changeCurrentStep } =
-  reservationSlice.actions;
+export const {
+  changeStatus,
+  changeTotal,
+  changeCouponCode,
+  changeCurrentStep,
+  changeIsApplyCoupon,
+  changeIsShowCouponCode
+} = reservationSlice.actions;
 
 export default reservationSlice.reducer;

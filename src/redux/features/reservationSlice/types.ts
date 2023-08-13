@@ -8,7 +8,9 @@ export interface IReservationState {
   entities?: Entities;
   payment?: Payment;
   total?: number;
-  cuponCode?: null;
+  couponCode?: null;
+  isApplyCouponCode?: boolean;
+  isShowCouponCode?: boolean;
   currentStep?: number;
   status: STATUS_CONFIRMATION | STATUS_EXTRA_SERVICE | STATUS_SUCCESS;
 }
@@ -35,6 +37,7 @@ export interface Payment {
   nightlyRate?: number;
   reservationDay?: number;
   discountPercent?: number;
+  couponCodePercent?: number;
   extras?: Extras;
 }
 
