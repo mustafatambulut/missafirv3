@@ -1,3 +1,5 @@
 export interface ICheckbox {
-  label: string;
+  isChecked: boolean;
+  handleChange: () => void;
+  data: { title: string; value: string | number | boolean };
 }
