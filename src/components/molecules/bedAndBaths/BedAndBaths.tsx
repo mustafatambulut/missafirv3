@@ -1,78 +1,150 @@
-import React from "react";
+"use client";
+import { useEffect, useState } from "react";
+import { get, keys, map, size } from "lodash";
 
-import { IBedAndBaths } from "@/components/molecules/bedAndBaths/types";
+import {
+  IBedsData,
+  IBedAndBaths,
+  IBathroomsData
+} from "@/components/molecules/bedAndBaths/types";
 
-import Button from "@/components/atoms/button/Button";
+import BedAndBathItem from "@/components/atoms/bedAndBathItem/BedAndBathItem";
+import FilterControlButtons from "@/components/molecules/filterControlButtons/FilterControlButtons";
+
+import CloseIcon from "../../../../public/images/close.svg";
 
 const BedAndBaths = ({
+  filterData,
+  setFilterData,
+  allFiltersData,
+  filterListings,
+  setAllFiltersData,
+  setIsDropdownOpen,
+  showButtons = true,
+  tempFilteredListings,
   isTitleVisible = true,
-  isControlButtonsVisible = true
+  isInAllFilters = false
 }: IBedAndBaths) => {
+  const [bedsData, setBedsData] = useState<IBedsData>({
+    type: "beds",
+    value: "any",
+    title: "Any"
+  });
+
+  const [bathroomsData, setBathroomsData] = useState<IBathroomsData>({
+    value: "any",
+    title: "Any",
+    type: "bathrooms"
+  });
+
+  // todo: test amaçlı eklenmiştir, düzenlenecek
+  const mockBedAndBathsData = {
+    beds: [
+      { title: "Any", value: "any", type: "beds" },
+      { title: "1", value: "1", type: "beds" },
+      { title: "2", value: "2", type: "beds" },
+      { title: "3", value: "3", type: "beds" },
+      { title: "4", value: "4", type: "beds" },
+      { title: "4'ten fazla", value: "more", type: "beds" }
+    ],
+    bathrooms: [
+      { title: "Any", value: "any", type: "bathrooms" },
+      { title: "1", value: "1", type: "bathrooms" },
+      { title: "2", value: "2", type: "bathrooms" },
+      { title: "3", value: "3", type: "bathrooms" },
+      { title: "4", value: "4", type: "bathrooms" },
+      { title: "4'ten fazla", value: "more", type: "bathrooms" }
+    ]
+  };
+
+  const handleFilter = ({ type, value, title }: IBedsData | IBathroomsData) => {
+    const bedAndBathsItem = { value, title, type };
+    if (isInAllFilters) {
+      if (setAllFiltersData) {
+        setAllFiltersData((prev) => ({
+          ...prev,
+          [type]: bedAndBathsItem
+        }));
+      }
+    } else {
+      type === "beds"
+        ? setBedsData(bedAndBathsItem)
+        : setBathroomsData(bedAndBathsItem);
+    }
+  };
+
+  const applyFilter = () => {
+    if (!isInAllFilters) {
+      setFilterData((prev) => ({
+        ...prev,
+        beds: bedsData,
+        bathrooms: bathroomsData
+      }));
+      if (setIsDropdownOpen) {
+        setIsDropdownOpen(false);
+      }
+    }
+  };
+
+  const handleClear = () => {
+    if (!isInAllFilters) {
+      setBedsData({ title: "any", value: "any", type: "beds" });
+      setBathroomsData({ title: "any", value: "any", type: "bathrooms" });
+    }
+  };
+
+  useEffect(() => {
+    const tempFilterData = {
+      ...filterData,
+      beds: bedsData,
+      bathrooms: bathroomsData
+    };
+    filterListings && filterListings("temp", tempFilterData);
+  }, [bedsData, bathroomsData, filterListings, filterData]);
+
+  useEffect(() => {
+    if (isInAllFilters && allFiltersData) {
+      setBedsData(get(allFiltersData, "beds"));
+      setBathroomsData(get(allFiltersData, "bathrooms"));
+    } else {
+      setBedsData(filterData.beds);
+      setBathroomsData(filterData.bathrooms);
+    }
+  }, [filterData, allFiltersData, isInAllFilters]);
+
   return (
     <div className="flex flex-col justify-start items-start gap-3">
       {isTitleVisible && (
-        <h6 className="text-xl font-mi-sans-semi-bold text-gray-700">
-          Bed & Bats
-        </h6>
+        <div className="flex justify-between items-center w-full">
+          <h6 className="text-xl font-mi-sans-semi-bold text-gray-700">
+            Bed & Bats
+          </h6>
+          {!isInAllFilters && (
+            <CloseIcon
+              className="fill-gray-800 scale-75"
+              onClick={() =>
+                setIsDropdownOpen ? setIsDropdownOpen(false) : null
+              }
+            />
+          )}
+        </div>
       )}
-      <div>
-        <span className="text-gray-600 text-lg">Bathrooms</span>
-        <div className="flex gap-2 lg:gap-3 items-center">
-          <div className="text-base font-mi-sans-semi-bold flex items-center justify-center border rounded-3xl min-w-[36px] h-[36px] px-3 cursor-pointer hover:bg-primary-500 hover:text-white hover:border-primary-500 text-gray-700">
-            Any
-          </div>
-          <div className="text-base font-mi-sans-semi-bold flex items-center justify-center border rounded-3xl min-w-[36px] h-[36px] px-3 cursor-pointer hover:bg-primary-500 hover:text-white hover:border-primary-500 text-gray-700">
-            1
-          </div>
-          <div className="text-base font-mi-sans-semi-bold flex items-center justify-center border rounded-3xl min-w-[36px] h-[36px] px-3 cursor-pointer hover:bg-primary-500 hover:text-white hover:border-primary-500 text-gray-700">
-            2
-          </div>
-          <div className="text-base font-mi-sans-semi-bold flex items-center justify-center border rounded-3xl min-w-[36px] h-[36px] px-3 cursor-pointer hover:bg-primary-500 hover:text-white hover:border-primary-500 text-gray-700">
-            3
-          </div>
-          <div className="text-base font-mi-sans-semi-bold flex items-center justify-center border rounded-3xl min-w-[36px] h-[36px] px-3 cursor-pointer hover:bg-primary-500 hover:text-white hover:border-primary-500 text-gray-700">
-            4
-          </div>
-          <div className="text-base font-mi-sans-semi-bold flex items-center justify-center border rounded-3xl min-w-[36px] h-[36px] px-3 cursor-pointer hover:bg-primary-500 hover:text-white hover:border-primary-500 text-gray-700">
-            {"4'ten fazla"}
-          </div>
-        </div>
-      </div>
-      <div>
-        <span className="text-gray-600 text-lg">Beds</span>
-        <div className="flex gap-2 lg:gap-3 items-center">
-          <div className="text-base font-mi-sans-semi-bold flex items-center justify-center border rounded-3xl min-w-[36px] h-[36px] px-3 cursor-pointer hover:bg-primary-500 hover:text-white hover:border-primary-500 text-gray-700">
-            Any
-          </div>
-          <div className="text-base font-mi-sans-semi-bold flex items-center justify-center border rounded-3xl min-w-[36px] h-[36px] px-3 cursor-pointer hover:bg-primary-500 hover:text-white hover:border-primary-500 text-gray-700">
-            1
-          </div>
-          <div className="text-base font-mi-sans-semi-bold flex items-center justify-center border rounded-3xl min-w-[36px] h-[36px] px-3 cursor-pointer hover:bg-primary-500 hover:text-white hover:border-primary-500 text-gray-700">
-            2
-          </div>
-          <div className="text-base font-mi-sans-semi-bold flex items-center justify-center border rounded-3xl min-w-[36px] h-[36px] px-3 cursor-pointer hover:bg-primary-500 hover:text-white hover:border-primary-500 text-gray-700">
-            3
-          </div>
-          <div className="text-base font-mi-sans-semi-bold flex items-center justify-center border rounded-3xl min-w-[36px] h-[36px] px-3 cursor-pointer hover:bg-primary-500 hover:text-white hover:border-primary-500 text-gray-700">
-            4
-          </div>
-          <div className="text-base font-mi-sans-semi-bold flex items-center justify-center border rounded-3xl min-w-[36px] h-[36px] px-3 cursor-pointer hover:bg-primary-500 hover:text-white hover:border-primary-500 text-gray-700">
-            {"4'ten fazla"}
-          </div>
-        </div>
-      </div>
-      {isControlButtonsVisible && (
-        <div className="flex justify-end w-full">
-          <Button
-            onClick={() => console.log("clear")}
-            variant="btn-link"
-            className="text-primary bg-transparent shadow-none border-none">
-            Clear
-          </Button>
-          <Button className="ml-2" variant="btn-primary">
-            Apply
-          </Button>
-        </div>
+      {map(keys(mockBedAndBathsData), (item, key) => (
+        <BedAndBathItem
+          key={key}
+          data={item}
+          bedsData={bedsData}
+          handleFilter={handleFilter}
+          bathroomsData={bathroomsData}
+          mockBedAndBathsData={mockBedAndBathsData}
+        />
+      ))}
+      {showButtons && (
+        <FilterControlButtons
+          applyFilter={applyFilter}
+          handleClear={handleClear}
+          filteredCount={size(tempFilteredListings)}
+        />
       )}
     </div>
   );
