@@ -1,108 +1,106 @@
-import React from "react";
+"use client";
+import { useEffect, useState } from "react";
+import { filter, get, map, size } from "lodash";
 
-import Checkbox from "@/components/atoms/checkbox/Checkbox";
+import {
+  IAmenities,
+  IAmenitiesData
+} from "@/components/molecules/amenities/types";
 
-const Amenities = () => {
+import AmenityItem from "@/components/molecules/amenityItem/AmenityItem";
+
+const Amenities = ({
+  isTitleVisible,
+  allFiltersData,
+  setAllFiltersData
+}: IAmenities) => {
+  const [amenitiesData, setAmenitiesData] = useState<IAmenitiesData[]>([]);
+  const mockAmenities = [
+    {
+      title: "Popular in this location",
+      items: [
+        { title: "Pool", value: "pool" },
+        { title: "Wi-fi", value: "wifi" },
+        { title: "Jakuzi", value: "jakuzi" },
+        { title: "Balcony", value: "balcony" },
+        { title: "Kitchen", value: "kitchen" },
+        { title: "Parking", value: "parking" },
+        { title: "Elevator", value: "elevator" }
+      ]
+    },
+    {
+      title: "Essentials",
+      items: [
+        { title: "TV", value: "tv" },
+        { title: "Iron", value: "iron" },
+        { title: "Dryer", value: "dryer" },
+        { title: "Washer", value: "washer" },
+        { title: "Heating", value: "heating" },
+        { title: "Hair dryer", value: "hairdryer" },
+        { title: "Dedicated workspace", value: "workspace" }
+      ]
+    },
+    {
+      title: "Features",
+      items: [
+        { title: "Gym", value: "gym" },
+        { title: "Crib", value: "crib" },
+        { title: "BBQ Grill", value: "bbq" },
+        { title: "Hot tub", value: "hottub" },
+        { title: "Charger", value: "charger" },
+        { title: "Breakfast", value: "breakfast" },
+        { title: "Smoking Allowed", value: "smoking" },
+        { title: "Indoor fireplace", value: "fireplace" }
+      ]
+    },
+    {
+      title: "Location Features",
+      items: [
+        { title: "Near the sea", value: "sea" },
+        { title: "City Center", value: "citycenter" },
+        { title: "Nature interwined", value: "nature" },
+        { title: "Near public transport", value: "transport" }
+      ]
+    }
+  ];
+  const checkIsIncludes = (data: IAmenitiesData[], value: string) =>
+    size(filter(data, (item) => item.value === value)) > 0;
+
+  const handleFilter = ({ value, title }: IAmenitiesData) => {
+    setAllFiltersData((prev) => {
+      const isIncludes = checkIsIncludes(prev.amenities, value);
+      if (isIncludes) {
+        return {
+          ...prev,
+          amenities: filter(prev.amenities, (item) => item.value !== value)
+        };
+      }
+      return { ...prev, amenities: [...prev.amenities, { value, title }] };
+    });
+  };
+
+  useEffect(() => {
+    setAmenitiesData(get(allFiltersData, "amenities"));
+  }, [allFiltersData]);
+
   return (
     <>
-      <div className="flex flex-col gap-2">
-        <div className="text-lg">Popular in this location</div>
-        <div className="grid grid-cols-2 lg:w-[358px] gap-y-3">
-          <div className="form-control">
-            <Checkbox label="Pool" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Wi-fi" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Balcony" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Kitchen" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Jakuzi" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Parking" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Elevator" />
-          </div>
+      {isTitleVisible && (
+        <div className="flex justify-between items-center w-full">
+          <h6 className="text-xl font-mi-sans-semi-bold text-gray-700">
+            Amenities
+          </h6>
         </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="text-lg">Essentials</div>
-        <div className="grid grid-cols-2 w-[358px] gap-y-3">
-          <div className="form-control">
-            <Checkbox label="Washer" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Heating" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="TV" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Iron" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Dryer" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Dedicated workspace" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Hair Dryer" />
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="text-lg">Features</div>
-        <div className="grid grid-cols-2 w-[358px] gap-y-3">
-          <div className="form-control">
-            <Checkbox label="Hot tub" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Crib" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="BBQ Grill" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Indoor fireplace" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Charger" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Gym" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Breakfast" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Smoking Allowed" />
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="text-lg">Location Features</div>
-        <div className="grid grid-cols-2 w-[358px] gap-y-3">
-          <div className="form-control">
-            <Checkbox label="Near the sea" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Nature interwined" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="City Center" />
-          </div>
-          <div className="form-control">
-            <Checkbox label="Near public transport" />
-          </div>
-        </div>
-      </div>
+      )}
+      {map(mockAmenities, (amenity, key) => (
+        <AmenityItem
+          key={key}
+          data={amenity}
+          checkIsIncludes={checkIsIncludes}
+          amenitiesData={amenitiesData}
+          handleFilter={handleFilter}
+        />
+      ))}
     </>
   );
 };
