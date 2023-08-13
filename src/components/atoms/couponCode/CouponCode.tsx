@@ -4,9 +4,13 @@ import { get, trim } from "lodash";
 import classNames from "classnames";
 import { useTranslations } from "next-intl";
 
+import {
+  changeCouponCode,
+  changeIsApplyCoupon,
+  changeIsShowCouponCode
+} from "@/redux/features/reservationSlice/reservationSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { ICouponCode } from "@/components/atoms/couponCode/types";
-import { changeCuponCode } from "@/redux/features/reservationSlice/reservationSlice";
 
 import Input from "@/components/atoms/input/Input";
 import Button from "@/components/atoms/button/Button";
@@ -23,7 +27,11 @@ const CouponCode = ({ className = "" }: ICouponCode) => {
 
   const handleOnChange = (e) => setText(trim(get(e, "target.value")));
 
-  const handleOnClick = () => dispatch(changeCuponCode(text));
+  const handleOnClick = () => {
+    dispatch(changeCouponCode(text));
+    dispatch(changeIsApplyCoupon(true));
+    dispatch(changeIsShowCouponCode(false));
+  };
 
   return (
     <div className={`flex items-end gap-x-3 ${className}`}>

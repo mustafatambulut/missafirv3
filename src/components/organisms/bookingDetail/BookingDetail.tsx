@@ -16,7 +16,7 @@ import Clock from "../../../../public/images/clock.svg";
 import BrokenLink from "../../../../public/images/broken_link.svg";
 
 const BookingDetail = ({ className = "" }: IBookingDetail) => {
-  const t = useTranslations("reservation");
+  const t = useTranslations();
 
   // todo: api bağlantısı sonrası kaldırılacak (hard coded datalar dahil)
   const mockReservation = {
@@ -28,23 +28,23 @@ const BookingDetail = ({ className = "" }: IBookingDetail) => {
     details: {
       homeRules: [
         {
-          text: "Children welcome (1-12 years)",
+          text: t("children_welcome_1_12_years"),
           img: "/images/approval.svg"
         },
         {
-          text: "Infants welcome (under 12 months)",
+          text: t("infants_welcome_under_12_months"),
           img: "/images/approval.svg"
         },
         {
-          text: "No parties or events",
+          text: t("no_parties_or_events"),
           img: "/images/delete.svg"
         },
         {
-          text: "No smoking",
+          text: t("no_smoking"),
           img: "/images/delete.svg"
         }
       ],
-      properties: ["2 Bedroom", "1 Bathroom", "120 m²"]
+      properties: [`2 ${t("bedroom")}`, `1 ${t("bathroom")}`, "120 m²"]
     }
   };
 
@@ -131,8 +131,8 @@ const BookingDetail = ({ className = "" }: IBookingDetail) => {
           key={key}
           priority
           src={src}
-          width={500}
-          height={300}
+          width={440}
+          height={248}
           alt="image"
           className="rounded-3xl 2xl:w-full"
         />
