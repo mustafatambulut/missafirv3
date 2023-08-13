@@ -17,7 +17,11 @@
   "total": "Ukupno",
   "total_nights": "(Ukupno {days} noćima)",
   "coupon_code": "Kod kupona",
+  "coupon_applied": "Kupon primijenjen!",
+  "discount_coupon_code": "{couponCode} (%10)",
+  "percent_discount": "{percent}% Popust",
   "nights": "noćima",
+  "payment_nights": "{cost}₺ x {day} noćima",
   "continue_without_login": "Nastavite bez prijave",
   "login_with_email": "Prijavite se e-mailom",
   "become_a_member_and_take_advantage_of_10_percent_discount_on_your_first_reservation": "Postanite član i iskoristite 10% popusta na prvu rezervaciju!",
@@ -31,5 +35,11 @@
   "do_you_have_account_login_now": "Imate li račun? Prijavite se sada",
   "sign_up_with_email": "Prijavite se e-poštom",
   "phone_number": "Broj telefona",
-  "select_our_extra_services_for_you": "Odaberite naše dodatne usluge za vas"
+  "select_our_extra_services_for_you": "Odaberite naše dodatne usluge za vas",
+  "bathroom": "Kupaonica",
+  "bedroom": "Spavaća soba",
+  "no_parties_or_events": "Nema zabava ni događanja",
+  "no_smoking": "Zabranjeno pušenje",
+  "children_welcome_1_12_years": "Djeca dobrodošla (1-12 godina)",
+  "infants_welcome_under_12_months": "Dojenčad dobrodošla (ispod 12 mjeseci)"
 }

@@ -17,7 +17,11 @@
   "total": "Total",
   "total_nights": "(Total {days} nights)",
   "coupon_code": "Coupon Code",
+  "coupon_applied": "Coupon applied!",
+  "discount_coupon_code": "{couponCode} (%10)",
+  "percent_discount": "{percent}% Discount",
   "nights": "nights",
+  "payment_nights": "{cost}₺ x {day} nights",
   "continue_without_login": "Continue without login",
   "login_with_email": "Login with e-mail",
   "become_a_member_and_take_advantage_of_10_percent_discount_on_your_first_reservation": "Become a member and take advantage of 10% discount on your first reservation!",
@@ -31,5 +35,11 @@
   "do_you_have_account_login_now": "Do you have account? Login now",
   "sign_up_with_email": "Sign Up with e-mail",
   "phone_number": "Phone Number",
-  "select_our_extra_services_for_you": "Select Our Extra Services For You"
+  "select_our_extra_services_for_you": "Select Our Extra Services For You",
+  "bathroom": "Bathroom",
+  "bedroom": "Bedroom",
+  "no_parties_or_events": "No parties or events",
+  "no_smoking": "No smoking",
+  "children_welcome_1_12_years": "Children welcome (1-12 years)",
+  "infants_welcome_under_12_months": "Infants welcome (under 12 months)"
 }

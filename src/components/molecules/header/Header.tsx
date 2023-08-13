@@ -21,12 +21,7 @@ import Loading from "@/components/atoms/loading/Loading";
 import Drawer from "@/components/molecules/drawer/Drawer";
 import Navbar from "@/components/molecules/navbar/Navbar";
 
-const Header = () => {
-  /*
-    client side translation example
-    const t = useTranslations("home");
-    <h1 className="text-red-500 text-xl">{t("title")}</h1>
-*/
+const Header = ({ lang }: string) => {
   const [header, setHeader] = useState<IHeader>(null);
   const [footerMenu, setFooterMenu] = useState<IFooter>(null);
   const [footerBrand, setFooterBrand] = useState<IFooterBrand>(null);
@@ -34,6 +29,7 @@ const Header = () => {
   const [isScrolledHeaderActive, setIsScrolledHeaderActive] =
     useState<boolean>(false);
 
+  localStorage.setItem("lang", lang);
   const dispatch = useDispatch<AppDispatch>();
   const drawerCloseRef = useRef<HTMLInputElement>(null);
   const entities = useFetchData([HEADER, FOOTER, FOOTER_BRAND]);

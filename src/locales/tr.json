@@ -7,7 +7,7 @@
   "house_rules": "Ev Kuralları",
   "all_details": "Tüm detaylar",
   "payment_details": "Ödeme Detayları",
-  "you_will_pay": "Ödeme yapacaksınız",
+  "you_will_pay": "Ödeme",
   "apply": "Kullan",
   "apply_coupon_code": "Kupon Kodu Kullan",
   "reserve": "Rezerve Et",
@@ -17,7 +17,11 @@
   "total": "Toplam",
   "total_nights": "(Toplam {days} gece)",
   "coupon_code": "Kupon Kodu",
+  "coupon_applied": "Kupon uygulandı.",
+  "discount_coupon_code": "{couponCode} (%10)",
+  "percent_discount": "{percent}% İndirim",
   "nights": "geceler",
+  "payment_nights": "{cost}₺ x {day} gece",
   "continue_without_login": "Giriş yapmadan devam et",
   "login_with_email": "E-posta ile Giriş Yap",
   "become_a_member_and_take_advantage_of_10_percent_discount_on_your_first_reservation": "Üye olun ve ilk rezervasyonunuzda %10 indirimden faydalanın!",
@@ -31,5 +35,11 @@
   "do_you_have_account_login_now": "Hesabınız mı var? Şimdi giriş yapın",
   "sign_up_with_email": "E-postayla Kaydolun",
   "phone_number": "Telefon Numarası",
-  "select_our_extra_services_for_you": "Sizin İçin Ekstra Hizmetlerimizi Seçin"
+  "select_our_extra_services_for_you": "Sizin İçin Ekstra Hizmetlerimizi Seçin",
+  "bathroom": "banyo",
+  "bedroom": "Yatak odası",
+  "no_parties_or_events": "Parti veya etkinlik yok",
+  "no_smoking": "Sigara İçmek Yasaktır",
+  "children_welcome_1_12_years": "Children welcome (1-12 years)",
+  "infants_welcome_under_12_months": "Infants welcome (under 12 months)"
 }
