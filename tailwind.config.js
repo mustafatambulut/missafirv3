@@ -10,8 +10,12 @@ const config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        "bold-blur-20": "0 2px 20px 0 rgba(186, 186, 186, 0.1)"
+      },
       borderRadius: {
-        x: "0.6rem" // 10px
+        x: "0.6rem", // 10px
+        20: "1.25rem" // 20px
       },
       fontSize: {
         xxs: "0.63rem",
@@ -73,7 +77,8 @@ const config = {
           700: "#5E686E",
           800: "#464E53",
           900: "#2F3437"
-        }
+        },
+        "primary-opacity": "#d01e500a"
       },
       fontFamily: {
         "mi-sans": ["Missafir-Sans"],
@@ -210,7 +215,7 @@ const config = {
               color: `${config.theme.extend.colors.gray["100"]} !important`
             }
           }
-        },
+        }
       });
     }),
     require("daisyui")

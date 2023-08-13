@@ -16,11 +16,13 @@
     border: 2px solid #D01E50;
     box-shadow: none;
 }
-.multi-range-slider .caption{
+
+.multi-range-slider .caption {
     width: auto;
     height: auto;
     left: -2px;
 }
+
 .multi-range-slider .thumb .caption * {
     background-color: transparent;
     color: #000000;
