@@ -55,7 +55,7 @@ const AllFilters = ({
 
   useEffect(() => {
     filterListings("temp", allFiltersData);
-  }, [allFiltersData]);
+  }, [allFiltersData, filterListings]);
 
   return (
     <>
