@@ -6,16 +6,16 @@ import { IMarquee } from "@/components/atoms/marquee/types";
 
 const Marquee = ({
   items,
-  direction = "left",
   speed = 50,
   className = "",
+  direction = "left",
   marqueeItemClassName = ""
 }: IMarquee) => {
   return (
     <ReactFastMarquee speed={speed} direction={direction} className={className}>
-      {map(items, (item, index) => (
-        <div className={marqueeItemClassName} key={index}>
-          <Image src={item.image} alt="image" width={160} height={50} />
+      {map(items, (image, key) => (
+        <div className={marqueeItemClassName} key={key}>
+          <Image src={image} alt="image" width={160} height={50} />
         </div>
       ))}
     </ReactFastMarquee>

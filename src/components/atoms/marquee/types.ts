@@ -5,6 +5,7 @@ export interface IMarquee {
   items: IMarqueeItem[];
   marqueeItemClassName?: string;
 }
+
 export interface IMarqueeItem {
   id: number;
   image: string;
