@@ -20,7 +20,15 @@ export const getScrollPosition = () => window.scrollY;
 
 export const percentage = (num: number, per: number) => (num / 100) * per;
 
-export const getCurrentLang = () => localStorage.getItem("lang");
+export const getLocalStorage = (key: string) => {
+  if (typeof window !== "undefined") return localStorage.getItem(key);
+};
+
+export const setLocalStorage = (key: string, value: any): void => {
+  if (typeof window !== "undefined") localStorage.setItem(key, value);
+};
+
+export const getCurrentLang = () => getLocalStorage("lang");
 
 export const formatPrice = (price, currencyType = "TRY") => {
   let format = "";

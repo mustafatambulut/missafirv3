@@ -13,8 +13,8 @@ import { HEADER } from "@/components/molecules/header/constants";
 import { IHeader } from "@/components/molecules/header/types";
 import { IFooter } from "@/components/molecules/footer/types";
 import { IFooterBrand } from "@/components/atoms/footerBrand/types";
-import { getScrollPosition } from "@/utils/helper";
 import useFetchData from "@/app/hooks/useFetchData";
+import { getScrollPosition, setLocalStorage } from "@/utils/helper";
 import { fetchDataByPage } from "@/redux/features/landingSlice/landingSlice";
 
 import Loading from "@/components/atoms/loading/Loading";
@@ -29,7 +29,6 @@ const Header = ({ lang }: string) => {
   const [isScrolledHeaderActive, setIsScrolledHeaderActive] =
     useState<boolean>(false);
 
-  localStorage.setItem("lang", lang);
   const dispatch = useDispatch<AppDispatch>();
   const drawerCloseRef = useRef<HTMLInputElement>(null);
   const entities = useFetchData([HEADER, FOOTER, FOOTER_BRAND]);
@@ -94,6 +93,7 @@ const Header = ({ lang }: string) => {
   }, [entities]);
 
   useEffect(() => {
+    setLocalStorage("lang", lang);
     dispatch(fetchDataByPage(HOME));
     window.addEventListener("scroll", handleScroll);
     handleScroll();
