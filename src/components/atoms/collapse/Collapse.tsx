@@ -42,7 +42,7 @@ const Collapse = ({
         <div
           ref={collapseRef}
           onClick={() => setCollapsable(!collapsable)}
-          className={`p-0 collapse-title cursor-pointer flex justify-between min-h-0 ${titleClass}`}>
+          className={`p-0 collapse-title items-center cursor-pointer flex justify-between min-h-0 ${titleClass}`}>
           {title}
           <IconComponent />
         </div>

@@ -11,6 +11,7 @@ import {
 } from "lodash";
 import classNames from "classnames";
 import { useTranslations } from "next-intl";
+import { isMobile } from "react-device-detect";
 
 import {
   changeTotal,
@@ -158,7 +159,11 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
 
   const CostComponent = (): ReactNode => (
     <div className="mt-2 border-t-2 border-gray-200 border-dashed">
-      {isShowCouponCode && <CouponCode />}
+      {isShowCouponCode && (
+        <div>
+          <CouponCode />
+        </div>
+      )}
       <AlertComponent />
       <div className="mt-3 flex justify-between">
         <div className="flex text-lg gap-x-1">
@@ -184,15 +189,18 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
     </div>
   );
 
-  const HeaderComponent = (): ReactNode => (
-    <div>
-      <h2 className="text-2xl font-mi-sans font-normal text-gray-700">
-        {formatPrice(get(data, "nightlyRate"), getPriceFormatByLocale())}
-        <span className="text-sm text-gray-400">{` /${t("nightly")}`}</span>
-      </h2>
-    </div>
-  );
-
+  const HeaderComponent = (): ReactNode => {
+    return (
+      <>
+        {!isMobile && (
+          <h2 className="text-2xl font-mi-sans font-normal text-gray-700">
+            {formatPrice(get(data, "nightlyRate"), getPriceFormatByLocale())}
+            <span className="text-sm text-gray-400">{` /${t("nightly")}`}</span>
+          </h2>
+        )}
+      </>
+    );
+  };
   const BodyComponent = (): ReactNode => (
     <div>
       <PaymentDetailComponent />
@@ -210,7 +218,7 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
 
   return (
     <div
-      className={`w-full bg-white px-5 py-8 lg:mt-20 lg:relative lg:rounded-3xl shadow-lg shadow-black lg:shadow-gray-200 fixed bottom-0 z-50 lg:z-0 font-mi-sans-semi-bold ${className}`}>
+      className={`w-full h-fit bg-white px-5 py-2 lg:py-8 lg:mt-20 lg:relative lg:rounded-3xl border-1 shadow-2xl shadow-black lg:shadow-gray-200 fixed bottom-0 z-50 lg:z-0 font-mi-sans-semi-bold ${className}`}>
       <div className="flex flex-col gap-y-6">
         <HeaderComponent />
         <BodyComponent />
