@@ -8,10 +8,7 @@ const initialState = {
   entities: {
     title: "Stylish Apartment Near Popular Touristic Spots",
     location: "Antalya, Turkey",
-    images: [
-      "/images/image1.jpeg",
-      "/images/image2.jpeg"
-    ],
+    images: ["/images/image1.jpeg", "/images/image2.jpeg"],
     details: [
       {
         keyInfo: {
@@ -60,6 +57,8 @@ const initialState = {
   isShowCouponCode: false,
   isApplyCouponCode: false,
   currentStep: 1,
+  guests: 1,
+
   status: STATUS_CONFIRMATION
 } as IReservationState;
 
@@ -99,6 +98,18 @@ const reservationSlice = createSlice({
       action: PayloadAction<string>
     ) => {
       state.isShowCouponCode = action.payload;
+    },
+    changeReservationDay: (
+      state: { reservationDay: number },
+      action: PayloadAction<string>
+    ) => {
+      state.reservationDay = action.payload;
+    },
+    changeGuests: (
+      state: { guests: number },
+      action: PayloadAction<string>
+    ) => {
+      state.guests = action.payload;
     }
   }
 });
@@ -106,9 +117,11 @@ const reservationSlice = createSlice({
 export const {
   changeStatus,
   changeTotal,
+  changeGuests,
   changeCouponCode,
   changeCurrentStep,
   changeIsApplyCoupon,
+  changeReservationDay,
   changeIsShowCouponCode
 } = reservationSlice.actions;
 

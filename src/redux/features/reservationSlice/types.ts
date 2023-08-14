@@ -5,6 +5,7 @@ import {
 } from "@/app/[lang]/reservation/constants";
 
 export interface IReservationState {
+  guests?: number;
   entities?: Entities;
   payment?: Payment;
   total?: number;
