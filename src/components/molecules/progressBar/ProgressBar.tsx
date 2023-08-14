@@ -3,15 +3,19 @@ import { map } from "lodash";
 import classNames from "classnames";
 import { useTranslations } from "use-intl";
 
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IProgressBar } from "@/components/molecules/progressBar/types";
+import { changeCurrentStep } from "@/redux/features/reservationSlice/reservationSlice";
 
 import Check from "../../../../public/images/check.svg";
 import CreditCart from "../../../../public/images/credit_card.svg";
 import ShoppingCart from "../../../../public/images/shopping_cart.svg";
 import CustomerReview from "../../../../public/images/customer_review.svg";
 
-const ProgressBar = ({ className = "", currentStep }: IProgressBar) => {
+const ProgressBar = ({ className = "" }: IProgressBar) => {
   const t = useTranslations();
+  const dispatch = useAppDispatch();
+  const { currentStep } = useAppSelector((state) => state.reservationReducer);
 
   const steps = [
     {
@@ -47,6 +51,15 @@ const ProgressBar = ({ className = "", currentStep }: IProgressBar) => {
     );
   };
 
+  const stepContainerClass = (id: number) => {
+    return classNames(
+      `flex flex-col justify-center gap-y-4 items-center ${className}`,
+      {
+        "cursor-pointer": id < currentStep
+      }
+    );
+  };
+
   const iconClass = (id: number) => {
     return classNames("", {
       "fill-primary-600": id === currentStep,
@@ -57,7 +70,9 @@ const ProgressBar = ({ className = "", currentStep }: IProgressBar) => {
 
   const IconComponent = ({ id }: number) => {
     const checked = (id, component) => {
-      if (id < currentStep) return <Check className="fill-green-600" />;
+      if (id < currentStep) {
+        return <Check className="fill-green-600 cursor-pointer" />;
+      }
       return component;
     };
 
@@ -73,12 +88,17 @@ const ProgressBar = ({ className = "", currentStep }: IProgressBar) => {
     }
   };
 
+  const previousStep = (id) => {
+    if (id < currentStep) dispatch(changeCurrentStep(currentStep - 1));
+  };
+
   return (
     <>
       {map(steps, ({ id, title }) => (
         <div
           key={id}
-          className={`flex flex-col justify-center gap-y-4 items-center ${className}`}>
+          onClick={() => previousStep(id)}
+          className={stepContainerClass(id)}>
           <div className={stepClass(id)}>
             <IconComponent id={id} />
           </div>
