@@ -21,7 +21,7 @@
   "discount_coupon_code": "{couponCode} (%10)",
   "percent_discount": "{percent}% İndirim",
   "nights": "geceler",
-  "payment_nights": "{cost}₺ x {day} gece",
+  "payment_nights": "{cost} x {day} gece",
   "continue_without_login": "Giriş yapmadan devam et",
   "login_with_email": "E-posta ile Giriş Yap",
   "become_a_member_and_take_advantage_of_10_percent_discount_on_your_first_reservation": "Üye olun ve ilk rezervasyonunuzda %10 indirimden faydalanın!",

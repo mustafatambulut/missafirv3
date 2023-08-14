@@ -9,8 +9,8 @@ const initialState = {
     title: "Stylish Apartment Near Popular Touristic Spots",
     location: "Antalya, Turkey",
     images: [
-      "../../../../public/images/temp/image-1.jpeg",
-      "../../../../public/images/temp/image-2.jpeg"
+      "/images/image1.jpeg",
+      "/images/image2.jpeg"
     ],
     details: [
       {
@@ -22,11 +22,26 @@ const initialState = {
       },
       {
         homeRules: [
-          "Children welcome (1-12 years)",
-          "Infants welcome (under 12 months)",
-          "No parties or events",
-          "No smoking"
+          {
+            text: "children_welcome_1_12_years",
+            img: "/images/approval.svg"
+          },
+          {
+            text: "infants_welcome_under_12_months",
+            img: "/images/approval.svg"
+          },
+          {
+            text: "no_parties_or_events",
+            img: "/images/delete.svg"
+          },
+          {
+            text: "no_smoking",
+            img: "/images/delete.svg"
+          }
         ]
+      },
+      {
+        properties: ["2 bedroom", "1 bathroom", "120 m²"]
       }
     ]
   },

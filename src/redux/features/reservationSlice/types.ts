@@ -9,8 +9,8 @@ export interface IReservationState {
   payment?: Payment;
   total?: number;
   couponCode?: null;
-  isApplyCouponCode?: boolean;
   isShowCouponCode?: boolean;
+  isApplyCouponCode?: boolean;
   currentStep?: number;
   status: STATUS_CONFIRMATION | STATUS_EXTRA_SERVICE | STATUS_SUCCESS;
 }
@@ -24,7 +24,13 @@ export interface Entities {
 
 export interface Detail {
   keyInfo?: KeyInfo;
-  homeRules?: string[];
+  homeRules?: HomeRule[];
+  properties?: string[];
+}
+
+export interface HomeRule {
+  text?: string;
+  img?: string;
 }
 
 export interface KeyInfo {

@@ -5,7 +5,7 @@ import { get, map, take } from "lodash";
 import { useTranslations } from "use-intl";
 import { isMobile } from "react-device-detect";
 
-import { STATUS_CONFIRMATION } from "@/app/[lang]/reservation/constants";
+import { useAppSelector } from "@/redux/hooks";
 import { IBookingDetail } from "@/components/organisms/bookingDetail/types";
 
 import Collapse from "@/components/atoms/collapse/Collapse";
@@ -17,46 +17,17 @@ import BrokenLink from "../../../../public/images/broken_link.svg";
 
 const BookingDetail = ({ className = "" }: IBookingDetail) => {
   const t = useTranslations();
-
-  // todo: api bağlantısı sonrası kaldırılacak (hard coded datalar dahil)
-  const mockReservation = {
-    currentStep: 1,
-    reservationStatus: STATUS_CONFIRMATION,
-    title: "Stylish Apartment Near Popular Touristic Spots",
-    location: "Antalya, Turkey",
-    images: ["/images/image1.jpeg", "/images/image2.jpeg"],
-    details: {
-      homeRules: [
-        {
-          text: t("children_welcome_1_12_years"),
-          img: "/images/approval.svg"
-        },
-        {
-          text: t("infants_welcome_under_12_months"),
-          img: "/images/approval.svg"
-        },
-        {
-          text: t("no_parties_or_events"),
-          img: "/images/delete.svg"
-        },
-        {
-          text: t("no_smoking"),
-          img: "/images/delete.svg"
-        }
-      ],
-      properties: [`2 ${t("bedroom")}`, `1 ${t("bathroom")}`, "120 m²"]
-    }
-  };
+  const { entities } = useAppSelector((state) => state.reservationReducer);
 
   const HouseRulesComponent = (): ReactNode => {
     return (
       <div className="flex flex-col gap-y-6">
         <h1 className="text-xl">{t("house_rules")}</h1>
-        {map(get(mockReservation, "details.homeRules"), (rule, key) => (
+        {map(get(entities, "details[1].homeRules"), (rule, key) => (
           <div className="flex items-start gap-x-3" key={key}>
             <Image src={get(rule, "img")} width="22" height="22" alt="" />
             <p className="text-lg text-gray-500 font-normal font-mi-sans">
-              {get(rule, "text")}
+              {t(get(rule, "text"))}
             </p>
           </div>
         ))}
@@ -67,7 +38,7 @@ const BookingDetail = ({ className = "" }: IBookingDetail) => {
   const PropertiesComponent = (): ReactNode => {
     return (
       <div className="flex gap-x-6 text-15 font-mi-sans text-gray-600">
-        {map(get(mockReservation, "details.properties"), (prop, key) => (
+        {map(get(entities, "details.properties"), (prop, key) => (
           <span key={key}>{prop}</span>
         ))}
       </div>
@@ -93,40 +64,45 @@ const BookingDetail = ({ className = "" }: IBookingDetail) => {
         </div>
         <div className="flex gap-x-3">
           <Key />
-          <p>Self check-in with keybox</p>
+          <p>{get(entities, "details[0].keyInfo.info[0]")}</p>
         </div>
         <div className="flex gap-x-3">
           <BrokenLink />
-          <p>Cancellation Policy</p>
+          <p>{get(entities, "details[0].keyInfo.info[1]")}</p>
         </div>
       </div>
     );
   };
 
-  const MobileImageComponent = () => (
-    <Slider
-      sliderContainerClassName="lg:hidden"
-      withPagination={true}
-      sliderIdentifier="booking-slider"
-      slidesPerView={isMobile ? 1 : 2}
-      spaceBetween={isMobile ? 12 : 20}>
-      {map(get(mockReservation, "images"), (src, key) => (
-        <Image
-          key={key}
-          priority
-          src={src}
-          width={500}
-          height={300}
-          alt="image"
-          className="rounded-3xl w-auto"
-        />
-      ))}
-    </Slider>
-  );
+  const MobileImageComponent = () => {
+    return (
+      <>
+        {isMobile && (
+          <Slider
+            sliderContainerClassName="lg:hidden"
+            sliderIdentifier="booking-slider"
+            slidesPerView={isMobile ? 1 : 2}
+            spaceBetween={isMobile ? 12 : 20}>
+            {map(get(entities, "images"), (src, key) => (
+              <Image
+                key={key}
+                priority
+                src={src}
+                width={500}
+                height={300}
+                alt="image"
+                className="rounded-3xl w-auto"
+              />
+            ))}
+          </Slider>
+        )}
+      </>
+    );
+  };
 
   const ImageComponent = () => (
     <div className="hidden lg:flex gap-x-5">
-      {map(take(get(mockReservation, "images"), 2), (src, key) => (
+      {map(take(get(entities, "images"), 2), (src, key) => (
         <Image
           key={key}
           priority
@@ -180,10 +156,10 @@ const BookingDetail = ({ className = "" }: IBookingDetail) => {
       <div>
         <div className="flex flex-col-reverse lg:flex-col">
           <h1 className="text-lg lg:text-28 font-semibold text-gray-800 mb-2 lg:mb-3">
-            {get(mockReservation, "title")}
+            {get(entities, "title")}
           </h1>
           <p className="lg:mb-4 text-lg text-gray-400 font-normal">
-            {get(mockReservation, "location")}
+            {get(entities, "location")}
           </p>
         </div>
         <PropertiesComponent />
