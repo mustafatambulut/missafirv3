@@ -1,4 +1,5 @@
 /** @type {import("next").NextConfig} */
+const withNextIntl = require("next-intl/plugin")("./src/app/i18n.ts");
 const nextConfig = {
   webpack: (config) => {
     config.module.rules.push({
@@ -60,4 +61,9 @@ const nextConfig = {
     ignoreBuildErrors: true
   }
 };
+
+module.exports = withNextIntl({
+  nextConfig
+});
+
 module.exports = nextConfig;

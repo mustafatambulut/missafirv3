@@ -1,26 +1,42 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { get } from "lodash";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
+import { get, isNull } from "lodash";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
 import { isMobile } from "react-device-detect";
 
+import { getScrollPosition } from "@/utils/helper";
+import useFetchData from "@/app/hooks/useFetchData";
+import { fetchDataByPage } from "@/redux/features/landingSlice";
 import { HOME } from "@/app/constants";
-import { getPageDataByComponent, getScrollPosition } from "@/utils/helper";
-import { IHeader } from "@/components/molecules/header/types";
 import { FOOTER } from "@/components/molecules/footer/constant";
 import { HEADER } from "@/components/molecules/header/constants";
 import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
+import { IHeader } from "@/components/molecules/header/types";
+import { IFooter } from "@/components/molecules/footer/types";
+import { IFooterBrand } from "@/components/atoms/footerBrand/types";
 
+import Loading from "@/components/atoms/loading/Loading";
 import Drawer from "@/components/molecules/drawer/Drawer";
 import Navbar from "@/components/molecules/navbar/Navbar";
 
 const Header = () => {
-  const [header, setHeader] = useState(null);
-  const [footerMenu, setFooterMenu] = useState(null);
-  const [footerBrand, setFooterBrand] = useState(null);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isScrolledHeaderActive, setIsScrolledHeaderActive] = useState(false);
+  /*
+    client side translation example
+    const t = useTranslations("home");
+    <h1 className="text-red-500 text-xl">{t("title")}</h1>
+*/
+  const [header, setHeader] = useState<IHeader>(null);
+  const [footerMenu, setFooterMenu] = useState<IFooter>(null);
+  const [footerBrand, setFooterBrand] = useState<IFooterBrand>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const [isScrolledHeaderActive, setIsScrolledHeaderActive] =
+    useState<boolean>(false);
+
+  const dispatch = useDispatch<AppDispatch>();
   const drawerCloseRef = useRef<HTMLInputElement>(null);
+  const entities = useFetchData([HEADER, FOOTER, FOOTER_BRAND]);
 
   const headerClass = classNames("fixed top-0 w-full z-40", {
     "bg-white shadow-lg": isScrolledHeaderActive
@@ -45,14 +61,28 @@ const Header = () => {
     userMenuData
   };
 
-  const fetchData = async () => {
-    const { header, footer, footerBrand } = (await getPageDataByComponent(
-      HOME,
-      [HEADER, FOOTER, FOOTER_BRAND]
-    )) as IHeader;
-    setHeader(header);
-    setFooterMenu(footer);
-    setFooterBrand(footerBrand);
+  const NavbarComponent = (): ReactNode => {
+    if (header && userMenuData) {
+      return (
+        <Navbar
+          setIsDrawerOpen={setIsDrawerOpen}
+          data={navbarData}
+          isScrolledHeaderActive={isScrolledHeaderActive}
+        />
+      );
+    }
+  };
+
+  const DrawerComponent = (): ReactNode => {
+    if (isMobile) {
+      return (
+        <Drawer
+          data={drawerData}
+          drawerCloseRef={drawerCloseRef}
+          setIsDrawerOpen={setIsDrawerOpen}
+        />
+      );
+    }
   };
 
   const handleScroll = () => {
@@ -62,7 +92,14 @@ const Header = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    if (!entities) return;
+    setHeader(get(entities, "header"));
+    setFooterMenu(get(entities, "footer"));
+    setFooterBrand(get(entities, "footerBrand"));
+  }, [entities]);
+
+  useEffect(() => {
+    dispatch(fetchDataByPage(HOME));
     window.addEventListener("scroll", handleScroll);
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
@@ -75,32 +112,23 @@ const Header = () => {
   }, [isDrawerOpen]);
 
   return (
-    <>
-      {header && footerMenu && (
-        <div className={headerClass}>
-          <div className="drawer">
-            <input
-              ref={drawerCloseRef}
-              id="missafir-drawer"
-              type="checkbox"
-              className="drawer-toggle"
-            />
-            <Navbar
-              setIsDrawerOpen={setIsDrawerOpen}
-              data={navbarData}
-              isScrolledHeaderActive={isScrolledHeaderActive}
-            />
-            {isMobile && (
-              <Drawer
-                data={drawerData}
-                drawerCloseRef={drawerCloseRef}
-                setIsDrawerOpen={setIsDrawerOpen}
-              />
-            )}
-          </div>
+    <Loading
+      isLoading={isNull(entities)}
+      loader={<p className="text-xl">Loading feed...</p>}>
+      {/*todo: skeleton eklenecek*/}
+      <div className={headerClass}>
+        <div className="drawer">
+          <input
+            ref={drawerCloseRef}
+            id="missafir-drawer"
+            type="checkbox"
+            className="drawer-toggle"
+          />
+          <NavbarComponent />
+          <DrawerComponent />
         </div>
-      )}
-    </>
+      </div>
+    </Loading>
   );
 };
 export default Header;

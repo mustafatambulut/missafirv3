@@ -15,13 +15,6 @@ export const getPageDataByComponent = async (
   forEach(components, (comp) => (result[comp] = get(attributes, comp)));
   return result;
 };
-export const groupArrayBySize = (array, size) => {
-  const arrays = [];
-
-  while (array.length > 0) arrays.push(array.splice(0, size));
-
-  return arrays;
-};
 
 export const getScrollPosition = () => window.scrollY;
 
@@ -34,3 +27,5 @@ export const checkIsCustomColor = (props, color: string): boolean => {
   const { type, value } = selectedValue;
   return type === "filter" && value === color;
 };
+
+export const getCurrentLang = () => localStorage.getItem("lang");

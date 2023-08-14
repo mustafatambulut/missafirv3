@@ -11,7 +11,7 @@ import Menu from "@/components/molecules/menu/Menu";
 
 const Drawer = ({ drawerCloseRef, data, setIsDrawerOpen }: IDrawer) => {
   const handleDrawerClose = () => {
-    drawerCloseRef.current?.click();
+    if (get(drawerCloseRef, "current")) drawerCloseRef.current?.click();
     setIsDrawerOpen(false);
   };
   return (
