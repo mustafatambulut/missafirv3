@@ -1,4 +1,4 @@
-import React from "react";
+import { Dispatch, SetStateAction } from "react";
 import { IFilterData } from "@/components/molecules/filter/types";
 import { IListingData } from "@/components/molecules/listingListItem/types";
 
@@ -11,9 +11,9 @@ export interface IRangeSlider {
   tempFilteredListings?: IListingData[];
   // eslint-disable-next-line no-unused-vars
   filterListings?: (type: string, filterData: IFilterData) => void;
-  setFilterData: React.Dispatch<React.SetStateAction<IFilterData>>;
-  setIsDropdownOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  setAllFiltersData?: React.Dispatch<React.SetStateAction<IFilterData>>;
+  setFilterData: Dispatch<SetStateAction<IFilterData>>;
+  setIsDropdownOpen?: Dispatch<SetStateAction<boolean>>;
+  setAllFiltersData?: Dispatch<SetStateAction<IFilterData>>;
 }
 
 export interface IPriceRangeData {
