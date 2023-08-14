@@ -18,4 +18,16 @@ export const getPageDataByComponent = async (
 
 export const getScrollPosition = () => window.scrollY;
 
-export const getCurrentLang = () => localStorage.getItem("lang");
+export const getLocalStorage = (key: string) => {
+  if (typeof window !== "undefined") return localStorage.getItem(key);
+};
+
+export const setLocalStorage = (key: string, value: any): void => {
+  if (typeof window !== "undefined") localStorage.setItem(key, value);
+};
+
+export const removeLocalStorage = (key: string): void => {
+  if (typeof window !== "undefined") localStorage.removeItem(key);
+};
+
+export const getCurrentLang = () => getLocalStorage("lang");

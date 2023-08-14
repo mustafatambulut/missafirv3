@@ -1,5 +1,29 @@
 {
-  "home": {
-    "title": "Hello world!"
-  }
+  "welcome_to_missafir": "Welcome to Missafir",
+  "this_field_is_required": "This field is required.",
+  "email": "E-mail",
+  "email_is_too_long": "E-mail is too long!",
+  "login": "Login",
+  "invalid_or_incomplete_email": "Invalid or incomplete email",
+  "send": "Send",
+  "message": "Message",
+  "the_message_is_too _short": "The message is too short!",
+  "the_message_is_too _long": "The message is too long!",
+  "password": "Password",
+  "password_is_too_short_must_be_at_least_6_characters": "Password is too short, must be at least 6 characters.",
+  "password_requires_a_number": "Password requires a number",
+  "password_requires_a_lowercase_letter": "Password requires a lowercase letter",
+  "password_requires_a_uppercase_letter": "Password requires an uppercase letter",
+  "password_requires_a_symbol": "Password requires a symbol",
+  "must_match_password_field_value": "Must match 'password' field value",
+  "the_iban_number_must_be_26_characters": "The IBAN must be 26 characters.",
+  "phone_field_must_contain_12_characters": "Phone field must contain 12 characters",
+  "your_email": "Your e-mail",
+  "your_password": "Your password",
+  "your_email_address_or_password_is_incorrect": "Your e-mail address or password is incorrect.",
+  "logout": "Logout",
+  "notifications": "notifications",
+  "not_found": "not found",
+  "search_by_property_name": "Search by property name",
+  "you_have_reached_the_maximum_character_limit": "You have reached the maximum character limit."
 }

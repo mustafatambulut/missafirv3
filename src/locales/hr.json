@@ -1,5 +1,29 @@
 {
-  "home": {
-    "title": "Zdravo svijete!"
-  }
+  "welcome_to_missafir": "Dobrodošli u Missafir",
+  "this_field_is_required": "Ovo polje je obavezno.",
+  "email": "E-pošta",
+  "email_is_too_long": "E-pošta je preduga!",
+  "login": "Prijava",
+  "invalid_or_incomplete_email": "Neispravna ili nepotpuna e-pošta",
+  "send": "Pošalji",
+  "message": "Poruka",
+  "the_message_is_too _short": "Ova poruka je prekratka!",
+  "the_message_is_too _long": "Ova poruka je preduga!",
+  "password": "Šifra",
+  "password_is_too_short_must_be_at_least_6_characters": "Šifra je prekratka, mora imati najmanje 6 karaktera.",
+  "password_requires_a_number": "Šifra zahtijeva broj",
+  "password_requires_a_lowercase_letter": "Šifra zahtijeva malo slovo",
+  "password_requires_a_uppercase_letter": "Šifra zahtijeva veliko slovo",
+  "password_requires_a_symbol": "Šifra zahtijeva simbol",
+  "must_match_password_field_value": "Mora odgovarati vrijednosti polja 'šifra'",
+  "the_iban_number_must_be_26_characters": "IBAN mora imati 26 karaktera.",
+  "phone_field_must_contain_12_characters": "PTelefon mora imati 12 karaktera",
+  "your_email": "Vaša e-pošta",
+  "your_password": "Vaša šifra",
+  "your_email_address_or_password_is_incorrect": "Vaša e-pošta ili šifra je pogrešna.",
+  "logout": "Odjava",
+  "notifications": "obaviještenja",
+  "not_found": "nije pronađeno",
+  "search_by_property_name": "Traži po imenu nekretnine",
+  "you_have_reached_the_maximum_character_limit": "Dostigli ste maksimalan broj karaktera."
 }

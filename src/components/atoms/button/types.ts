@@ -1,6 +1,7 @@
 import React, { JSX } from "react";
 
 export interface IButton {
+  type?: "button" | "submit";
   target?: "_blank" | "_parent" | "_self" | "_top";
   variant?:
     | "btn-primary"

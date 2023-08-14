@@ -1,5 +1,29 @@
 {
-  "home": {
-    "title": "merhaba dünya"
-  }
+  "welcome_to_missafir": "Missafir'e hoş geldiniz",
+  "this_field_is_required": "Bu alan zorunludur.",
+  "email": "E-Posta",
+  "email_is_too_long": "E-posta çok uzun!",
+  "login": "Giriş Yap",
+  "invalid_or_incomplete_email": "Geçersiz ya da eksik e-posta",
+  "send": "Gönder",
+  "message": "Mesaj",
+  "the_message_is_too _short": "Mesaj çok kısa!",
+  "the_message_is_too _long": "Mesaj çok uzun!",
+  "password": "Parola",
+  "password_is_too_short_must_be_at_least_6_characters": "Parola çok kısa, en az 6 karakter olmalı.",
+  "password_requires_a_number": "Parolanın rakam içermesi gereklidir",
+  "password_requires_a_lowercase_letter": "Parolanın küçük harf içermesi gereklidir.",
+  "password_requires_a_uppercase_letter": "Parolanın büyük harf içermesi gereklidir.",
+  "password_requires_a_symbol": "Parolanın özel karakter içermesi gereklidir.",
+  "must_match_password_field_value": "Parola alanları eşleşmiyor.",
+  "the_iban_number_must_be_26_characters": "IBAN 26 karakter olması gerek.",
+  "phone_field_must_contain_12_characters": "Telefon alanı 12 karakter içermelidir",
+  "your_email": "E-posta adresiniz",
+  "your_password": "Parolanız",
+  "your_email_address_or_password_is_incorrect": "E-posta adresiniz ya da parolanız hatalı.",
+  "logout": "Çıkış yap",
+  "notifications": "bildirimler",
+  "not_found": "Herhangi bir şey bulunamadı",
+  "search_by_property_name": "Mülk adına göre ara",
+  "you_have_reached_the_maximum_character_limit": "Maksimum karakter sınırına ulaştınız."
 }

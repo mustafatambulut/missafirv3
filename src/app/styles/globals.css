@@ -15,3 +15,8 @@
     background-color: #F6D2DC;
     border-color: #D01E50;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}

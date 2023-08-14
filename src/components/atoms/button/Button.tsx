@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { IButton } from "@/components/atoms/button/types";
 
 const Button = ({
+  type = "button",
   link = "",
   target = "_self",
   disabled,
@@ -26,7 +27,7 @@ const Button = ({
       {children}
     </Link>
   ) : (
-    <button className={btnClass} disabled={disabled} {...props}>
+    <button type={type} className={btnClass} disabled={disabled} {...props}>
       {children}
     </button>
   );

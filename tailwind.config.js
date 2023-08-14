@@ -73,6 +73,9 @@ const config = {
           700: "#5E686E",
           800: "#464E53",
           900: "#2F3437"
+        },
+        pink: {
+          DEFAULT: "#F8479E"
         }
       },
       fontFamily: {
@@ -210,7 +213,7 @@ const config = {
               color: `${config.theme.extend.colors.gray["100"]} !important`
             }
           }
-        },
+        }
       });
     }),
     require("daisyui")
