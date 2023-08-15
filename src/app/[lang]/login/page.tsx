@@ -48,15 +48,16 @@ const Login = () => {
         return setErrorMessage("your_email_address_or_password_is_incorrect");
       }
       setLocalStorage("token", get(res, "data.token"));
-      router.replace("/reservation");
+      router.back();
+      router.refresh();
     }
   });
 
   const { values, errors, touched, handleChange, isSubmitting, handleSubmit } =
     formik;
 
-  // eslint-disable-next-line no-unused-vars
   // todo: daha sonra aktif edilecek
+  // eslint-disable-next-line no-unused-vars
   const SocialAuthCard = () => {
     return (
       <div className="flex flex-col justify-center lg:justify-start gap-y-6">
@@ -142,9 +143,7 @@ const Login = () => {
               )}
             </Button>
             <div className="flex justify-center items-center gap-x-1 text-base">
-              <p className="text-gray-400">
-                Don't you have an account? Sign Up
-              </p>
+              <p className="text-gray-400">Dont you have an account? Sign Up</p>
               <Button
                 link="/signup"
                 variant="btn-ghost"

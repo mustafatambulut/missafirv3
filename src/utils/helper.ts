@@ -30,4 +30,11 @@ export const removeLocalStorage = (key: string): void => {
   if (typeof window !== "undefined") localStorage.removeItem(key);
 };
 
-export const getCurrentLang = () => getLocalStorage("lang");
+export const getCurrentLang = (): string => getLocalStorage("lang");
+
+export const checkSameItem = (
+  firstArr: Array<string>,
+  secondArr: Array<string>
+): boolean => {
+  return firstArr.some((l) => secondArr.includes(l));
+};
