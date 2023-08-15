@@ -38,7 +38,7 @@ const RootLayout = async ({ children, params: { lang } }: any) => {
         <ReduxProvider>
           <NextIntlClientProvider locale={lang} messages={messages}>
             <div id="drawer-container"></div>
-            <Header />
+            <Header lang={lang} />
             <main>{children}</main>
             <Footer />
           </NextIntlClientProvider>

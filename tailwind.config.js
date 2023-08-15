@@ -211,6 +211,9 @@ const config = {
             }
           }
         },
+        ".collapse:not(td):not(tr):not(colgroup)": {
+          visibility: `visible !important`
+        }
       });
     }),
     require("daisyui")
