@@ -35,8 +35,8 @@ const initialState = {
       address:
         "Firuzağa Mahallesi Kadirler Yokuşu No: 84 Floor: 3 Flat Number: 3 Beyoğlu / İstanbul",
       dates: {
-        checkIn: { date: "29 Mar 2023", time: "14:00" },
-        checkOut: { date: "6 Apr 2023", time: "11:00" }
+        checkIn: { date: { month: "29 Mar", year: "2023" }, time: "14:00" },
+        checkOut: { date: { month: "06 Apr", year: "2023" }, time: "11:00" }
       },
       nights: "8",
       guests: "3",
@@ -100,8 +100,8 @@ const initialState = {
       address:
         "Firuzağa Mahallesi Kadirler Yokuşu No: 84 Floor: 3 Flat Number: 3 Beyoğlu / İstanbul",
       dates: {
-        checkIn: { date: "29 Mar 2023", time: "14:00" },
-        checkOut: { date: "6 Apr 2023", time: "11:00" }
+        checkIn: { date: { month: "29 Mar", year: "2023" }, time: "14:00" },
+        checkOut: { date: { month: "06 Apr", year: "2023" }, time: "11:00" }
       },
       nights: "8",
       guests: "3",
@@ -165,8 +165,8 @@ const initialState = {
       address:
         "Firuzağa Mahallesi Kadirler Yokuşu No: 84 Floor: 3 Flat Number: 3 Beyoğlu / İstanbul",
       dates: {
-        checkIn: { date: "29 Mar 2023", time: "14:00" },
-        checkOut: { date: "6 Apr 2023", time: "11:00" }
+        checkIn: { date: { month: "29 Mar", year: "2023" }, time: "14:00" },
+        checkOut: { date: { month: "06 Apr", year: "2023" }, time: "11:00" }
       },
       nights: "8",
       guests: "3",

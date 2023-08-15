@@ -26,13 +26,13 @@ const ReservationItemContent = ({ reservation }: IReservationItem) => {
       <div className="flex flex-col lg:flex-row text-gray-600 text-sm lg:text-22 lg:gap-y-0 gap-x-5 items-start lg:items-center order-4">
         <div className="flex gap-x-1 lg:gap-x-2 items-center">
           <CalendarIcon className="fill-gray-600 scale-75" />
-          <span>{get(reservation, "dates.checkIn.date")}</span>
+          <span>{get(reservation, "dates.checkIn.date.month")}</span>
           <span>-</span>
-          <span>{get(reservation, "dates.checkOut.date")}</span>
+          <span>{get(reservation, "dates.checkOut.date.month")}</span>
         </div>
         <div className="flex items-center gp-x-1 lg:gap-x-2">
           <GuestsIcon className="fill-gray-600 scale-75" />
-          <span>{get(reservation, "guests")}</span>
+          <span>{get(reservation, "guests")} Guests</span>
         </div>
       </div>
       <div className="flex justify-between order-5">

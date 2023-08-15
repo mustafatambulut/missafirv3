@@ -4,7 +4,7 @@ import moment from "moment/moment";
 
 import { useAppDispatch } from "@/redux/hooks";
 import { IDrawer } from "@/components/molecules/drawer/types";
-import { updateIsShowDrawer } from "@/redux/features/landingSlice";
+import { updateIsShowDrawer } from "@/redux/features/landingSlice/landingSlice";
 
 import UserMenu from "@/components/atoms/userMenu/UserMenu";
 import SelectLanguage from "@/components/atoms/selectLanguage/SelectLanguage";

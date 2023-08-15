@@ -5,7 +5,7 @@ import { get, map } from "lodash";
 import { useAppDispatch } from "@/redux/hooks";
 import UserMenu from "@/components/atoms/userMenu/UserMenu";
 import { INavbar } from "@/components/molecules/navbar/types";
-import { updateIsShowDrawer } from "@/redux/features/landingSlice";
+import { updateIsShowDrawer } from "@/redux/features/landingSlice/landingSlice";
 
 import Button from "@/components/atoms/button/Button";
 import SelectLanguage from "@/components/atoms/selectLanguage/SelectLanguage";
