@@ -1,108 +1,101 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { get, map } from "lodash";
+import { get, includes, map } from "lodash";
+import Link from "next/link";
 import classNames from "classnames";
-import { isMobile } from "react-device-detect";
+import { usePathname } from "next/navigation";
+import { useAppSelector } from "@/redux/hooks";
+
+import UserInfo from "@/components/atoms/userInfo/UserInfo";
 
 import FileIcon from "../../../../public/images/file.svg";
+import LockIcon from "../../../../public/images/lock.svg";
 import UserIcon from "../../../../public/images/user_dark.svg";
 import CommentIcon from "../../../../public/images/comment.svg";
 import SettingIcon from "../../../../public/images/setting.svg";
 import HeartIcon from "../../../../public/images/heart_outline.svg";
 
 const ProfileSidebar = () => {
-  const [activeTab, setActiveTab] = useState<number>(0);
-  const [isMobileDevice, setIsMobileDevice] = useState<boolean>(false);
-  const tabMenuIconClass = (index: number): string => {
+  const pathname = usePathname();
+  const { user } = useAppSelector((state) => state.profileReducer);
+
+  const tabMenuIconClass = (type: string): string => {
     return classNames("scale-125 fill-gray hover:text-gray-600", {
-      "fill-primary": activeTab === index
+      "fill-primary": includes(pathname, type)
     });
   };
 
-  // todo: test amacıyla eklenmiştir, silinecek
-  const mockUserData = {
-    avatar: "https://i.ibb.co/dm4mntF/avatar.jpg",
-    fullName: "John Doe",
-    email: "johndoe@missafir.com"
+  const tabMenuBorderClass = (type: string): string => {
+    return classNames(
+      "absolute bottom-0 left-0 w-full bg-primary rounded-t-xl h-1",
+      {
+        "block lg:hidden": includes(pathname, type),
+        "hidden lg:hidden": !includes(pathname, type)
+      }
+    );
+  };
+
+  const tabMenuItemClass = (type: string): string => {
+    return classNames(
+      "tab lg:border-gray-50 lg:px-5 pb-3 lg:py-5 h-auto whitespace-nowrap lg:flex-wrap w-full before:hidden flex justify-start items-center border-b-none text-gray-600 text-base lg:text-22 font-mi-sans-semi-bold px-0 border-b-transparent",
+      {
+        "tab-active text-primary": includes(pathname, type)
+      }
+    );
   };
 
   // todo: dil seçeneği ekleyince güncellenecek
   const tabData = {
     tabItems: [
       {
-        icon: <UserIcon className={tabMenuIconClass(0)} />,
+        type: "info",
+        icon: <UserIcon className={tabMenuIconClass("info")} />,
         label: "Temel Bilgiler"
       },
       {
-        icon: <FileIcon className={tabMenuIconClass(1)} />,
-        label: "Geçmiş Rezervasyonlar"
+        type: "reservations",
+        icon: <FileIcon className={tabMenuIconClass("reservations")} />,
+        label: "Seyahatlerim"
       },
       {
-        icon: <CommentIcon className={tabMenuIconClass(2)} />,
-        label: "Değerlendirmeler"
+        type: "password",
+        icon: <LockIcon className={tabMenuIconClass("password")} />,
+        label: "Şifre İşlemleri"
       },
       {
-        icon: <HeartIcon className={tabMenuIconClass(3)} />,
+        type: "reviews",
+        icon: <CommentIcon className={tabMenuIconClass("reviews")} />,
+        label: "Değerlendirmelerim"
+      },
+      {
+        type: "wishlist",
+        icon: <HeartIcon className={tabMenuIconClass("wishlist")} />,
         label: "İstek Listelerim"
       },
       {
-        icon: <SettingIcon className={tabMenuIconClass(4)} />,
+        type: "settings",
+        icon: <SettingIcon className={tabMenuIconClass("settings")} />,
         label: "Ayarlar"
       }
     ]
   };
-  const tabMenuItemClass = (index: number): string => {
-    return classNames(
-      "tab lg:border-gray-50 lg:px-5 pb-3 lg:py-4 h-auto whitespace-nowrap lg:flex-wrap w-full before:hidden flex justify-start items-center border-b-none text-gray-600 text-sm lg:text-xl font-mi-sans-semi-bold px-0 border-b-transparent",
-      {
-        "tab-active text-primary": activeTab === index
-      }
-    );
-  };
-
-  useEffect(() => {
-    setIsMobileDevice(isMobile);
-  }, []);
 
   return (
     <div className="lg:w-80 flex flex-col gap-y-3 lg:gap-y-8">
-      <div className="lg:shadow-base-blur-10 lg:rounded-xl flex items-center gap-2 lg:p-3 overflow-hidden">
-        <div className="avatar">
-          <div className="w-12 lg:w-16 rounded-full relative">
-            <Image
-              src={get(mockUserData, "avatar")}
-              alt="user"
-              fill={true}
-              className="object-cover"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col items-start justify-center">
-          <span className="text-22 lg:text-xl text-gray-800 font-mi-sans-semi-bold">
-            {get(mockUserData, "fullName")}
-          </span>
-          <span className="text-base lg:text-lg text-gray-700 whitespace-nowrap max-w-full overflow-hidden">
-            {get(mockUserData, "email")}
-          </span>
-        </div>
-      </div>
-      <div className="tabs max-w-full lg:divide-y overflow-x-auto no-scrollbar flex flex-row flex-nowrap lg:flex-col gap-3 lg:gap-0 lg:items-start lg:shadow-base-blur-10 lg:rounded-xl">
+      <UserInfo user={user} />
+      <div className="tabs max-w-full lg:divide-y overflow-x-auto no-scrollbar flex flex-row flex-nowrap lg:flex-col gap-4 lg:gap-0 lg:items-start lg:shadow-base-blur-10 lg:rounded-xl">
         {map(get(tabData, "tabItems"), (listingTab, key) => (
-          <div
+          <Link
+            href={`/profile/${get(listingTab, "type")}`}
             key={key}
-            className={tabMenuItemClass(key)}
-            onClick={() => setActiveTab(key)}>
+            className={tabMenuItemClass(get(listingTab, "type"))}>
             <div className="flex gap-3 items-center">
               <div className="hidden lg:block">
                 <div>{get(listingTab, "icon")}</div>
               </div>
               <span>{get(listingTab, "label")}</span>
             </div>
-            {key === activeTab && isMobileDevice && (
-              <div className="absolute bottom-0 left-0 w-full bg-primary rounded-t-xl h-1"></div>
-            )}
-          </div>
+            <div className={tabMenuBorderClass(get(listingTab, "type"))}></div>
+          </Link>
         ))}
       </div>
     </div>

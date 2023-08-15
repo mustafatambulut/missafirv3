@@ -8,7 +8,7 @@ import Button from "@/components/atoms/button/Button";
 import Loading from "@/components/atoms/loading/Loading";
 import Section from "@/components/molecules/section/Section";
 
-import RightArrow from "../../../../public/images/chevron-right.svg";
+import RightArrow from "../../../../public/images/chevron_right.svg";
 
 const News = () => {
   //todo: api entregrasyonu yapılınca kaldırılacak

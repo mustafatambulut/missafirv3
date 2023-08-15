@@ -14,7 +14,7 @@ import DatePicker from "@/components/atoms/datePicker/DatePicker";
 import DestinationSelect from "@/components/atoms/destinationSelect/DestinationSelect";
 import useMobileSearchBar from "@/components/molecules/mobileSearchBar/useMobileSearchBar";
 
-import ArrowLeftIcon from "../../../../public/images/arrow-left.svg";
+import ArrowLeftIcon from "../../../../public/images/arrow_left.svg";
 
 const MobileDrawerSide = (props: IProps) => {
   const {

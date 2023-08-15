@@ -1,7 +1,7 @@
 import { get } from "lodash";
 import { ISearchDrawer } from "@/components/atoms/searchDrawer/types";
 
-import SearchIcon from "../../../../public/images/search-icon.svg";
+import SearchIcon from "../../../../public/images/search.svg";
 
 const SearchDrawer = ({
   onClick,

@@ -2,16 +2,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { get, map } from "lodash";
 
+import { useAppDispatch } from "@/redux/hooks";
+import UserMenu from "@/components/atoms/userMenu/UserMenu";
 import { INavbar } from "@/components/molecules/navbar/types";
+import { updateIsShowDrawer } from "@/redux/features/landingSlice";
 
 import Button from "@/components/atoms/button/Button";
-import UserMenu from "@/components/atoms/userMenu/UserMenu";
 import SelectLanguage from "@/components/atoms/selectLanguage/SelectLanguage";
 
-const Navbar = ({ data, isScrolledHeaderActive, setIsDrawerOpen }: INavbar) => {
+const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
+  const dispatch = useAppDispatch();
   const handleLogoSource = () => {
     return isScrolledHeaderActive
-      ? "/images/missafir-logo-black.svg"
+      ? "/images/missafir_logo_black.svg"
       : get(data, "header.logo.image");
   };
 
@@ -20,8 +23,8 @@ const Navbar = ({ data, isScrolledHeaderActive, setIsDrawerOpen }: INavbar) => {
   const handleOpenMenuSource = () => {
     return `${
       isScrolledHeaderActive
-        ? "/images/open-menu-black.svg"
-        : "/images/open-menu.svg"
+        ? "/images/open_menu_black.svg"
+        : "/images/open_menu.svg"
     }`;
   };
 
@@ -75,7 +78,7 @@ const Navbar = ({ data, isScrolledHeaderActive, setIsDrawerOpen }: INavbar) => {
         <div className="flex-none lg:hidden">
           <label
             htmlFor="missafir-drawer"
-            onClick={() => setIsDrawerOpen(true)}
+            onClick={() => dispatch(updateIsShowDrawer(true))}
             className="btn btn-square btn-ghost">
             <Image
               src={handleOpenMenuSource()}

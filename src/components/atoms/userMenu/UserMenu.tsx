@@ -34,8 +34,8 @@ const UserMenu = ({ variant = "", data }: IUserMenu) => {
                   get(data, "image")
                     ? get(data, "image")
                     : variant === "ghost" || variant === "light"
-                    ? "/images/user-light.svg"
-                    : "/images/user-dark.svg"
+                    ? "/images/user_light.svg"
+                    : "/images/user_dark.svg"
                 }`}
                 alt="user"
                 width={24}

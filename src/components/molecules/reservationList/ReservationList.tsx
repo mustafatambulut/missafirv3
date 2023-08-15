@@ -1,6 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import classNames from "classnames";
+import { useAppSelector } from "@/redux/hooks";
 import { filter, get, map, size } from "lodash";
 
 import Button from "@/components/atoms/button/Button";
@@ -9,11 +10,12 @@ import ReservationItem from "@/components/molecules/reservationItem/ReservationI
 
 import PlaneIcon from "../../../../public/images/plane.svg";
 import AllIcon from "../../../../public/images/circles.svg";
-import PendingIcon from "../../../../public/images/waitround.svg";
 import ConfirmedIcon from "../../../../public/images/confirmed.svg";
 import CancelledIcon from "../../../../public/images/cancelled.svg";
 
 const ReservationList = () => {
+  const { reservations } = useAppSelector((state) => state.profileReducer);
+
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [filteredReservations, setFilteredReservations] = useState<any[]>([]);
   const filterOptionIconClass = (type: string): string => {
@@ -24,146 +26,22 @@ const ReservationList = () => {
 
   const filterOptionButtonClass = (type: string): string => {
     return classNames(
-      "outline-none px-0 text-xl cursor-pointer flex gap-x-3 items-center hover:text-gray text-gray transition-none",
+      "relative outline-none px-0 pb-2 text-xl cursor-pointer flex gap-x-3 items-center hover:text-gray text-gray transition-none",
       {
         "text-primary hover:text-primary": type === activeFilter
       }
     );
   };
 
-  // todo: test için eklendi silinecek
-  const mockReservations = [
-    {
-      title: "Outstanding Flat with Calming View at Nisantasi",
-      code: "HMDY9WNE29",
-      location: "İstanbul, Beyoğlu",
-      dates: "29 Mar-8 Apr",
-      guests: "3 guests",
-      price: { amount: "9,803₺", type: "11 night" },
-      status: {
-        icon: <PendingIcon className="fill-white" />,
-        type: "pending",
-        color: "bg-warning",
-        label: "Bekleniyor"
-      },
-      badges: [{ color: "primary", label: "M Homes" }],
-      images: [
-        {
-          src: "https://i.ibb.co/2kSLN0N/2f2f51c052620da4421a020e22d76a7bb4b909563f8aca9d759547cbf0e17292db935970d182c0df2a7adfc0c589095050ec.jpg"
-        },
-        {
-          src: "https://i.ibb.co/ZcvGfqT/7088b05eb69889b0f0e2de41d7f3d46d4f3f39ace7e11432c8f8b317f4796119bdeb6542f7ae62ed2121fe5d0bf9b4097f02.jpg"
-        },
-        {
-          src: "https://i.ibb.co/xYZxnWg/c8d3990e9dc294ea2e49dcdfb65a86ec6110c5d762b931ddc60231a83eff528cbcbd6019992c20f343b526e8a4f9917a9356.jpg"
-        }
-      ]
-    },
-    {
-      title: "Outstanding Flat with Calming View at Nisantasi",
-      code: "HMDY9WNE29",
-      location: "İstanbul, Beyoğlu",
-      dates: "29 Mar-8 Apr",
-      guests: "3 guests",
-      price: { amount: "9,803₺", type: "11 night" },
-      status: {
-        icon: <ConfirmedIcon className="fill-white" />,
-        type: "confirmed",
-        color: "bg-success",
-        label: "Onaylandı"
-      },
-      badges: [{ color: "primary", label: "M Homes" }],
-      images: [
-        {
-          src: "https://i.ibb.co/ZcvGfqT/7088b05eb69889b0f0e2de41d7f3d46d4f3f39ace7e11432c8f8b317f4796119bdeb6542f7ae62ed2121fe5d0bf9b4097f02.jpg"
-        },
-        {
-          src: "https://i.ibb.co/xYZxnWg/c8d3990e9dc294ea2e49dcdfb65a86ec6110c5d762b931ddc60231a83eff528cbcbd6019992c20f343b526e8a4f9917a9356.jpg"
-        },
-        {
-          src: "https://i.ibb.co/2kSLN0N/2f2f51c052620da4421a020e22d76a7bb4b909563f8aca9d759547cbf0e17292db935970d182c0df2a7adfc0c589095050ec.jpg"
-        }
-      ]
-    },
-    {
-      title: "Outstanding Flat with Calming View at Nisantasi",
-      code: "HMDY9WNE29",
-      location: "İstanbul, Beyoğlu",
-      dates: "29 Mar-8 Apr",
-      guests: "3 guests",
-      price: { amount: "9,803₺", type: "11 night" },
-      status: {
-        icon: <CancelledIcon className="fill-white" />,
-        type: "cancelled",
-        color: "bg-error",
-        label: "İptal Edildi"
-      },
-      badges: [{ color: "primary", label: "M Homes" }],
-      images: [
-        {
-          src: "https://i.ibb.co/xYZxnWg/c8d3990e9dc294ea2e49dcdfb65a86ec6110c5d762b931ddc60231a83eff528cbcbd6019992c20f343b526e8a4f9917a9356.jpg"
-        },
-        {
-          src: "https://i.ibb.co/2kSLN0N/2f2f51c052620da4421a020e22d76a7bb4b909563f8aca9d759547cbf0e17292db935970d182c0df2a7adfc0c589095050ec.jpg"
-        },
-        {
-          src: "https://i.ibb.co/ZcvGfqT/7088b05eb69889b0f0e2de41d7f3d46d4f3f39ace7e11432c8f8b317f4796119bdeb6542f7ae62ed2121fe5d0bf9b4097f02.jpg"
-        }
-      ]
-    },
-    {
-      title: "Outstanding Flat with Calming View at Nisantasi",
-      code: "HMDY9WNE29",
-      location: "İstanbul, Beyoğlu",
-      dates: "29 Mar-8 Apr",
-      guests: "3 guests",
-      price: { amount: "9,803₺", type: "11 night" },
-      status: {
-        icon: <ConfirmedIcon className="fill-white" />,
-        type: "confirmed",
-        color: "bg-success",
-        label: "Onaylandı"
-      },
-      badges: [{ color: "primary", label: "M Homes" }],
-      images: [
-        {
-          src: "https://i.ibb.co/2kSLN0N/2f2f51c052620da4421a020e22d76a7bb4b909563f8aca9d759547cbf0e17292db935970d182c0df2a7adfc0c589095050ec.jpg"
-        },
-        {
-          src: "https://i.ibb.co/ZcvGfqT/7088b05eb69889b0f0e2de41d7f3d46d4f3f39ace7e11432c8f8b317f4796119bdeb6542f7ae62ed2121fe5d0bf9b4097f02.jpg"
-        },
-        {
-          src: "https://i.ibb.co/xYZxnWg/c8d3990e9dc294ea2e49dcdfb65a86ec6110c5d762b931ddc60231a83eff528cbcbd6019992c20f343b526e8a4f9917a9356.jpg"
-        }
-      ]
-    },
-    {
-      title: "Outstanding Flat with Calming View at Nisantasi",
-      code: "HMDY9WNE29",
-      location: "İstanbul, Beyoğlu",
-      dates: "29 Mar-8 Apr",
-      guests: "3 guests",
-      price: { amount: "9,803₺", type: "11 night" },
-      status: {
-        icon: <ConfirmedIcon className="fill-white" />,
-        type: "confirmed",
-        color: "bg-success",
-        label: "Onaylandı"
-      },
-      badges: [{ color: "primary", label: "M Homes" }],
-      images: [
-        {
-          src: "https://i.ibb.co/ZcvGfqT/7088b05eb69889b0f0e2de41d7f3d46d4f3f39ace7e11432c8f8b317f4796119bdeb6542f7ae62ed2121fe5d0bf9b4097f02.jpg"
-        },
-        {
-          src: "https://i.ibb.co/xYZxnWg/c8d3990e9dc294ea2e49dcdfb65a86ec6110c5d762b931ddc60231a83eff528cbcbd6019992c20f343b526e8a4f9917a9356.jpg"
-        },
-        {
-          src: "https://i.ibb.co/2kSLN0N/2f2f51c052620da4421a020e22d76a7bb4b909563f8aca9d759547cbf0e17292db935970d182c0df2a7adfc0c589095050ec.jpg"
-        }
-      ]
-    }
-  ];
+  const tabMenuBorderClass = (type: string): string => {
+    return classNames(
+      "absolute bottom-0 left-0 w-full bg-primary rounded-xl h-1",
+      {
+        block: activeFilter === type,
+        hidden: activeFilter !== type
+      }
+    );
+  };
 
   // todo: dil seçeneği ekleyince güncellenecek
   const filterOptions = [
@@ -203,10 +81,10 @@ const ReservationList = () => {
 
   useEffect(() => {
     if (activeFilter === "all") {
-      setFilteredReservations(mockReservations);
+      setFilteredReservations(reservations);
     } else {
       setFilteredReservations(
-        filter(mockReservations, (reservation) => {
+        filter(reservations, (reservation) => {
           return reservation.status.type === activeFilter;
         })
       );
@@ -214,14 +92,14 @@ const ReservationList = () => {
   }, [activeFilter]);
 
   return (
-    <>
+    <div className="flex flex-col gap-y-3">
       <div className="hidden lg:flex justify-between items-center">
         <h1 className="text-gray-800 font-mi-sans-semi-bold text-28">
           Geçmiş Rezervasyonlar
         </h1>
       </div>
       <div className="grid grid-cols-1 gap-y-2">
-        <div className="mt-4 lg:mt-0">
+        <div>
           <div className="hidden lg:flex gap-4">
             {map(filterOptions, (filter, key) => (
               <Button
@@ -231,6 +109,10 @@ const ReservationList = () => {
                 onClick={() => setActiveFilter(filter.attributes.value)}>
                 {get(filter, "attributes.icon")}
                 <span>{get(filter, "attributes.label")}</span>
+                <div
+                  className={tabMenuBorderClass(
+                    get(filter, "attributes.value")
+                  )}></div>
               </Button>
             ))}
           </div>
@@ -239,8 +121,7 @@ const ReservationList = () => {
           </div>
         </div>
         <div className="text-sm lg:text-lg text-gray-800">
-          {/*// todo: dinamikleştirilecek*/}
-          {size(mockReservations)} geçmiş rezervasyon
+          {size(reservations)} geçmiş rezervasyon
         </div>
       </div>
       <div className="relative gap-y-5 flex flex-col">
@@ -248,7 +129,7 @@ const ReservationList = () => {
           <ReservationItem reservation={reservation} key={key} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

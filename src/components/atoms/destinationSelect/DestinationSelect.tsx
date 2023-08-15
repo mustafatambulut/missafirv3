@@ -18,7 +18,6 @@ import HistoryIcon from "../../../../public/images/history.svg";
 import LocationIcon from "../../../../public/images/location.svg";
 
 const DestinationSelect = ({
-  setActiveSearchItem,
   setBookingDestination,
   componentId
 }: IDestinationSelect) => {
@@ -115,9 +114,6 @@ const DestinationSelect = ({
   };
 
   const handleOnChange = (e: any) => {
-    if (e) {
-      setActiveSearchItem("bookingDate");
-    }
     setBookingDestination(e);
   };
 

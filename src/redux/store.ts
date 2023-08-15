@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import landingReducer from "./features/landingSlice";
+import profileReducer from "./features/profileSlice";
 
 export const store = configureStore({
   reducer: {
-    landingReducer
+    landingReducer,
+    profileReducer
   }
 });
 

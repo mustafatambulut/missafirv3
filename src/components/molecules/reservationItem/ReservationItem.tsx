@@ -1,34 +1,63 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import classNames from "classnames";
-import Draggable from "react-draggable";
-import { get, includes, map } from "lodash";
+import { get, has, includes } from "lodash";
+import { useRouter } from "next/navigation";
 import { isMobile } from "react-device-detect";
 
 import { IReservationItem } from "@/components/molecules/reservationItem/types";
 
-import Card from "@/components/atoms/card/Card";
-import Badge from "@/components/atoms/badge/Badge";
-import Slider from "@/components/molecules/slider/Slider";
-import ReservationItemContent from "@/components/atoms/reservationItemContent/ReservationItemContent";
+import ReservationItemDetail from "@/components/molecules/reservationItemDetail/ReservationItemDetail";
 
 const ReservationItem = ({ reservation }: IReservationItem) => {
+  const router = useRouter();
+  const [isInWishlist, setIsInWishlist] = useState<boolean>(false);
   const [left, setLeft] = useState<number>(0);
   const [percent, setPercent] = useState<number>(0);
   const [isMobileDevice, setIsMobileDevice] = useState<boolean>(false);
   const itemRef = useRef(null);
   const actionRef = useRef(null);
 
-  const reservationWrapperClass = classNames("relative rounded-xl", {
-    "bg-gradient-to-l from-warning-yellow from-40% to-white":
-      get(reservation, "status.type") === "pending",
-    "bg-gradient-to-l from-success-green from-40% to-white":
-      get(reservation, "status.type") === "confirmed",
-    "bg-gradient-to-l from-error-red from-40% to-white":
-      get(reservation, "status.type") === "cancelled"
-  });
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null); // otherwise the swipe is fired even with usual touch events
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+  const onTouchEnd = (e) => {
+    if (!touchStart || !touchEnd) {
+      let isWish = false;
+      let parent = null;
+      const tagName = e.target.tagName;
+
+      if (tagName === "svg") {
+        parent = e.target.parentNode;
+      } else if (tagName === "path") {
+        parent = e.target.parentNode.parentNode.parentNode;
+      }
+
+      isWish = has(get(parent, "dataset"), "wishlist");
+      isWish
+        ? handleClickWishlist(e)
+        : router.push(`/profile/reservations/${get(reservation, "id")}`);
+    }
+  };
+
+  const reservationWrapperClass = classNames(
+    "relative rounded-xl cursor-pointer",
+    {
+      "bg-gradient-to-l from-warning-yellow from-40% to-white":
+        get(reservation, "status.type") === "pending",
+      "bg-gradient-to-l from-success-green from-40% to-white":
+        get(reservation, "status.type") === "confirmed",
+      "bg-gradient-to-l from-error-red from-40% to-white":
+        get(reservation, "status.type") === "cancelled"
+    }
+  );
 
   const checkIsNotDraggable = (e) => {
     const parent = e.target.offsetParent;
@@ -41,10 +70,10 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
 
     const w = get(actionRef, "current.offsetWidth");
     const leftWithAction = left > 0 ? w : w * -1;
-    setLeft(leftWithAction);
+    leftWithAction && setLeft(leftWithAction);
   };
 
-  const handleDrag = (e, data) => {
+  const handleDrag = (e:any, data:any) => {
     if (percent === 0 && checkIsNotDraggable(e)) return false;
     const w = get(itemRef, "current.offsetWidth");
     const x = get(data, "x") < 0 ? get(data, "x") * -1 : get(data, "x");
@@ -54,11 +83,10 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
     setLeft(data.x);
   };
 
-  const customPagination = {
-    clickable: true,
-    renderBullet: function (index: any, className: any) {
-      return `<span class="${className}"></span>`;
-    }
+  const handleClickWishlist = (e:any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsInWishlist(!isInWishlist);
   };
 
   useEffect(() => {
@@ -66,105 +94,23 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
   }, []);
 
   return (
-    <Link href="#">
-      <div className={reservationWrapperClass}>
-        <div
-          className={`absolute right-0 rounded-r-xl h-full p-2 pr-4 flex items-center justify-center text-white w-1/3 font-mi-sans-semi-bold text-base gap-2 flex-col`}
-          ref={actionRef}>
-          {get(reservation, "status.icon")}
-          {get(reservation, "status.label")}
-        </div>
-        {isMobileDevice ? (
-          <Draggable
-            nodeRef={itemRef}
-            defaultClassName={`${isMobile ? "pr-2" : ""}`}
-            disabled={!isMobile}
-            bounds={{ right: 0 }}
-            axis="x"
-            handle=".item"
-            defaultPosition={{ x: 0, y: 0 }}
-            position={{ x: left, y: 0 }}
-            onDrag={handleDrag}
-            onStop={handleStop}>
-            <div
-              ref={itemRef}
-              className="item"
-              style={{ transform: `translate3d(${left}px, 0, 0)` }}>
-              <Card>
-                <div className="flex gap-3 lg:gap-6 shadow-base-blur-20 rounded-l-xl lg:rounded-xl relative bg-white">
-                  <div className="w-40 lg:w-72 h-48 lg:h-64 relative">
-                    <Slider
-                      sliderIdentifier="reservations-image"
-                      slidesPerView={1}
-                      spaceBetween={0}
-                      withPagination={true}>
-                      {map(get(reservation, "images"), (image, key) => (
-                        <div key={key} className="lg:w-72 h-48 lg:h-64">
-                          <Image
-                            key={key}
-                            src={get(image, "src")}
-                            alt="reservation"
-                            fill={true}
-                            className="rounded-tl-xl rounded-bl-xl object-cover"
-                          />
-                        </div>
-                      ))}
-                    </Slider>
-                    <div className="absolute left-2 top-2 grid grid-cols-1 gap-y-2 z-10">
-                      {map(get(reservation, "badges"), (badge, key) => (
-                        <Badge
-                          key={key}
-                          color={get(badge, "color")}
-                          className={`bg-white text-lg font-mi-sans-semi-bold p-4 rounded-lg`}>
-                          {get(badge, "label")}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  <ReservationItemContent reservation={reservation} />
-                </div>
-              </Card>
-            </div>
-          </Draggable>
-        ) : (
-          <Card>
-            <div className="flex gap-3 lg:gap-6 shadow-base-blur-20 rounded-l-xl lg:rounded-xl relative bg-white">
-              <div className="w-40 lg:w-72 h-48 lg:h-64 relative">
-                <Slider
-                  sliderIdentifier="reservations-image"
-                  slidesPerView={1}
-                  spaceBetween={0}
-                  customPagination={customPagination}
-                  withPagination={true}>
-                  {map(get(reservation, "images"), (image, key) => (
-                    <div key={key} className="lg:w-72 h-48 lg:h-64">
-                      <Image
-                        key={key}
-                        src={get(image, "src")}
-                        alt="reservation"
-                        fill={true}
-                        className="rounded-tl-xl rounded-bl-xl object-cover"
-                      />
-                    </div>
-                  ))}
-                </Slider>
-                <div className="absolute left-2 top-2 grid grid-cols-1 gap-y-2 z-10">
-                  {map(get(reservation, "badges"), (badge, key) => (
-                    <Badge
-                      key={key}
-                      color={get(badge, "color")}
-                      className={`bg-white text-lg font-mi-sans-semi-bold p-4 rounded-lg`}>
-                      {get(badge, "label")}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-              <ReservationItemContent reservation={reservation} />
-            </div>
-          </Card>
-        )}
-      </div>
-    </Link>
+    <div
+      className={reservationWrapperClass}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}>
+      <ReservationItemDetail
+        reservation={reservation}
+        isInWishlist={isInWishlist}
+        handleClickWishlist={handleClickWishlist}
+        itemRef={itemRef}
+        left={left}
+        actionRef={actionRef}
+        handleDrag={handleDrag}
+        isMobileDevice={isMobileDevice}
+        handleStop={handleStop}
+      />
+    </div>
   );
 };
 
