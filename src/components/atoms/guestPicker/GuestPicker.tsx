@@ -18,13 +18,6 @@ const GuestPicker = ({
 }: IGuestPicker) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const items = [
-    {
-      title: "Adults",
-      subTitle: "(over 18)",
-      event: () => changeAdults("minus")
-    }
-  ];
   const changeAdults = (type: string) => {
     if (type === "plus") {
       setBookingGuests((v) => ({ ...v, adults: v.adults + 1 }));
@@ -103,7 +96,7 @@ const GuestPicker = ({
         </div>
       </label>
       <ul tabIndex={0} className={`left-0 dropdown-content menu ${bodyClass}`}>
-        <ListComponent/>
+        <ListComponent />
         <li className="mb-5 lg:mb-0">
           <div className="flex justify-between items-center hover:bg-white active:bg-white active:text-gray-800">
             <div className="flex flex-col">
