@@ -213,6 +213,9 @@ const config = {
               color: `${config.theme.extend.colors.gray["100"]} !important`
             }
           }
+        },
+        ".collapse:not(td):not(tr):not(colgroup)": {
+          visibility: `visible !important`
         }
       });
     }),

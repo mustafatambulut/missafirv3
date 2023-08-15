@@ -6,19 +6,19 @@ import { get, includes, split } from "lodash";
 import { IInput } from "@/components/atoms/input/types";
 
 const Input = ({
-  name,
-  value,
-  label,
-  leftIcon,
-  rightIcon,
-  onChange,
-  type = "text",
-  isDisable = false,
-  className = "",
-  placeholder = "",
-  position = "top-left",
-  containerClassName = ""
-}: IInput) => {
+                 name,
+                 value,
+                 label,
+                 leftIcon,
+                 rightIcon,
+                 onChange,
+                 type = "text",
+                 isDisable = false,
+                 className = "",
+                 placeholder = "",
+                 position = "top-left",
+                 containerClassName = ""
+               }: IInput) => {
   const leftRef = useRef<HTMLInputElement>(null);
   const rightRef = useRef<HTMLInputElement>(null);
 

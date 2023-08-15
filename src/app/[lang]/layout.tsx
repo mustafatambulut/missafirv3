@@ -29,25 +29,25 @@ const RootLayout = async ({ children, params: { lang } }: any) => {
 
   return (
     <html lang={lang}>
-      <head>
-        <title>Missafirv3 Beta</title>
-        <meta
-          name="google-site-verification"
-          content="L7xAcVXBfqNFTj_VSqCaZU-gKHXK-T7chpoLJZE3FYU"
-        />
-      </head>
-      <body className="font-mi-sans" suppressHydrationWarning={true}>
-        <ReduxProvider>
-          <NextIntlClientProvider locale={lang} messages={messages}>
-            <div id="drawer-container"></div>
-            <Header />
-            <main>
-              <RouteGuard>{children}</RouteGuard>
-            </main>
-            <Footer />
-          </NextIntlClientProvider>
-        </ReduxProvider>
-      </body>
+    <head>
+      <title>Missafirv3 Beta</title>
+      <meta
+        name="google-site-verification"
+        content="L7xAcVXBfqNFTj_VSqCaZU-gKHXK-T7chpoLJZE3FYU"
+      />
+    </head>
+    <body className="font-mi-sans" suppressHydrationWarning={true}>
+    <ReduxProvider>
+      <NextIntlClientProvider locale={lang} messages={messages}>
+        <div id="drawer-container"></div>
+        <Header />
+        <main>
+          <RouteGuard>{children}</RouteGuard>
+        </main>
+        <Footer />
+      </NextIntlClientProvider>
+    </ReduxProvider>
+    </body>
     </html>
   );
 };
