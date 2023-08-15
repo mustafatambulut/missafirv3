@@ -7,26 +7,22 @@ import { AppDispatch } from "@/redux/store";
 import { isMobile } from "react-device-detect";
 
 import { HOME } from "@/app/constants";
-import { useAppSelector } from "@/redux/hooks";
-import { getScrollPosition } from "@/utils/helper";
-import useFetchData from "@/app/hooks/useFetchData";
-import { fetchDataByPage } from "@/redux/features/landingSlice";
 import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
+import { useAppSelector } from "@/redux/hooks";
 import { FOOTER } from "@/components/molecules/footer/constant";
 import { HEADER } from "@/components/molecules/header/constants";
 import { IHeader } from "@/components/molecules/header/types";
 import { IFooter } from "@/components/molecules/footer/types";
 import { IFooterBrand } from "@/components/atoms/footerBrand/types";
+import useFetchData from "@/app/hooks/useFetchData";
+import { getScrollPosition, setLocalStorage } from "@/utils/helper";
+import { fetchDataByPage } from "@/redux/features/landingSlice/landingSlice";
+
 import Loading from "@/components/atoms/loading/Loading";
 import Drawer from "@/components/molecules/drawer/Drawer";
 import Navbar from "@/components/molecules/navbar/Navbar";
 
-const Header = () => {
-  /*
-          client side translation example
-          const t = useTranslations("home");
-          <h1 className="text-red-500 text-xl">{t("title")}</h1>
-      */
+const Header = ({ lang }: string) => {
   const [header, setHeader] = useState<IHeader>(null);
   const [footerMenu, setFooterMenu] = useState<IFooter>(null);
   const [footerBrand, setFooterBrand] = useState<IFooterBrand>(null);
@@ -95,6 +91,7 @@ const Header = () => {
   }, [entities]);
 
   useEffect(() => {
+    setLocalStorage("lang", lang);
     dispatch(fetchDataByPage(HOME));
     window.addEventListener("scroll", handleScroll);
     handleScroll();
