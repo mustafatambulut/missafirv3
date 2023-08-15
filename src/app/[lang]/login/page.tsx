@@ -100,8 +100,8 @@ const Login = () => {
             <Input
               type="email"
               name="email"
-              label="Email"
-              placeholder="Email"
+              label={t("email")}
+              placeholder={t("email")}
               containerClassName="text-lg"
               value={get(values, "email")}
               onChange={handleChange}
@@ -112,8 +112,8 @@ const Login = () => {
             <Input
               type="password"
               name="password"
-              label="Password"
-              placeholder="Password"
+              label={t("password")}
+              placeholder={t("password")}
               containerClassName="text-lg"
               onChange={formik.handleChange}
               value={get(formik, "values.password")}
@@ -123,12 +123,12 @@ const Login = () => {
             )}
             <div className="flex justify-between items-center">
               <Checkbox
-                label="Remember me"
+                label={t("remember_me")}
                 labelClass="text-base"
                 position="right"
               />
               <Link href="/forgot-password" className="text-primary text-lg">
-                Forgot password
+                {t("forgot_password")}
               </Link>
             </div>
             {errorMessage && (
@@ -137,19 +137,21 @@ const Login = () => {
               </p>
             )}
             <Button disabled={isSubmitting} type="submit" className="text-xl">
-              Login
+              {t("login")}
               {isSubmitting && (
                 <span className="loading loading-spinner"></span>
               )}
             </Button>
             <div className="flex justify-center items-center gap-x-1 text-base">
-              <p className="text-gray-400">Dont you have an account? Sign Up</p>
+              <p className="text-gray-400">
+                {t("dont_you_have_an_account_sign_up")}
+              </p>
               <Button
                 link="/signup"
                 variant="btn-ghost"
                 className="text-primary font-mi-sans"
                 outline={true}>
-                Sign Up
+                {t("sign_up")}
               </Button>
             </div>
             {/*todo: daha sonra aktif edilecek*/}
