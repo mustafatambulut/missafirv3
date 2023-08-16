@@ -17,21 +17,21 @@ const ToastMessage = ({
   className = ""
 }: IToastMessage) => {
   const containerClass = classNames(
-    `rounded-2xl shadow-sm pointer-events-auto flex item-center gap-x-6 p-3 px-4 bg-white ${className}`,
+    `rounded-2xl border border-gray-100 shadow-md pointer-events-auto flex item-center gap-x-3 lg:gap-x-6 p-3 lg:px-4 bg-white ${className}`,
     {
       "animate-enter": get(item, "visible"),
       "animate-leave": !get(item, "visible")
     }
   );
 
-  const titleClass = classNames("text-2xl capitalize", {
+  const titleClass = classNames("text-lg lg:text-2xl capitalize", {
     "text-error-red": status === "error",
     "text-success-green": status === "success",
     "text-warning-yellow": status === "warning"
   });
 
   const iconClass = classNames(
-    `flex w-16 h-16 items-center justify-center rounded-full`,
+    `flex w-12 h-12 lg:w-16 lg:h-16 items-center justify-center rounded-full`,
     {
       "bg-red-100": status === "error",
       "bg-green-100": status === "success",
@@ -57,9 +57,11 @@ const ToastMessage = ({
         <h1 className={titleClass}>{title}</h1>
         {children}
       </div>
-      <button onClick={() => toast.remove()}>
-        <CloseIcon />
-      </button>
+      <div className="flex items-start">
+        <button onClick={() => toast.remove()}>
+          <CloseIcon />
+        </button>
+      </div>
     </div>
   );
 };

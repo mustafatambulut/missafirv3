@@ -32,7 +32,7 @@ const ForgotPassword = () => {
     validationSchema,
     onSubmit: async (values) => {
       const res = await forgotPassword(values);
-      if (get(res, "status")) {
+      if (get(res, "status") && get(res, "code") === 200) {
         toast.custom((item) => (
           <ToastMessage
             toast={toast}
