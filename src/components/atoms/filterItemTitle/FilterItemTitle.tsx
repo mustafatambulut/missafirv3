@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import { ITitle } from "@/components/molecules/filterItem/types";
 
-import DownArrowIcon from "../../../../public/images/arrow-down.svg";
+import DownArrowIcon from "../../../../public/images/arrow_down.svg";
 
 const FilterItemTitle = ({
   children,
