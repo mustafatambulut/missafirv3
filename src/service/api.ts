@@ -11,14 +11,24 @@ export const getMenu = async () => {
   return get(data, "data");
 };
 
-export const auth = async (params) => {
+export const auth = async (payload) => {
+  try {
+    return await pmsApi.post("/login", payload);
+  } catch (err) {
+    return get(err, "response.data");
+  }
+};
+
+export const signUp = async ({ email, password, fullname, phone }) => {
   const payload = {
-    email: get(params, "email"),
-    password: get(params, "password")
+    email,
+    phone,
+    fullname,
+    password
   };
 
   try {
-    return await pmsApi.post("/login", payload);
+    return await pmsApi.post("/signup", payload);
   } catch (err) {
     return get(err, "response.data");
   }

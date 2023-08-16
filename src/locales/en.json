@@ -34,6 +34,7 @@
   "do_you_have_account_login_now": "Do you have account? Login now",
   "sign_up_with_email": "Sign Up with e-mail",
   "phone_number": "Phone Number",
+  "phone_number_is_not_valid": "Phone number is not valid",
   "select_our_extra_services_for_you": "Select Our Extra Services For You",
   "bathroom": "Bathroom",
   "bedroom": "Bedroom",

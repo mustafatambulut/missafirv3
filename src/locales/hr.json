@@ -35,6 +35,7 @@
   "do_you_have_account_login_now": "Imate li račun? Prijavite se sada",
   "sign_up_with_email": "Prijavite se e-poštom",
   "phone_number": "Broj telefona",
+  "phone_number_is_not_valid": "Broj telefona nije validan.",
   "select_our_extra_services_for_you": "Odaberite naše dodatne usluge za vas",
   "bathroom": "Kupaonica",
   "bedroom": "Spavaća soba",

@@ -4,6 +4,8 @@ import { get } from "lodash";
 import { ICheckbox } from "@/components/atoms/checkbox/types";
 
 const Checkbox = ({
+  name,
+  value,
   label,
   checked,
   onChange,
@@ -25,9 +27,11 @@ const Checkbox = ({
   return (
     <div className={`form-control w-fit font-mi-sans ${className}`}>
       <label
-        className={`label-text label cursor-pointer gap-x-2 items-center ${labelClass}`}>
+        className={`label-text label cursor-pointer gap-x-2 ${labelClass}`}>
         <span ref={leftRef}>{label}</span>
         <input
+          name={name}
+          value={value}
           type="checkbox"
           checked={checked}
           onChange={onChange}
