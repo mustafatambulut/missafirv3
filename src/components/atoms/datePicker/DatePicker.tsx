@@ -14,9 +14,9 @@ import "./DatePicker.css";
 import "react-dates/lib/css/_datepicker.css";
 
 import CalendarIcon from "../../../../public/images/calendar.svg";
-import RoundedInfo from "../../../../public/images/rounded-info.svg";
-import ChevronLeft from "../../../../public/images/chevron-left.svg";
-import ChevronRight from "../../../../public/images/chevron-right.svg";
+import RoundedInfo from "../../../../public/images/rounded_info.svg";
+import ChevronLeft from "../../../../public/images/chevron_left.svg";
+import ChevronRight from "../../../../public/images/chevron_right.svg";
 
 const DatePicker = ({
   bookingDate,
@@ -123,7 +123,7 @@ const DatePicker = ({
       <div
         className="lg:flex lg:items-center h-full"
         onClick={() => setShowDatePicker(true)}>
-        <CalendarIcon className="hidden lg:block" />
+        <CalendarIcon className="hidden lg:block fill-gray-800" />
         <div className="lg:flex lg:flex-col lg:ml-3 h-full lg:justify-center">
           <span className="text-gray-600 text-left hidden lg:block lg:text-21">
             Dates

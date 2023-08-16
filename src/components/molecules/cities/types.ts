@@ -16,7 +16,7 @@ export interface Data {
 
 export interface Attributes {
   title?: string;
-  image?: string;
+  image: string;
   description?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -28,4 +28,12 @@ export interface Header {
   title?: string;
   description?: string;
   image?: null;
+}
+
+export interface IAttributes {
+  attributes: Attributes;
+}
+
+export interface ICityAttributes {
+  city: IAttributes;
 }

@@ -5,8 +5,8 @@ import { isMobile } from "react-device-detect";
 
 import { IBookingGuests } from "@/components/atoms/guests/types";
 
-import MinusIcon from "../../../../public/images/minus.svg";
 import PlusIcon from "../../../../public/images/plus.svg";
+import MinusIcon from "../../../../public/images/minus.svg";
 import GuestsIcon from "../../../../public/images/guests.svg";
 
 const Guests = ({
@@ -60,7 +60,7 @@ const Guests = ({
         tabIndex={0}
         className="cursor-pointer w-full flex items-center !h-[56px] lg:h-full"
         onClick={() => !isMobile && setIsDropdownOpen(!isDropdownOpen)}>
-        <GuestsIcon className="hidden lg:block" />
+        <GuestsIcon className="hidden lg:block fill-gray-700" />
         <div className="flex flex-col lg:ml-3">
           <span
             className={`text-21 text-gray-600 ${

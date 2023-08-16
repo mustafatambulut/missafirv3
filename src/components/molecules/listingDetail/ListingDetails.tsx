@@ -5,14 +5,14 @@ import Image from "next/image";
 import { get, map } from "lodash";
 import { isMobile } from "react-device-detect";
 
-import Badge from "@/components/atoms/badge/Badge";
-import Slider from "@/components/molecules/slider/Slider";
-
 import "./ListingDetails.css";
 
-import PreviousIcon from "../../../../public/images/chevron-left.svg";
-import NextIcon from "../../../../public/images/chevron-right.svg";
+import Badge from "@/components/atoms/badge/Badge";
+import Slider from "@/components/molecules/slider/Slider";
 import Section from "@/components/molecules/section/Section";
+
+import NextIcon from "../../../../public/images/chevron_right.svg";
+import PreviousIcon from "../../../../public/images/chevron_left.svg";
 
 const CustomNavigation = () => {
   return (
@@ -1065,7 +1065,7 @@ const ListingDetails = () => {
           title={get(listingsData, "header.title")}
           description={get(listingsData, "header.description")}>
           <div className="tab-container w-full">
-            <div className="tabs w-full flex shadow-[0px_2px_20px_0px_#bababa1a] lg:shadow-[0px_2px_20px_0px_#0000001A] h-28 rounded-2xl">
+            <div className="tabs w-full flex shadow-bold-blur-20 lg:shadow-bold-blur-20-dark h-28 rounded-2xl">
               <Slider
                 sliderIdentifier="listing-details"
                 slidesPerView={isMobile ? 3 : 7}
@@ -1118,7 +1118,7 @@ const ListingDetails = () => {
                       {map(get(tabContentItem, "listings"), (listing, key) => (
                         <Link href="/" key={key}>
                           <div
-                            className="shadow-[0px_1px_20px_0px_#00000014] rounded-xl mb-5 lg:mb-0"
+                            className="shadow-base-blur-20 rounded-xl mb-5 lg:mb-0"
                             key={key}>
                             <div className="relative">
                               <div className="absolute left-2 top-2 grid grid-cols-1 gap-y-2 z-10">

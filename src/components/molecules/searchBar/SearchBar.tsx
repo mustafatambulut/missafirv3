@@ -11,7 +11,7 @@ import Button from "@/components/atoms/button/Button";
 import DatePicker from "@/components/atoms/datePicker/DatePicker";
 import DestinationSelect from "@/components/atoms/destinationSelect/DestinationSelect";
 
-import SearchIcon from "../../../../public/images/search-icon.svg";
+import SearchIcon from "../../../../public/images/search.svg";
 
 const SearchBar = (props: IProps) => {
   const {

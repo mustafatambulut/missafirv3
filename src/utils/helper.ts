@@ -1,4 +1,4 @@
-import { forEach, get, isArray } from "lodash";
+import { forEach, get, has, isArray, size } from "lodash";
 
 import { getPage } from "@/service/api";
 
@@ -17,6 +17,16 @@ export const getPageDataByComponent = async (
 };
 
 export const getScrollPosition = () => window.scrollY;
+
+export const checkIsCustomColor = (props, color: string): boolean => {
+  if (!size(props.getValue())) return;
+
+  const selectedValue = get(props.getValue(), "0.attributes");
+  if (!has(selectedValue, "type")) return;
+
+  const { type, value } = selectedValue;
+  return type === "filter" && value === color;
+};
 
 export const percentage = (num: number, per: number) => (num / 100) * per;
 

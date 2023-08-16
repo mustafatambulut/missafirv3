@@ -1,4 +1,7 @@
 export interface IOptionImage {
-  image?: string;
+  src?: string;
   className?: string;
+  imageClassName?: string;
+  width: number;
+  height: number;
 }

@@ -18,13 +18,6 @@ const GuestPicker = ({
 }: IGuestPicker) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const items = [
-    {
-      title: "Adults",
-      subTitle: "(over 18)",
-      event: () => changeAdults("minus")
-    }
-  ];
   const changeAdults = (type: string) => {
     if (type === "plus") {
       setBookingGuests((v) => ({ ...v, adults: v.adults + 1 }));

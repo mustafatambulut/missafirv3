@@ -4,6 +4,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    @variants responsive {
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+    }
+}
+
 .toggle {
     box-shadow: var(--handleoffsetcalculator) 0 0 2px #F1F3F3 inset, 0 0 0 2px #f1f3f3 inset, var(--togglehandleborder);
     background-color: #E3E6E8;
@@ -14,4 +29,8 @@
     box-shadow: var(--handleoffsetcalculator) 0 0 2px #D01E50 inset, 0 0 0 2px #D01E50 inset, var(--togglehandleborder);
     background-color: #F6D2DC;
     border-color: #D01E50;
+}
+
+.collapse {
+    visibility: visible !important;
 }

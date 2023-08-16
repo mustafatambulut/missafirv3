@@ -10,18 +10,25 @@ const config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        "base-blur-5": "0 1px 5px 0 rgba(0, 0, 0, 0.08)",
+        "base-blur-10": "0 1px 10px 0 rgba(0, 0, 0, 0.08)",
+        "base-blur-20": "0 1px 20px 0 rgba(0, 0, 0, 0.08)",
+        "thin-blur-10": "0 1px 10px 0 rgba(0, 0, 0, 0.04)",
+        "bold-blur-20": "0 2px 20px 0 rgba(186, 186, 186, 0.1)",
+        "bold-blur-20-dark": "0 2px 20px 0 rgba(0, 0, 0, 0.1)"
+      },
       borderRadius: {
         x: "0.6rem" // 10px
       },
       fontSize: {
-        xxs: "0.63rem",
-        xxl: "1.38rem",
-        15: "0.94rem",
-        21: "1.36rem",
-        22: "1.37rem",
-        28: "1.75rem",
-        42: "2.63rem",
-        54: "3.39rem"
+        xxs: "0.6rem", // 10px
+        15: "0.94rem", // 15px
+        21: "1.31rem", // 21px
+        22: "1.38rem", // 22px
+        28: "1.75rem", // 28px
+        42: "2.63rem", // 42px
+        54: "3.37rem" // 54px
       },
       colors: {
         primary: {
@@ -39,6 +46,7 @@ const config = {
           900: "#530C20"
         },
         secondary: {
+          DEFAULT: "#0E6973",
           50: "#F1F7F8",
           100: "#E7F0F1",
           200: "#CFE1E3",
@@ -51,6 +59,7 @@ const config = {
           900: "#062A2E"
         },
         darkblue: {
+          DEFAULT: "#0F3156",
           50: "#F2F4F6",
           100: "#E7EAEE",
           200: "#CFD6DD",
@@ -63,6 +72,7 @@ const config = {
           900: "#061422"
         },
         gray: {
+          DEFAULT: "#75828A",
           50: "#F9F9F9",
           100: "#F1F3F3",
           200: "#E3E6E8",
@@ -73,6 +83,24 @@ const config = {
           700: "#5E686E",
           800: "#464E53",
           900: "#2F3437"
+        },
+        "green-light": {
+          DEFAULT: "#E4F0E9"
+        },
+        "yellow-light": {
+          DEFAULT: "#FEF0C7"
+        },
+        "red-light": {
+          DEFAULT: "#F7E7E7"
+        },
+        "success-green": {
+          DEFAULT: "#48BB78"
+        },
+        "warning-yellow": {
+          DEFAULT: "#F4B616"
+        },
+        "error-red": {
+          DEFAULT: "#E44646"
         }
       },
       fontFamily: {
