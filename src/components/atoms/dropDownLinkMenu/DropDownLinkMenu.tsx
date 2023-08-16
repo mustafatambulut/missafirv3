@@ -9,7 +9,7 @@ const DropDownLinkMenu = ({ items, className = "" }: IDropDownLinkMenu) => {
       className={`menu lg:flex-1 lg:flex lg:justify-between text-gray-800 p-0 ${className}`}>
       <li className="mb-6">
         <details className="active:bg-white active:text-gray-600">
-          <summary className="pl-0 focus:bg-white flex justify-start text-xxl">
+          <summary className="pl-0 focus:bg-white flex justify-start text-22">
             {get(items, "title")}
           </summary>
           <ul className="before:hidden ml-0 pl-0">

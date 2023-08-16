@@ -1,13 +1,19 @@
-import React from "react";
-import moment from "moment/moment";
+import { Dispatch, SetStateAction } from "react";
+import { Moment } from "moment/moment";
 
 export interface IDatePicker {
   bookingDate: IBookingDate;
-  setBookingDate: React.Dispatch<React.SetStateAction<IBookingDate>>;
-  setSkipButtonVisibility: React.Dispatch<React.SetStateAction<boolean>>;
+  setBookingDate: Dispatch<SetStateAction<IBookingDate>>;
+  setSkipButtonVisibility: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface IBookingDate {
-  startDate: null | moment.Moment;
-  endDate: null | moment.Moment;
+  startDate: null | Moment;
+  endDate: null | Moment;
+}
+
+export interface IBookingGuest {
+  adults: number;
+  kids: number;
+  pets: boolean;
 }

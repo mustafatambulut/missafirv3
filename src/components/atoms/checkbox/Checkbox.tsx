@@ -1,39 +1,46 @@
-"use client";
+import { useEffect, useRef } from "react";
 import { get } from "lodash";
-import classNames from "classnames";
 
 import { ICheckbox } from "@/components/atoms/checkbox/types";
 
-import CheckedIcon from "../../../../public/images/checked.svg";
+const Checkbox = ({
+  name,
+  value,
+  label,
+  checked,
+  onChange,
+  position,
+  isDisable,
+  className = "",
+  labelClass = ""
+}: ICheckbox) => {
+  const leftRef = useRef<HTMLInputElement>(null);
+  const rightRef = useRef<HTMLInputElement>(null);
 
-const Checkbox = ({ data, handleChange, isChecked }: ICheckbox) => {
-  const checkboxClass = classNames(
-    "border-2 cursor-pointer label justify-start relative border rounded-md w-6 h-6 p-0 select-none",
-    {
-      "bg-primary-50 !border-primary": isChecked
-    }
-  );
-
-  const checkboxInnerClass = classNames(
-    "flex justify-center items-center w-full h-full"
-  );
-
-  const checkboxLabelClass = classNames(
-    "label-text ml-2 text-gray-700 text-sm lg:text-base select-none"
-  );
+  useEffect(() => {
+    if (!get(leftRef, "current") && !get(rightRef, "current")) return;
+    position === "right"
+      ? (leftRef.current.innerText = "")
+      : (rightRef.current.innerText = "");
+  }, [leftRef, rightRef]);
 
   return (
-    <label className="flex cursor-pointer">
-      <div className={checkboxClass}>
-        <input type="checkbox" className="hidden" onChange={handleChange} />
-        {isChecked && (
-          <div className={checkboxInnerClass}>
-            <CheckedIcon />
-          </div>
-        )}
-      </div>
-      <span className={checkboxLabelClass}>{get(data, "title")}</span>
-    </label>
+    <div className={`form-control w-fit font-mi-sans ${className}`}>
+      <label
+        className={`label-text label cursor-pointer gap-x-2 ${labelClass}`}>
+        <span ref={leftRef}>{label}</span>
+        <input
+          name={name}
+          value={value}
+          type="checkbox"
+          checked={checked}
+          onChange={onChange}
+          disabled={isDisable}
+          className={`checkbox ${className}`}
+        />
+        <span ref={rightRef}>{label}</span>
+      </label>
+    </div>
   );
 };
 

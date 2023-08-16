@@ -12,13 +12,12 @@ import { IDestinationSelect } from "@/components/atoms/destinationSelect/types";
 import "swiper/css";
 import "./DestinationSelect.css";
 
+import ClearIcon from "../../../../public/images/clear.svg";
+import SearchIcon from "../../../../public/images/search.svg";
 import HistoryIcon from "../../../../public/images/history.svg";
-import ClearIcon from "../../../../public/images/clear-icon.svg";
 import LocationIcon from "../../../../public/images/location.svg";
-import SearchIcon from "../../../../public/images/search-icon.svg";
 
 const DestinationSelect = ({
-  setActiveSearchItem,
   setBookingDestination,
   componentId
 }: IDestinationSelect) => {
@@ -115,9 +114,6 @@ const DestinationSelect = ({
   };
 
   const handleOnChange = (e: any) => {
-    if (e) {
-      setActiveSearchItem("bookingDate");
-    }
     setBookingDestination(e);
   };
 

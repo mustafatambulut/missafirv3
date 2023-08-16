@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import Select, { Theme } from "react-select";
 import { find, get } from "lodash";
 import classNames from "classnames";
+import Select, { Theme } from "react-select";
 
 import { ISelectLanguage } from "@/components/atoms/selectLanguage/types";
 
@@ -19,7 +19,8 @@ const SelectLanguage = ({
   showIndicator,
   className = ""
 }: ISelectLanguage) => {
-  const [currentLocale] = useState("EN");
+  //todo: dil seçeneği ekleyince güncellenecek
+  const [currentLocale] = useState("TR");
   const selectClass = classNames(`text-sm rounded-xl ${className}`, {
     "bg-gray-700": variant === "dark",
     "bg-none": variant === "ghost",
@@ -27,18 +28,17 @@ const SelectLanguage = ({
   });
 
   const optionClass = classNames(
-    "my-1 p-0 m-0 rounded-lg cursor-pointer focus:text-black lg:text-lg",
+    "my-1 p-0 m-0 rounded-lg cursor-pointer focus:text-black lg:text-lg flex gap-x-2 items-center justify-center",
     {
       "bg-gray-700": variant === "dark",
       "hover:bg-gray-600": variant === "dark",
-      // "text-white": variant === "dark" || variant === "ghost",
       "text-white": variant === "dark",
       "hover:bg-gray-100": variant === "ghost" || variant === "gray",
       "focus:bg-gray-hover": variant === "ghost" || variant === "gray"
     }
   );
 
-  const singleValueChildrenClassName = classNames(
+  const singleValueChildrenClass = classNames(
     "text-base uppercase ml-2 text-lg",
     {
       "text-white": variant === "dark" || variant === "ghost",
@@ -69,20 +69,27 @@ const SelectLanguage = ({
     menuClass,
     optionClass,
     selectClass,
-    singleValueChildrenClassName
+    singleValueChildrenClass
   };
 
   return (
     <Select
+      optionImageWidth={24}
+      optionImageHeight={24}
       imageWidthClassName="w-6"
       menuListClassName="m-0 p-1"
       indicatorClassName="pl-0 pr-2"
+      optionImageClassName="rounded-full"
+      controlInnerClassName="flex w-full"
       indicatorArrowClassName="fill-owner"
+      optionImageWrapperClassName="w-6 p-0 m-0"
       className={get(config, "selectClass")}
       menuClassName={get(config, "menuClass")}
+      optionSelectedClassName="bg-gray-150 text-black"
       optionClassName={get(config, "optionClass")}
+      singleValueChildrenClassName={get(config, "singleValueChildrenClass")}
       singleValueClassName="flex items-center gap-x-0.5 justify-around"
-      singleValueChildrenClassName={singleValueChildrenClassName}
+      optionLabelClassName="text-sm lg:text-lg py-2 uppercase font-mi-sans-semi-bold"
       controlClassName="cursor-pointer shadow-none bg-transparent text-xs lg:text-base h-11 rounded-x border-white"
       components={{
         Option: Option,

@@ -1,6 +1,6 @@
 ## MİSSAFİR V3
 
-### Installing
+### Installing ⚙️
 
 1. Clone this repository:
 
@@ -16,7 +16,7 @@
  yarn
 ```
 
-## Running the app locally
+## Running the app locally 🚀
 
 To run the app locally, you can use:
 
@@ -24,14 +24,23 @@ To run the app locally, you can use:
   yarn dev
 ```
 
-You should now be able to see the application running at `http://localhost:3000` in your web browser.
+You should now be able to see the application running at `http://localhost:3000`
+in your web browser.
 
-## Building
+## Building 🔨
 
 To build the Missafir V3 locally, you can use:
 
 ```bash
   yarn build
+```
+
+## Extra commands
+
+Quickly builds components
+
+```bash
+  yarn plop
 ```
 
 ### Versions
