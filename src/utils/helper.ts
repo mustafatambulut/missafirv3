@@ -81,6 +81,14 @@ export const setLocalStorage = (key: string, value: any): void => {
   if (typeof window !== "undefined") localStorage.setItem(key, value);
 };
 
+export const getSessionStorage = (key: string) => {
+  if (typeof window !== "undefined") return sessionStorage.getItem(key);
+};
+
+export const setSessionStorage = (key: string, value: any): void => {
+  if (typeof window !== "undefined") sessionStorage.setItem(key, value);
+};
+
 export const removeLocalStorage = (key: string): void => {
   if (typeof window !== "undefined") localStorage.removeItem(key);
 };
