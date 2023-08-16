@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 
 export interface IInput {
+  name: string;
+  value: string;
   label?: string;
   className?: string;
   placeholder?: string;
@@ -9,5 +11,6 @@ export interface IInput {
   onChange?: void;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
+  type?: "text" | "email" | "phone" | "password";
   position?: "top-right" | "top-left" | "bottom-right" | "bottom-left";
 }

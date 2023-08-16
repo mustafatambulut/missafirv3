@@ -32,7 +32,7 @@ const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
     <div className="drawer-content flex flex-col">
       <div className="w-full navbar lg:py-8 lg:px-10">
         <div className="flex-1">
-          <Link href={get(data, "header.logo.link")}>
+          <Link href={get(data, "header.logo.link") || "/"}>
             <Image
               priority
               width="0"

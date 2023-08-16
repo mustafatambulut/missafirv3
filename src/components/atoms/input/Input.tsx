@@ -6,10 +6,13 @@ import { get, includes, split } from "lodash";
 import { IInput } from "@/components/atoms/input/types";
 
 const Input = ({
+  name,
+  value,
   label,
   leftIcon,
   rightIcon,
   onChange,
+  type = "text",
   isDisable = false,
   className = "",
   placeholder = "",
@@ -23,9 +26,10 @@ const Input = ({
     "order-1": includes(split(position, "-"), "bottom")
   });
 
-  const inputContainerClass = classNames("px-2 flex rounded-lg items-center", {
+  const inputContainerClass = classNames("flex rounded-lg items-center", {
     "bg-gray-100": isDisable,
-    "border border-gray-300": !isDisable
+    "border border-gray-300": !isDisable,
+    "px-2": !!leftIcon
   });
 
   useEffect(() => {
@@ -46,7 +50,9 @@ const Input = ({
       <div className={inputContainerClass}>
         {leftIcon}
         <input
-          type="text"
+          type={type}
+          name={name}
+          value={value}
           onChange={onChange}
           disabled={isDisable}
           placeholder={placeholder}

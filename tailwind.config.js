@@ -101,6 +101,9 @@ const config = {
         },
         "error-red": {
           DEFAULT: "#E44646"
+        },
+        pink: {
+          DEFAULT: "#F8479E"
         }
       },
       fontFamily: {

@@ -96,7 +96,7 @@ const GuestPicker = ({
         </div>
       </label>
       <ul tabIndex={0} className={`left-0 dropdown-content menu ${bodyClass}`}>
-        <ListComponent/>
+        <ListComponent />
         <li className="mb-5 lg:mb-0">
           <div className="flex justify-between items-center hover:bg-white active:bg-white active:text-gray-800">
             <div className="flex flex-col">

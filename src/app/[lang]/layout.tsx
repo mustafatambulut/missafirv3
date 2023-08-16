@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import ReduxProvider from "@/redux/provider";
 import { NextIntlClientProvider } from "next-intl";
 
+import RouteGuard from "@/app/hooks/RouteGuard";
+
 import Header from "@/components/molecules/header/Header";
 import Footer from "@/components/molecules/footer/Footer";
 
@@ -39,7 +41,9 @@ const RootLayout = async ({ children, params: { lang } }: any) => {
           <NextIntlClientProvider locale={lang} messages={messages}>
             <div id="drawer-container"></div>
             <Header lang={lang} />
-            <main>{children}</main>
+            <main>
+              <RouteGuard>{children}</RouteGuard>
+            </main>
             <Footer />
           </NextIntlClientProvider>
         </ReduxProvider>

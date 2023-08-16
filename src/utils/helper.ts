@@ -30,16 +30,6 @@ export const checkIsCustomColor = (props, color: string): boolean => {
 
 export const percentage = (num: number, per: number) => (num / 100) * per;
 
-export const getLocalStorage = (key: string) => {
-  if (typeof window !== "undefined") return localStorage.getItem(key);
-};
-
-export const setLocalStorage = (key: string, value: any): void => {
-  if (typeof window !== "undefined") localStorage.setItem(key, value);
-};
-
-export const getCurrentLang = () => getLocalStorage("lang");
-
 export const formatPrice = (price, currencyType = "TRY") => {
   let format = "";
   const currencySymbol = "₺";
@@ -81,4 +71,25 @@ export const getPriceFormatByLocale = () => {
     default:
       return "TRY";
   }
+};
+
+export const getLocalStorage = (key: string) => {
+  if (typeof window !== "undefined") return localStorage.getItem(key);
+};
+
+export const setLocalStorage = (key: string, value: any): void => {
+  if (typeof window !== "undefined") localStorage.setItem(key, value);
+};
+
+export const removeLocalStorage = (key: string): void => {
+  if (typeof window !== "undefined") localStorage.removeItem(key);
+};
+
+export const getCurrentLang = (): string => getLocalStorage("lang");
+
+export const checkSameItem = (
+  firstArr: Array<string>,
+  secondArr: Array<string>
+): boolean => {
+  return firstArr.some((l) => secondArr.includes(l));
 };
