@@ -5,7 +5,7 @@ import { IGuestDrawer } from "@/components/atoms/guestDrawer/types";
 import Button from "@/components/atoms/button/Button";
 
 import GuestsIcon from "../../../../public/images/guests.svg";
-import SearchIconWhite from "../../../../public/images/search-white.svg";
+import SearchIconWhite from "../../../../public/images/search_white.svg";
 
 const GuestDrawer = ({ onClick, guest, className = "" }: IGuestDrawer) => {
   return (
@@ -17,7 +17,7 @@ const GuestDrawer = ({ onClick, guest, className = "" }: IGuestDrawer) => {
           className="drawer-button py-1 px-4 !h-[58px] bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-700">
           <div className="flex">
             <div className="flex items-center text-base">
-              <GuestsIcon className="mr-3" />
+              <GuestsIcon className="mr-3 fill-gray-700" />
               <div className="flex flex-col items-start">
                 <span>Guests</span>
                 {(get(guest, "adults") > 0 ||

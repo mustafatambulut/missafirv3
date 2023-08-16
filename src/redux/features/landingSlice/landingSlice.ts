@@ -1,5 +1,5 @@
 import { get } from "lodash";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { getPage } from "@/service/api";
 import { ILandingState } from "@/redux/features/landingSlice/types";
@@ -14,13 +14,21 @@ export const fetchDataByPage = createAsyncThunk(
 
 const initialState = {
   entities: [],
-  loading: true
+  loading: true,
+  isShowDrawer: false
 } as ILandingState;
 
 const landingSlice = createSlice({
   name: "landing",
   initialState,
-  reducers: {},
+  reducers: {
+    updateIsShowDrawer: (
+      state: { isShowDrawer: boolean },
+      action: PayloadAction<boolean>
+    ) => {
+      state.isShowDrawer = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchDataByPage.pending, (state: ILandingState): void => {
       state.loading = true;
@@ -34,4 +42,6 @@ const landingSlice = createSlice({
     );
   }
 });
+
+export const { updateIsShowDrawer } = landingSlice.actions;
 export default landingSlice.reducer;

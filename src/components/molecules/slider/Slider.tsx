@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { map } from "lodash";
+import { map, isArray } from "lodash";
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -35,7 +35,6 @@ const Slider = ({
         spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
         modules={[Navigation, Pagination]}
-        pagination={withPagination}
         {...(customPagination
           ? {
               pagination: customPagination
@@ -53,9 +52,11 @@ const Slider = ({
           : withNavigation
           ? { navigation: true }
           : null)}>
-        {map(children, (item, key) => {
-          return <SwiperSlide key={key}>{item}</SwiperSlide>;
-        })}
+        {isArray(children)
+          ? map(children, (item, key) => {
+              return <SwiperSlide key={key}>{item}</SwiperSlide>;
+            })
+          : children}
       </Swiper>
       {customNavigation && customNavigation}
     </div>

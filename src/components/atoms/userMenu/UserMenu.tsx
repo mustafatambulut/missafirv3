@@ -1,4 +1,4 @@
-import { createRef } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { get, map } from "lodash";
@@ -10,7 +10,7 @@ import { IUserMenu } from "@/components/atoms/userMenu/types";
 import Button from "@/components/atoms/button/Button";
 
 const UserMenu = ({ variant = "", data }: IUserMenu) => {
-  const userMenuRef = createRef();
+  const userMenuRef = useRef<HTMLDetailsElement>(null);
 
   const summaryClass = classNames(
     "justify-start p-0 focus:bg-transparent hover:bg-transparent font-base mb-2 lg:mb-0",
@@ -19,8 +19,10 @@ const UserMenu = ({ variant = "", data }: IUserMenu) => {
     }
   );
   const handleOutsideClick = () => {
-    userMenuRef.current?.removeAttribute("open");
+    if (!get(userMenuRef, "current")) return;
+    get(userMenuRef, "current")?.removeAttribute("open");
   };
+
   return (
     <OutsideClickHandler onOutsideClick={handleOutsideClick}>
       <ul className="menu lg:menu-horizontal w-16 bg-transparent p-0">
@@ -32,8 +34,8 @@ const UserMenu = ({ variant = "", data }: IUserMenu) => {
                   get(data, "image")
                     ? get(data, "image")
                     : variant === "ghost" || variant === "light"
-                    ? "/images/user-light.svg"
-                    : "/images/user-dark.svg"
+                    ? "/images/user_light.svg"
+                    : "/images/user_dark.svg"
                 }`}
                 alt="user"
                 width={24}

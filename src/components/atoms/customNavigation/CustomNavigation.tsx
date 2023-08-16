@@ -1,5 +1,5 @@
-import NextIcon from "../../../../public/images/secondary-arrow-right.svg";
-import PreviousIcon from "../../../../public/images/secondary-arrow-left.svg";
+import NextIcon from "../../../../public/images/next_arrow.svg";
+import PreviousIcon from "../../../../public/images/prev_arrow.svg";
 
 const CustomNavigation = () => {
   return (

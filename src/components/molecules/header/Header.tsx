@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import classNames from "classnames";
 import { get, isNull } from "lodash";
 import { useDispatch } from "react-redux";
@@ -8,6 +8,7 @@ import { isMobile } from "react-device-detect";
 
 import { HOME } from "@/app/constants";
 import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
+import { useAppSelector } from "@/redux/hooks";
 import { FOOTER } from "@/components/molecules/footer/constant";
 import { HEADER } from "@/components/molecules/header/constants";
 import { IHeader } from "@/components/molecules/header/types";
@@ -25,16 +26,19 @@ const Header = ({ lang }: string) => {
   const [header, setHeader] = useState<IHeader>(null);
   const [footerMenu, setFooterMenu] = useState<IFooter>(null);
   const [footerBrand, setFooterBrand] = useState<IFooterBrand>(null);
-  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [isScrolledHeaderActive, setIsScrolledHeaderActive] =
     useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
-  const drawerCloseRef = useRef<HTMLInputElement>(null);
   const entities = useFetchData([HEADER, FOOTER, FOOTER_BRAND]);
+  const { isShowDrawer } = useAppSelector((state) => state.landingReducer);
 
   const headerClass = classNames("fixed top-0 w-full z-40", {
     "bg-white shadow-lg": isScrolledHeaderActive
+  });
+
+  const drawerClass = classNames("drawer", {
+    "drawer-open": isShowDrawer
   });
 
   const userMenuData = {
@@ -60,7 +64,6 @@ const Header = ({ lang }: string) => {
     if (header && userMenuData) {
       return (
         <Navbar
-          setIsDrawerOpen={setIsDrawerOpen}
           data={navbarData}
           isScrolledHeaderActive={isScrolledHeaderActive}
         />
@@ -69,20 +72,15 @@ const Header = ({ lang }: string) => {
   };
 
   const DrawerComponent = (): ReactNode => {
-    if (isMobile) {
-      return (
-        <Drawer
-          data={drawerData}
-          drawerCloseRef={drawerCloseRef}
-          setIsDrawerOpen={setIsDrawerOpen}
-        />
-      );
+    if (isMobile && isShowDrawer) {
+      return <Drawer data={drawerData} />;
     }
   };
 
   const handleScroll = () => {
     const scrollPosition = getScrollPosition();
-    setIsScrolledHeaderActive(scrollPosition > 100);
+    const requiredScrollPosition = isMobile ? 10 : 30;
+    setIsScrolledHeaderActive(scrollPosition > requiredScrollPosition);
   };
 
   useEffect(() => {
@@ -101,10 +99,10 @@ const Header = ({ lang }: string) => {
   }, []);
 
   useEffect(() => {
-    isDrawerOpen
+    isShowDrawer
       ? document.body.classList.add("overflow-hidden")
       : document.body.classList.remove("overflow-hidden");
-  }, [isDrawerOpen]);
+  }, [isShowDrawer]);
 
   return (
     <Loading
@@ -112,13 +110,7 @@ const Header = ({ lang }: string) => {
       loader={<p className="text-xl">Loading feed...</p>}>
       {/*todo: skeleton eklenecek*/}
       <div className={headerClass}>
-        <div className="drawer">
-          <input
-            ref={drawerCloseRef}
-            id="missafir-drawer"
-            type="checkbox"
-            className="drawer-toggle"
-          />
+        <div className={drawerClass}>
           <NavbarComponent />
           <DrawerComponent />
         </div>
