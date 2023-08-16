@@ -42,7 +42,7 @@ const ForgotPassword = () => {
             <p className="text-xl text-black">{get(res, "data.message")}</p>
           </ToastMessage>
         ));
-        router.push("/login");
+        router.push("/new-password");
         router.refresh();
       } else {
         toast.custom((item) => (
