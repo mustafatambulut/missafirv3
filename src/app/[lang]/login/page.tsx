@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 import { auth } from "@/service/api";
-import { setLocalStorage } from "@/utils/helper";
+import { setSessionStorage } from "@/utils/helper";
 
 import Input from "@/components/atoms/input/Input";
 import Button from "@/components/atoms/button/Button";
@@ -47,9 +47,11 @@ const Login = () => {
       if (get(res, "code") === 401) {
         return setErrorMessage("your_email_address_or_password_is_incorrect");
       }
-      setLocalStorage("token", get(res, "data.token"));
-      router.back();
-      router.refresh();
+      if (get(res, "data.token")) {
+        setSessionStorage("token", get(res, "data.token"));
+        router.back();
+        router.refresh();
+      }
     }
   });
 

@@ -4,7 +4,11 @@ import { includes, split } from "lodash";
 import { usePathname, useRouter } from "next/navigation";
 
 import { LOCALES, PROTECTED } from "@/app/constants";
-import { checkSameItem, getCurrentLang, getLocalStorage } from "@/utils/helper";
+import {
+  checkSameItem,
+  getCurrentLang,
+  getSessionStorage
+} from "@/utils/helper";
 
 const RouteGuard = ({ children }) => {
   const router = useRouter();
@@ -14,7 +18,7 @@ const RouteGuard = ({ children }) => {
   const authCheck = () => {
     const lang = getCurrentLang();
 
-    if (!getLocalStorage("token")) {
+    if (!getSessionStorage("token")) {
       const isProtected = checkSameItem(PROTECTED, split(pathname, "/"));
 
       if (isProtected) {
@@ -26,7 +30,7 @@ const RouteGuard = ({ children }) => {
       setAuthorized(true);
     }
 
-    if (getLocalStorage("token")) {
+    if (getSessionStorage("token")) {
       includes(split(pathname, "/"), "login")
         ? router.push("/")
         : setAuthorized(true);
@@ -35,7 +39,7 @@ const RouteGuard = ({ children }) => {
 
   useEffect(() => {
     authCheck();
-  }, [getLocalStorage("token")]);
+  }, [getSessionStorage("token")]);
 
   return includes(split(pathname, "/"), "login")
     ? children
