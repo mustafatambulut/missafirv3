@@ -19,7 +19,8 @@ const config = {
         "bold-blur-20-dark": "0 2px 20px 0 rgba(0, 0, 0, 0.1)"
       },
       borderRadius: {
-        x: "0.6rem" // 10px
+        x: "0.6rem", // 10px
+        20: "1.25rem" // 20px
       },
       fontSize: {
         xxs: "0.6rem", // 10px
@@ -104,7 +105,8 @@ const config = {
         },
         pink: {
           DEFAULT: "#F8479E"
-        }
+        },
+        "primary-opacity": "#d01e500a"
       },
       fontFamily: {
         "mi-sans": ["Missafir-Sans"],
