@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import classNames from "classnames";
 import { map, isArray } from "lodash";
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -23,6 +24,10 @@ const Slider = ({
   sliderWrapperClassName = "",
   sliderIdentifier
 }: ISlider) => {
+  const swiperSlideClass = classNames({
+    "w-auto": slidesPerView === "auto"
+  });
+
   return (
     <div className={`relative ${sliderContainerClassName}`}>
       <Swiper
@@ -54,7 +59,7 @@ const Slider = ({
           : null)}>
         {isArray(children)
           ? map(children, (item, key) => {
-              return <SwiperSlide key={key}>{item}</SwiperSlide>;
+              return <SwiperSlide key={key} className={swiperSlideClass}>{item}</SwiperSlide>;
             })
           : children}
       </Swiper>
