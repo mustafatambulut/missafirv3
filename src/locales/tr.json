@@ -62,6 +62,7 @@
   "password_requires_a_uppercase_letter": "Parolanın büyük harf içermesi gereklidir.",
   "password_requires_a_symbol": "Parolanın özel karakter içermesi gereklidir.",
   "must_match_password_field_value": "Parola alanları eşleşmiyor.",
+  "these_areas_do_not_match": "İki alan birbiriyle uyuşmamaktadır.",
   "the_iban_number_must_be_26_characters": "IBAN 26 karakter olması gerek.",
   "phone_field_must_contain_12_characters": "Telefon alanı 12 karakter içermelidir",
   "your_email": "E-posta adresiniz",
