@@ -1,5 +1,7 @@
+import ProfileInfo from "@/components/molecules/profileInfo/ProfileInfo";
+
 const Profile = () => {
-  return "info";
+  return <ProfileInfo />;
 };
 
 export default Profile;
