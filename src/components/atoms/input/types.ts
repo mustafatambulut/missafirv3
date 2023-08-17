@@ -11,6 +11,6 @@ export interface IInput {
   onChange?: void;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
-  type?: "text" | "email" | "phone" | "password";
+  type?: "text" | "email" | "phone" | "password" | "tel";
   position?: "top-right" | "top-left" | "bottom-right" | "bottom-left";
 }

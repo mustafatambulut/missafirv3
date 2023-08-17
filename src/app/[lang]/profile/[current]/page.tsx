@@ -1,3 +1,5 @@
+import ProfileInfo from "@/components/molecules/profileInfo/ProfileInfo";
+
 const Page = ({ params }: any) => {
   const { current } = params;
   const renderActiveSection = () => {
@@ -11,7 +13,7 @@ const Page = ({ params }: any) => {
       case "settings":
         return <div>Settings</div>;
       default:
-        return <div>Info</div>;
+        return <ProfileInfo />;
     }
   };
   return renderActiveSection();
