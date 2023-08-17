@@ -1,11 +1,12 @@
 import ProfileInfo from "@/components/molecules/profileInfo/ProfileInfo";
+import ChangePassword from "@/components/molecules/changePassword/ChangePassword";
 
 const Page = ({ params }: any) => {
   const { current } = params;
   const renderActiveSection = () => {
     switch (current) {
       case "password":
-        return <div>Password</div>;
+        return <ChangePassword />;
       case "reviews":
         return <div>Reviews</div>;
       case "wishlist":
