@@ -21,8 +21,15 @@ interface ProfileState {
 const initialState = {
   user: {
     avatar: "https://i.ibb.co/dm4mntF/avatar.jpg",
+    firstName: "John",
+    lastName: "Doe",
     fullName: "John Doe",
-    email: "johndoe@missafir.com"
+    email: "johndoe@missafir.com",
+    password: "MSFRV3",
+    address: "A Sok. B Mah. C Sitesi No:12",
+    phone: "+905121211212",
+    birthDate: "01/01/1990",
+    gender: "female"
   },
   // todo: test için eklendi düzenlenecek
   reservations: [
