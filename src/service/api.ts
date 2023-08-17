@@ -19,6 +19,14 @@ export const auth = async (payload) => {
   }
 };
 
+export const getLocations = async () => {
+  try {
+    return await pmsApi.get("/locations");
+  } catch (err) {
+    return get(err, "response.data");
+  }
+};
+
 export const signUp = async ({ email, password, fullname, phone }) => {
   const payload = {
     email,
