@@ -6,7 +6,7 @@ import { IReservationLayout } from "@/app/[lang]/reservation/types";
 import ProgressBar from "@/components/molecules/progressBar/ProgressBar";
 import ReservationSummary from "@/components/atoms/reservationSummary/ReservationSummary";
 
-export const ReservationLayout = ({ children }: IReservationLayout) => {
+const ReservationLayout = ({ children }: IReservationLayout) => {
   const { payment } = useAppSelector((state) => state.reservationReducer);
 
   return (
