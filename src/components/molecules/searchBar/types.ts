@@ -14,6 +14,7 @@ export interface IProps {
   setBookingDate: IBookingDate;
   setBookingGuests: IBookingGuest;
   handleOpenDrawer: void;
+  handleFilterListings: void;
   setActiveSearchItem?: string;
   setBookingDestination?: string;
   setSkipButtonVisibility: boolean;

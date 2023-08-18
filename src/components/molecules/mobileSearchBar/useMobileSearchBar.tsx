@@ -11,11 +11,15 @@ const useMobileSearchBar = ({
   drawerCloseRef,
   activeSearchItem,
   setBookingDate,
+  setIsDrawerOpen,
   setBookingGuests,
   setActiveSearchItem
 }) => {
   const handleDrawerClose = () => {
-    if (get(drawerCloseRef, "current")) drawerCloseRef.current.click();
+    if (get(drawerCloseRef, "current")) {
+      drawerCloseRef.current.click();
+      setIsDrawerOpen(false);
+    }
   };
 
   const handleClickBackButton = () => {
