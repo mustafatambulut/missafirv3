@@ -41,3 +41,20 @@ export const signUp = async ({ email, password, fullname, phone }) => {
     return get(err, "response.data");
   }
 };
+
+export const forgotPassword = async (email) => {
+  try {
+    return await pmsApi.post("/forgot-password", email);
+  } catch (err) {
+    return get(err, "response.data");
+  }
+};
+
+// todo: parola yenileme endpointi tamamlanınca güncellenecek
+export const profileEdit = async (payload) => {
+  try {
+    return await pmsApi.post("/profile/edit", payload);
+  } catch (err) {
+    return err;
+  }
+};

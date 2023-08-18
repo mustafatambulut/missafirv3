@@ -37,10 +37,10 @@ const Signup = () => {
       .matches(phoneRegExp, t("phone_number_is_not_valid"))
       .required(t("this_field_is_required"))
     // confirmPassword: Yup.string()
-    //   .required(t("general.this_field_is_required"))
+    //   .required(t("this_field_is_required"))
     //   .oneOf(
     //     [Yup.ref("password"), null],
-    //     t("general.must_match_password_field_value")
+    //     t("phone_number_is_not_valid")
     //   )
   });
 

@@ -29,7 +29,17 @@ const initialState = {
     address: "A Sok. B Mah. C Sitesi No:12",
     phone: "+905121211212",
     birthDate: "01/01/1990",
-    gender: "female"
+    gender: "female",
+    notifications: {
+      email: true,
+      push: false,
+      sms: true
+    },
+    contact_permissions: {
+      email: false,
+      push: true,
+      sms: true
+    }
   },
   // todo: test için eklendi düzenlenecek
   reservations: [
