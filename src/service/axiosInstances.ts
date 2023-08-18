@@ -4,8 +4,8 @@ const isProduction = () => process.env.NODE_ENV === "production";
 
 export const strapi = axios.create({
   baseURL: isProduction()
-    ? process.env.NEXT_PUBLIC_API_PROD
-    : process.env.NEXT_PUBLIC_API_DEV
+    ? process.env.NEXT_PUBLIC_API_URL_PROD
+    : process.env.NEXT_PUBLIC_API_URL_DEV
 });
 
 export const pmsApi = axios.create({

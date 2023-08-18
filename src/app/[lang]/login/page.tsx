@@ -104,7 +104,7 @@ const Login = () => {
               name="email"
               label={t("email")}
               placeholder={t("email")}
-              containerClassName="text-lg"
+              containerclass="text-lg"
               value={get(values, "email")}
               onChange={handleChange}
             />
@@ -116,7 +116,7 @@ const Login = () => {
               name="password"
               label={t("password")}
               placeholder={t("password")}
-              containerClassName="text-lg"
+              containerclass="text-lg"
               onChange={handleChange}
               value={get(values, "password")}
             />

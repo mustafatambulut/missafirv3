@@ -89,7 +89,9 @@ const ProgressBar = ({ className = "" }: IProgressBar) => {
   };
 
   const previousStep = (id) => {
-    if (id < currentStep) dispatch(changeCurrentStep(currentStep - 1));
+    if (id >= currentStep) return;
+
+    dispatch(changeCurrentStep(id));
   };
 
   return (

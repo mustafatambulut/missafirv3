@@ -3,24 +3,18 @@ import { useEffect, useRef } from "react";
 import classNames from "classnames";
 import { get, includes, split } from "lodash";
 
-import { IInput } from "@/components/atoms/input/types";
-
-const Input = ({
-  name,
-  value,
-  label,
-  leftIcon,
-  rightIcon,
-  onChange,
-  type = "text",
-  isDisable = false,
-  className = "",
-  placeholder = "",
-  position = "top-left",
-  containerClassName = ""
-}: IInput) => {
+const Input = ({ ...props }: any) => {
   const leftRef = useRef<HTMLInputElement>(null);
   const rightRef = useRef<HTMLInputElement>(null);
+  const {
+    label,
+    isDisable,
+    leftIcon,
+    rightIcon,
+    position,
+    className,
+    containerclass
+  } = props;
 
   const labelContainerClass = classNames("label", {
     "order-1": includes(split(position, "-"), "bottom")
@@ -28,7 +22,7 @@ const Input = ({
 
   const inputContainerClass = classNames("flex rounded-lg items-center", {
     "bg-gray-100": isDisable,
-    "border border-gray-300": !isDisable,
+    "border border-gray-200": !isDisable,
     "px-2": !!leftIcon
   });
 
@@ -41,8 +35,7 @@ const Input = ({
   }, [leftRef, rightRef]);
 
   return (
-    <div
-      className={`form-control flex w-full font-mi-sans ${containerClassName}`}>
+    <div className={`form-control flex w-full font-mi-sans ${containerclass}`}>
       <label className={labelContainerClass}>
         <span ref={leftRef}>{label}</span>
         <span ref={rightRef}>{label}</span>
@@ -50,12 +43,7 @@ const Input = ({
       <div className={inputContainerClass}>
         {leftIcon}
         <input
-          type={type}
-          name={name}
-          value={value}
-          onChange={onChange}
-          disabled={isDisable}
-          placeholder={placeholder}
+          {...props}
           className={`input focus:outline-0 w-full text-gray-800 ${className}`}
         />
         {rightIcon}

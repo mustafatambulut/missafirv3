@@ -39,8 +39,16 @@ To build the Missafir V3 locally, you can use:
 
 Quickly builds components
 
+- create component with type
+
 ```bash
-  yarn plop
+  yarn plop component
+```
+
+- create layout (page and type)
+
+```bash
+  yarn plop layout
 ```
 
 ### Versions

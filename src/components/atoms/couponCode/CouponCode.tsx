@@ -18,7 +18,7 @@ import Button from "@/components/atoms/button/Button";
 const CouponCode = ({ className = "" }: ICouponCode) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
-  const [text, setText] = useState(null);
+  const [text, setText] = useState<string>("");
 
   const buttonClass = classNames("", {
     "bg-gray-100 text-gray-300": !text,
