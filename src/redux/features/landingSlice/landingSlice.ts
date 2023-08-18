@@ -1,8 +1,10 @@
 import { get } from "lodash";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { getPage } from "@/service/api";
+import { setLocalStorage } from "@/utils/helper";
+import { getLocations, getPage } from "@/service/api";
 import { ILandingState } from "@/redux/features/landingSlice/types";
+import { ILocationData } from "@/components/atoms/destinationSelect/types";
 
 export const fetchDataByPage = createAsyncThunk(
   "landing/fetchDataByPage",
@@ -12,10 +14,19 @@ export const fetchDataByPage = createAsyncThunk(
   }
 );
 
+export const fetchLocations = createAsyncThunk(
+  "landing/fetchLocations",
+  async () => {
+    const { data } = await getLocations();
+    return data.data;
+  }
+);
+
 const initialState = {
   entities: [],
   loading: true,
-  isShowDrawer: false
+  isShowDrawer: false,
+  locations: {}
 } as ILandingState;
 
 const landingSlice = createSlice({
@@ -27,6 +38,12 @@ const landingSlice = createSlice({
       action: PayloadAction<boolean>
     ) => {
       state.isShowDrawer = action.payload;
+    },
+    updateLocations: (
+      state: { locations: any },
+      action: PayloadAction<ILocationData>
+    ) => {
+      state.locations = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -40,8 +57,15 @@ const landingSlice = createSlice({
         state.loading = false;
       }
     );
+    builder.addCase(
+      fetchLocations.fulfilled,
+      (state: ILandingState, action) => {
+        state.locations = action.payload;
+        setLocalStorage("locations", JSON.stringify(action.payload));
+      }
+    );
   }
 });
 
-export const { updateIsShowDrawer } = landingSlice.actions;
+export const { updateIsShowDrawer, updateLocations } = landingSlice.actions;
 export default landingSlice.reducer;

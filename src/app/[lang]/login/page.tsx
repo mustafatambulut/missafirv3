@@ -117,8 +117,8 @@ const Login = () => {
               label={t("password")}
               placeholder={t("password")}
               containerClassName="text-lg"
-              onChange={formik.handleChange}
-              value={get(formik, "values.password")}
+              onChange={handleChange}
+              value={get(values, "password")}
             />
             {get(errors, "password") && get(touched, "password") && (
               <div className="text-primary">{get(errors, "password")}</div>

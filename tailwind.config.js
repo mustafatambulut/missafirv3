@@ -252,7 +252,15 @@ const config = {
     require("daisyui")
   ],
   daisyui: {
-    themes: ["light"]
+    themes: [
+      {
+        mytheme: {
+          primary: "#D01E50",
+          "base-100": "#ffffff",
+          color:"#464E53"
+        }
+      }
+    ]
   }
 };
 

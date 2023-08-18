@@ -15,8 +15,16 @@ import { IHeader } from "@/components/molecules/header/types";
 import { IFooter } from "@/components/molecules/footer/types";
 import { IFooterBrand } from "@/components/atoms/footerBrand/types";
 import useFetchData from "@/app/hooks/useFetchData";
-import { getScrollPosition, setLocalStorage } from "@/utils/helper";
-import { fetchDataByPage } from "@/redux/features/landingSlice/landingSlice";
+import {
+  getLocalStorage,
+  getScrollPosition,
+  setLocalStorage
+} from "@/utils/helper";
+import {
+  fetchDataByPage,
+  fetchLocations,
+  updateLocations
+} from "@/redux/features/landingSlice/landingSlice";
 
 import Loading from "@/components/atoms/loading/Loading";
 import Drawer from "@/components/molecules/drawer/Drawer";
@@ -93,6 +101,10 @@ const Header = ({ lang }: string) => {
   useEffect(() => {
     setLocalStorage("lang", lang);
     dispatch(fetchDataByPage(HOME));
+    const locations = getLocalStorage("locations");
+    locations
+      ? dispatch(updateLocations(JSON.parse(locations)))
+      : dispatch(fetchLocations());
     window.addEventListener("scroll", handleScroll);
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);

@@ -1,4 +1,5 @@
 import ProfileInfo from "@/components/molecules/profileInfo/ProfileInfo";
+import Settings from "@/components/molecules/settings/Settings";
 import ChangePassword from "@/components/molecules/changePassword/ChangePassword";
 
 const Page = ({ params }: any) => {
@@ -12,7 +13,7 @@ const Page = ({ params }: any) => {
       case "wishlist":
         return <div>Wishlist</div>;
       case "settings":
-        return <div>Settings</div>;
+        return <Settings />;
       default:
         return <ProfileInfo />;
     }

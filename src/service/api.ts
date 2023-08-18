@@ -19,6 +19,14 @@ export const auth = async (payload) => {
   }
 };
 
+export const getLocations = async () => {
+  try {
+    return await pmsApi.get("/locations");
+  } catch (err) {
+    return get(err, "response.data");
+  }
+};
+
 export const signUp = async ({ email, password, fullname, phone }) => {
   const payload = {
     email,
@@ -31,5 +39,22 @@ export const signUp = async ({ email, password, fullname, phone }) => {
     return await pmsApi.post("/signup", payload);
   } catch (err) {
     return get(err, "response.data");
+  }
+};
+
+export const forgotPassword = async (email) => {
+  try {
+    return await pmsApi.post("/forgot-password", email);
+  } catch (err) {
+    return get(err, "response.data");
+  }
+};
+
+// todo: parola yenileme endpointi tamamlanınca güncellenecek
+export const profileEdit = async (payload) => {
+  try {
+    return await pmsApi.post("/profile/edit", payload);
+  } catch (err) {
+    return err;
   }
 };
