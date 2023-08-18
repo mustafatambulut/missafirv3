@@ -31,6 +31,18 @@ const withSearchBar = (WrappedComponent) => {
       setActiveSearchItem(searchItem);
     };
 
+    const handleFilterListings = () => {
+      const filterObject = {
+        districtId: bookingDestination?.value || "",
+        checkIn: bookingDate.startDate?.format("YYYY-MM-DD") || "",
+        checkOut: bookingDate.endDate?.format("YYYY-MM-DD") || "",
+        adults: bookingGuests.adults,
+        kids: bookingGuests.kids,
+        pets: Number(bookingGuests.pets)
+      };
+      alert(JSON.stringify(filterObject));
+    };
+
     return (
       <div className="flex flex-col lg:flex-row rounded-2xl lg:bg-white w-full items-center lg:p-2 lg:h-[72px]">
         {
@@ -44,9 +56,11 @@ const withSearchBar = (WrappedComponent) => {
             bookingDestination={bookingDestination}
             skipButtonVisibility={skipButtonVisibility}
             setBookingDate={setBookingDate}
+            setIsDrawerOpen={setIsDrawerOpen}
             setBookingGuests={setBookingGuests}
             handleOpenDrawer={handleOpenDrawer}
             setActiveSearchItem={setActiveSearchItem}
+            handleFilterListings={handleFilterListings}
             setBookingDestination={setBookingDestination}
             setSkipButtonVisibility={setSkipButtonVisibility}
           />
