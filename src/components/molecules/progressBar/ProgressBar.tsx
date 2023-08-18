@@ -5,6 +5,7 @@ import { useTranslations } from "use-intl";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IProgressBar } from "@/components/molecules/progressBar/types";
+import { STEP_1, STEP_2, STEP_3 } from "@/redux/features/reservationSlice/enum";
 import { changeCurrentStep } from "@/redux/features/reservationSlice/reservationSlice";
 
 import Check from "../../../../public/images/check.svg";
@@ -19,15 +20,15 @@ const ProgressBar = ({ className = "" }: IProgressBar) => {
 
   const steps = [
     {
-      id: 1,
+      id: STEP_1,
       title: t("confirmation")
     },
     {
-      id: 2,
+      id: STEP_2,
       title: t("extra_service")
     },
     {
-      id: 3,
+      id: STEP_3,
       title: t("payment")
     }
   ];
@@ -77,12 +78,12 @@ const ProgressBar = ({ className = "" }: IProgressBar) => {
     };
 
     switch (id) {
-      case 1:
-        return checked(1, <CustomerReview className={iconClass(id)} />);
-      case 2:
-        return checked(2, <ShoppingCart className={iconClass(id)} />);
-      case 3:
-        return checked(3, <CreditCart className={iconClass(id)} />);
+      case STEP_1:
+        return checked(STEP_1, <CustomerReview className={iconClass(id)} />);
+      case STEP_2:
+        return checked(STEP_2, <ShoppingCart className={iconClass(id)} />);
+      case STEP_3:
+        return checked(STEP_3, <CreditCart className={iconClass(id)} />);
       default:
         return <CustomerReview className={iconClass(id)} />;
     }

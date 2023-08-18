@@ -11,19 +11,23 @@ import {
 } from "lodash";
 import classNames from "classnames";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { isMobile } from "react-device-detect";
 
 import {
   changeTotal,
+  changeCurrentStep,
   changeIsApplyCoupon,
   changeIsShowCouponCode
 } from "@/redux/features/reservationSlice/reservationSlice";
 import {
   percentage,
   formatPrice,
+  getScrollPosition,
   getPriceFormatByLocale
 } from "@/utils/helper";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { STEP_3, SUCCESS } from "@/redux/features/reservationSlice/enum";
 import { IReservationSummary } from "@/components/atoms/reservationSummary/types";
 
 import Alert from "@/components/atoms/alert/Alert";
@@ -34,8 +38,10 @@ import CouponCode from "@/components/atoms/couponCode/CouponCode";
 import CancelIcon from "../../../../public/images/variants/close.svg";
 
 const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
+  const router = useRouter();
   const t = useTranslations();
   const dispatch = useAppDispatch();
+  const [isScrollActive, setIsScrollActive] = useState<boolean>(false);
   const { currentStep } = useAppSelector((state) => state.reservationReducer);
 
   const nightlyTotal = get(data, "nightlyRate") * get(data, "reservationDay");
@@ -77,6 +83,13 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
       "text-primary": includes(split(info, " "), "(%10)")
     });
   };
+  const containerClass = classNames(
+    `w-full h-fit bg-white px-5 py-2 lg:py-8 lg:relative lg:rounded-3xl border border-gray-100 shadow-lg shadow-black lg:shadow-gray-200 fixed bottom-0 z-50 lg:z-0 font-mi-sans-semi-bold ${className}`,
+    {
+      block: !isScrollActive,
+      hidden: isScrollActive
+    }
+  );
 
   const handleCancelCoupon = (): void => dispatch(changeIsApplyCoupon(false));
 
@@ -91,6 +104,17 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
 
     dispatch(changeTotal(tempTotal));
     dispatch(changeIsShowCouponCode(false));
+  };
+
+  const handleSubmitBtn = () => {
+    dispatch(changeCurrentStep(SUCCESS));
+    router.push("/reservation-success");
+  };
+
+  const handleScroll = () => {
+    const scrollPosition = getScrollPosition();
+    const requiredScrollPosition = isMobile ? 300 : 0;
+    setIsScrollActive(scrollPosition > requiredScrollPosition);
   };
 
   useEffect(() => {
@@ -110,6 +134,13 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
   useEffect(() => {
     if (!total) dispatch(changeTotal(tempTotal));
   }, [total]);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const PaymentDetailComponent = (): ReactNode => (
     <Collapse
@@ -209,17 +240,28 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
     </div>
   );
 
-  const FooterComponent = (): ReactNode => (
-    <Button
-      className="text-xl font-mi-sans border-0 bg-gradient-to-tr from-[#E1004C] to-[#F8479E]"
-      onClick={() => alert("reserve")}>
-      {capitalize(currentStep == 3 ? "submit" : t("reserve"))}
-    </Button>
-  );
+  const FooterComponent = (): ReactNode => {
+    return (
+      <>
+        {currentStep == STEP_3 ? (
+          <Button
+            className="text-xl font-mi-sans border-0 bg-gradient-to-tr from-[#E1004C] to-[#F8479E]"
+            onClick={handleSubmitBtn}>
+            {capitalize("submit")}
+          </Button>
+        ) : (
+          <Button
+            className="text-xl font-mi-sans border-0 bg-gradient-to-tr from-[#E1004C] to-[#F8479E]"
+            onClick={() => alert("reserve")}>
+            {capitalize(t("reserve"))}
+          </Button>
+        )}
+      </>
+    );
+  };
 
   return (
-    <div
-      className={`w-full h-fit bg-white px-5 py-2 lg:py-8 lg:relative lg:rounded-3xl border border-gray-100 shadow-lg shadow-black lg:shadow-gray-200 fixed bottom-0 z-50 lg:z-0 font-mi-sans-semi-bold ${className}`}>
+    <div className={containerClass}>
       <div className="flex flex-col gap-y-6">
         <HeaderComponent />
         <BodyComponent />

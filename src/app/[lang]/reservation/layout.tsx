@@ -1,11 +1,9 @@
 "use client";
-import { get } from "lodash";
-import Cards from "react-credit-cards-2";
-import { isMobile } from "react-device-detect";
-
 import { useAppSelector } from "@/redux/hooks";
+import { STEP_3 } from "@/redux/features/reservationSlice/enum";
 import { IReservationLayout } from "@/app/[lang]/reservation/types";
 
+import CreditCard from "@/components/atoms/creditCard/CreditCard";
 import ReservationSummary from "@/components/atoms/reservationSummary/ReservationSummary";
 import ProgressBar from "@/components/molecules/progressBar/ProgressBar";
 
@@ -27,26 +25,7 @@ const ReservationLayout = ({ children }: IReservationLayout) => {
           {children}
         </section>
         <aside className="lg:flex lg:flex-col lg:gap-y-6 lg:w-1/3">
-          {currentStep === 3 && (
-            <div className="mb-4 lg:mb-0">
-              <header className="mb-4 lg:hidden">
-                <h1 className="text-22 text-center">
-                  {isMobile ? "Payment" : "Safe and Secure Payment"}
-                </h1>
-                <h3 className="text-base text-gray-600 text-center lg:hidden">
-                  Safe, secure transactions. Your personal information is
-                  protected.
-                </h3>
-              </header>
-              <Cards
-                cvc={get(creditCard, "cvc")}
-                name={get(creditCard, "name")}
-                number={get(creditCard, "number")}
-                expiry={get(creditCard, "expiry")}
-                focused={get(creditCard, "focus")}
-              />
-            </div>
-          )}
+          {currentStep === STEP_3 && <CreditCard data={creditCard} />}
           <ReservationSummary data={payment} />
         </aside>
       </main>

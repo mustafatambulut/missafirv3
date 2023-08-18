@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { STEP_3 } from "@/redux/features/reservationSlice/enum";
 import { STATUS_CONFIRMATION } from "@/app/[lang]/reservation/constants";
 import { IReservationState } from "@/redux/features/reservationSlice/types";
 
@@ -56,7 +57,7 @@ const initialState = {
   couponCode: null,
   isShowCouponCode: false,
   isApplyCouponCode: false,
-  currentStep: 3,
+  currentStep: STEP_3,
   guests: 1,
   status: STATUS_CONFIRMATION
 } as IReservationState;

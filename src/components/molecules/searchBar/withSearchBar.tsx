@@ -1,16 +1,10 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import {
   IBookingDate,
   IBookingGuest
 } from "@/components/atoms/datePicker/types";
-import {
-  BOOKING_DATE,
-  BOOKING_DESTINATION,
-  BOOKING_GUESTS
-} from "@/components/molecules/searchBar/constants";
-import { get } from "lodash";
 
 const withSearchBar = (WrappedComponent) => {
   // eslint-disable-next-line react/display-name
@@ -48,41 +42,6 @@ const withSearchBar = (WrappedComponent) => {
       };
       alert(JSON.stringify(filterObject));
     };
-
-    useEffect(() => {
-      switch (activeSearchItem) {
-        case BOOKING_DESTINATION:
-          if (bookingDestination === "") {
-            setSkipButtonVisibility(true);
-          } else {
-            setSkipButtonVisibility(false);
-          }
-          break;
-        case BOOKING_DATE:
-          if (
-            get(bookingDate, "startDate") === null &&
-            get(bookingDate, "endDate") === null
-          ) {
-            setSkipButtonVisibility(true);
-          } else {
-            setSkipButtonVisibility(false);
-          }
-          break;
-        case BOOKING_GUESTS:
-          if (
-            get(bookingGuests, "adults") === 0 &&
-            get(bookingGuests, "kids") === 0 &&
-            !get(bookingGuests, "pets")
-          ) {
-            setSkipButtonVisibility(true);
-          } else {
-            setSkipButtonVisibility(false);
-          }
-          break;
-        default:
-          break;
-      }
-    }, [activeSearchItem, bookingDestination, bookingDate, bookingGuests]);
 
     return (
       <div className="flex flex-col lg:flex-row rounded-2xl lg:bg-white w-full items-center lg:p-2 lg:h-[72px]">
