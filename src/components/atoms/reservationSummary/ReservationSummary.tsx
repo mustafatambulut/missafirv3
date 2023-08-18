@@ -23,6 +23,7 @@ import {
 import {
   percentage,
   formatPrice,
+  getScrollPosition,
   getPriceFormatByLocale
 } from "@/utils/helper";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -40,6 +41,7 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
   const router = useRouter();
   const t = useTranslations();
   const dispatch = useAppDispatch();
+  const [isScrollActive, setIsScrollActive] = useState<boolean>(false);
   const { currentStep } = useAppSelector((state) => state.reservationReducer);
 
   const nightlyTotal = get(data, "nightlyRate") * get(data, "reservationDay");
@@ -81,6 +83,13 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
       "text-primary": includes(split(info, " "), "(%10)")
     });
   };
+  const containerClass = classNames(
+    `w-full h-fit bg-white px-5 py-2 lg:py-8 lg:relative lg:rounded-3xl border border-gray-100 shadow-lg shadow-black lg:shadow-gray-200 fixed bottom-0 z-50 lg:z-0 font-mi-sans-semi-bold ${className}`,
+    {
+      block: !isScrollActive,
+      hidden: isScrollActive
+    }
+  );
 
   const handleCancelCoupon = (): void => dispatch(changeIsApplyCoupon(false));
 
@@ -102,6 +111,12 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
     router.push("/reservation-success");
   };
 
+  const handleScroll = () => {
+    const scrollPosition = getScrollPosition();
+    const requiredScrollPosition = isMobile ? 300 : 0;
+    setIsScrollActive(scrollPosition > requiredScrollPosition);
+  };
+
   useEffect(() => {
     if (isApplyCouponCode) {
       tempTotal -= discountCouponCode;
@@ -119,6 +134,13 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
   useEffect(() => {
     if (!total) dispatch(changeTotal(tempTotal));
   }, [total]);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const PaymentDetailComponent = (): ReactNode => (
     <Collapse
@@ -239,8 +261,7 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
   };
 
   return (
-    <div
-      className={`w-full h-fit bg-white px-5 py-2 lg:py-8 lg:relative lg:rounded-3xl border border-gray-100 shadow-lg shadow-black lg:shadow-gray-200 fixed bottom-0 z-50 lg:z-0 font-mi-sans-semi-bold ${className}`}>
+    <div className={containerClass}>
       <div className="flex flex-col gap-y-6">
         <HeaderComponent />
         <BodyComponent />

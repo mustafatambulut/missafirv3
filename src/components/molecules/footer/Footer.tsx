@@ -21,7 +21,7 @@ const Footer = () => {
       loader={<p className="text-xl">Loading feed...</p>}>
       {/*todo: skeleton eklenecek*/}
       <div>
-        <footer className="bg-white relative z-50 footer border-t border-gray-100 px-4 lg:px-10 pt-10 mt-10 lg:pt-20 pb-10 lg:flex">
+        <footer className="bg-white relative z-20 footer border-t border-gray-100 px-4 lg:px-10 pt-10 mt-10 lg:pt-20 pb-10 lg:flex">
           <div className="flex flex-col items-center lg:block w-full lg:w-80">
             <Link href="/">
               <Image
