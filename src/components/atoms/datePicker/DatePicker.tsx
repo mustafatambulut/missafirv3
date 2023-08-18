@@ -19,11 +19,7 @@ import CalendarIcon from "../../../../public/images/calendar.svg";
 import ChevronLeft from "../../../../public/images/chevron_left.svg";
 import ChevronRight from "../../../../public/images/chevron_right.svg";
 
-const DatePicker = ({
-  bookingDate,
-  setBookingDate,
-  setSkipButtonVisibility
-}: IDatePicker) => {
+const DatePicker = ({ bookingDate, setBookingDate }: IDatePicker) => {
   const initialMonth = moment();
   const [focusedInput, setFocusedInput] = useState<any>("startDate");
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
@@ -50,12 +46,6 @@ const DatePicker = ({
   useEffect(() => {
     isMobile && setShowDatePicker(true);
   }, []);
-
-  useEffect(() => {
-    get(bookingDate, "startDate")
-      ? setSkipButtonVisibility(false)
-      : setSkipButtonVisibility(true);
-  }, [bookingDate, setSkipButtonVisibility]);
 
   const renderControls = () => {
     return (
