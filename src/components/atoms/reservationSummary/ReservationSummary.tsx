@@ -11,10 +11,12 @@ import {
 } from "lodash";
 import classNames from "classnames";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { isMobile } from "react-device-detect";
 
 import {
   changeTotal,
+  changeCurrentStep,
   changeIsApplyCoupon,
   changeIsShowCouponCode
 } from "@/redux/features/reservationSlice/reservationSlice";
@@ -24,6 +26,7 @@ import {
   getPriceFormatByLocale
 } from "@/utils/helper";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { STEP_3, SUCCESS } from "@/redux/features/reservationSlice/enum";
 import { IReservationSummary } from "@/components/atoms/reservationSummary/types";
 
 import Alert from "@/components/atoms/alert/Alert";
@@ -34,6 +37,7 @@ import CouponCode from "@/components/atoms/couponCode/CouponCode";
 import CancelIcon from "../../../../public/images/variants/close.svg";
 
 const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
+  const router = useRouter();
   const t = useTranslations();
   const dispatch = useAppDispatch();
   const { currentStep } = useAppSelector((state) => state.reservationReducer);
@@ -91,6 +95,11 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
 
     dispatch(changeTotal(tempTotal));
     dispatch(changeIsShowCouponCode(false));
+  };
+
+  const handleSubmitBtn = () => {
+    dispatch(changeCurrentStep(SUCCESS));
+    router.push("/reservation-success");
   };
 
   useEffect(() => {
@@ -209,13 +218,25 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
     </div>
   );
 
-  const FooterComponent = (): ReactNode => (
-    <Button
-      className="text-xl font-mi-sans border-0 bg-gradient-to-tr from-[#E1004C] to-[#F8479E]"
-      onClick={() => alert("reserve")}>
-      {capitalize(currentStep == 3 ? "submit" : t("reserve"))}
-    </Button>
-  );
+  const FooterComponent = (): ReactNode => {
+    return (
+      <>
+        {currentStep == STEP_3 ? (
+          <Button
+            className="text-xl font-mi-sans border-0 bg-gradient-to-tr from-[#E1004C] to-[#F8479E]"
+            onClick={handleSubmitBtn}>
+            {capitalize("submit")}
+          </Button>
+        ) : (
+          <Button
+            className="text-xl font-mi-sans border-0 bg-gradient-to-tr from-[#E1004C] to-[#F8479E]"
+            onClick={() => alert("reserve")}>
+            {capitalize(t("reserve"))}
+          </Button>
+        )}
+      </>
+    );
+  };
 
   return (
     <div

@@ -1,8 +1,8 @@
 export interface IPaymentState {
-  creditCard: ICreditCard;
+  creditCard: ICard;
 }
 
-export interface ICreditCard {
+export interface ICard {
   number: string;
   expiry: string;
   cvc: string;
