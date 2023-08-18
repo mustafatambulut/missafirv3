@@ -36,6 +36,7 @@ import CancelIcon from "../../../../public/images/variants/close.svg";
 const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
+  const { currentStep } = useAppSelector((state) => state.reservationReducer);
 
   const nightlyTotal = get(data, "nightlyRate") * get(data, "reservationDay");
   const discountCouponCode = percentage(
@@ -212,13 +213,13 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
     <Button
       className="text-xl font-mi-sans border-0 bg-gradient-to-tr from-[#E1004C] to-[#F8479E]"
       onClick={() => alert("reserve")}>
-      {t("reserve")}
+      {capitalize(currentStep == 3 ? "submit" : t("reserve"))}
     </Button>
   );
 
   return (
     <div
-      className={`w-full h-fit bg-white px-5 py-2 lg:py-8 lg:mt-20 lg:relative lg:rounded-3xl border border-gray-100 shadow-lg shadow-black lg:shadow-gray-200 fixed bottom-0 z-50 lg:z-0 font-mi-sans-semi-bold ${className}`}>
+      className={`w-full h-fit bg-white px-5 py-2 lg:py-8 lg:relative lg:rounded-3xl border border-gray-100 shadow-lg shadow-black lg:shadow-gray-200 fixed bottom-0 z-50 lg:z-0 font-mi-sans-semi-bold ${className}`}>
       <div className="flex flex-col gap-y-6">
         <HeaderComponent />
         <BodyComponent />

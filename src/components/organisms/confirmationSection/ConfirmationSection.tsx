@@ -6,7 +6,7 @@ import { useTranslations } from "use-intl";
 import { isMobile } from "react-device-detect";
 
 import { useAppSelector } from "@/redux/hooks";
-import { IBookingDetail } from "@/components/organisms/bookingDetail/types";
+import { IConfirmationSection } from "@/components/organisms/confirmationSection/types";
 
 import Collapse from "@/components/atoms/collapse/Collapse";
 import Slider from "@/components/molecules/slider/Slider";
@@ -15,7 +15,7 @@ import Key from "../../../../public/images/key.svg";
 import Clock from "../../../../public/images/clock.svg";
 import BrokenLink from "../../../../public/images/broken_link.svg";
 
-const BookingDetail = ({ className = "" }: IBookingDetail) => {
+const ConfirmationSection = ({ className = "" }: IConfirmationSection) => {
   const t = useTranslations();
   const { entities } = useAppSelector((state) => state.reservationReducer);
 
@@ -79,6 +79,7 @@ const BookingDetail = ({ className = "" }: IBookingDetail) => {
       <>
         {isMobile && (
           <Slider
+            withPagination={true}
             sliderContainerClassName="lg:hidden"
             sliderIdentifier="booking-slider"
             slidesPerView={isMobile ? 1 : 2}
@@ -142,7 +143,7 @@ const BookingDetail = ({ className = "" }: IBookingDetail) => {
 
   return (
     <div className={`flex flex-col gap-y-4 lg:gap-y-9 text-28 ${className}`}>
-      <h1 className="text-22 font-semibold text-gray-800 py-0 my-0 lg:hidden">
+      <h1 className="text-22 text-center font-semibold text-gray-800 py-0 my-0 lg:hidden">
         {t("confirmation")}
       </h1>
       <h1 className="text-28 font-semibold text-gray-800 hidden lg:block">
@@ -170,4 +171,4 @@ const BookingDetail = ({ className = "" }: IBookingDetail) => {
   );
 };
 
-export default BookingDetail;
+export default ConfirmationSection;

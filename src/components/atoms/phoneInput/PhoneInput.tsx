@@ -29,11 +29,11 @@ const PhoneInput = ({
         country={country}
         onChange={onChange}
         isDisable={isDisable}
-        inputClass={inputClass}
         placeholder={placeholder}
         dropdownClass={dropdownClass}
         containerClass={containerClass}
-        buttonClass={buttonClass}
+        inputClass={`rounded-lg ${inputClass}`}
+        buttonClass={`rounded-l-lg ${buttonClass}`}
         alwaysDefaultMask={true}
         defaultMask={"(...) ... .. .."}
       />

@@ -62,7 +62,7 @@ const ChangePassword = () => {
                 name="password"
                 label="Mevcut Şifre"
                 placeholder="Mevcut Şifre"
-                containerClassName="text-base lg:text-lg"
+                containerclass="text-base lg:text-lg"
                 value={get(values, "password")}
                 onChange={handleChange}
               />
@@ -76,7 +76,7 @@ const ChangePassword = () => {
                 name="newPassword"
                 label="Yeni Şifre"
                 placeholder="Yeni Şifre"
-                containerClassName="text-base lg:text-lg"
+                containerclass="text-base lg:text-lg"
                 value={get(values, "newPassword")}
                 onChange={handleChange}
               />
@@ -90,7 +90,7 @@ const ChangePassword = () => {
                 name="confirmNewPassword"
                 label="Yeni Şifre Tekrar"
                 placeholder="Yeni Şifre Tekrar"
-                containerClassName="text-base lg:text-lg"
+                containerclass="text-base lg:text-lg"
                 value={get(values, "confirmNewPassword")}
                 onChange={handleChange}
               />

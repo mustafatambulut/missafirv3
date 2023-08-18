@@ -89,7 +89,7 @@ const NewPassword = () => {
                 name="new_password"
                 label={t("password")}
                 placeholder={t("password")}
-                containerClassName="text-lg"
+                containerclass="text-lg"
                 onChange={handleChange}
                 value={get(values, "new_password")}
               />
@@ -103,7 +103,7 @@ const NewPassword = () => {
                 name="new_password_confirm"
                 label="Confirm Password"
                 placeholder="Confirm Password"
-                containerClassName="text-lg"
+                containerclass="text-lg"
                 onChange={handleChange}
                 value={get(values, "new_password_confirm")}
               />

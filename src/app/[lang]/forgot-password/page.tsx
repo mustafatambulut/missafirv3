@@ -78,7 +78,7 @@ const ForgotPassword = () => {
                 name="email"
                 label={t("email")}
                 placeholder={t("email")}
-                containerClassName="text-lg"
+                containerclass="text-lg"
                 value={get(values, "email")}
                 onChange={handleChange}
               />

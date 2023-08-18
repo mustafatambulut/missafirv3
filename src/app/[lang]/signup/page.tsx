@@ -110,13 +110,11 @@ const Signup = () => {
           <div className="flex flex-col gap-y-2 lg:gap-y-0 lg:gap-x-7 lg:flex-row">
             <div className="w-full lg:h-24">
               <Input
-                errors={errors}
-                touched={touched}
                 type="text"
                 name="fullname"
                 label="Full name"
                 placeholder="Full name"
-                containerClassName="text-lg -mt-1"
+                containerclass="text-lg -mt-1"
                 value={get(values, "fullname")}
                 onChange={handleChange}
               />
@@ -145,7 +143,7 @@ const Signup = () => {
                 name="email"
                 label="Email"
                 placeholder="Email"
-                containerClassName="text-lg"
+                containerclass="text-lg"
                 onChange={handleChange}
                 value={get(values, "email")}
               />
@@ -162,7 +160,7 @@ const Signup = () => {
                 label="Phone"
                 buttonClass="border border-r-0 bg-white"
                 inputClass="font-mi-sans h-12 w-full"
-                containerClass="flex bg-white"
+                containerclass="flex bg-white"
                 dropdownClass="rounded-lg shadow-md"
                 placeholder="+90 (___) ___ __ __"
                 alwaysDefaultMask={true}
@@ -205,7 +203,7 @@ const Signup = () => {
             name="password"
             label="Password"
             placeholder="Password"
-            containerClassName="text-lg"
+            containerclass="text-lg"
             onChange={handleChange}
             value={get(values, "password")}
           />
@@ -219,7 +217,7 @@ const Signup = () => {
             name="confirmPassword"
             label="Confirm Password"
             placeholder="Confirm Password"
-            containerClassName="text-lg"
+            containerclass="text-lg"
             onChange={handleChange}
             value={get(values, "confirmPassword")}
           />

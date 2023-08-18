@@ -1,0 +1,44 @@
+.rccs {
+    width: 100% !important;
+}
+
+.rccs__chip {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.rccs__card {
+    width: auto !important;
+    height: 240px !important;
+}
+
+.rccs__expiry__valid {
+    font-size: 16px !important;
+}
+
+.rccs__expiry__value {
+    font-size: 16px !important;
+}
+
+@media screen and (max-width: 768px) {
+    .rccs__card {
+        width: 92% !important;
+        height: 180px !important;
+    }
+}
+
+@media screen and (max-width: 1920px) and (min-width: 1600px) {
+    .rccs__chip {
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+    .rccs__card {
+        width: auto !important;
+        height: 300px !important;
+    }
+
+    .rccs__expiry__valid {
+        font-size: 20px !important;
+    }
+}
