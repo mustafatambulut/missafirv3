@@ -58,7 +58,7 @@ const ProfileInfo = () => {
                 name="firstName"
                 label="Firstname"
                 placeholder="Firstname"
-                containerClassName="text-base lg:text-lg"
+                containerclass="text-base lg:text-lg"
                 value={get(values, "firstName")}
                 onChange={handleChange}
               />
@@ -72,7 +72,7 @@ const ProfileInfo = () => {
                 name="lastName"
                 label="Lastname"
                 placeholder="Lastname"
-                containerClassName="text-base lg:text-lg"
+                containerclass="text-base lg:text-lg"
                 value={get(values, "lastName")}
                 onChange={handleChange}
               />
@@ -86,7 +86,7 @@ const ProfileInfo = () => {
                 name="email"
                 label="Email"
                 placeholder="Email"
-                containerClassName="text-base lg:text-lg"
+                containerclass="text-base lg:text-lg"
                 value={get(values, "email")}
                 onChange={handleChange}
               />

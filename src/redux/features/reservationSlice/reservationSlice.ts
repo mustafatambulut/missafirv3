@@ -58,7 +58,6 @@ const initialState = {
   isApplyCouponCode: false,
   currentStep: 1,
   guests: 1,
-
   status: STATUS_CONFIRMATION
 } as IReservationState;
 
