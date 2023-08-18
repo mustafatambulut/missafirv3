@@ -33,3 +33,11 @@ export const signUp = async ({ email, password, fullname, phone }) => {
     return get(err, "response.data");
   }
 };
+
+export const forgotPassword = async (email) => {
+  try {
+    return await pmsApi.post("/forgot-password", email);
+  } catch (err) {
+    return get(err, "response.data");
+  }
+};
