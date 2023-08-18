@@ -39,3 +39,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
+
+.drawer-side {
+    height: 100vh !important;
+    padding-bottom: env(safe-area-inset-bottom);
+}

@@ -6,4 +6,5 @@ export interface IGuestDrawer {
     kids: number;
     pets: number;
   };
+  handleFilterListings: void;
 }

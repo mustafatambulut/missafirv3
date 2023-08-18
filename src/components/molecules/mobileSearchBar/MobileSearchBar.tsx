@@ -13,15 +13,24 @@ import DateDrawer from "@/components/atoms/dateDrawer/DateDrawer";
 import GuestDrawer from "@/components/atoms/guestDrawer/GuestDrawer";
 import SearchDrawer from "@/components/atoms/searchDrawer/SearchDrawer";
 import MobileDrawerSide from "@/components/atoms/mobileDrawerSide/MobileDrawerSide";
+import { useEffect } from "react";
 
 const MobileSearchBar = (props: IProps) => {
   const {
     drawerCloseRef,
     bookingDate,
+    isDrawerOpen,
     bookingGuests,
     bookingDestination,
-    handleOpenDrawer
+    handleOpenDrawer,
+    handleFilterListings
   } = props;
+
+  useEffect(() => {
+    isDrawerOpen
+      ? document.body.classList.add("overflow-hidden")
+      : document.body.classList.remove("overflow-hidden");
+  }, [isDrawerOpen]);
 
   return (
     <>
@@ -37,6 +46,7 @@ const MobileSearchBar = (props: IProps) => {
         <GuestDrawer
           guest={bookingGuests}
           onClick={() => handleOpenDrawer(BOOKING_GUESTS)}
+          handleFilterListings={handleFilterListings}
         />
       </div>
       {createPortal(

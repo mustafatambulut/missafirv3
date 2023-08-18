@@ -7,7 +7,12 @@ import Button from "@/components/atoms/button/Button";
 import GuestsIcon from "../../../../public/images/guests.svg";
 import SearchIconWhite from "../../../../public/images/search_white.svg";
 
-const GuestDrawer = ({ onClick, guest, className = "" }: IGuestDrawer) => {
+const GuestDrawer = ({
+  onClick,
+  guest,
+  className = "",
+  handleFilterListings
+}: IGuestDrawer) => {
   return (
     <div className={`flex-1 mb-3 lg:mb-0 w-full ${className}`}>
       <div className="flex">
@@ -40,6 +45,7 @@ const GuestDrawer = ({ onClick, guest, className = "" }: IGuestDrawer) => {
           </div>
         </label>
         <Button
+          onClick={handleFilterListings}
           variant="btn-primary"
           className="rounded-2xl !h-[58px] ml-3 w-[72px] lg:w-auto">
           <SearchIconWhite />
