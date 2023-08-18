@@ -11,7 +11,7 @@ import {
   ICity,
   ICityAttributes
 } from "@/components/molecules/cities/types";
-
+ 
 import Card from "@/components/atoms/card/Card";
 import Loading from "@/components/atoms/loading/Loading";
 import Slider from "@/components/molecules/slider/Slider";
@@ -33,7 +33,7 @@ const CustomNavigation = () => {
     </>
   );
 };
-
+ 
 const Cities = () => {
   const cities = useFetchData<ICity>(BODY, CITY_SECTION);
   const CardComponent = ({ city }: ICityAttributes) => {
