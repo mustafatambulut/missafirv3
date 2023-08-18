@@ -30,12 +30,12 @@ const MobileDrawerSide = (props: IProps) => {
     bookingDate,
     bookingGuests,
     activeSearchItem,
+    setActiveSearchItem,
     skipButtonVisibility,
     setBookingDate,
     setBookingGuests,
     setBookingDestination,
-    setSkipButtonVisibility,
-    handleOpenDrawer
+    setSkipButtonVisibility
   } = props;
 
   const showComponentByActivate = (item: string) => {
@@ -53,7 +53,7 @@ const MobileDrawerSide = (props: IProps) => {
   return (
     <div className="drawer-side">
       <label htmlFor="msfr-search-drawer" className="drawer-overlay"></label>
-      <div className="p-3 w-full min-h-full bg-white flex flex-col overflow-y-auto">
+      <div className="p-3 w-full h-screen bg-white flex flex-col overflow-y-auto">
         <div className="flex justify-between items-center p-2 mb-3">
           <div onClick={handleClickBackButton}>
             <ArrowLeftIcon />
@@ -66,7 +66,7 @@ const MobileDrawerSide = (props: IProps) => {
         </div>
         <div className={showComponentByActivate(BOOKING_DESTINATION)}>
           <DestinationSelect
-            setActiveSearchItem={handleOpenDrawer}
+            setActiveSearchItem={setActiveSearchItem}
             componentId="mobile-destination"
             setSkipButtonVisibility={setSkipButtonVisibility}
             setBookingDestination={setBookingDestination}

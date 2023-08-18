@@ -18,7 +18,7 @@ const SearchBar = (props: IProps) => {
     isDrawerOpen,
     setBookingDestination,
     setSkipButtonVisibility,
-    handleOpenDrawer
+    setActiveSearchItem
   } = props;
 
   const [bookingDate, setBookingDate] = useState<IBookingDate>({
@@ -41,7 +41,7 @@ const SearchBar = (props: IProps) => {
     <>
       <div className="flex-1 mb-3 lg:mb-0 w-full">
         <DestinationSelect
-          setActiveSearchItem={handleOpenDrawer}
+          setActiveSearchItem={setActiveSearchItem}
           componentId="desktop-destination"
           setSkipButtonVisibility={setSkipButtonVisibility}
           setBookingDestination={setBookingDestination}
