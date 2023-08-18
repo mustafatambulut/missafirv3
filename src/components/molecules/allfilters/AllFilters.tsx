@@ -10,7 +10,7 @@ import AllFiltersHeader from "@/components/molecules/allFiltersHeader/AllFilters
 import AllFiltersContent from "@/components/molecules/allFiltersContent/AllFiltersContent";
 import FilterControlButtons from "@/components/molecules/filterControlButtons/FilterControlButtons";
 
-import "./AllFilters.css";
+import "./Allfilters.css";
 
 const AllFilters = ({
   filterData,
@@ -22,7 +22,7 @@ const AllFilters = ({
   const modalButtonRef = useRef<HTMLInputElement | null>(null);
   const outsideRef = useDetectClickOutside({
     onTriggered: () => {
-      if (window.all_filters_modal.checked === true) {
+      if ((window as any)?.all_filters_modal.checked === true) {
         modalButtonTrigger();
         setAllFiltersData(filterData);
       }
