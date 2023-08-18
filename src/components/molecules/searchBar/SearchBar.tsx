@@ -1,9 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { isMobile } from "react-device-detect";
 
 import { IProps } from "@/components/molecules/searchBar/types";
-import { IBookingDate } from "@/components/atoms/datePicker/types";
 import withSearchBar from "@/components/molecules/searchBar/withSearchBar";
 
 import Guests from "@/components/atoms/guests/Guests";
@@ -18,18 +17,13 @@ const SearchBar = (props: IProps) => {
     isDrawerOpen,
     setBookingDestination,
     setSkipButtonVisibility,
-    setActiveSearchItem
+    setActiveSearchItem,
+    handleFilterListings,
+    setBookingDate,
+    bookingDate,
+    bookingGuests,
+    setBookingGuests
   } = props;
-
-  const [bookingDate, setBookingDate] = useState<IBookingDate>({
-    startDate: null,
-    endDate: null
-  });
-  const [bookingGuests, setBookingGuests] = useState({
-    adults: 0,
-    kids: 0,
-    pets: false
-  });
 
   useEffect(() => {
     isDrawerOpen
@@ -62,6 +56,7 @@ const SearchBar = (props: IProps) => {
             setSkipButtonVisibility={setSkipButtonVisibility}
           />
           <Button
+            onClick={handleFilterListings}
             variant="btn-primary"
             className="rounded-2xl !h-[56px] ml-3 w-[72px] lg:w-auto">
             {isMobile ? <SearchIcon /> : <span>Search</span>}

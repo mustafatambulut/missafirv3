@@ -37,6 +37,18 @@ const withSearchBar = (WrappedComponent) => {
       setActiveSearchItem(searchItem);
     };
 
+    const handleFilterListings = () => {
+      const filterObject = {
+        districtId: bookingDestination?.value || "",
+        checkIn: bookingDate.startDate?.format("YYYY-MM-DD") || "",
+        checkOut: bookingDate.endDate?.format("YYYY-MM-DD") || "",
+        adults: bookingGuests.adults,
+        kids: bookingGuests.kids,
+        pets: Number(bookingGuests.pets)
+      };
+      alert(JSON.stringify(filterObject));
+    };
+
     useEffect(() => {
       switch (activeSearchItem) {
         case BOOKING_DESTINATION:
@@ -85,9 +97,11 @@ const withSearchBar = (WrappedComponent) => {
             bookingDestination={bookingDestination}
             skipButtonVisibility={skipButtonVisibility}
             setBookingDate={setBookingDate}
+            setIsDrawerOpen={setIsDrawerOpen}
             setBookingGuests={setBookingGuests}
             handleOpenDrawer={handleOpenDrawer}
             setActiveSearchItem={setActiveSearchItem}
+            handleFilterListings={handleFilterListings}
             setBookingDestination={setBookingDestination}
             setSkipButtonVisibility={setSkipButtonVisibility}
           />

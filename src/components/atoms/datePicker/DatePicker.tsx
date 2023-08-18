@@ -14,7 +14,8 @@ import "./DatePicker.css";
 import "react-dates/lib/css/_datepicker.css";
 
 import CalendarIcon from "../../../../public/images/calendar.svg";
-import RoundedInfo from "../../../../public/images/rounded_info.svg";
+//todo: minimum stay için eklendi düzenlenince aktif edilecek
+//import RoundedInfo from "../../../../public/images/rounded_info.svg";
 import ChevronLeft from "../../../../public/images/chevron_left.svg";
 import ChevronRight from "../../../../public/images/chevron_right.svg";
 
@@ -23,7 +24,11 @@ const DatePicker = ({ bookingDate, setBookingDate }: IDatePicker) => {
   const [focusedInput, setFocusedInput] = useState<any>("startDate");
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [isPrevButtonHidden, setIsPrevButtonHidden] = useState<boolean>(true);
-  const [dayInfo, setDayInfo] = useState<any>("");
+
+  //todo: minimum stay için, düzenlenecek
+
+  // const [dayInfo, setDayInfo] = useState<any>("");
+
   const onDatesChange = ({ startDate, endDate }: IBookingDate) => {
     setBookingDate({ startDate, endDate });
   };
@@ -46,29 +51,21 @@ const DatePicker = ({ bookingDate, setBookingDate }: IDatePicker) => {
     return (
       <section className="w-full flex justify-between items-center p-2 bg-white text-gray-600 rounded-xl min-h-[30px]">
         <div>
-          {dayInfo && (
-            <div className="text-black flex items-center text-sm">
-              <RoundedInfo className="mr-2" /> Minimum stay for check-in on{" "}
-              {dayInfo} is 2 nights.
-            </div>
-          )}
+          {/*todo: minimum stay için, düzenlenecek*/}
+          {/*{dayInfo && (*/}
+          {/*  <div className="text-black flex items-center text-sm">*/}
+          {/*    <RoundedInfo className="mr-2" /> Minimum stay for check-in on{" "}*/}
+          {/*    {dayInfo} is 2 nights.*/}
+          {/*  </div>*/}
+          {/*)}*/}
         </div>
-        {get(bookingDate, "startDate") && get(bookingDate, "endDate") && (
+        {(get(bookingDate, "startDate") || get(bookingDate, "endDate")) && (
           <div className="flex">
             <Button
               onClick={() => setBookingDate({ startDate: null, endDate: null })}
               variant="btn-link"
               className="text-gray-600 bg-transparent shadow-none border-none">
               Clear
-            </Button>
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowDatePicker(false);
-              }}
-              className="ml-2"
-              variant="btn-primary">
-              Done
             </Button>
           </div>
         )}
@@ -81,8 +78,10 @@ const DatePicker = ({ bookingDate, setBookingDate }: IDatePicker) => {
     return (
       <div
         className="day-content"
-        onMouseEnter={() => setDayInfo(day.format("MMMM D"))}
-        onMouseLeave={() => setDayInfo("")}>
+        // todo: minimum stay için, düzenlenecek
+        // onMouseEnter={() => setDayInfo(day.format("MMMM D"))}
+        // onMouseLeave={() => setDayInfo("")}
+      >
         <div>{day.format("D")}</div>
         {isToday && (
           <div className="absolute bottom-0 left-[50%] translate-x-[-50%] text-4xl leading-8 text-primary day-dot">
