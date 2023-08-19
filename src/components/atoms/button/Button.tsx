@@ -15,10 +15,14 @@ const Button = ({
   ...props
 }: IButton) => {
   const btnClass = classNames(
-    `btn items-center font-mi-sans-semi-bold normal-case text-base ${variant} ${className}`,
+    `btn items-center font-mi-sans-semi-bold normal-case text-base ${
+      disabled || variant
+    } ${className}`,
     {
       "btn-outline": outline,
-      "flex-row-reverse": isRtl
+      "flex-row-reverse": isRtl,
+      "bg-gray-100": disabled,
+      "btn-disabled": disabled
     }
   );
 

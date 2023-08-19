@@ -12,10 +12,8 @@ import ProgressBar from "@/components/molecules/progressBar/ProgressBar";
 import "./Reservation.css";
 
 const ReservationLayout = ({ children }: IReservationLayout) => {
-  const { payment, currentStep } = useAppSelector(
-    (state) => state.reservationReducer
-  );
   const { creditCard } = useAppSelector((state) => state.paymentReducer);
+  const { currentStep } = useAppSelector((state) => state.reservationReducer);
 
   const isSuccess = currentStep === SUCCESS;
 
@@ -39,7 +37,7 @@ const ReservationLayout = ({ children }: IReservationLayout) => {
         {!isSuccess && (
           <aside className="lg:flex lg:flex-col lg:gap-y-6 lg:w-1/3">
             {currentStep === STEP_3 && <CreditCard data={creditCard} />}
-            <ReservationSummary data={payment} />
+            <ReservationSummary />
           </aside>
         )}
       </main>
