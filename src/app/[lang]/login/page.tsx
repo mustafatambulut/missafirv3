@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
 import * as Yup from "yup";
 import { get } from "lodash";
 import { useFormik } from "formik";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { toast, Toaster } from "react-hot-toast";
 
 import { auth } from "@/service/api";
 import { setSessionStorage } from "@/utils/helper";
@@ -13,6 +13,7 @@ import { setSessionStorage } from "@/utils/helper";
 import Input from "@/components/atoms/input/Input";
 import Button from "@/components/atoms/button/Button";
 import Checkbox from "@/components/atoms/checkbox/Checkbox";
+import ToastMessage from "@/components/atoms/toastMessage/ToastMessage";
 
 import AppleIcon from "../../../../public/images/apple.svg";
 import GoogleIcon from "../../../../public/images/google.svg";
@@ -21,8 +22,6 @@ import FacebookIcon from "../../../../public/images/variants/facebook.svg";
 const Login = () => {
   const router = useRouter();
   const t = useTranslations();
-
-  const [errorMessage, setErrorMessage] = useState<any>(null);
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -44,13 +43,26 @@ const Login = () => {
     validationSchema,
     onSubmit: async (values) => {
       const res = await auth(values);
-      if (get(res, "code") === 401) {
-        return setErrorMessage("your_email_address_or_password_is_incorrect");
-      }
+
       if (get(res, "data.token")) {
         setSessionStorage("token", get(res, "data.token"));
-        router.back();
+
+        toast.custom((item) => (
+          <ToastMessage
+            toast={toast}
+            className="w-96 bg-green-600 justify-between"
+            item={item}
+            title="Success!"
+            status="success"></ToastMessage>
+        ));
+        router.push("/");
         router.refresh();
+      } else {
+        toast.custom((item) => (
+          <ToastMessage toast={toast} item={item} title="Oops!" status="error">
+            <p className="text-md text-black">{get(res, "message")}</p>
+          </ToastMessage>
+        ));
       }
     }
   });
@@ -93,6 +105,7 @@ const Login = () => {
       className="flex lg:justify-center font-mi-sans mt-20 lg:mt-40 px-4 lg:px-80"
       noValidate
       onSubmit={handleSubmit}>
+      <Toaster duration={4000} position="top-right" reverseOrder={false} />
       <div className="flex w-full flex-col gap-y-8">
         <h1 className="text-3xl font-semibold text-gray-900">
           {t("welcome_to_missafir")}
@@ -133,11 +146,6 @@ const Login = () => {
                 {t("forgot_password")}
               </Link>
             </div>
-            {errorMessage && (
-              <p className="text-center text-lg text-primary">
-                {t(errorMessage)}
-              </p>
-            )}
             <Button disabled={isSubmitting} type="submit" className="text-xl">
               {t("login")}
               {isSubmitting && (
