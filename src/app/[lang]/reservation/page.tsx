@@ -1,9 +1,15 @@
 "use client";
 import { useAppSelector } from "@/redux/hooks";
 
-import { STEP_1, STEP_2, STEP_3 } from "@/redux/features/reservationSlice/enum";
+import {
+  STEP_1,
+  STEP_2,
+  STEP_3,
+  SUCCESS
+} from "@/redux/features/reservationSlice/enum";
 
 import PaymentSection from "@/components/organisms/paymentSection/PaymentSection";
+import SuccessSection from "@/components/organisms/successSection/SuccessSection";
 import ConfirmationSection from "@/components/organisms/confirmationSection/ConfirmationSection";
 
 const Reservation = () => {
@@ -16,6 +22,8 @@ const Reservation = () => {
       return <div>extra services</div>;
     case STEP_3:
       return <PaymentSection />;
+    case SUCCESS:
+      return <SuccessSection />;
   }
 };
 

@@ -11,7 +11,6 @@ import {
 } from "lodash";
 import classNames from "classnames";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { isMobile } from "react-device-detect";
 
 import {
@@ -38,7 +37,6 @@ import CouponCode from "@/components/atoms/couponCode/CouponCode";
 import CancelIcon from "../../../../public/images/variants/close.svg";
 
 const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
-  const router = useRouter();
   const t = useTranslations();
   const dispatch = useAppDispatch();
   const [isScrollActive, setIsScrollActive] = useState<boolean>(false);
@@ -106,10 +104,7 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
     dispatch(changeIsShowCouponCode(false));
   };
 
-  const handleSubmitBtn = () => {
-    dispatch(changeCurrentStep(SUCCESS));
-    router.push("/reservation-success");
-  };
+  const handleSubmitBtn = () => dispatch(changeCurrentStep(SUCCESS));
 
   const handleScroll = () => {
     const scrollPosition = getScrollPosition();
