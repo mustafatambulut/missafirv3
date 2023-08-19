@@ -101,3 +101,5 @@ export const checkSameItem = (
 ): boolean => {
   return firstArr.some((l) => secondArr.includes(l));
 };
+
+export const checkAuth = () => !!getSessionStorage("token");

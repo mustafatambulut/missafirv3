@@ -8,6 +8,7 @@ import {
   STEP_3,
   SUCCESS
 } from "@/redux/features/reservationSlice/enum";
+import { checkAuth } from "@/utils/helper";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { changeCurrentStep } from "@/redux/features/reservationSlice/reservationSlice";
 
@@ -20,12 +21,16 @@ const ReservationFooter = () => {
 
   const handleSubmitBtn = () => dispatch(changeCurrentStep(SUCCESS));
 
+  const handleConfirmationBtn = () => {
+    console.log(checkAuth());
+  };
+
   switch (currentStep) {
     case STEP_1:
       return (
         <Button
           className="text-xl font-mi-sans border-0 bg-gradient-to-tr from-[#E1004C] to-[#F8479E]"
-          onClick={() => alert("reserve")}>
+          onClick={handleConfirmationBtn}>
           {capitalize(t("reserve"))}
         </Button>
       );
