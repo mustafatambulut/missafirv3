@@ -1,10 +1,13 @@
 "use client";
+import { ReactNode } from "react";
 import Link from "next/link";
 import * as Yup from "yup";
 import { get } from "lodash";
 import { useFormik } from "formik";
+import classNames from "classnames";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/redux/hooks";
 import { toast, Toaster } from "react-hot-toast";
 
 import { auth } from "@/service/api";
@@ -22,6 +25,9 @@ import FacebookIcon from "../../../../public/images/variants/facebook.svg";
 const Login = () => {
   const router = useRouter();
   const t = useTranslations();
+  const { isPressReservButton } = useAppSelector(
+    (step) => step.reservationReducer
+  );
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -55,7 +61,7 @@ const Login = () => {
             title="Success!"
             status="success"></ToastMessage>
         ));
-        router.push("/");
+        router.push(isPressReservButton ? "/reservation" : "/");
         router.refresh();
       } else {
         toast.custom((item) => (
@@ -69,6 +75,13 @@ const Login = () => {
 
   const { values, errors, touched, handleChange, isSubmitting, handleSubmit } =
     formik;
+
+  const formClass = classNames(
+    "flex container mx-auto justify-center flex-col gap-y-4",
+    {
+      "lg:px-28 lg:py-20 lg:border rounded-xl": isPressReservButton
+    }
+  );
 
   // todo: daha sonra aktif edilecek
   // eslint-disable-next-line no-unused-vars
@@ -100,6 +113,39 @@ const Login = () => {
     );
   };
 
+  const BannerComponent = () => {
+    return (
+      <>
+        <div className="flex items-center px-10 lg:px-20 justify-center w-full rounded-xl lg:rounded-3xl h-20 lg:h-40 bg-gradient-to-r from-primary to-pink">
+          <p className="text-white text-center text-md lg:text-2xl">
+            Become a member and take advantage of 10% discount on your first
+            reservation!
+          </p>
+        </div>
+
+        {/*todo: sonradan aktif edilecek*/}
+        {/*<Button*/}
+        {/*  link="/"*/}
+        {/*  variant="btn-ghost"*/}
+        {/*  className="text-primary text-xl font-mi-sans"*/}
+        {/*  outline={true}>*/}
+        {/*  Continue without login*/}
+        {/*  <ChevronRightIcon />*/}
+        {/*</Button>*/}
+      </>
+    );
+  };
+
+  const HeaderComponent = (): ReactNode => {
+    return isPressReservButton ? (
+      <BannerComponent />
+    ) : (
+      <h1 className="text-3xl font-semibold text-gray-900">
+        {t("welcome_to_missafir")}
+      </h1>
+    );
+  };
+
   return (
     <form
       className="flex lg:justify-center font-mi-sans mt-20 lg:mt-40 px-4 lg:px-80"
@@ -107,11 +153,12 @@ const Login = () => {
       onSubmit={handleSubmit}>
       <Toaster duration={4000} position="top-right" reverseOrder={false} />
       <div className="flex w-full flex-col gap-y-8">
-        <h1 className="text-3xl font-semibold text-gray-900">
-          {t("welcome_to_missafir")}
-        </h1>
+        <HeaderComponent />
         <div className="flex flex-col">
-          <div className="flex container mx-auto justify-center flex-col gap-y-4">
+          <div className={formClass}>
+            {isPressReservButton && (
+              <h1 className="text-center text-2xl">Login with e-mail</h1>
+            )}
             <Input
               type="email"
               name="email"
@@ -153,9 +200,7 @@ const Login = () => {
               )}
             </Button>
             <div className="flex justify-center items-center gap-x-1 text-base">
-              <p className="text-gray-400">
-                {t("dont_you_have_an_account_sign_up")}
-              </p>
+              <p className="text-gray-400">{t("dont_you_have_an_account")}</p>
               <Button
                 link="/signup"
                 variant="btn-ghost"

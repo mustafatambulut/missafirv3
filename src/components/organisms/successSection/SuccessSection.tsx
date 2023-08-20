@@ -1,4 +1,7 @@
 "use client";
+import { useRouter } from "next/navigation";
+
+import useCheckAuth from "@/app/[lang]/reservation/useCheckAuth";
 import { ISuccessSection } from "@/components/organisms/successSection/types";
 
 import Button from "@/components/atoms/button/Button";
@@ -8,6 +11,9 @@ import CareIcon from "../../../../public/images/variants/care.svg";
 import BackgroundImage from "../../../../public/images/missafir_background.svg";
 
 const SuccessSection = ({ className = "" }: ISuccessSection) => {
+  useCheckAuth();
+  const router = useRouter();
+
   return (
     <div className={`static ${className}`}>
       <div className="static">
@@ -29,7 +35,7 @@ const SuccessSection = ({ className = "" }: ISuccessSection) => {
             </div>
             <div className="flex justify-center">
               {/*todo: reservasyon detay sayfasına yönlendirilecek*/}
-              <Button onClick={() => alert("reservation-detail")}>
+              <Button onClick={() => router.push("/profile/reservations")}>
                 Reservation Detail
               </Button>
             </div>

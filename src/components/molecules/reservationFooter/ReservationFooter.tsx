@@ -10,11 +10,16 @@ import {
 } from "@/redux/features/reservationSlice/enum";
 import { checkAuth } from "@/utils/helper";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { changeCurrentStep } from "@/redux/features/reservationSlice/reservationSlice";
+import {
+  changeCurrentStep,
+  changeIsPressReservButton
+} from "@/redux/features/reservationSlice/reservationSlice";
 
 import Button from "@/components/atoms/button/Button";
+import { useRouter } from "next/navigation";
 
 const ReservationFooter = () => {
+  const router = useRouter();
   const t = useTranslations();
   const dispatch = useAppDispatch();
   const { currentStep } = useAppSelector((state) => state.reservationReducer);
@@ -22,7 +27,10 @@ const ReservationFooter = () => {
   const handleSubmitBtn = () => dispatch(changeCurrentStep(SUCCESS));
 
   const handleConfirmationBtn = () => {
-    console.log(checkAuth());
+    dispatch(changeIsPressReservButton(true));
+    return checkAuth()
+      ? dispatch(changeCurrentStep(STEP_2))
+      : router.push("/login");
   };
 
   switch (currentStep) {
