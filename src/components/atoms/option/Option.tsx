@@ -6,7 +6,10 @@ import OptionImage from "@/components/atoms/optionImage/OptionImage";
 
 const Option = ({ ...props }: OptionProps) => {
   const optionClass = classNames(
-    `${get(props, "selectProps.optionClassName")}`,
+    `${get(
+      props,
+      "selectProps.optionClassName"
+    )} flex items-center gap-x-3 lg:gap-x-2 px-2 lg:px-3`,
     {
       [`${get(props, "selectProps.optionSelectedClassName")}`]: get(
         props,
@@ -30,11 +33,11 @@ const Option = ({ ...props }: OptionProps) => {
     <components.Option className={optionClass} {...props}>
       {!isEmpty(get(props, "data.attributes.image")) && (
         <OptionImage
-          image={get(props, "data.attributes.image")}
+          src={get(props, "data.attributes.image")}
           className={get(props, "selectProps.optionImageWrapperClassName")}
           imageClassName={get(props, "selectProps.optionImageClassName")}
-          imageWidth={get(props, "selectProps.optionImageWidth") || 0}
-          imageHeight={get(props, "selectProps.optionImageHeight") || 0}
+          width={get(props, "selectProps.width") || 40}
+          height={get(props, "selectProps.height") || 40}
         />
       )}
       {!isEmpty(get(props, "data.attributes.icon")) && (

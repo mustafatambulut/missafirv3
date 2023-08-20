@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import classNames from "classnames";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { toast, Toaster } from "react-hot-toast";
 
 import { auth } from "@/service/api";
@@ -21,10 +21,12 @@ import ToastMessage from "@/components/atoms/toastMessage/ToastMessage";
 import AppleIcon from "../../../../public/images/apple.svg";
 import GoogleIcon from "../../../../public/images/google.svg";
 import FacebookIcon from "../../../../public/images/variants/facebook.svg";
+import { changeIsPressReservButton } from "@/redux/features/reservationSlice/reservationSlice";
 
 const Login = () => {
   const router = useRouter();
   const t = useTranslations();
+  const dispatch = useAppDispatch();
   const { isPressReservButton } = useAppSelector(
     (step) => step.reservationReducer
   );
@@ -82,6 +84,10 @@ const Login = () => {
       "lg:px-28 lg:py-20 lg:border rounded-xl": isPressReservButton
     }
   );
+
+  const handleSignupBtn = (): void => {
+    if (isPressReservButton) dispatch(changeIsPressReservButton(true));
+  };
 
   // todo: daha sonra aktif edilecek
   // eslint-disable-next-line no-unused-vars
@@ -202,9 +208,10 @@ const Login = () => {
             <div className="flex justify-center items-center gap-x-1 text-base">
               <p className="text-gray-400">{t("dont_you_have_an_account")}</p>
               <Button
+                onClick={handleSignupBtn}
                 link="/signup"
                 variant="btn-ghost"
-                className="text-primary font-mi-sans"
+                className="text-primary font-mi-sans lg:px-0"
                 outline={true}>
                 {t("sign_up")}
               </Button>

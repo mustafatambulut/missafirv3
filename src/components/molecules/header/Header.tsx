@@ -1,43 +1,46 @@
 "use client";
 import { ReactNode, useEffect, useState } from "react";
 import classNames from "classnames";
-import { get, isNull } from "lodash";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
+import { get, isNull, split } from "lodash";
+import { usePathname } from "next/navigation";
 import { isMobile } from "react-device-detect";
 
-import { HOME } from "@/app/constants";
-import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
-import { useAppSelector } from "@/redux/hooks";
-import { FOOTER } from "@/components/molecules/footer/constant";
-import { HEADER } from "@/components/molecules/header/constants";
-import { IHeader } from "@/components/molecules/header/types";
-import { IFooter } from "@/components/molecules/footer/types";
-import { IFooterBrand } from "@/components/atoms/footerBrand/types";
-import useFetchData from "@/app/hooks/useFetchData";
 import {
+  checkSameItem,
   getLocalStorage,
-  getScrollPosition,
   setLocalStorage
 } from "@/utils/helper";
 import {
-  fetchDataByPage,
   fetchLocations,
-  updateLocations
+  updateLocations,
+  fetchDataByPage
 } from "@/redux/features/landingSlice/landingSlice";
+import { HOME } from "@/app/constants";
+import { useAppSelector } from "@/redux/hooks";
+import useFetchData from "@/app/hooks/useFetchData";
+import usePageScroll from "@/app/hooks/usePageScroll";
+import { IFooterBrand } from "@/components/atoms/footerBrand/types";
+import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
+import { IFooter } from "@/components/molecules/footer/types";
+import { IHeader } from "@/components/molecules/header/types";
+import { FOOTER } from "@/components/molecules/footer/constant";
+import { HEADER } from "@/components/molecules/header/constants";
+import { changeIsPressReservButton } from "@/redux/features/reservationSlice/reservationSlice";
 
 import Loading from "@/components/atoms/loading/Loading";
 import Drawer from "@/components/molecules/drawer/Drawer";
 import Navbar from "@/components/molecules/navbar/Navbar";
 
 const Header = ({ lang }: string) => {
+  const pathName = usePathname();
   const [header, setHeader] = useState<IHeader>(null);
   const [footerMenu, setFooterMenu] = useState<IFooter>(null);
   const [footerBrand, setFooterBrand] = useState<IFooterBrand>(null);
-  const [isScrolledHeaderActive, setIsScrolledHeaderActive] =
-    useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
+  const { isScrolledHeaderActive } = usePageScroll();
   const entities = useFetchData([HEADER, FOOTER, FOOTER_BRAND]);
   const { isShowDrawer } = useAppSelector((state) => state.landingReducer);
 
@@ -85,12 +88,6 @@ const Header = ({ lang }: string) => {
     }
   };
 
-  const handleScroll = () => {
-    const scrollPosition = getScrollPosition();
-    const requiredScrollPosition = isMobile ? 10 : 30;
-    setIsScrolledHeaderActive(scrollPosition > requiredScrollPosition);
-  };
-
   useEffect(() => {
     if (!entities) return;
     setHeader(get(entities, "header"));
@@ -105,9 +102,6 @@ const Header = ({ lang }: string) => {
     locations
       ? dispatch(updateLocations(JSON.parse(locations)))
       : dispatch(fetchLocations());
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -115,6 +109,12 @@ const Header = ({ lang }: string) => {
       ? document.body.classList.add("overflow-hidden")
       : document.body.classList.remove("overflow-hidden");
   }, [isShowDrawer]);
+
+  useEffect(() => {
+    if (!checkSameItem(split(pathName, "/"), ["login", "signup"])) {
+      dispatch(changeIsPressReservButton(false));
+    }
+  }, [pathName]);
 
   return (
     <Loading

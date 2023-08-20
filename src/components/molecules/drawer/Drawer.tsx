@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { get, map } from "lodash";
 import moment from "moment/moment";
 
@@ -11,6 +10,8 @@ import SelectLanguage from "@/components/atoms/selectLanguage/SelectLanguage";
 import DropDownLinkMenu from "@/components/atoms/dropDownLinkMenu/DropDownLinkMenu";
 import Menu from "@/components/molecules/menu/Menu";
 
+import CloseIcon from "../../../../public/images/variants/close.svg";
+
 const Drawer = ({ data }: IDrawer) => {
   const dispatch = useAppDispatch();
 
@@ -22,13 +23,9 @@ const Drawer = ({ data }: IDrawer) => {
       <div className="p-8 w-screen h-screen bg-white relative flex flex-col overflow-y-auto">
         <div className="border-b border-gray-100 pb-5 mb-5 flex items-start justify-between">
           <UserMenu variant="light" data={get(data, "userMenuData")} />
-          <Image
-            onClick={handleDrawerClose}
-            src="/images/close.svg"
-            alt="close"
-            width={20}
-            height={20}
-          />
+          <div>
+            <CloseIcon className="fill-gray-800" onClick={handleDrawerClose} />
+          </div>
         </div>
         <div className="border-b border-gray-100 pb-5 mb-5 flex flex-col">
           {map(get(data, "userMenuData.footerMenu.body"), (items, key) => (
@@ -37,6 +34,7 @@ const Drawer = ({ data }: IDrawer) => {
         </div>
         <div className="w-28 mb-5">
           <SelectLanguage
+            className="gap-x-2 flex items-center justify-start"
             variant={"gray"}
             showIndicator={true}
             languages={get(data, "languages")}

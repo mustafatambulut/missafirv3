@@ -28,7 +28,7 @@ const SelectLanguage = ({
   });
 
   const optionClass = classNames(
-    "my-1 p-0 m-0 rounded-lg cursor-pointer focus:text-black lg:text-lg flex gap-x-2 items-center justify-center",
+    `my-1 p-0 m-0 rounded-lg text-gray-700 cursor-pointer focus:text-black`,
     {
       "bg-gray-700": variant === "dark",
       "hover:bg-gray-600": variant === "dark",
@@ -74,8 +74,8 @@ const SelectLanguage = ({
 
   return (
     <Select
-      optionImageWidth={24}
-      optionImageHeight={24}
+      width={24}
+      height={24}
       imageWidthClassName="w-6"
       menuListClassName="m-0 p-1"
       indicatorClassName="pl-0 pr-2"
@@ -89,8 +89,8 @@ const SelectLanguage = ({
       optionClassName={get(config, "optionClass")}
       singleValueChildrenClassName={get(config, "singleValueChildrenClass")}
       singleValueClassName="flex items-center gap-x-0.5 justify-around"
-      optionLabelClassName="text-sm lg:text-lg py-2 uppercase font-mi-sans-semi-bold"
-      controlClassName="cursor-pointer shadow-none bg-transparent text-xs lg:text-base h-11 rounded-x border-white"
+      optionLabelClassName="text-base lg:text-lg py-2 uppercase font-mi-sans"
+      controlClassName="cursor-pointer shadow-none bg-transparent text-xs lg:text-base h-12 rounded-xl"
       components={{
         Option: Option,
         Control: Control,

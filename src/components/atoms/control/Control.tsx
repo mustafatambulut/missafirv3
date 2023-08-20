@@ -13,6 +13,7 @@ const Control = ({ ...props }: ControlProps) => {
       "border-green-light": checkIsCustomColor(props, "confirmed")
     }
   );
+
   return (
     <components.Control className={controlClass} {...props}>
       <div className={`${get(props, "selectProps.controlInnerClassName")}`}>
