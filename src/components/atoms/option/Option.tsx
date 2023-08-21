@@ -1,10 +1,20 @@
 import classNames from "classnames";
 import { get, isEmpty } from "lodash";
+import { useRouter } from "next/navigation";
 import { components, OptionProps } from "react-select";
 
 import OptionImage from "@/components/atoms/optionImage/OptionImage";
 
 const Option = ({ ...props }: OptionProps) => {
+  const router = useRouter();
+
+  const handleInnerProps = () => {
+    if (get(props, "selectProps.type") !== "language") return;
+    return {
+      onClick: () => router.push(`/${get(props, "data.attributes.value")}`)
+    };
+  };
+
   const optionClass = classNames(
     `${get(
       props,
@@ -29,8 +39,12 @@ const Option = ({ ...props }: OptionProps) => {
         get(props, "data.attributes.type") === "filter"
     }
   );
+
   return (
-    <components.Option className={optionClass} {...props}>
+    <components.Option
+      className={optionClass}
+      {...props}
+      innerProps={handleInnerProps()}>
       {!isEmpty(get(props, "data.attributes.image")) && (
         <OptionImage
           src={get(props, "data.attributes.image")}

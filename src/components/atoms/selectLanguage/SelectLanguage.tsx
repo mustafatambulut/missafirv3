@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
-import { find, get } from "lodash";
 import classNames from "classnames";
+import { find, get, lowerCase } from "lodash";
 import Select, { Theme } from "react-select";
 
+import { getCurrentLang } from "@/utils/helper";
 import { ISelectLanguage } from "@/components/atoms/selectLanguage/types";
 
 import Option from "@/components/atoms/option/Option";
@@ -19,8 +20,8 @@ const SelectLanguage = ({
   showIndicator,
   className = ""
 }: ISelectLanguage) => {
-  //todo: dil seçeneği ekleyince güncellenecek
-  const [currentLocale] = useState("TR");
+  const [currentLocale] = useState(lowerCase(getCurrentLang()));
+
   const selectClass = classNames(`text-sm rounded-xl ${className}`, {
     "bg-gray-700": variant === "dark",
     "bg-none": variant === "ghost",
@@ -76,6 +77,7 @@ const SelectLanguage = ({
     <Select
       width={24}
       height={24}
+      type="language"
       imageWidthClassName="w-6"
       menuListClassName="m-0 p-1"
       indicatorClassName="pl-0 pr-2"
