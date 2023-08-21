@@ -123,7 +123,7 @@ const UserMenu = ({
         <MobileUserMenuComponent />
       ) : (
         <DropDown
-          label="melih şahin"
+          label="auth user"
           className="dropdown-end"
           imageSrc={get(data, "image")}
           isScrolledHeaderActive={isScrolledHeaderActive}>
