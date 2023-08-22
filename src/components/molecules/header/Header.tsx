@@ -7,14 +7,14 @@ import { AppDispatch } from "@/redux/store";
 import { isMobile } from "react-device-detect";
 
 import { HOME } from "@/app/constants";
-import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
 import { useAppSelector } from "@/redux/hooks";
+import useFetchData from "@/app/hooks/useFetchData";
+import { IFooterBrand } from "@/components/atoms/footerBrand/types";
+import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
 import { FOOTER } from "@/components/molecules/footer/constant";
 import { HEADER } from "@/components/molecules/header/constants";
 import { IHeader } from "@/components/molecules/header/types";
 import { IFooter } from "@/components/molecules/footer/types";
-import { IFooterBrand } from "@/components/atoms/footerBrand/types";
-import useFetchData from "@/app/hooks/useFetchData";
 import {
   getLocalStorage,
   getScrollPosition,
