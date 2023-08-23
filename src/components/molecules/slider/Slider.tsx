@@ -29,6 +29,7 @@ const Slider = ({
 
   return (
     <div className={`relative ${sliderContainerClassName}`}>
+      {/*<div className={`${sliderContainerClassName}`}>*/}
       <Swiper
         style={{
           "--swiper-pagination-color": "#D01E50",

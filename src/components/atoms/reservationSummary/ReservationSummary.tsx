@@ -253,6 +253,7 @@ const ReservationSummary = ({ data, className = "" }: IReservationSummary) => {
           <Button
             className="text-xl font-mi-sans border-0 bg-gradient-to-tr from-[#E1004C] to-[#F8479E]"
             onClick={() => alert("reserve")}>
+            {/*todo: event eklenecek*/}
             {capitalize(t("reserve"))}
           </Button>
         )}

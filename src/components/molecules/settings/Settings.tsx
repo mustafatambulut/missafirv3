@@ -8,7 +8,7 @@ const Settings = () => {
   const { user } = useAppSelector((state) => state.profileReducer);
 
   const checkboxClass = (type: string) => {
-    return classNames("checkbox-primary",{
+    return classNames("checkbox-primary", {
       toggle: type === "toggle",
       checkbox: type !== "toggle"
     });
@@ -22,6 +22,7 @@ const Settings = () => {
   const formik = useFormik({
     initialValues,
     onSubmit: async (values) => {
+      // todo: event eklenecek
       console.log(values);
       alert("Updated!");
     }
@@ -87,7 +88,9 @@ const Settings = () => {
           <div className="text-3xl mb-5 lg:mb-8">{item.title}</div>
           <div className="grid grid-cols-1 gap-6">
             {map(item.items, (subItem, subKey) => (
-              <div key={subKey} className="flex items-center w-full justify-between">
+              <div
+                key={subKey}
+                className="flex items-center w-full justify-between">
                 <div className="text-sm lg:text-lg font-mi-sans-semi-bold text-gray-700 lg:text-gray-600 w-64 lg:w-full">
                   {subItem.label}
                 </div>
@@ -112,7 +115,14 @@ const Settings = () => {
           </div>
         </div>
       ))}
-      <div className="text-primary"><span className="text-base lg:text-lg font-mi-sans-semi-bold">Hesabınızı devre dışı bırakmanız mı gerekiyor?</span><span className="text-base lg:ml-3 cursor-pointer">Bununla şimdi ilgilenin</span></div>
+      <div className="text-primary">
+        <span className="text-base lg:text-lg font-mi-sans-semi-bold">
+          Hesabınızı devre dışı bırakmanız mı gerekiyor?
+        </span>
+        <span className="text-base lg:ml-3 cursor-pointer">
+          Bununla şimdi ilgilenin
+        </span>
+      </div>
     </div>
   );
 };
