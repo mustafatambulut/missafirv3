@@ -6,6 +6,8 @@ import {
 
 export interface IInboxCard {
   date?: string;
+
+  onClick?: void;
   subject?: string;
   message?: string;
   imageSrc?: boolean;

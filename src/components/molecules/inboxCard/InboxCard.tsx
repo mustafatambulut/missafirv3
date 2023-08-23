@@ -22,6 +22,7 @@ const InboxCard = ({
   imageSrc = false,
   isNotify = false,
   showStatus = true,
+  onClick,
   status = NOT_CHECK_IN
 }: IInboxCard) => {
   const contentClass = classNames("block mr-auto", {
@@ -65,7 +66,9 @@ const InboxCard = ({
   };
 
   return (
-    <div className={`flex gap-x-3 rounded-xl p-3 ${className}`}>
+    <div
+      onClick={onClick}
+      className={`flex gap-x-3 rounded-xl p-3 ${className}`}>
       <ImageComponent />
       <div className={contentClass}>
         <div className="text-xs text-gray-300">{date}</div>
@@ -77,6 +80,9 @@ const InboxCard = ({
       {showStatus && (
         <div className="flex flex-col items-center justify-center">
           <div>
+            {isNotify && (
+              <span className="indicator-item bg-primary w-3 h-3 rounded-full"></span>
+            )}
             <StatusComponent />
           </div>
           <div className="text-xxs">{statusDate}</div>
