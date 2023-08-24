@@ -39,8 +39,8 @@ const SingleValue = ({ ...props }: ISingleValue) => {
                   "selectProps.optionImageWrapperClassName"
                 )}
                 imageClassName={get(props, "selectProps.optionImageClassName")}
-                width={get(props, "selectProps.optionImageWidth") || 0}
-                height={get(props, "selectProps.optionImageHeight") || 0}
+                width={get(props, "selectProps.width") || 20}
+                height={get(props, "selectProps.height") || 20}
               />
             )}
             {!isEmpty(get(props, "data.attributes.icon")) &&

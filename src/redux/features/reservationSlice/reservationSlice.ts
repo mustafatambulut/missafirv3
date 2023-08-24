@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { STEP_3 } from "@/redux/features/reservationSlice/enum";
+import { STEP_1 } from "@/redux/features/reservationSlice/enum";
 import { STATUS_CONFIRMATION } from "@/app/[lang]/reservation/constants";
 import { IReservationState } from "@/redux/features/reservationSlice/types";
 
@@ -57,9 +57,10 @@ const initialState = {
   couponCode: null,
   isShowCouponCode: false,
   isApplyCouponCode: false,
-  currentStep: STEP_3,
+  currentStep: STEP_1,
   guests: 1,
-  status: STATUS_CONFIRMATION
+  status: STATUS_CONFIRMATION,
+  isPressReservButton: false
 } as IReservationState;
 
 const reservationSlice = createSlice({
@@ -110,6 +111,12 @@ const reservationSlice = createSlice({
       action: PayloadAction<string>
     ) => {
       state.guests = action.payload;
+    },
+    changeIsPressReservButton: (
+      state: { isPressReservButton: boolean },
+      action: PayloadAction<string>
+    ) => {
+      state.isPressReservButton = action.payload;
     }
   }
 });
@@ -122,7 +129,8 @@ export const {
   changeCurrentStep,
   changeIsApplyCoupon,
   changeReservationDay,
-  changeIsShowCouponCode
+  changeIsShowCouponCode,
+  changeIsPressReservButton
 } = reservationSlice.actions;
 
 export default reservationSlice.reducer;

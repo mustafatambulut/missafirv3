@@ -1,7 +1,7 @@
 "use client";
 import { map } from "lodash";
 import classNames from "classnames";
-import { useTranslations } from "use-intl";
+import { useTranslations } from "next-intl";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IProgressBar } from "@/components/molecules/progressBar/types";

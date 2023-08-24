@@ -17,21 +17,24 @@ const ToastMessage = ({
   className = ""
 }: IToastMessage) => {
   const containerClass = classNames(
-    `rounded-2xl border border-gray-100 shadow-md pointer-events-auto flex item-center gap-x-3 lg:gap-x-6 p-3 lg:px-4 bg-white ${className}`,
+    `grid grid-cols-4 rounded-2xl shadow-md border border-gray-100 gap-1 bg-white m-3 rounded-lg p-3 max-w-md ${className}`,
     {
       "animate-enter": get(item, "visible"),
       "animate-leave": !get(item, "visible")
     }
   );
 
-  const titleClass = classNames("text-lg lg:text-2xl capitalize", {
-    "text-error-red": status === "error",
-    "text-success-green": status === "success",
-    "text-warning-yellow": status === "warning"
-  });
+  const titleClass = classNames(
+    `text-lg font-semibold lg:text-2xl capitalize`,
+    {
+      "text-error-red": status === "error",
+      "text-success-green": status === "success",
+      "text-warning-yellow": status === "warning"
+    }
+  );
 
   const iconClass = classNames(
-    `flex w-12 h-12 lg:w-16 lg:h-16 items-center justify-center rounded-full`,
+    `flex w-16 h-16 rounded-full p-2.5 justify-center`,
     {
       "bg-red-100": status === "error",
       "bg-green-100": status === "success",
@@ -53,11 +56,11 @@ const ToastMessage = ({
   return (
     <div className={containerClass}>
       <div className={iconClass}>{icon()}</div>
-      <div>
+      <div className="col-span-2">
         <h1 className={titleClass}>{title}</h1>
         {children}
       </div>
-      <div className="flex items-start">
+      <div className="text-end col-span-1">
         <button onClick={() => toast.remove()}>
           <CloseIcon />
         </button>

@@ -1,5 +1,5 @@
 import { get } from "lodash";
-import React from "react";
+
 import { IUser } from "@/components/atoms/userInfo/types";
 
 const UserInfo = ({ user }: IUser) => {

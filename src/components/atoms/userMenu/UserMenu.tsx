@@ -1,15 +1,26 @@
-import { useRef } from "react";
+import { ReactNode, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { get, map } from "lodash";
 import classNames from "classnames";
+import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { isMobile } from "react-device-detect";
 import OutsideClickHandler from "react-outside-click-handler";
 
 import { IUserMenu } from "@/components/atoms/userMenu/types";
+import { checkAuth, removeSessionStorage } from "@/utils/helper";
 
 import Button from "@/components/atoms/button/Button";
+import DropDown from "@/components/atoms/dropDown/DropDown";
 
-const UserMenu = ({ variant = "", data }: IUserMenu) => {
+const UserMenu = ({
+  variant = "",
+  data,
+  isScrolledHeaderActive
+}: IUserMenu) => {
+  const t = useTranslations();
+  const router = useRouter();
   const userMenuRef = useRef<HTMLDetailsElement>(null);
 
   const summaryClass = classNames(
@@ -23,9 +34,36 @@ const UserMenu = ({ variant = "", data }: IUserMenu) => {
     get(userMenuRef, "current")?.removeAttribute("open");
   };
 
-  return (
-    <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-      <ul className="menu lg:menu-horizontal w-16 bg-transparent p-0">
+  const handleLogin = () => {
+    router.push("/login");
+    router.refresh();
+  };
+
+  const handleLogout = () => {
+    removeSessionStorage("token");
+    router.push("/");
+    router.refresh();
+  };
+
+  const AuthComponent = (): ReactNode => {
+    return checkAuth() ? (
+      <button
+        className="text-lg lg:text-xl pl-0 lg:pl-2 lg:text-gray-500 font-mi-sans lg:font-mi-sans-semi-bold"
+        onClick={handleLogout}>
+        Logout
+      </button>
+    ) : (
+      <button
+        className="text-lg lg:text-xl pl-0 lg:pl-2 lg:text-gray-500 font-mi-sans lg:font-mi-sans-semi-bold"
+        onClick={handleLogin}>
+        {t("login")}
+      </button>
+    );
+  };
+
+  const MobileUserMenuComponent = () => {
+    return (
+      <ul className="menu w-16 bg-transparent p-0">
         <li>
           <details className="active:bg-transparent" ref={userMenuRef}>
             <summary className={summaryClass}>
@@ -38,19 +76,20 @@ const UserMenu = ({ variant = "", data }: IUserMenu) => {
                     : "/images/user_dark.svg"
                 }`}
                 alt="user"
-                width={24}
-                height={24}
-                className="rounded-full bg-gray-100 p-1 lg:bg-transparent lg:p-0"
+                width={40}
+                height={40}
+                className="rounded-full bg-gray-100"
               />
             </summary>
-            <ul className="before:hidden m-0 p-0 lg:p-2 lg:m-6 lg:mr-0 lg:right-0 text-gray-700 lg:text-gray-600 font-mi-sans-semi-bold">
+            <ul className="before:hidden m-0 p-0 text-gray-700 font-mi-sans-semi-bold">
               {map(get(data, "links.data"), (menuItem) => (
                 <li key={get(menuItem, "id")}>
                   <Link
                     href={get(menuItem, "attributes.link")}
-                    className="pl-0 lg:pl-2 active:bg-transparent text-lg">
+                    className="pl-0 active:bg-transparent text-lg font-mi-sans lg:font-mi-sans-semi-bold">
                     {get(menuItem, "attributes.label")}
                   </Link>
+                  <AuthComponent />
                 </li>
               ))}
               {map(get(data, "buttons"), (button, key) => (
@@ -59,7 +98,7 @@ const UserMenu = ({ variant = "", data }: IUserMenu) => {
                     isRtl={false}
                     link={get(button, "link")}
                     variant="btn-ghost"
-                    className="pl-0 lg:pl-2 active:bg-transparent text-primary">
+                    className="pl-0 gap-0 text-lg whitespace-nowrap active:bg-transparent text-primary">
                     <Image
                       src={get(button, "image") || ""}
                       width="0"
@@ -75,6 +114,31 @@ const UserMenu = ({ variant = "", data }: IUserMenu) => {
           </details>
         </li>
       </ul>
+    );
+  };
+
+  return (
+    <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+      {isMobile ? (
+        <MobileUserMenuComponent />
+      ) : (
+        <DropDown
+          label="auth user"
+          className="dropdown-end"
+          imageSrc={get(data, "image")}
+          isScrolledHeaderActive={isScrolledHeaderActive}>
+          {map(get(data, "links.data"), (menuItem, key) => (
+            <li key={key} className="text-lg capitalize">
+              <a
+                className="px-2 text-xl text-gray-500 font-mi-sans lg:font-mi-sans-semi-bold"
+                href={get(menuItem, "attributes.link")}>
+                {get(menuItem, "attributes.label")}
+              </a>
+              <AuthComponent />
+            </li>
+          ))}
+        </DropDown>
+      )}
     </OutsideClickHandler>
   );
 };

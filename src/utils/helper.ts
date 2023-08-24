@@ -89,6 +89,10 @@ export const setSessionStorage = (key: string, value: any): void => {
   if (typeof window !== "undefined") sessionStorage.setItem(key, value);
 };
 
+export const removeSessionStorage = (key: string): void => {
+  if (typeof window !== "undefined") sessionStorage.removeItem(key);
+};
+
 export const removeLocalStorage = (key: string): void => {
   if (typeof window !== "undefined") localStorage.removeItem(key);
 };
@@ -101,3 +105,5 @@ export const checkSameItem = (
 ): boolean => {
   return firstArr.some((l) => secondArr.includes(l));
 };
+
+export const checkAuth = () => !!getSessionStorage("token");

@@ -6,6 +6,7 @@ export interface IUserMenu {
   id?: number;
   variant?: "dark" | "gray" | "ghost" | "light" | "";
   data: Data;
+  isScrolledHeaderActive?: boolean;
 }
 
 export interface Data {

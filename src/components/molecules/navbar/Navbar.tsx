@@ -12,6 +12,7 @@ import SelectLanguage from "@/components/atoms/selectLanguage/SelectLanguage";
 
 const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
   const dispatch = useAppDispatch();
+
   const handleLogoSource = () => {
     return isScrolledHeaderActive
       ? "/images/missafir_logo_black.svg"
@@ -63,6 +64,7 @@ const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
           ))}
           <div className="hidden lg:block">
             <SelectLanguage
+              className="w-20"
               showIndicator={false}
               variant={handleVariant()}
               languages={get(data, "header.languageMenu.languages")}
@@ -72,6 +74,7 @@ const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
             <UserMenu
               variant={handleVariant()}
               data={get(data, "userMenuData")}
+              isScrolledHeaderActive={isScrolledHeaderActive}
             />
           </div>
         </div>
