@@ -1,4 +1,5 @@
 "use client";
+import { ReactNode } from "react";
 import { get } from "lodash";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -6,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 import { signUp } from "@/service/api";
+import { useAppSelector } from "@/redux/hooks";
 import { setLocalStorage } from "@/utils/helper";
 
 import Input from "@/components/atoms/input/Input";
@@ -17,10 +19,14 @@ import SingleDatePicker from "@/components/atoms/singleDatePicker/SingleDatePick
 import AppleIcon from "../../../../public/images/apple.svg";
 import GoogleIcon from "../../../../public/images/google.svg";
 import FacebookIcon from "../../../../public/images/variants/facebook.svg";
+import ChevronRightIcon from "../../../../public/images/variants/chevron_right.svg";
 
 const Signup = () => {
   const router = useRouter();
   const t = useTranslations();
+  const { isPressReservButton } = useAppSelector(
+    (step) => step.reservationReducer
+  );
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -99,12 +105,30 @@ const Signup = () => {
     );
   };
 
-  return (
-    <div className="flex flex-col font-mi-sans mt-20 lg:mt-40 px-4 lg:px-80">
-      <form
-        className="flex flex-col lg:gap-y-8"
-        noValidate
-        onSubmit={handleSubmit}>
+  const BannerComponent = (): ReactNode => {
+    return (
+      <>
+        <div className="flex items-center px-10 lg:px-20 justify-center w-full rounded-xl lg:rounded-3xl h-20 lg:h-40 bg-gradient-to-r from-primary to-pink">
+          <p className="text-white text-center text-md lg:text-2xl">
+            Become a member and take advantage of 10% discount on your first
+            reservation!
+          </p>
+        </div>
+        <Button
+          link="/"
+          variant="btn-ghost"
+          className="text-primary text-xl font-mi-sans"
+          outline={true}>
+          Continue without login
+          <ChevronRightIcon />
+        </Button>
+      </>
+    );
+  };
+
+  const DefaultSignUpComponent = (): ReactNode => {
+    return (
+      <>
         <h1 className="text-3xl font-semibold text-gray-900">{t("sign_up")}</h1>
         <div className="flex flex-col gap-y-2 lg:gap-y-4">
           <div className="flex flex-col gap-y-2 lg:gap-y-0 lg:gap-x-7 lg:flex-row">
@@ -266,6 +290,119 @@ const Signup = () => {
             </Button>
           </div>
         </div>
+      </>
+    );
+  };
+
+  const SignUp = () => {
+    return (
+      <>
+        <BannerComponent />
+        <div className="flex flex-col gap-y-2 lg:gap-y-4">
+          <Input
+            type="text"
+            name="fullname"
+            label="Full name"
+            placeholder="Full name"
+            containerclass="text-lg -mt-1"
+            value={get(values, "fullname")}
+            onChange={handleChange}
+          />
+          {get(errors, "fullname") && get(touched, "fullname") && (
+            <div className="text-primary text-sm lg:text-base">
+              {get(errors, "fullname")}
+            </div>
+          )}
+          <Input
+            type="email"
+            name="email"
+            label="Email"
+            placeholder="Email"
+            containerclass="text-lg"
+            onChange={handleChange}
+            value={get(values, "email")}
+          />
+          {get(errors, "email") && get(touched, "email") && (
+            <div className="text-primary text-sm lg:text-base">
+              {get(errors, "email")}
+            </div>
+          )}
+          <PhoneInput
+            country="tr"
+            name="phone"
+            label="Phone"
+            buttonClass="border border-r-0 bg-white"
+            inputClass="font-mi-sans h-12 w-full"
+            containerclass="flex bg-white"
+            dropdownClass="rounded-lg shadow-md"
+            placeholder="+90 (___) ___ __ __"
+            alwaysDefaultMask={true}
+            defaultMask={"(...) ... .. .."}
+            className="flex text-lg rounded-xl"
+            value={get(values, "phone")}
+            onChange={(value) => setFieldValue("phone", value)}
+          />
+          {get(errors, "phone") && get(touched, "phone") && (
+            <div className="text-primary text-sm lg:text-base">
+              {get(errors, "phone")}
+            </div>
+          )}
+          <Input
+            type="password"
+            name="password"
+            label="Password"
+            placeholder="Password"
+            containerclass="text-lg"
+            onChange={handleChange}
+            value={get(values, "password")}
+          />
+          {get(errors, "password") && get(touched, "password") && (
+            <div className="text-primary text-sm lg:text-base">
+              {get(errors, "password")}
+            </div>
+          )}
+          <Input
+            type="password"
+            name="confirmPassword"
+            label="Confirm Password"
+            placeholder="Confirm Password"
+            containerclass="text-lg"
+            onChange={handleChange}
+            value={get(values, "confirmPassword")}
+          />
+          {get(errors, "confirmPassword") &&
+            get(touched, "confirmPassword") && (
+              <div className="text-primary text-sm lg:text-base">
+                {get(errors, "confirmPassword")}
+              </div>
+            )}
+        </div>
+        <div className="flex flex-col">
+          <Button type="submit" className="text-xl">
+            {t("sign_up")}
+          </Button>
+          <div className="flex justify-center items-center gap-x-1 text-base">
+            <p className="text-gray-400">Do you have account?</p>
+            <Button
+              link="/login"
+              variant="btn-ghost"
+              className="text-primary font-mi-sans px-0"
+              outline={true}>
+              {t("login_now")}
+            </Button>
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  return (
+    <div className="flex flex-col font-mi-sans mt-20 lg:mt-40 px-4 lg:px-80">
+      <form
+        className="flex flex-col lg:gap-y-8"
+        noValidate
+        onSubmit={handleSubmit}>
+        {isPressReservButton ? <SignUp /> : <DefaultSignUpComponent />}
       </form>
       {/*todo: daha sonra aktif edilecek*/}
       {/*<div className="divider text-gray-600">or</div>*/}

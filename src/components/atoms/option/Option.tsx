@@ -1,12 +1,25 @@
 import classNames from "classnames";
 import { get, isEmpty } from "lodash";
+import { useRouter } from "next/navigation";
 import { components, OptionProps } from "react-select";
 
 import OptionImage from "@/components/atoms/optionImage/OptionImage";
 
 const Option = ({ ...props }: OptionProps) => {
+  const router = useRouter();
+
+  const handleInnerProps = () => {
+    if (get(props, "selectProps.type") !== "language") return;
+    return {
+      onClick: () => router.push(`/${get(props, "data.attributes.value")}`)
+    };
+  };
+
   const optionClass = classNames(
-    `${get(props, "selectProps.optionClassName")}`,
+    `${get(
+      props,
+      "selectProps.optionClassName"
+    )} flex items-center gap-x-3 lg:gap-x-2 px-2 lg:px-3`,
     {
       [`${get(props, "selectProps.optionSelectedClassName")}`]: get(
         props,
@@ -26,15 +39,19 @@ const Option = ({ ...props }: OptionProps) => {
         get(props, "data.attributes.type") === "filter"
     }
   );
+
   return (
-    <components.Option className={optionClass} {...props}>
+    <components.Option
+      className={optionClass}
+      {...props}
+      innerProps={handleInnerProps()}>
       {!isEmpty(get(props, "data.attributes.image")) && (
         <OptionImage
-          image={get(props, "data.attributes.image")}
+          src={get(props, "data.attributes.image")}
           className={get(props, "selectProps.optionImageWrapperClassName")}
           imageClassName={get(props, "selectProps.optionImageClassName")}
-          imageWidth={get(props, "selectProps.optionImageWidth") || 0}
-          imageHeight={get(props, "selectProps.optionImageHeight") || 0}
+          width={get(props, "selectProps.width") || 40}
+          height={get(props, "selectProps.height") || 40}
         />
       )}
       {!isEmpty(get(props, "data.attributes.icon")) && (

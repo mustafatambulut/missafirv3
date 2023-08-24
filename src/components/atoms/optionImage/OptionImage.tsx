@@ -11,13 +11,15 @@ const OptionImage = ({
 }: IOptionImage) => {
   return (
     <div className={`${className}`}>
-      <Image
-        src={src}
-        className={imageClassName}
-        alt="image"
-        width={width}
-        height={height}
-      />
+      {src && (
+        <Image
+          src={src}
+          className={imageClassName}
+          alt="image"
+          width={width}
+          height={height}
+        />
+      )}
     </div>
   );
 };

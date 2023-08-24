@@ -6,6 +6,7 @@ import { get } from "lodash";
 import { IMaskInput } from "react-imask";
 
 import { useAppDispatch } from "@/redux/hooks";
+import useCheckAuth from "@/app/[lang]/reservation/useCheckAuth";
 import { IPayment } from "@/components/organisms/paymentSection/types";
 import { updateCardInfo } from "@/redux/features/paymentSlice/paymentSlice";
 
@@ -14,6 +15,7 @@ import Input from "@/components/atoms/input/Input";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 
 const PaymentSection = ({ className = "" }: IPayment) => {
+  useCheckAuth();
   const dispatch = useAppDispatch();
   const [cardInfo, setCardInfo] = useState({
     number: "",

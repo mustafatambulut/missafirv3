@@ -1,9 +1,8 @@
 "use client";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import { useAppSelector } from "@/redux/hooks";
-import { SUCCESS } from "@/redux/features/reservationSlice/enum";
+import useCheckAuth from "@/app/[lang]/reservation/useCheckAuth";
+import { ISuccessSection } from "@/components/organisms/successSection/types";
 
 import Button from "@/components/atoms/button/Button";
 
@@ -11,18 +10,14 @@ import HeartImage from "../../../../public/images/heart.svg";
 import CareIcon from "../../../../public/images/variants/care.svg";
 import BackgroundImage from "../../../../public/images/missafir_background.svg";
 
-const ReservationSuccess = () => {
+const SuccessSection = ({ className = "" }: ISuccessSection) => {
+  useCheckAuth();
   const router = useRouter();
-  const { currentStep } = useAppSelector((state) => state.reservationReducer);
-
-  useEffect(() => {
-    if (currentStep !== SUCCESS) return router.push("/reservation");
-  }, [currentStep]);
 
   return (
-    <div className="static">
+    <div className={`static ${className}`}>
       <div className="static">
-        <div className="flex justify-center p-5 lg:p-10 mt-24 h-full">
+        <div className="flex justify-center p-5 lg:p-10 mt-20 h-full">
           <div className="flex flex-col gap-y-9 py-14 rounded-xl shadow-bold-blur-20-dark z-20 bg-white">
             <div className="flex justify-center">
               <div className="flex w-16 h-16 lg:w-20 lg:h-20 bg-primary-100 items-center justify-center rounded-full">
@@ -40,21 +35,21 @@ const ReservationSuccess = () => {
             </div>
             <div className="flex justify-center">
               {/*todo: reservasyon detay sayfasına yönlendirilecek*/}
-              <Button onClick={() => alert("reservation-detail")}>
+              <Button onClick={() => router.push("/profile/reservations")}>
                 Reservation Detail
               </Button>
             </div>
           </div>
         </div>
       </div>
-      <div className="absolute top-20 right-32 z-0 hidden lg:block">
+      <div className="absolute top-10 right-36 z-0 hidden lg:block">
         <HeartImage />
       </div>
-      <div className="absolute bottom-20 left-0 z-0 hidden lg:block">
+      <div className="absolute -bottom-28 left-0 z-0 hidden lg:block">
         <BackgroundImage />
       </div>
     </div>
   );
 };
 
-export default ReservationSuccess;
+export default SuccessSection;
