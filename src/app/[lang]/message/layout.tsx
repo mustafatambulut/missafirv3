@@ -68,12 +68,7 @@ const MessageLayout = ({ children }: IMessageLayout) => {
       isClickInbox && <MobileHeaderComponent />
     ) : (
       <header className="flex bg-white p-4 rounded-xl justify-between">
-        <div>
-          <h1 className="text-2xl">{get(selectedChat, "data.[0].subject")}</h1>
-          <h3 className="text-base text-gray-400">
-            {get(mockData, "inbox.subTitle")}
-          </h3>
-        </div>
+        <h1 className="text-2xl">{get(selectedChat, "data.[0].subject")}</h1>
       </header>
     );
   };
@@ -94,14 +89,14 @@ const MessageLayout = ({ children }: IMessageLayout) => {
     <main className={mainClass}>
       {(!isMobile || (!isClickInbox && isMobile)) && (
         <aside className="lg:bg-white w-full lg:w-1/4 p-4 rounded-xl">
-          {map(chats, ({ date, data }, key) => (
+          {map(chats, ({ date, data, isRead }, key) => (
             <InboxCard
               key={key}
               date={date}
-              onClick={() => handleClickInbox(key)}
-              isNotify={true}
+              isRead={isRead}
               showStatus={false}
               className={inboxClass(key)}
+              onClick={() => handleClickInbox(key)}
               subject={get(first(data), "subject")}
               message={get(first(data), "start.message")}
             />

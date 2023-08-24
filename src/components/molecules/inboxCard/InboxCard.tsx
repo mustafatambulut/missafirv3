@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import classNames from "classnames";
+import { isMobile } from "react-device-detect";
 
 import {
   NOT_CHECK_IN,
@@ -19,8 +20,8 @@ const InboxCard = ({
   statusDate = "",
   className = "",
   imageClass = "",
+  isRead = false,
   imageSrc = false,
-  isNotify = false,
   showStatus = true,
   onClick,
   status = NOT_CHECK_IN
@@ -28,12 +29,13 @@ const InboxCard = ({
   const contentClass = classNames("block mr-auto", {
     "w-40": imageSrc,
     "w-48": !imageSrc,
-    "w-full": !showStatus,
     "2xl:w-56": showStatus,
     "2xl:w-80": showStatus && !imageSrc
   });
 
   const StatusComponent = (): ReactNode => {
+    if (!showStatus) return;
+
     switch (status) {
       case NOT_CHECK_IN:
         return <NotCheckInIcon />;
@@ -49,7 +51,7 @@ const InboxCard = ({
       imageSrc && (
         <div className="w-20 2xl:w-fit">
           <div className="indicator w-fit">
-            {isNotify && (
+            {isRead && (
               <span className="indicator-item bg-primary w-3 h-3 rounded-full"></span>
             )}
             <div className="grid place-items-center">
@@ -65,6 +67,11 @@ const InboxCard = ({
     );
   };
 
+  const MobileIsReadComponent = (): ReactNode => {
+    if (!isRead || !isMobile) return;
+    return <div className="bg-primary w-3 h-3 rounded-full"></div>;
+  };
+
   return (
     <div
       onClick={onClick}
@@ -77,17 +84,11 @@ const InboxCard = ({
         </div>
         <div className="text-sm truncate">{message}</div>
       </div>
-      {showStatus && (
-        <div className="flex flex-col items-center justify-center">
-          <div>
-            {isNotify && (
-              <span className="indicator-item bg-primary w-3 h-3 rounded-full"></span>
-            )}
-            <StatusComponent />
-          </div>
-          <div className="text-xxs">{statusDate}</div>
-        </div>
-      )}
+      <div className="flex flex-col items-center justify-center">
+        <MobileIsReadComponent />
+        <StatusComponent />
+        <div className="text-xxs">{statusDate}</div>
+      </div>
     </div>
   );
 };

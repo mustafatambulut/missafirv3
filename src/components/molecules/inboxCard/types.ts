@@ -6,12 +6,11 @@ import {
 
 export interface IInboxCard {
   date?: string;
-
   onClick?: void;
   subject?: string;
   message?: string;
   imageSrc?: boolean;
-  isNotify?: boolean;
+  isRead?: boolean;
   showStatus?: boolean;
   status?: NOT_CHECK_IN | DONE_CHECK_IN | DONE_CHECK_OUT;
   statusDate?: string;

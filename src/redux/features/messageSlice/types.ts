@@ -11,6 +11,7 @@ export interface IMessageState {
 export interface Chats {
   id: number;
   date: string;
+  isRead?: boolean;
   data: Array<Data>;
 }
 
@@ -28,7 +29,6 @@ export interface Messages {
 }
 
 export interface MockData {
-  inbox?: Inbox;
   title?: string;
   location?: string;
   status?: string;
@@ -47,8 +47,4 @@ export interface Availability {
 export interface Badge {
   color?: string;
   label?: string;
-}
-
-export interface Inbox {
-  subTitle?: string;
 }

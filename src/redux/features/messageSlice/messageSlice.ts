@@ -7,6 +7,7 @@ const initialState = {
     {
       id: 0,
       date: "21.08.2023",
+      isRead: false,
       data: [
         {
           subject: "What is Lorem Ipsum?",
@@ -46,6 +47,7 @@ const initialState = {
     {
       id: 1,
       date: "22.08.2023",
+      isRead: true,
       data: [
         {
           start: {
@@ -83,6 +85,7 @@ const initialState = {
     {
       id: 2,
       date: "23.08.2023",
+      isRead: false,
       data: [
         {
           start: {
@@ -126,9 +129,6 @@ const initialState = {
   },
   isClickInbox: false,
   mockData: {
-    inbox: {
-      subTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    },
     title: "Outstanding Flat with Calming View at Nisantasi",
     location: "İstanbul, Beyoğlu",
     status: "Completed",
