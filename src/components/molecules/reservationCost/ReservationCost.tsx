@@ -4,7 +4,6 @@ import { get } from "lodash";
 import { useTranslations } from "next-intl";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { formatPrice, getPriceFormatByLocale } from "@/utils/helper";
 import { IReservationCost } from "@/components/molecules/reservationCost/types";
 import { changeIsShowCouponCode } from "@/redux/features/reservationSlice/reservationSlice";
 
@@ -77,16 +76,14 @@ const ReservationCost = ({
           </span>
         </div>
         <span className="text-base font-mi-sans text-gray-300 line-through">
-          {formatPrice(amountWithoutDiscount, getPriceFormatByLocale())}
+          {`${amountWithoutDiscount} ₺`}
         </span>
       </div>
       <div className="flex justify-between items-center font-mi-sans">
         <span>
           <ApplyCouponCodeComponent />
         </span>
-        <span className="text-primary text-28">
-          {formatPrice(total, getPriceFormatByLocale())}
-        </span>
+        <span className="text-primary text-28">{`${total} ₺`}</span>
       </div>
     </div>
   );

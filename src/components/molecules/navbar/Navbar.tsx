@@ -1,6 +1,6 @@
-import Link from "next/link";
 import Image from "next/image";
 import { get, map } from "lodash";
+import { useRouter } from "next/navigation";
 
 import { useAppDispatch } from "@/redux/hooks";
 import UserMenu from "@/components/atoms/userMenu/UserMenu";
@@ -11,6 +11,7 @@ import Button from "@/components/atoms/button/Button";
 import SelectLanguage from "@/components/atoms/selectLanguage/SelectLanguage";
 
 const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const handleLogoSource = () => {
@@ -29,20 +30,24 @@ const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
     }`;
   };
 
+  const handleLogoOnClick = () => {
+    router.push(`${get(data, "header.logo.link")}` || "/");
+    router.refresh();
+  };
+
   return (
     <div className="drawer-content flex flex-col">
       <div className="w-full navbar lg:py-8 lg:px-10">
         <div className="flex-1">
-          <Link href={get(data, "header.logo.link") || "/"}>
-            <Image
-              priority
-              width="0"
-              height="0"
-              alt="missafir-logo"
-              src={handleLogoSource()}
-              className="w-28 lg:w-44 h-auto"
-            />
-          </Link>
+          <Image
+            priority
+            width="0"
+            height="0"
+            alt="missafir-logo"
+            src={handleLogoSource()}
+            onClick={handleLogoOnClick}
+            className="w-28 lg:w-44 h-auto cursor-pointer"
+          />
         </div>
         <div className="flex gap-6">
           {map(get(data, "header.buttons"), (button, key) => (
