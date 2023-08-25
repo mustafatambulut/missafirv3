@@ -2,6 +2,9 @@ import BasePhoneInput from "react-phone-input-2";
 
 import { IPhoneInput } from "@/components/atoms/phoneInput/types";
 
+import "./PhoneInput.css";
+import "react-phone-input-2/lib/style.css";
+
 const PhoneInput = ({
   name,
   value,
@@ -30,10 +33,10 @@ const PhoneInput = ({
         onChange={onChange}
         isDisable={isDisable}
         placeholder={placeholder}
-        dropdownClass={dropdownClass}
+        dropdownClass={`z-50 ${dropdownClass}`}
         containerClass={containerClass}
         inputClass={`rounded-lg ${inputClass}`}
-        buttonClass={`rounded-l-lg ${buttonClass}`}
+        buttonClass={`rounded-l-lg border-gray-200 ${buttonClass}`}
         alwaysDefaultMask={true}
         defaultMask={"(...) ... .. .."}
       />
