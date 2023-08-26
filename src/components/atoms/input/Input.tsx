@@ -17,7 +17,8 @@ const Input = ({ ...props }: any) => {
   } = props;
 
   const labelContainerClass = classNames("label", {
-    "order-1": includes(split(position, "-"), "bottom")
+    "order-1": includes(split(position, "-"), "bottom"),
+    hidden: !label
   });
 
   const inputContainerClass = classNames("flex rounded-lg items-center", {

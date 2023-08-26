@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { Toaster } from "react-hot-toast";
 import { useTranslations } from "next-intl";
 
+import { useAppSelector } from "@/redux/hooks";
 import { IContactForm } from "@/components/organisms/contactForm/types";
 
 import Input from "@/components/atoms/input/Input";
@@ -13,6 +14,7 @@ import PhoneInput from "@/components/atoms/phoneInput/PhoneInput";
 
 const ContactForm = ({ className = "" }: IContactForm) => {
   const t = useTranslations();
+  const { formItems } = useAppSelector((state) => state.contactReducer);
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -51,25 +53,25 @@ const ContactForm = ({ className = "" }: IContactForm) => {
     values,
     errors,
     touched,
-    setFieldValue,
     handleChange,
     isSubmitting,
+    setFieldValue,
     handleSubmit
   } = formik;
 
   return (
     <form
-      className={`flex justify-center font-mi-sans lg:my-16 ${className}`}
+      className={`flex justify-center font-mi-sans lg:my-16 mt-10 ${className}`}
       noValidate
       onSubmit={handleSubmit}>
       <Toaster duration={4000} position="top-right" reverseOrder={false} />
-      <div className="flex flex-col w-1/2 gap-y-4">
+      <div className="flex flex-col lg:w-1/2 gap-y-4">
         <div className="w-full lg:h-24">
           <Input
             type="text"
-            name="fullname"
-            label="Full Name"
-            placeholder="Full Name"
+            name={get(formItems, "[0].name")}
+            label={get(formItems, "[0].label")}
+            placeholder={get(formItems, "[0].placeholder")}
             containerclass="text-lg -mt-1"
             value={get(values, "fullname")}
             onChange={handleChange}
@@ -83,9 +85,9 @@ const ContactForm = ({ className = "" }: IContactForm) => {
         <div className="w-full lg:h-24">
           <Input
             type="email"
-            name="email"
-            label="Email"
-            placeholder="Email"
+            name={get(formItems, "[1].name")}
+            label={get(formItems, "[1].label")}
+            placeholder={get(formItems, "[1].placeholder")}
             containerclass="text-lg"
             onChange={handleChange}
             value={get(values, "email")}
@@ -98,13 +100,13 @@ const ContactForm = ({ className = "" }: IContactForm) => {
         </div>
         <PhoneInput
           country="tr"
-          name="phone"
-          label="Phone"
+          name={get(formItems, "[2].name")}
+          label={get(formItems, "[2].label")}
           buttonClass="border border-r-0"
           inputClass="font-mi-sans h-12 w-full"
           containerclass="flex bg-white"
           dropdownClass="rounded-lg shadow-md"
-          placeholder="+90 (___) ___ __ __"
+          placeholder={get(formItems, "[2].placeholder")}
           alwaysDefaultMask={true}
           defaultMask={"(...) ... .. .."}
           className="flex text-lg rounded-xl"
@@ -119,9 +121,9 @@ const ContactForm = ({ className = "" }: IContactForm) => {
         <div className="w-full lg:h-24">
           <Input
             type="text"
-            name="subject"
-            label="What is the subject you want to communicate?"
-            placeholder="Subject"
+            name={get(formItems, "[3].name")}
+            label={get(formItems, "[3].label")}
+            placeholder={get(formItems, "[3].placeholder")}
             containerclass="text-lg"
             onChange={handleChange}
             value={get(values, "subject")}
@@ -132,20 +134,19 @@ const ContactForm = ({ className = "" }: IContactForm) => {
             </div>
           )}
         </div>
-        <div className="w-full lg:h-24 mb-20">
-          <label className="label" htmlFor="details">
-            Can you give detailed information about the subject you want to
-            contact?
+        <div className="w-full lg:h-24 lg:mb-20">
+          <label className="label text-lg" htmlFor="details">
+            {get(formItems, "[4].label")}
           </label>
           <textarea
             rows={5}
             id="details"
-            name="details"
+            name={get(formItems, "[4].name")}
             className="border focus:outline-0 rounded-lg p-2 w-full"
             maxLength={255}
             onChange={handleChange}
             value={get(values, "details")}
-            placeholder="Details"></textarea>
+            placeholder={get(formItems, "[4].placeholder")}></textarea>
           {get(errors, "details") && get(touched, "details") && (
             <div className="text-primary text-sm lg:text-base">
               {get(errors, "details")}
@@ -154,7 +155,7 @@ const ContactForm = ({ className = "" }: IContactForm) => {
         </div>
         <div className="flex justify-end">
           <Button type="submit" disabled={isSubmitting} className="text-xl">
-            Send
+            {get(formItems, "[5].label")}
             {isSubmitting && <span className="loading loading-spinner"></span>}
           </Button>
         </div>
