@@ -6,7 +6,6 @@ import { useAppSelector } from "@/redux/hooks";
 import { IContactBody } from "@/components/organisms/contactBody/types";
 
 import ContactInfo from "@/components/atoms/contactInfo/ContactInfo";
-import ContactFooter from "@/components/organisms/contactFooter/ContactFooter";
 
 import UnderLine from "../../../../public/images/underline.svg";
 
@@ -42,9 +41,8 @@ const ContactBody = ({ className = "" }: IContactBody) => {
   );
 
   return (
-    <div
-      className={`flex flex-col gap-y-14 mx-auto mt-10 lg:mt-40 ${className}`}>
-      <header className="text-center text-3xl">
+    <>
+      <header className={`text-center text-3xl ${className}`}>
         <MobileTitleComponent />
         <TitleComponent />
       </header>
@@ -53,8 +51,7 @@ const ContactBody = ({ className = "" }: IContactBody) => {
           <ContactInfo info={info} key={key} />
         ))}
       </main>
-      <ContactFooter />
-    </div>
+    </>
   );
 };
 

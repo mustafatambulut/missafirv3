@@ -9,6 +9,7 @@ export interface IContactState {
     title?: Header;
     description?: Header;
   };
+  isSend: boolean;
 }
 
 export interface Header {

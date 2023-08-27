@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IContactState } from "@/redux/features/contactSlice/types";
 
 const initialState = {
@@ -102,13 +102,20 @@ const initialState = {
     title: "Sign up for our newsletter",
     description:
       "Be the first to know about releases and industry news and insights."
-  }
+  },
+  isSend: false
 } as IContactState;
 
 const contactSlice = createSlice({
   name: "contact",
   initialState,
-  reducers: {}
+  reducers: {
+    changeIsSend: (state: IContactState, action: PayloadAction<boolean>) => {
+      state.isSend = action.payload;
+    }
+  }
 });
+
+export const { changeIsSend } = contactSlice.actions;
 
 export default contactSlice.reducer;

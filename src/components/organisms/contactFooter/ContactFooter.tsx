@@ -37,7 +37,7 @@ const ContactFooter = ({ className = "" }: IContactFooter) => {
     formik;
 
   return (
-    <footer className={`lg:mx-10 ${className}`}>
+    <footer className={`lg:mx-10 mt-14 lg:mt-10 ${className}`}>
       <Banner
         type="primary"
         title={get(banner, "title")}
