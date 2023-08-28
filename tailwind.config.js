@@ -258,7 +258,7 @@ const config = {
         mytheme: {
           primary: "#D01E50",
           "base-100": "#ffffff",
-          color:"#464E53"
+          color: "#464E53"
         }
       }
     ]

@@ -9,8 +9,8 @@ const Input = ({ ...props }: any) => {
   const {
     label,
     isDisable,
-    leftIcon,
-    rightIcon,
+    lefticon,
+    righticon,
     position,
     className,
     containerclass
@@ -21,11 +21,14 @@ const Input = ({ ...props }: any) => {
     hidden: !label
   });
 
-  const inputContainerClass = classNames("flex rounded-lg items-center", {
-    "bg-gray-100": isDisable,
-    "border border-gray-200": !isDisable,
-    "px-2": !!leftIcon
-  });
+  const inputContainerClass = classNames(
+    `flex rounded-lg bg-white items-center`,
+    {
+      "bg-gray-100": isDisable,
+      "border border-gray-200": !isDisable,
+      "px-2": !!lefticon
+    }
+  );
 
   useEffect(() => {
     if (!get(leftRef, "current") && !get(rightRef, "current")) return;
@@ -42,12 +45,12 @@ const Input = ({ ...props }: any) => {
         <span ref={rightRef}>{label}</span>
       </label>
       <div className={inputContainerClass}>
-        {leftIcon}
+        {lefticon}
         <input
           {...props}
           className={`input focus:outline-0 w-full text-gray-800 ${className}`}
         />
-        {rightIcon}
+        {righticon}
       </div>
     </div>
   );

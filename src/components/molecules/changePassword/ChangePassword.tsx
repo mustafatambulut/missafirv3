@@ -42,6 +42,7 @@ const ChangePassword = () => {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
+      // todo: event eklenecek
       console.log(values);
       alert("Updated!");
     }
