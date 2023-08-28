@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_sections_infos",
+  "info": {
+    "displayName": "Info",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "infoContents": {
+      "displayName": "infoContents",
+      "type": "component",
+      "repeatable": true,
+      "component": "components.info-contents"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_components_contact_info_cards",
+  "info": {
+    "displayName": "ContactInfoCard"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "text"
+    },
+    "title": {
+      "type": "text"
+    },
+    "phone": {
+      "type": "integer"
+    },
+    "email": {
+      "type": "email"
+    },
+    "address": {
+      "type": "text"
+    }
+  }
+}

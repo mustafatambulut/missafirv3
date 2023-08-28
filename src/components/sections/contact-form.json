@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_sections_contact_forms",
+  "info": {
+    "displayName": "ContactForm"
+  },
+  "options": {},
+  "attributes": {
+    "input": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.input"
+    }
+  }
+}

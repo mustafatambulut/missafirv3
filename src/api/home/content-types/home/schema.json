@@ -40,7 +40,8 @@
         "sections.testemonial",
         "sections.partners",
         "sections.tech-experience",
-        "sections.timeline"
+        "sections.timeline",
+        "sections.info"
       ],
       "pluginOptions": {
         "i18n": {

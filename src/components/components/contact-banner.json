@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_components_contact_banners",
+  "info": {
+    "displayName": "ContactBanner",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "input": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.input"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.button"
+    }
+  }
+}

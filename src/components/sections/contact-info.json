@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_contact_infos",
+  "info": {
+    "displayName": "ContactInfo",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "infoCard": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.contact-info-card"
+    }
+  }
+}
