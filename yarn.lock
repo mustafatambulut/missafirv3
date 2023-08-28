@@ -9,7 +9,7 @@
   dependencies:
     ckeditor5 ">=35.4.0"
 
-"@_sh/strapi-plugin-ckeditor@^2.0.4":
+"@_sh/strapi-plugin-ckeditor@2.0.4":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@_sh/strapi-plugin-ckeditor/-/strapi-plugin-ckeditor-2.0.4.tgz#3a4c94106f60d7ed7bcc990c9b2cc4c518fb2537"
   integrity sha512-X84SMADjHvCS5E1TOluq1w0xUbaYsDPltmPvExgkV5w/ZZCqBCJT1QAmRjtI0gqxFX7nsCKJk1rTi7qcoOZ+vw==
@@ -1274,7 +1274,7 @@
     "@ckeditor/ckeditor5-ui" "^36.0.1"
     ckeditor5 "^36.0.1"
 
-"@ckeditor/ckeditor5-markdown-gfm@^38.1.1":
+"@ckeditor/ckeditor5-markdown-gfm@38.1.1":
   version "38.1.1"
   resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-markdown-gfm/-/ckeditor5-markdown-gfm-38.1.1.tgz#6f5c3c99cc9380eba92d2272b18b9d748076ca05"
   integrity sha512-1H5n74YnqeW8Mb9ZXjXTtn//biZlXIJkxdbpEJGruBQUlRWhBe2KWNxV30haPXU/4Lq8d2dSfIzBCyIqdKU0eg==
@@ -10892,7 +10892,7 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.3.3.tgz#a54f06eb245fdcfef53d56f3c0251f1d5c3d01fe"
   integrity sha512-Rz6yejtVyWnVjC1RFvNmYL10kgjC49EOghxWn0RFqlCHGFpQx+Xe7yW3I4ceK1SGrWIGMjD5Kbue8W/udkbMJg==
 
-strapi-plugin-menus@^1.4.3:
+strapi-plugin-menus@1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/strapi-plugin-menus/-/strapi-plugin-menus-1.4.3.tgz#070ad153d092b92dd15745c22883309ae3f9d962"
   integrity sha512-w1eC7Q+ssoGvcnOvOZoQdj/Z5cckYNGJItHXcua0CmBSQCBPnIGobKMpuKNktcK3KboxUQrrLVGJ3A7TA1Omog==
@@ -10912,7 +10912,7 @@ strapi-plugin-menus@^1.4.3:
     react-select "^5.2.2"
     styled-components "5.3.3"
 
-strapi-plugin-netlify-deployments@^2.0.0:
+strapi-plugin-netlify-deployments@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/strapi-plugin-netlify-deployments/-/strapi-plugin-netlify-deployments-2.0.0.tgz#22aa0bac605382ffba02425838ab6bb439cb8af1"
   integrity sha512-U3A66lsbze9mZSK1XlxFgKTc8yqKmAx1KHivmhx1stOmwfnucvWtuAIiDcA5GSxR9i23+IYzy5lAsu1gYZodYg==
@@ -10921,12 +10921,12 @@ strapi-plugin-netlify-deployments@^2.0.0:
     axios "^0.26.1"
     react-intl "^5.25.1"
 
-strapi-plugin-populate-deep@^2.0.0:
+strapi-plugin-populate-deep@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/strapi-plugin-populate-deep/-/strapi-plugin-populate-deep-2.0.0.tgz#dd558eaef2fe47583a63536964b46a945e93f555"
   integrity sha512-IsdXZPjRiOnaczoQaXI6xfxnFqUhR70uW1VCRbY4a3hEmmocpCpIUGx7TiHdNPJOZuDiueTgEIQ4V5XEru9Lvw==
 
-strapi-plugin-website-preview@^1.0.5:
+strapi-plugin-website-preview@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/strapi-plugin-website-preview/-/strapi-plugin-website-preview-1.0.5.tgz#2b18ba5193422214dbecb657dd5f1f21c2b2b0f4"
   integrity sha512-CxArigfFz0SSbU4hX10sEjX1T/y0EHxlHkad+0V9rDgdoZQDU8/F7So+U64YeqE+z5/y7Hmfepxb8i2tdNcr3Q==

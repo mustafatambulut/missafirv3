@@ -13,16 +13,17 @@
     "@faker-js/faker": "^8.0.2"
   },
   "dependencies": {
-    "@_sh/strapi-plugin-ckeditor": "^2.0.4",
-    "@ckeditor/ckeditor5-markdown-gfm": "^38.1.1",
+    "@_sh/strapi-plugin-ckeditor": "2.0.4",
+    "@ckeditor/ckeditor5-markdown-gfm": "38.1.1",
     "@strapi/plugin-i18n": "4.10.5",
     "@strapi/plugin-users-permissions": "4.10.5",
     "@strapi/strapi": "v4.11.2",
     "mysql": "2.18.1",
-    "strapi-plugin-menus": "^1.4.3",
-    "strapi-plugin-netlify-deployments": "^2.0.0",
-    "strapi-plugin-populate-deep": "^2.0.0",
-    "strapi-plugin-website-preview": "^1.0.5"
+    "negotiator": "0.6.3",
+    "strapi-plugin-menus": "1.4.3",
+    "strapi-plugin-netlify-deployments": "2.0.0",
+    "strapi-plugin-populate-deep": "2.0.0",
+    "strapi-plugin-website-preview": "1.0.5"
   },
   "author": {
     "name": "missafir"
