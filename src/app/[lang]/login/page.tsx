@@ -206,7 +206,7 @@ const Login = () => {
               )}
             </Button>
             <div className="flex justify-center items-center gap-x-1 text-base">
-              <p className="text-gray-400">{t("dont_you_have_an_account")}</p>
+              <p className="text-gray-400">{t("dont_you_have_account")}</p>
               <Button
                 onClick={handleSignupBtn}
                 link="/signup"
