@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { compact, get, keys, map, size } from "lodash";
 import { components } from "react-select";
 import AsyncSelect from "react-select/async";
 import { isMobile } from "react-device-detect";
-import { useAppSelector } from "@/redux/hooks";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { compact, get, has, keys, map, size } from "lodash";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { updateBookingDestination } from "@/redux/features/listingSlice/listingSlice";
 
 import { BOOKING_DATE } from "@/components/molecules/searchBar/constants";
 import { IDestinationSelect } from "@/components/atoms/destinationSelect/types";
@@ -20,12 +21,15 @@ import HistoryIcon from "../../../../public/images/history.svg";
 import LocationIcon from "../../../../public/images/location.svg";
 
 const DestinationSelect = ({
-  setBookingDestination,
   componentId,
-  setActiveSearchItem
+  setActiveSearchItem,
+  isInCustomSection = false
 }: IDestinationSelect) => {
+  const dispatch = useAppDispatch();
+  const { filterData, bookingDestination } = useAppSelector(
+    (state) => state.listingReducer
+  );
   const { locations } = useAppSelector((state) => state.landingReducer);
-
   //todo : örnek location datası. popular Destinations için kullanılacak
 
   // const destinationOptions = [
@@ -136,56 +140,76 @@ const DestinationSelect = ({
   };
 
   const handleOnChange = (e: any) => {
-    setBookingDestination(e);
+    dispatch(updateBookingDestination(e));
     setActiveSearchItem(BOOKING_DATE);
   };
-
   return (
     <div className="relative">
       <AsyncSelect
-        key={`key-${componentId}`}
-        id={`id-${componentId}`}
-        inputId={`input-${componentId}`}
-        classNames={{
-          control: (state) => (state.isFocused ? "lg:bg-gray-50" : "bg-white")
-        }}
-        cacheOptions
-        defaultOptions
-        loadOptions={loadOptions}
-        instanceId="msfr-destination-select"
-        onChange={handleOnChange}
-        maxMenuHeight={isMobile ? 400 : 300}
         isClearable
         isSearchable
+        cacheOptions
+        defaultOptions
+        id={`id-${componentId}`}
+        loadOptions={loadOptions}
+        onChange={handleOnChange}
+        key={`key-${componentId}`}
+        inputId={`input-${componentId}`}
+        instanceId="msfr-destination-select"
+        maxMenuHeight={isMobile ? 400 : 300}
+        {...(isInCustomSection &&
+          has(filterData, "district_id") && {
+            value: bookingDestination
+          })}
         className={`w-full items-center flex ${
           isMobile && "border rounded-2xl"
         }`}
-        {...(isMobile && { menuIsOpen: true })}
+        classNames={{
+          control: (state) => (state.isFocused ? "lg:bg-gray-50" : "bg-white")
+        }}
+        {...(isMobile && !isInCustomSection && { menuIsOpen: true })}
         components={{
           DropdownIndicator: () => null,
           IndicatorSeparator: () => null,
           LoadingIndicator: () => null,
           Control: (props) => (
             <components.Control
-              className="w-full border-none shadow-none rounded-2xl h-14"
+              className={`w-full border-none shadow-none rounded-2xl ${
+                isInCustomSection ? "h-10" : "h-14"
+              }`}
               {...props}>
-              <div className="flex w-full text-left items-center px-4 py-0.5 h-full">
-                <div className="mr-3 hidden lg:block">
-                  <SearchIcon />
+              <div
+                className={`flex w-full text-left items-center ${
+                  isInCustomSection ? "px-2" : "px-4"
+                } py-0.5 h-full`}>
+                <div
+                  className={`${
+                    !isInCustomSection ? "lg:mr-3" : "lg-mr-1"
+                  } hidden lg:block`}>
+                  <SearchIcon className="fill-gray-800" />
                 </div>
                 <div className="flex-wrap flex w-full h-full">
-                  <div className="text-gray-600 w-full text-sm hidden lg:block">
-                    Where
-                  </div>
+                  {!isInCustomSection && (
+                    <div className="text-gray-600 w-full text-sm hidden lg:block">
+                      Where
+                    </div>
+                  )}
                   {get(props, "children")}
                 </div>
               </div>
             </components.Control>
           ),
           Placeholder: (props) => (
-            <components.Placeholder className="m-0" {...props}>
-              <div className="text-gray-600 text-base lg:text-lg font-mi-semi-bold">
-                {isMobile ? "Where do you want to go?" : "Search destinations"}
+            <components.Placeholder className="ml-3" {...props}>
+              <div
+                className={`text-gray-600 text-base ${
+                  isInCustomSection ? "lg:text-base" : "lg:text-lg"
+                } font-mi-semi-bold`}>
+                {isInCustomSection
+                  ? "Destination"
+                  : isMobile
+                  ? "Where do you want to go?"
+                  : "Search destinations"}
               </div>
             </components.Placeholder>
           ),
@@ -207,7 +231,9 @@ const DestinationSelect = ({
           ),
           Menu: (props) => (
             <components.Menu
-              className="rounded-xl mt-5 z-20 shadow-none lg:shadow-md"
+              className={`rounded-xl mt-5 z-20 shadow-none lg:shadow-md ${
+                isInCustomSection && "w-auto"
+              }`}
               {...props}>
               <div
                 className={`${get(props, "selectProps.menuInnerClassName")}`}>

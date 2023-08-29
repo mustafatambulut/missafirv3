@@ -1,47 +1,47 @@
-import { map, size } from "lodash";
+"use client";
+import { get, map, size } from "lodash";
+import { useAppSelector } from "@/redux/hooks";
 
-import { IListingList } from "@/components/molecules/listingList/types";
-
+import Loading from "@/components/atoms/loading/Loading";
 import ListingListItem from "@/components/molecules/listingListItem/ListingListItem";
 
-const ListingList = ({ data, filterData, filteredListings }: IListingList) => {
-  const listingCount = (): number => {
-    return size(filteredListings) > 0 ? size(filteredListings) : size(data);
-  };
+const ListingList = () => {
+  const { listings, loading, searchLocation } = useAppSelector(
+    (state) => state.listingReducer
+  );
   return (
-    <div className="flex flex-col gap-y-4">
-      <div>
-        <div className="font-base lg:text-28">
-          {/*todo: location alanı dianamikleştirilecek*/}
-          <span className="font-mi-sans-semi-bold">Beyoğlu</span> lokasyonundaki
-          evler
+    <Loading
+      isLoading={loading}
+      loader={<p className="h-screen">Loading feed...</p>}>
+      <div className="flex flex-col gap-y-4">
+        <div>
+          <div className="font-base lg:text-28">
+            {/*todo: location alanı dianamikleştirilecek*/}
+            {searchLocation && (
+              <h1>
+                <span className="font-mi-sans-semi-bold mr-1">
+                  {get(searchLocation, "district.name")}
+                </span>
+                <span>lokasyonundaki evler</span>
+              </h1>
+            )}
+          </div>
         </div>
-        <div className="text-sm lg:text-lg">{listingCount()} homes</div>
-      </div>
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-4">
-        {size(filteredListings) > 0 ? (
-          <>
-            {map(filteredListings, (listing, key) => (
-              <ListingListItem
-                listing={listing}
-                filterData={filterData}
-                key={key}
-              />
-            ))}
-          </>
+        {size(listings) === 0 ? (
+          <div className="text-sm lg:text-lg h-screen">No home found</div>
         ) : (
           <>
-            {map(data, (listing, key) => (
-              <ListingListItem
-                listing={listing}
-                filterData={filterData}
-                key={key}
-              />
-            ))}
+            <div className="text-sm lg:text-lg">{size(listings)} homes</div>
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-4">
+              {size(listings) &&
+                map(listings, (listing, key) => (
+                  <ListingListItem listing={listing} key={key} />
+                ))}
+            </div>
           </>
         )}
       </div>
-    </div>
+    </Loading>
   );
 };
 

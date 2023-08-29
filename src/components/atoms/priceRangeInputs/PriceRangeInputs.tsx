@@ -7,19 +7,20 @@ import {
 } from "@/components/atoms/priceRangeInputs/types";
 
 const PriceRangeInputs = ({
-  handleInput,
-  priceRangeData
+  minPrice,
+  maxPrice,
+  handleInput
 }: IPriceRangeInputs) => {
   const handleValueChange = (type: string, values: IChange) => {
     const value = get(values, "floatValue");
     if (type === "min") {
       handleInput({
         minValue: value,
-        maxValue: get(priceRangeData, "price.max")
+        maxValue: maxPrice
       });
     } else {
       handleInput({
-        minValue: get(priceRangeData, "price.min"),
+        minValue: minPrice,
         maxValue: value
       });
     }
@@ -29,11 +30,11 @@ const PriceRangeInputs = ({
     <div className="flex gap-3 mt-5 items-center">
       <div className="relative">
         <NumericFormat
-          className="input input-bordered w-full max-w-xs pt-5"
-          value={get(priceRangeData, "price.min")}
           suffix="₺"
-          thousandSeparator="."
+          value={minPrice}
           decimalSeparator=","
+          thousandSeparator="."
+          className="input input-bordered w-full max-w-xs pt-5"
           onValueChange={(values) => handleValueChange("min", values)}
           isAllowed={(values) => {
             const { floatValue } = values;
@@ -47,15 +48,15 @@ const PriceRangeInputs = ({
       <span>-</span>
       <div className="relative">
         <NumericFormat
-          className="input input-bordered w-full max-w-xs pt-5"
-          value={get(priceRangeData, "price.max")}
           suffix="₺"
-          thousandSeparator="."
+          value={maxPrice}
           decimalSeparator=","
+          thousandSeparator="."
+          className="input input-bordered w-full max-w-xs pt-5"
           onValueChange={(values) => handleValueChange("max", values)}
           isAllowed={(values) => {
             const { floatValue } = values;
-            return floatValue <= get(priceRangeData, "defaultPriceRange.max");
+            return floatValue <= maxPrice;
           }}
         />
         <span className="absolute left-4 text-gray-500 text-sm cursor-default">

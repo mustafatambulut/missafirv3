@@ -16,7 +16,8 @@ const nextConfig = {
       "avatars.githubusercontent.com",
       "cloudflare-ipfs.com",
       "missafir.com",
-      "ownerv2.missafir.com"
+      "ownerv2.missafir.com",
+      "missafirpms.s3.eu-central-1.amazonaws.com"
     ],
     remotePatterns: [
       {
@@ -52,6 +53,11 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "ownerv2.missafir.com",
+        port: ""
+      },
+      {
+        protocol: "https",
+        hostname: "missafirpms.s3.eu-central-1.amazonaws.com",
         port: ""
       }
     ]

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { get } from "lodash";
 import { isMobile } from "react-device-detect";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { updateBookingGuests } from "@/redux/features/listingSlice/listingSlice";
 
 import { IGuestPicker } from "@/components/atoms/guestPicker/types";
 
@@ -10,33 +12,57 @@ import GuestsIcon from "../../../../public/images/guests.svg";
 
 const GuestPicker = ({
   data,
+  className = "",
   bodyClass = "",
   labelClass = "",
-  className = "",
-  contentClass = "",
-  setBookingGuests
+  contentClass = ""
 }: IGuestPicker) => {
+  const dispatch = useAppDispatch();
+  const { bookingGuests } = useAppSelector((state) => state.listingReducer);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const changeAdults = (type: string) => {
     if (type === "plus") {
-      setBookingGuests((v) => ({ ...v, adults: v.adults + 1 }));
+      dispatch(
+        updateBookingGuests({
+          ...bookingGuests,
+          adults: bookingGuests.adults + 1
+        })
+      );
     } else {
       get(data, "adults") > 0 &&
-        setBookingGuests((v) => ({ ...v, adults: v.adults - 1 }));
+        dispatch(
+          updateBookingGuests({
+            ...bookingGuests,
+            adults: bookingGuests.adults - 1
+          })
+        );
     }
   };
 
   const changeKids = (type: string) => {
     if (type === "plus") {
-      setBookingGuests((v) => ({ ...v, kids: v.kids + 1 }));
+      dispatch(
+        updateBookingGuests({ ...bookingGuests, kids: bookingGuests.kids + 1 })
+      );
     } else {
       get(data, "kids") > 0 &&
-        setBookingGuests((v) => ({ ...v, kids: v.kids - 1 }));
+        dispatch(
+          updateBookingGuests({
+            ...bookingGuests,
+            kids: bookingGuests.kids - 1
+          })
+        );
     }
   };
 
-  const changePets = () => setBookingGuests((v) => ({ ...v, pets: !v.pets }));
+  const changePets = () =>
+    dispatch(
+      updateBookingGuests({
+        ...bookingGuests,
+        pets: Number(!bookingGuests.pets)
+      })
+    );
 
   useEffect(() => {
     isMobile && setIsDropdownOpen(true);
