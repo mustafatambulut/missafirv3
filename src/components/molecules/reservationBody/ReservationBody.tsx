@@ -13,14 +13,10 @@ import classNames from "classnames";
 import { useTranslations } from "next-intl";
 
 import {
-  percentage,
-  formatPrice,
-  getPriceFormatByLocale
-} from "@/utils/helper";
-import {
   IPaymentDetail,
   IReservationBody
 } from "@/components/molecules/reservationBody/types";
+import { percentage } from "@/utils/helper";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { changeTotal } from "@/redux/features/reservationSlice/reservationSlice";
 
@@ -53,18 +49,15 @@ const ReservationBody = ({ className = "" }: IReservationBody) => {
         cost: get(payment, "nightlyRate"),
         day: get(payment, "reservationDay")
       }),
-      total: formatPrice(nightlyTotal, getPriceFormatByLocale())
+      total: `${nightlyTotal} ₺`
     },
     {
       info: t("percent_discount", { percent: get(payment, "discountPercent") }),
-      total: `-${formatPrice(
-        percentage(nightlyTotal, get(payment, "discountPercent")),
-        getPriceFormatByLocale()
-      )}`
+      total: `-${percentage(nightlyTotal, get(payment, "discountPercent"))} ₺`
     },
     {
       info: capitalize(get(payment, "extras.label")),
-      total: formatPrice(get(payment, "extras.total"), getPriceFormatByLocale())
+      total: `${get(payment, "extras.total")} ₺`
     }
   ]);
 
@@ -82,7 +75,7 @@ const ReservationBody = ({ className = "" }: IReservationBody) => {
 
       updated.push({
         info: t("discount_coupon_code", { couponCode: upperCase(couponCode) }),
-        total: formatPrice(discountCouponCode, getPriceFormatByLocale())
+        total: `${discountCouponCode} ₺`
       });
       setPaymentDetail(updated);
     }
