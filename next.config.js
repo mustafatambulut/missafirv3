@@ -16,7 +16,8 @@ const nextConfig = {
       "avatars.githubusercontent.com",
       "cloudflare-ipfs.com",
       "missafir.com",
-      "ownerv2.missafir.com"
+      "ownerv2.missafir.com",
+      "missafirpms.s3.eu-central-1.amazonaws.com"
     ],
     remotePatterns: [
       {

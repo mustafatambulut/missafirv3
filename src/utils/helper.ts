@@ -107,3 +107,7 @@ export const checkSameItem = (
 };
 
 export const checkAuth = () => !!getSessionStorage("token");
+
+export const decodeParams = (param: string) => {
+  return decodeURIComponent(decodeURIComponent(param));
+};

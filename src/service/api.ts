@@ -58,3 +58,12 @@ export const profileEdit = async (payload) => {
     return err;
   }
 };
+
+export const listingDetail = async (slug) => {
+  try {
+    const { data } = await pmsApi.get(`/listing/${slug}`);
+    return get(data, "data");
+  } catch (err) {
+    return err;
+  }
+};

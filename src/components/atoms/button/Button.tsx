@@ -15,7 +15,7 @@ const Button = ({
   ...props
 }: IButton) => {
   const btnClass = classNames(
-    `btn items-center font-mi-sans-semi-bold normal-case text-base ${
+    `btn items-center font-mi-sans-semi-bold normal-case ${
       disabled || variant
     } ${className}`,
     {
