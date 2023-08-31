@@ -9,13 +9,11 @@ export interface IProps {
   isDrawerOpen: boolean;
   bookingGuests: IBookingGuest;
   activeSearchItem?: string;
-  bookingDestination?: string;
   skipButtonVisibility: boolean;
   setBookingDate: IBookingDate;
   setBookingGuests: IBookingGuest;
   handleOpenDrawer: void;
   handleFilterListings: void;
   setActiveSearchItem?: string;
-  setBookingDestination?: string;
   setSkipButtonVisibility: boolean;
 }

@@ -1,10 +1,7 @@
-import { Dispatch, SetStateAction } from "react";
 import { Moment } from "moment/moment";
 
 export interface IDatePicker {
-  bookingDate: IBookingDate;
-  setBookingDate: Dispatch<SetStateAction<IBookingDate>>;
-  setSkipButtonVisibility: Dispatch<SetStateAction<boolean>>;
+ isInCustomSection?: boolean;
 }
 
 export interface IBookingDate {

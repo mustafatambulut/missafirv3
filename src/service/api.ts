@@ -27,6 +27,23 @@ export const getLocations = async () => {
   }
 };
 
+export const getFilters = async () => {
+  try {
+    return await pmsApi.get("/search/filters");
+  } catch (err) {
+    return get(err, "response.data");
+  }
+};
+
+export const getListings = async (params) => {
+  try {
+    const config = params ? { params: params } : {};
+    return await pmsApi.get("/search/results", config);
+  } catch (err) {
+    return get(err, "response.data");
+  }
+};
+
 export const signUp = async ({ email, password, fullname, phone }) => {
   const payload = {
     email,

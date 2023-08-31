@@ -35,7 +35,12 @@ const Card = ({
   const favClass = classNames("stroke-white w-10 h-10 cursor-pointer", {
     "fill-primary": isFavored
   });
-  const handleFavButton = () => setIsFavored(!isFavored);
+
+  //todo: favoriye ekleme işlemi düzenlenecek (slider baştan alıyor)
+  const handleFavButton = (e) => {
+    e.preventDefault();
+    setIsFavored(!isFavored);
+  };
 
   useEffect(() => {
     if (typeof setIsFav === "function") setIsFav(isFavored);

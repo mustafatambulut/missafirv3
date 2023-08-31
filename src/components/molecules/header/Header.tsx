@@ -1,8 +1,6 @@
 "use client";
 import { ReactNode, useEffect, useState } from "react";
 import classNames from "classnames";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
 import { get, isNull, split } from "lodash";
 import { usePathname } from "next/navigation";
 import { isMobile } from "react-device-detect";
@@ -18,7 +16,7 @@ import {
   fetchDataByPage
 } from "@/redux/features/landingSlice/landingSlice";
 import { HOME } from "@/app/constants";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import useFetchData from "@/app/hooks/useFetchData";
 import usePageScroll from "@/app/hooks/usePageScroll";
 import { IFooterBrand } from "@/components/atoms/footerBrand/types";
@@ -39,7 +37,7 @@ const Header = ({ lang }: string) => {
   const [footerMenu, setFooterMenu] = useState<IFooter>(null);
   const [footerBrand, setFooterBrand] = useState<IFooterBrand>(null);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const { isScrolledHeaderActive } = usePageScroll();
   const entities = useFetchData([HEADER, FOOTER, FOOTER_BRAND]);
   const { isShowDrawer } = useAppSelector((state) => state.landingReducer);

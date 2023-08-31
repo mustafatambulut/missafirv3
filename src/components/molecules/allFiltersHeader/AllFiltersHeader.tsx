@@ -1,16 +1,8 @@
 import { IAllFiltersHeader } from "@/components/molecules/allFiltersHeader/types";
 
-import SelectedFilters from "@/components/molecules/selectedFilters/SelectedFilters";
-
 import CloseIcon from "../../../../public/images/close.svg";
 
-const AllFiltersHeader = ({
-  filterData,
-  allFiltersData,
-  setAllFiltersData,
-  modalButtonTrigger,
-  calculateMinMaxListingPrice
-}: IAllFiltersHeader) => {
+const AllFiltersHeader = ({ modalButtonTrigger }: IAllFiltersHeader) => {
   return (
     <div className="flex flex-col sticky top-0 bg-white pt-5 px-5 z-10 w-full gap-y-3">
       <div className="flex justify-between items-center">
@@ -24,12 +16,13 @@ const AllFiltersHeader = ({
           <CloseIcon className="fill-gray-500" />
         </div>
       </div>
-      <SelectedFilters
-        filterData={filterData}
-        allFiltersData={allFiltersData}
-        setAllFiltersData={setAllFiltersData}
-        calculateMinMaxListingPrice={calculateMinMaxListingPrice}
-      />
+      {/*todo: istenirse, seçili olan filtreler buraya gelecek*/}
+      {/*<SelectedFilters*/}
+      {/*  filterData={filterData}*/}
+      {/*  allFiltersData={allFiltersData}*/}
+      {/*  setAllFiltersData={setAllFiltersData}*/}
+      {/*  calculateMinMaxListingPrice={calculateMinMaxListingPrice}*/}
+      {/*/>*/}
     </div>
   );
 };

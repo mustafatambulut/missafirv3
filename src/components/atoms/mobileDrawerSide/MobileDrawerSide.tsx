@@ -25,16 +25,10 @@ const MobileDrawerSide = (props: IProps) => {
     applyButtonDisabledStatus,
     clearButtonVisibilityStatus
   } = useMobileSearchBar(props);
-
   const {
-    bookingDate,
-    bookingGuests,
     activeSearchItem,
     setActiveSearchItem,
     skipButtonVisibility,
-    setBookingDate,
-    setBookingGuests,
-    setBookingDestination,
     setSkipButtonVisibility
   } = props;
 
@@ -69,34 +63,25 @@ const MobileDrawerSide = (props: IProps) => {
             setActiveSearchItem={setActiveSearchItem}
             componentId="mobile-destination"
             setSkipButtonVisibility={setSkipButtonVisibility}
-            setBookingDestination={setBookingDestination}
           />
         </div>
         <div className={showComponentByActivate(BOOKING_DATE)}>
-          <DatePicker
-            bookingDate={bookingDate}
-            setBookingDate={setBookingDate}
-            setSkipButtonVisibility={setSkipButtonVisibility}
-          />
+          <DatePicker setSkipButtonVisibility={setSkipButtonVisibility} />
         </div>
         <div className={showComponentByActivate(BOOKING_GUESTS)}>
-          <Guests
-            data={bookingGuests}
-            setBookingGuests={setBookingGuests}
-            setSkipButtonVisibility={setSkipButtonVisibility}
-          />
+          <Guests setSkipButtonVisibility={setSkipButtonVisibility} />
         </div>
       </div>
       {hasSearchItemByActivate && (
         <section className="flex justify-end p-2 bg-white fixed lef-0 bottom-0 w-full">
-          {clearButtonVisibilityStatus() && (
+          {clearButtonVisibilityStatus() ? (
             <Button
               onClick={handleClearClick}
               variant="btn-link"
               className="text-primary bg-transparent shadow-none border-none">
               Clear
             </Button>
-          )}
+          ) : null}
           <Button
             onClick={handleApplyClick}
             disabled={applyButtonDisabledStatus()}
