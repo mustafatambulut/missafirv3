@@ -65,7 +65,10 @@ const MobileSearchBar = (props: IProps) => {
               className="drawer-toggle"
             />
             <div className="drawer-content"></div>
-            <MobileDrawerSide {...props} />
+            <MobileDrawerSide
+              {...props}
+              isInCustomSection={isInCustomSection}
+            />
           </div>,
           document.getElementById("drawer-container")
         )}

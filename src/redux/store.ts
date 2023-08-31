@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import profileReducer from "@/redux/features/profileSlice";
+import ownerReducer from "@/redux/features/ownerSlice/ownerSlice";
 import listingReducer from "./features/listingSlice/listingSlice";
 import paymentReducer from "@/redux/features/paymentSlice/paymentSlice";
 import landingReducer from "@/redux/features/landingSlice/landingSlice";
@@ -10,6 +11,7 @@ import reservationReducer from "@/redux/features/reservationSlice/reservationSli
 
 export const store = configureStore({
   reducer: {
+    ownerReducer,
     contactReducer,
     landingReducer,
     listingReducer,
@@ -18,12 +20,16 @@ export const store = configureStore({
     messageReducer,
     reservationReducer
   },
-  middleware:(getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: ["listing/updateBookingDate"],
-      ignoredPaths: ["listingReducer.bookingDate.startDate", "listingReducer.bookingDate.endDate"]
-    },
-  }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ["listing/updateBookingDate"],
+        ignoredPaths: [
+          "listingReducer.bookingDate.startDate",
+          "listingReducer.bookingDate.endDate"
+        ]
+      }
+    }),
   devTools: process.env.NODE_ENV !== "production"
 });
 
