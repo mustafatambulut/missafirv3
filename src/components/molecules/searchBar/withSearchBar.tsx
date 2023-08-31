@@ -66,7 +66,7 @@ const withSearchBar = (WrappedComponent) => {
       const isInCustomSection = get(props, "isInCustomSection", false);
       switch (activeSearchItem) {
         case BOOKING_DESTINATION:
-          if (bookingDestination === "") {
+          if (bookingDestination === null) {
             setSkipButtonVisibility(true);
           } else {
             setSkipButtonVisibility(false);
