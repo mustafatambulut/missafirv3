@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_components_accordion_tabs",
+  "info": {
+    "displayName": "AccordionTab"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "accordions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::accordion.accordion"
+    }
+  }
+}
