@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_sections_brands",
+  "info": {
+    "displayName": "Brands"
+  },
+  "options": {},
+  "attributes": {
+    "sliders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::slider.slider"
+    }
+  }
+}

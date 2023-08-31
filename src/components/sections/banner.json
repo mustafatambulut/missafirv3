@@ -6,17 +6,17 @@
   },
   "options": {},
   "attributes": {
-    "header": {
+    "bannerHeader": {
       "type": "component",
       "repeatable": false,
       "component": "components.content"
     },
-    "body": {
+    "bannerBody": {
       "type": "component",
       "repeatable": false,
       "component": "components.content"
     },
-    "footer": {
+    "bannerFooter": {
       "type": "component",
       "repeatable": false,
       "component": "components.button"

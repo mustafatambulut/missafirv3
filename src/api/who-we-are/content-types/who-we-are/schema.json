@@ -1,10 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "faqs",
+  "collectionName": "who_we_ares",
   "info": {
-    "singularName": "faq",
-    "pluralName": "faqs",
-    "displayName": "faq",
+    "singularName": "who-we-are",
+    "pluralName": "who-we-ares",
+    "displayName": "whoWeAre",
     "description": ""
   },
   "options": {
@@ -13,16 +13,18 @@
   "pluginOptions": {},
   "attributes": {
     "header": {
+      "displayName": "header",
       "type": "component",
       "repeatable": false,
-      "component": "components.content"
+      "component": "components.header"
     },
     "body": {
+      "displayName": "BodyWhoWeAre",
       "type": "component",
-      "repeatable": true,
-      "component": "components.accordion-tab"
+      "repeatable": false,
+      "component": "components.body-who-we-are"
     },
-    "footer": {
+    "Footer": {
       "type": "component",
       "repeatable": false,
       "component": "sections.banner"

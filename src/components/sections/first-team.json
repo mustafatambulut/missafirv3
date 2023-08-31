@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_first_teams",
+  "info": {
+    "displayName": "FirstTeam",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "members": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::member.member"
+    }
+  }
+}

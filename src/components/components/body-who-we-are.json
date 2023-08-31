@@ -1,0 +1,43 @@
+{
+  "collectionName": "components_components_body_who_we_ares",
+  "info": {
+    "displayName": "BodyWhoWeAre",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "sliders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::slider.slider"
+    },
+    "content": {
+      "displayName": "TripleContent",
+      "type": "component",
+      "repeatable": false,
+      "component": "components.triple-content"
+    },
+    "aboutUs": {
+      "displayName": "TeamContent",
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.team-content"
+    },
+    "brands": {
+      "displayName": "Brands",
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.brands"
+    },
+    "firstTeam": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.first-team"
+    },
+    "allTeam": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.first-team"
+    }
+  }
+}

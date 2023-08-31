@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_components_triple_contents",
+  "info": {
+    "displayName": "TripleContent",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subTitle": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}
