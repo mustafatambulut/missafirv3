@@ -4,28 +4,48 @@
   "info": {
     "singularName": "sustainability",
     "pluralName": "sustainabilities",
-    "displayName": "sustainability"
+    "displayName": "sustainability",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "header": {
       "type": "component",
       "repeatable": false,
-      "component": "components.header"
+      "component": "components.header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "body": {
       "displayName": "BodySustainability",
       "type": "component",
       "repeatable": false,
-      "component": "sections.body-sustainability"
+      "component": "sections.body-sustainability",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "footer": {
       "type": "component",
       "repeatable": false,
-      "component": "sections.banner"
+      "component": "sections.banner",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

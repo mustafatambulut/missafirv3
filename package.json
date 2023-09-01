@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@_sh/strapi-plugin-ckeditor": "2.0.4",
-    "@ckeditor/ckeditor5-markdown-gfm": "38.1.1",
+    "@ckeditor/ckeditor5-markdown-gfm": "^39.0.1",
     "@strapi/plugin-i18n": "4.10.5",
     "@strapi/plugin-users-permissions": "4.10.5",
     "@strapi/strapi": "v4.11.2",
