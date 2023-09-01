@@ -1,7 +1,8 @@
 {
   "collectionName": "components_components_contact_info_cards",
   "info": {
-    "displayName": "ContactInfoCard"
+    "displayName": "ContactInfoCard",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -11,14 +12,14 @@
     "title": {
       "type": "text"
     },
-    "phone": {
-      "type": "integer"
-    },
     "email": {
       "type": "email"
     },
     "address": {
       "type": "text"
+    },
+    "phone": {
+      "type": "string"
     }
   }
 }

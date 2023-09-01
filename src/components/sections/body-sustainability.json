@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_body_sustainabilities",
+  "info": {
+    "displayName": "BodySustainability"
+  },
+  "options": {},
+  "attributes": {
+    "sliders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::slider.slider"
+    },
+    "bodyTitle": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.triple-content"
+    }
+  }
+}
