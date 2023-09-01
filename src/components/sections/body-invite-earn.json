@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_body_invite_earns",
+  "info": {
+    "displayName": "BodyInviteEarn",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Card": {
+      "displayName": "ContentCard",
+      "type": "component",
+      "repeatable": true,
+      "component": "sections.content-card"
+    },
+    "timeline": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.timeline"
+    }
+  }
+}

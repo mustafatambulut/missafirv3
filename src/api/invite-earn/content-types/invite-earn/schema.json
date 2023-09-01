@@ -1,0 +1,51 @@
+{
+  "kind": "singleType",
+  "collectionName": "invite_earns",
+  "info": {
+    "singularName": "invite-earn",
+    "pluralName": "invite-earns",
+    "displayName": "inviteEarn",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "haeder": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "components.header"
+    },
+    "body": {
+      "displayName": "BodyInviteEarn",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.body-invite-earn"
+    },
+    "footer": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.banner"
+    }
+  }
+}
