@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { get } from "lodash";
 import "react-dates/initialize";
+import classNames from "classnames";
 import { isMobile } from "react-device-detect";
 import { DayPickerRangeController } from "react-dates";
 
@@ -19,14 +20,18 @@ import CalendarIcon from "../../../../public/images/calendar.svg";
 import ChevronLeft from "../../../../public/images/chevron_left.svg";
 import ChevronRight from "../../../../public/images/chevron_right.svg";
 
-const DatePicker = ({ bookingDate, setBookingDate }: IDatePicker) => {
+const DatePicker = ({
+  bookingDate,
+  setBookingDate,
+  datePickerClass = "",
+  isOpenedStyle = false
+}: IDatePicker) => {
   const initialMonth = moment();
   const [focusedInput, setFocusedInput] = useState<any>("startDate");
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [isPrevButtonHidden, setIsPrevButtonHidden] = useState<boolean>(true);
 
-  //todo: minimum stay için, düzenlenecek
-
+  // todo: minimum stay için, düzenlenecek
   // const [dayInfo, setDayInfo] = useState<any>("");
 
   const onDatesChange = ({ startDate, endDate }: IBookingDate) => {
@@ -46,6 +51,10 @@ const DatePicker = ({ bookingDate, setBookingDate }: IDatePicker) => {
   useEffect(() => {
     isMobile && setShowDatePicker(true);
   }, []);
+
+  useEffect(() => {
+    isOpenedStyle && setShowDatePicker(isOpenedStyle);
+  }, [isOpenedStyle]);
 
   const renderControls = () => {
     return (
@@ -104,20 +113,41 @@ const DatePicker = ({ bookingDate, setBookingDate }: IDatePicker) => {
     </div>
   );
 
+  const handleOnOutsideClick = () => {
+    !isMobile && !isOpenedStyle && setShowDatePicker(false);
+  };
+
+  const containerClass = classNames(
+    `cursor-pointer w-full rounded-2xl relative mb-20 lg:mb-0`,
+    {
+      "py-1 lg:px-4 lg:h-[56px]": !isOpenedStyle,
+      "prev-hidden": isPrevButtonHidden,
+      "lg:bg-gray-50": showDatePicker && !isOpenedStyle,
+      "bg-white": !showDatePicker
+    }
+  );
+
+  const datePickerClassName = classNames(`booking-date ${datePickerClass}`, {
+    "lg:absolute lg:top-20 lg:left-0 lg:z-20 w-full h-full": !isOpenedStyle
+  });
+
+  const calendarClassName = classNames("hidden fill-gray-800", {
+    "lg:block": !isOpenedStyle
+  });
+
   return (
-    <div
-      className={`py-1 lg:px-4 lg:h-[56px] cursor-pointer w-full rounded-2xl relative mb-20 lg:mb-0  ${
-        isPrevButtonHidden && "prev-hidden"
-      } ${showDatePicker ? "lg:bg-gray-50" : "bg-white"}`}>
+    <div className={containerClass}>
       <div
         className="lg:flex lg:items-center h-full"
         onClick={() => setShowDatePicker(true)}>
-        <CalendarIcon className="hidden lg:block fill-gray-800" />
+        <CalendarIcon className={calendarClassName} />
         <div className="lg:flex lg:flex-col lg:ml-3 h-full lg:justify-center">
-          <span className="text-gray-600 text-left hidden lg:block lg:text-21">
-            Dates
-          </span>
-          {!isMobile && (
+          {!isOpenedStyle && (
+            <span className="text-gray-600 text-left hidden lg:block lg:text-21">
+              Dates
+            </span>
+          )}
+          {!isMobile && !isOpenedStyle && (
             <>
               {get(bookingDate, "startDate") || get(bookingDate, "endDate") ? (
                 <div className="flex text-gray-800">
@@ -133,7 +163,7 @@ const DatePicker = ({ bookingDate, setBookingDate }: IDatePicker) => {
             </>
           )}
           {showDatePicker && (
-            <div className="lg:absolute lg:top-20 lg:left-0 lg:z-20 w-full h-full booking-date">
+            <div className={datePickerClassName}>
               <DayPickerRangeController
                 navNext={navNextIcon()}
                 navPrev={navPrevIcon()}
@@ -155,7 +185,7 @@ const DatePicker = ({ bookingDate, setBookingDate }: IDatePicker) => {
                 endDate={get(bookingDate, "endDate")}
                 focusedInput={focusedInput}
                 renderCalendarInfo={!isMobile ? renderControls : null}
-                onOutsideClick={() => !isMobile && setShowDatePicker(false)}
+                onOutsideClick={handleOnOutsideClick}
                 orientation={isMobile ? "verticalScrollable" : "horizontal"}
                 enableOutsideDays={false}
                 isOutsideRange={(day) => day.isBefore(initialMonth, "day")}
