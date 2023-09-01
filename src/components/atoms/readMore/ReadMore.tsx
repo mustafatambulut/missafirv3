@@ -33,7 +33,7 @@ const ReadMore = ({
     if (type === "text") {
       return (
         <p className="w-full">
-          {isReadMore ? `${text.slice(0, 150)}...` : text}
+          {isReadMore ? `${text?.slice(0, 150)}...` : text}
         </p>
       );
     }
