@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_components_body_life_ats",
+  "info": {
+    "displayName": "BodyLifeAt",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "sliders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::slider.slider"
+    },
+    "bodyHeader": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.triple-content"
+    },
+    "content": {
+      "displayName": "ContentLifeAt",
+      "type": "component",
+      "repeatable": true,
+      "component": "sections.content-life-at"
+    }
+  }
+}

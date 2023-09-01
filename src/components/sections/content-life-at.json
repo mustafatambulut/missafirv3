@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_content_life_ats",
+  "info": {
+    "displayName": "ContentLifeAt"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subTitle": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "image": {
+      "type": "text"
+    }
+  }
+}
