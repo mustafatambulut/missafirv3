@@ -10,6 +10,7 @@ import {
 
 import Button from "@/components/atoms/button/Button";
 import Review from "@/components/molecules/review/Review";
+import Indicator from "@/components/atoms/indicator/Indicator";
 
 import StarIcon from "../../../../public/images/star.svg";
 import RightIcon from "../../../../public/images/variants/chevron_right.svg";
@@ -49,7 +50,7 @@ const ReviewSection = ({ review, className = "" }: IReviewSection) => {
           <StarIcon className="fill-gray-900" />
           {get(review, "averageRate")}
         </span>
-        <div className="w-1 h-1 rounded-full bg-gray-800"></div>
+        <Indicator size={1} className="bg-gray-800" />
         <span>{get(review, "total")} Reviews</span>
       </div>
     );
@@ -73,6 +74,7 @@ const ReviewSection = ({ review, className = "" }: IReviewSection) => {
         </Button>
         <Modal
           label={<RateComponent />}
+          bodyClass="lg:w-11/12 lg:max-w-5xl"
           headerClass="text-2xl"
           isOpen={showAllReviews}
           setIsOpen={setShowAllReviews}>

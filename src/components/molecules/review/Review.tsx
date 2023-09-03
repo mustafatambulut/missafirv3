@@ -73,7 +73,11 @@ const Review = ({ data, isModal = false, className = "" }: IReview) => {
               Show More <RightIcon />
             </Button>
           </footer>
-          <Modal headerClass="text-2xl" isOpen={isOpen} setIsOpen={setIsOpen}>
+          <Modal
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            headerClass="text-2xl"
+            bodyClass="lg:w-11/12 lg:max-w-5xl">
             <CommentComponent className="border p-4 mt-6 rounded-xl" />
           </Modal>
         </>
