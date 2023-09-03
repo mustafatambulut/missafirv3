@@ -1,6 +1,7 @@
 import { forEach, get, has, isArray, size } from "lodash";
 
 import { getPage } from "@/service/api";
+import { ILocation } from "@/utils/types";
 
 export const getPageDataByComponent = async (
   page: string,
@@ -110,4 +111,8 @@ export const checkAuth = () => !!getSessionStorage("token");
 
 export const decodeParams = (param: string) => {
   return decodeURIComponent(decodeURIComponent(param));
+};
+
+export const getLocation = (param: ILocation): string => {
+  return typeof window !== "undefined" && location[param];
 };
