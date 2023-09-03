@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 import { IModal } from "@/components/atoms/modal/types";
 
-import CancelIcon from "../../../../public/images/variants/close_small.svg";
+import CancelIcon from "../../../../public/images/variants/close.svg";
 
 const Modal = ({
   isOpen,
@@ -11,7 +11,8 @@ const Modal = ({
   children,
   label,
   bodyClass = "",
-  className = ""
+  className = "",
+  onClose
 }: IModal) => {
   const close = () => setIsOpen(false);
 
@@ -20,12 +21,12 @@ const Modal = ({
   });
 
   return (
-    <dialog onClick={close} className={modalClass}>
+    <dialog onClick={onClose || close} className={modalClass}>
       <div
         onClick={(e) => e.stopPropagation()}
         method="dialog"
-        className={`modal-box lg:w-11/12 lg:max-w-5xl ${bodyClass}`}>
-        <button onClick={close} className="absolute right-6 top-6">
+        className={`modal-box ${bodyClass}`}>
+        <button onClick={onClose || close} className="absolute right-6 top-6">
           <CancelIcon className="fill-gray-800" />
         </button>
         <h3 className="flex items-center font-bold text-2xl">{label}</h3>

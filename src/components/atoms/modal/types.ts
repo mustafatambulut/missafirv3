@@ -1,6 +1,7 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export interface IModal {
+  onClose?: void;
   isOpen: boolean;
   bodyClass?: string;
   className?: string;
