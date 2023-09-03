@@ -1,14 +1,14 @@
 "use client";
-import { get, map, take } from "lodash";
 import { ReactNode, useState } from "react";
+import { get, map, take } from "lodash";
 
 import { IAmenitiesSection } from "@/components/molecules/amenitiesSection/types";
 
-import RightIcon from "../../../../public/images/variants/chevron_right.svg";
-import MissafirLogo from "../../../../public/images/variants/missafir_logo.svg";
-
 import Modal from "@/components/atoms/modal/Modal";
 import Button from "@/components/atoms/button/Button";
+
+import RightIcon from "../../../../public/images/variants/chevron_right.svg";
+import MissafirLogo from "../../../../public/images/variants/missafir_logo.svg";
 
 const AmenitiesSection = ({ item, className = "" }: IAmenitiesSection) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,6 +55,7 @@ const AmenitiesSection = ({ item, className = "" }: IAmenitiesSection) => {
         </Button>
         <Modal
           label="Amenities"
+          bodyClass="lg:w-11/12 lg:max-w-5xl"
           headerClass="text-2xl"
           isOpen={isOpen}
           setIsOpen={setIsOpen}>
