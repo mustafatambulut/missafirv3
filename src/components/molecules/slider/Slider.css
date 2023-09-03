@@ -11,3 +11,24 @@
     display: none !important;
     opacity: 0 !important;
 }
+
+.swiper-button-next, .swiper-button-prev {
+    background-color: white;
+    background-position: center;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    padding: 25px;
+    border-radius: 100%;
+}
+
+.swiper-button-prev {
+    background-image: url("/images/chevron_left.svg");
+}
+
+.swiper-button-next {
+    background-image: url("/images/chevron_right.svg");
+}
+
+.swiper-button-next::after, .swiper-button-prev::after {
+    content: "" !important;
+}

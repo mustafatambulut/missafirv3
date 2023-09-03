@@ -1,8 +1,8 @@
 "use client";
 import classNames from "classnames";
 import { map, isArray } from "lodash";
-import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Keyboard, Navigation, Pagination } from "swiper";
 
 import { ISlider } from "@/components/molecules/slider/types";
 
@@ -12,6 +12,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const Slider = ({
+  onSwiper,
+  initialSlide,
   spaceBetween,
   slidesPerView,
   withPagination = false,
@@ -29,8 +31,13 @@ const Slider = ({
 
   return (
     <div className={`relative ${sliderContainerClassName}`}>
-      {/*<div className={`${sliderContainerClassName}`}>*/}
       <Swiper
+        onSwiper={onSwiper}
+        watchSlidesProgress
+        initialSlide={initialSlide}
+        keyboard={{
+          enabled: true
+        }}
         style={{
           "--swiper-pagination-color": "#D01E50",
           "--swiper-pagination-bullet-inactive-color": "#FFFFFF",
@@ -39,7 +46,7 @@ const Slider = ({
         className={`${sliderWrapperClassName} ${sliderIdentifier}`}
         spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Pagination, Keyboard]}
         {...(customPagination
           ? {
               pagination: customPagination

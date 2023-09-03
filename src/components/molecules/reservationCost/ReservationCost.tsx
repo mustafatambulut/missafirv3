@@ -15,6 +15,7 @@ const ReservationCost = ({
   paymentDetail,
   className = "",
   setPaymentDetail,
+  hideCouponCode,
   amountWithoutDiscount
 }: IReservationCost) => {
   const t = useTranslations();
@@ -80,9 +81,7 @@ const ReservationCost = ({
         </span>
       </div>
       <div className="flex justify-between items-center font-mi-sans">
-        <span>
-          <ApplyCouponCodeComponent />
-        </span>
+        <span>{!hideCouponCode && <ApplyCouponCodeComponent />}</span>
         <span className="text-primary text-28">{`${total} ₺`}</span>
       </div>
     </div>

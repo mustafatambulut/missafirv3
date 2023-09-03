@@ -10,7 +10,11 @@ import ReservationHeader from "@/components/atoms/reservationHeader/ReservationH
 import ReservationBody from "@/components/molecules/reservationBody/ReservationBody";
 import ReservationFooter from "@/components/molecules/reservationFooter/ReservationFooter";
 
-const ReservationSummary = ({ className = "" }: IReservationSummary) => {
+const ReservationSummary = ({
+  isDateSummary,
+  className = "",
+  hideCouponCode = false
+}: IReservationSummary) => {
   const [isScrollActive, setIsScrollActive] = useState<boolean>(false);
 
   const containerClass = classNames(
@@ -38,8 +42,8 @@ const ReservationSummary = ({ className = "" }: IReservationSummary) => {
   return (
     <div className={containerClass}>
       <div className="flex flex-col gap-y-6">
-        <ReservationHeader />
-        <ReservationBody />
+        <ReservationHeader isDateSummary={isDateSummary} />
+        <ReservationBody hideCouponCode={hideCouponCode} />
         <ReservationFooter />
       </div>
     </div>

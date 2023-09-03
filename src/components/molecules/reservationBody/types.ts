@@ -1,5 +1,6 @@
 export interface IReservationBody {
   className?: string;
+  hideCouponCode?: boolean;
 }
 
 export interface IPaymentDetail {

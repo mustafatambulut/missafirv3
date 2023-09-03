@@ -23,7 +23,10 @@ import { changeTotal } from "@/redux/features/reservationSlice/reservationSlice"
 import Collapse from "@/components/atoms/collapse/Collapse";
 import ReservationCost from "@/components/molecules/reservationCost/ReservationCost";
 
-const ReservationBody = ({ className = "" }: IReservationBody) => {
+const ReservationBody = ({
+  className = "",
+  hideCouponCode
+}: IReservationBody) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
 
@@ -109,6 +112,7 @@ const ReservationBody = ({ className = "" }: IReservationBody) => {
         tempTotal={tempTotal}
         paymentDetail={paymentDetail}
         setPaymentDetail={setPaymentDetail}
+        hideCouponCode={hideCouponCode}
         amountWithoutDiscount={amountWithoutDiscount}
       />
     </div>
