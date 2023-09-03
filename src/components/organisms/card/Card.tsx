@@ -30,7 +30,7 @@ const Card = ({
     sliderContainerClassName: ""
   }
 }: ICard) => {
-  const [isFavored, setIsFavored] = useState(false);
+  const [isFavored, setIsFavored] = useState<boolean>(false);
 
   const favClass = classNames("stroke-white w-10 h-10 cursor-pointer", {
     "fill-primary": isFavored
