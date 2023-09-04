@@ -1,19 +1,22 @@
 "use client";
 import * as Yup from "yup";
-import { get, omit } from "lodash";
+import { get } from "lodash";
 import { useFormik } from "formik";
 import { IMaskInput } from "react-imask";
 import PhoneInput from "react-phone-input-2";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 import Input from "@/components/atoms/input/Input";
 import Button from "@/components/atoms/button/Button";
 
 import "react-phone-input-2/lib/style.css";
 import "react-datepicker/dist/react-datepicker.css";
+import { useEffect } from "react";
+import { fetchProfileData } from "@/redux/features/profileSlice";
 
 const ProfileInfo = () => {
   const { user } = useAppSelector((state) => state.profileReducer);
+  const dispatch = useAppDispatch();
 
   //todo: dil dosyaları düzenlenecek
   const validationSchema = Yup.object({
@@ -21,31 +24,50 @@ const ProfileInfo = () => {
       .email("Email hatalı")
       .max(50, "Email çok uzun")
       .required("Zorunlu alan"),
-    password: Yup.string()
-      .required("Zorunlu alan")
-      .min(6, "Şifre 6 karakterden fazla olmalı"),
     phone: Yup.string().required("Zorunlu alan"),
     gender: Yup.string().required("Zorunlu alan"),
     address: Yup.string().required("Zorunlu alan"),
-    lastName: Yup.string().required("Zorunlu alan"),
-    firstName: Yup.string().required("Zorunlu alan"),
-    birthDate: Yup.string().required("Zorunlu alan")
+    fullName: Yup.string().required("Zorunlu alan"),
+    birthDay: Yup.string().required("Zorunlu alan")
   });
 
-  const initialValues = omit(user, ["fullName", "avatar"]);
+  const initialValues = {
+    email: get(user, "email", ""),
+    phone: get(user, "phone", ""),
+    gender: get(user, "gender", ""),
+    address: get(user, "address", ""),
+    fullName: get(user, "fullName", ""),
+    birthDay: get(user, "birthDay", ""),
+    is_newsletter: get(user, "is_newsletter", "")
+  };
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
+      console.log("qsdas");
       // todo: event eklenecek
       console.log(values);
       alert("Updated!");
     }
   });
 
-  const { values, errors, touched, handleChange, isSubmitting, handleSubmit } =
+  const { values, errors, touched, isSubmitting, handleSubmit, setFieldValue } =
     formik;
+
+  useEffect(() => {
+    dispatch(fetchProfileData());
+  }, []);
+
+  useEffect(() => {
+    setFieldValue("email", get(user, "email", ""));
+    setFieldValue("phone", get(user, "phone", ""));
+    setFieldValue("gender", get(user, "gender", ""));
+    setFieldValue("address", get(user, "address", ""));
+    setFieldValue("fullname", get(user, "fullname", ""));
+    setFieldValue("birthday", get(user, "birthday", ""));
+    setFieldValue("is_newsletter", get(user, "is_newsletter", ""));
+  }, [user]);
 
   return (
     <form noValidate onSubmit={handleSubmit}>
@@ -53,34 +75,18 @@ const ProfileInfo = () => {
         <h1 className="text-3xl font-semibold text-gray-900">Temel Bilgiler</h1>
         <div className="flex flex-col">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="form-control">
-              <Input
-                type="text"
-                name="firstName"
-                label="Firstname"
-                placeholder="Firstname"
-                containerclass="text-base lg:text-lg"
-                value={get(values, "firstName")}
-                onChange={handleChange}
-              />
-              {get(errors, "firstName") && get(touched, "firstName") && (
-                <div className="text-primary">{get(errors, "firstName")}</div>
-              )}
-            </div>
-            <div className="form-control">
-              <Input
-                type="text"
-                name="lastName"
-                label="Lastname"
-                placeholder="Lastname"
-                containerclass="text-base lg:text-lg"
-                value={get(values, "lastName")}
-                onChange={handleChange}
-              />
-              {get(errors, "lastName") && get(touched, "lastName") && (
-                <div className="text-primary">{get(errors, "lastName")}</div>
-              )}
-            </div>
+            <Input
+              type="text"
+              name="fullname"
+              label="Full Name"
+              placeholder="Full Name"
+              containerclass="text-base lg:text-lg"
+              value={get(values, "fullname")}
+              onChange={(e) => setFieldValue("fullname", e.target.value)}
+            />
+            {get(errors, "firstName") && get(touched, "firstName") && (
+              <div className="text-primary">{get(errors, "firstName")}</div>
+            )}
             <div className="form-control">
               <Input
                 type="email"
@@ -89,7 +95,7 @@ const ProfileInfo = () => {
                 placeholder="Email"
                 containerclass="text-base lg:text-lg"
                 value={get(values, "email")}
-                onChange={handleChange}
+                onChange={(e) => setFieldValue("email", e.target.value)}
               />
               {get(errors, "email") && get(touched, "email") && (
                 <div className="text-primary">{get(errors, "email")}</div>
@@ -109,8 +115,8 @@ const ProfileInfo = () => {
                 placeholder="+90 (___) ___ __ __"
                 alwaysDefaultMask={true}
                 defaultMask={"(...) ... .. .."}
-                onChange={formik.handleChange}
-                value={get(formik, "values.phone")}
+                onChange={(phone) => setFieldValue("phone", phone)}
+                value={get(values, "phone")}
                 className="text-sm border border-gray-300 pl-0 p-0.5 rounded-lg h-12 input focus:outline-0 w-full text-gray-800"
               />
             </div>
@@ -124,7 +130,7 @@ const ProfileInfo = () => {
                 name="address"
                 className="border border-gray-300 focus:outline-0 rounded-lg p-2 w-full text-gray-800 text-base lg:text-lg"
                 maxLength={255}
-                onChange={handleChange}
+                onChange={(e) => setFieldValue("address", e.target.value)}
                 value={get(values, "address")}
                 placeholder="Address"></textarea>
               {get(errors, "address") && get(touched, "address") && (
@@ -138,9 +144,9 @@ const ProfileInfo = () => {
                 <div className="border border-gray-300 rounded-lg">
                   <IMaskInput
                     mask="00/00/0000"
-                    name="birthDate"
-                    value={get(values, "birthDate")}
-                    onAccept={handleChange}
+                    name="birthday"
+                    value={get(values, "birthday")}
+                    onAccept={(birthday) => setFieldValue("birthday", birthday)}
                     className="input focus:outline-0 w-full text-gray-800"
                   />
                 </div>
@@ -158,7 +164,9 @@ const ProfileInfo = () => {
                         name="gender"
                         className="radio radio-sm checked:bg-primary-600"
                         value="male"
-                        onChange={handleChange}
+                        onChange={(e) =>
+                          setFieldValue("gender", e.target.value)
+                        }
                         checked={get(values, "gender") === "male"}
                       />
                       <span className="label-text">Erkek</span>
@@ -171,7 +179,9 @@ const ProfileInfo = () => {
                         name="gender"
                         className="radio radio-sm checked:bg-primary-600"
                         value="female"
-                        onChange={handleChange}
+                        onChange={(e) =>
+                          setFieldValue("gender", e.target.value)
+                        }
                         checked={get(values, "gender") === "female"}
                       />
                       <span className="label-text">Kadın</span>
@@ -184,7 +194,9 @@ const ProfileInfo = () => {
                         name="gender"
                         className="radio radio-sm checked:bg-primary-600"
                         value="other"
-                        onChange={handleChange}
+                        onChange={(e) =>
+                          setFieldValue("gender", e.target.value)
+                        }
                         checked={get(values, "gender") === "other"}
                       />
                       <span className="label-text">Diğer</span>
