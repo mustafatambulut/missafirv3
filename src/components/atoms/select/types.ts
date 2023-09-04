@@ -1,12 +1,13 @@
 import { ReactNode } from "react";
 
-export interface ISearch {
+export interface ISelect {
+  name?: string;
   value?: any;
   items: any[];
   searchId: string;
   className?: string;
   placeHolder?: string;
-  onChange: () => void;
+  iconOffset?: boolean;
   controlTitle?: string;
   isClearable?: boolean;
   isSearchable?: boolean;
@@ -14,9 +15,13 @@ export interface ISearch {
   showOptionIcon?: boolean;
   noResultsMessage?: string;
   customIconPosition?: string;
+  onChange: (e: any) => void;
   searchIconPosition?: string;
   menuIsOpen?: null | boolean;
   customIcon?: null | ReactNode;
   maxMenuHeight?: null | number;
+  searchIconColor?: string | null;
   controlWrapperClassName?: string;
+  controlTitleClassName?: string | null;
+  placeholderClassName?: string | null;
 }

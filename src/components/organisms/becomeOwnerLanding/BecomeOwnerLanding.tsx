@@ -4,26 +4,28 @@ import Image from "next/image";
 import { get, map } from "lodash";
 import { useFormik } from "formik";
 import { useTranslations } from "next-intl";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 import Input from "@/components/atoms/input/Input";
-import Search from "@/components/atoms/search/Search";
 import Button from "@/components/atoms/button/Button";
 import Banner from "@/components/molecules/banner/Banner";
 import Section from "@/components/molecules/section/Section";
 
 import TargetIcon from "../../../../public/images/target.svg";
+import { updateCurrentStep } from "@/redux/features/ownerSlice/ownerSlice";
+import { STEP_2 } from "@/redux/features/ownerSlice/enum";
+import Select from "@/components/atoms/select/Select";
 
 const options = [
-  { value: "france", label: "France" },
-  { value: "israel", label: "Israel" },
-  { value: "egypt", label: "Egypt" },
-  { value: "sweden", label: "Sweden" }
+  { value: "france", label: "France", code: 1 },
+  { value: "israel", label: "Israel", code: 2 },
+  { value: "egypt", label: "Egypt", code: 3 },
+  { value: "sweden", label: "Sweden", code: 4 }
 ];
 const BecomeOwnerLanding = () => {
   const t = useTranslations();
   const { countries } = useAppSelector((state) => state.ownerReducer);
-
+  const dispatch = useAppDispatch();
   const validationSchema = Yup.object({
     email: Yup.string()
       .email(t("invalid_or_incomplete_email"))
@@ -49,6 +51,11 @@ const BecomeOwnerLanding = () => {
   const { values, errors, touched, handleChange, isSubmitting, handleSubmit } =
     formik;
 
+  const handleCountryClick = (countryCode) => {
+    console.log("countryCode", countryCode);
+    dispatch(updateCurrentStep(STEP_2));
+  };
+
   return (
     <div className="px-4 lg:px-8 pt-40">
       <Section
@@ -57,6 +64,7 @@ const BecomeOwnerLanding = () => {
         <div className="flex flex-wrap justify-center">
           {map(countries, (country, index) => (
             <div
+              onClick={() => handleCountryClick(country.code)}
               key={index}
               className=" w-full lg:w-1/3 px-0 py-2 lg:px-5 lg:py-5">
               <div className="cursor-pointer text-3xl shadow-base-blur-20 p-5 gap-x-4 w-full h-full rounded-2xl flex justify-start items-center">
@@ -93,7 +101,8 @@ const BecomeOwnerLanding = () => {
             <div className="w-72 lg:w-80">
               <div className="form-control flex w-full font-mi-sans text-lg">
                 <div className="flex rounded-lg bg-white items-center border border-gray-200">
-                  <Search
+                  <Select
+                    isSearchable={true}
                     searchId="owner-location"
                     items={options}
                     placeHolder="Location"
@@ -102,6 +111,8 @@ const BecomeOwnerLanding = () => {
                     className="border-none"
                     customIcon={<TargetIcon />}
                     customIconPosition="right"
+                    controlWrapperClassName="input h-[3rem]"
+                    iconOffset={true}
                   />
                 </div>
               </div>

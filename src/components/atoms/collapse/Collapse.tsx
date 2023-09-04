@@ -13,7 +13,8 @@ const Collapse = ({
   titleClass,
   contentClass,
   className = "",
-  arrowColor = "fill-black"
+  arrowColor = "fill-black",
+  showArrowIcon = true
 }: ICollapse) => {
   const collapseRef = useRef<HTMLInputElement>(null);
   const [collapsable, setCollapsable] = useState<boolean>(false);
@@ -28,23 +29,31 @@ const Collapse = ({
 
   const ContentComponent = () => {
     return (
-      collapsable && (
-        <div className={`p-0 collapse-content ${contentClass}`}>{children}</div>
-      )
+      <div className={`p-0 collapse-content ${contentClass}`}>{children}</div>
     );
   };
 
-  const handleOutsideClick = () => setCollapsable(false);
+  const handleOutsideClick = () => {
+    if (collapseRef.current) collapseRef.current.checked = false;
+    setCollapsable(false);
+  };
 
+  const handleCollapseChange = (e) => {
+    setCollapsable((v) => !v);
+  };
   return (
     <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-      <div tabIndex={0} className={`collapse ${className}`}>
-        <div
+      <div className={`collapse ${className}`}>
+        <input
           ref={collapseRef}
-          onClick={() => setCollapsable(!collapsable)}
+          type="checkbox"
+          className="peer"
+          onChange={(e) => handleCollapseChange(e)}
+        />
+        <div
           className={`p-0 collapse-title items-center cursor-pointer flex justify-between min-h-0 ${titleClass}`}>
           {title}
-          <IconComponent />
+          {showArrowIcon && <IconComponent />}
         </div>
         <ContentComponent />
       </div>
