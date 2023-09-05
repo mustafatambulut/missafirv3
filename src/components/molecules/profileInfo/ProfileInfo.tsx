@@ -15,6 +15,7 @@ import Button from "@/components/atoms/button/Button";
 import "react-phone-input-2/lib/style.css";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
+import Checkbox from "@/components/atoms/checkbox/Checkbox";
 
 const ProfileInfo = () => {
   const dispatch = useAppDispatch();
@@ -215,6 +216,19 @@ const ProfileInfo = () => {
                   <div className="text-primary">{get(errors, "gender")}</div>
                 )}
               </div>
+            </div>
+            <div className="form-control">
+              <Checkbox
+                  value="is_newsletter"
+                  name="is_newsletter"
+                  checked={get(values, "is_newsletter")}
+                  onChange={(e) => {
+                    setFieldValue("is_newsletter", get(e, "target.checked"));
+                  }}
+                  label="Bültenlere abone olmak istiyorum."
+                  labelClass="text-sm lg:text-base items-start lg:items-center p-0"
+                  position="right"
+              />
             </div>
           </div>
         </div>
