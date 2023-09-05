@@ -9,17 +9,17 @@ const ReservationItemContent = ({ reservation }: IReservationItem) => {
 
   return (
     <div className="flex flex-col gap-1 lg:gap-y-3 justify-center lg:pr-4 py-3 lg:py-0 w-full">
-      <div className="text-gray-700 text-sm lg:text-lg order-1">
+      <div className="text-gray-700 text-sm lg:text-lg order-1 lg:order-1">
         {get(reservation, "confirmation_code")}
       </div>
       <div className="text-gray-800 text-base lg:text-2xl font-mi-sans-semi-bold line-clamp-2 order-3 lg:order-2">
         {get(reservation, "listing.title")}
       </div>
-      <div className="flex gap-x-1">
-        <div className="text-gray-500 text-sm lg:text-lg order-2 lg:order-3">
+      <div className="flex gap-x-1 order-2 lg:order-3">
+        <div className="text-gray-500 text-sm lg:text-lg">
           {get(reservation, "listing.city.name")},
         </div>
-        <div className="text-gray-500 text-sm lg:text-lg order-2 lg:order-3">
+        <div className="text-gray-500 text-sm lg:text-lg">
           {get(reservation, "listing.district.name")}
         </div>
       </div>
