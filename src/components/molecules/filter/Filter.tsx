@@ -1,147 +1,104 @@
 "use client";
-import { useState } from "react";
-import { get, map } from "lodash";
+import { useCallback, useEffect, useState } from "react";
+import { debounce, get, map, size } from "lodash";
+import { isMobile } from "react-device-detect";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
-import Sort from "@/components/atoms/sort/Sort";
-import FilterItem from "@/components/molecules/filterItem/FilterItem";
-import PriceTypeToggle from "@/components/atoms/priceTypeToggle/PriceTypeToggle";
-import Concepts from "@/components/molecules/concepts/Concepts";
-import PriceRange from "@/components/molecules/priceRange/PriceRange";
+import { getLocalStorage, setLocalStorage } from "@/utils/helper";
+import {
+  fetchFilters,
+  fetchListings,
+  updateFilterData,
+  updateFilterItems,
+  updateShowSearchbar
+} from "@/redux/features/listingSlice/listingSlice";
+
 import AllFilters from "@/components/molecules/allfilters/AllFilters";
-import BedAndBaths from "@/components/molecules/bedAndBaths/BedAndBaths";
+import FilterItem from "@/components/molecules/filterItem/FilterItem";
+import MobileSearchBar from "@/components/molecules/mobileSearchBar/MobileSearchBar";
 
-import { IFilter } from "@/components/molecules/filter/types";
-
-import BedIcon from "../../../../public/images/bed.svg";
-import CashIcon from "../../../../public/images/cash.svg";
-import SortIcon from "../../../../public/images/order.svg";
 import FilterIcon from "../../../../public/images/filters.svg";
-import ConceptIcon from "../../../../public/images/concept.svg";
 
-const Filter = ({
-  filterData,
-  setFilterData,
-  filterListings,
-  tempFilteredListings,
-  calculateMinMaxListingPrice
-}: IFilter) => {
+const Filter = () => {
+  const dispatch = useAppDispatch();
   const [isOverlayActive, setIsOverlayActive] = useState(false);
-  //todo: test amaçlı eklenmiştir, düzenlenecek
-  const mockFilterData = [
-    {
-      type: "allFilter",
-      title: (
-        <label
-          htmlFor="all_filters_modal"
-          className="cursor-pointer h-full w-full flex items-center">
-          <FilterIcon className="mr-3" />
-          All Filters
-        </label>
-      ),
-      dropdown: null
-    },
-    {
-      type: "sort",
-      title: (
-        <>
-          <SortIcon className="fill-gray-900 mr-3" />
-          <span>Sort</span>
-        </>
-      ),
-      dropdown: <Sort filterData={filterData} setFilterData={setFilterData} />
-    },
-    {
-      type: "price",
-      title: (
-        <>
-          <CashIcon className="fill-gray-900 mr-3" />
-          <span>Price</span>
-        </>
-      ),
-      dropdown: (
-        <PriceRange
-          showButtons={true}
-          filterData={filterData}
-          setFilterData={setFilterData}
-          filterListings={filterListings}
-          tempFilteredListings={tempFilteredListings}
-        />
-      )
-    },
-    {
-      type: "bedAndBaths",
-      title: (
-        <>
-          <BedIcon className="fill-gray-900 mr-3" />
-          <span>Bed & Baths</span>
-        </>
-      ),
-      dropdown: (
-        <BedAndBaths
-          filterData={filterData}
-          setFilterData={setFilterData}
-          filterListings={filterListings}
-          tempFilteredListings={tempFilteredListings}
-        />
-      )
-    },
-    {
-      type: "concepts",
-      title: (
-        <>
-          <ConceptIcon className="fill-gray-900 mr-3" />
-          <span>Concepts</span>
-        </>
-      ),
-      dropdown: (
-        <Concepts
-          filterData={filterData}
-          setFilterData={setFilterData}
-          filterListings={filterListings}
-          tempFilteredListings={tempFilteredListings}
-        />
-      )
-    },
-    {
-      type: "priceTypeToggle",
-      title: (
-        <PriceTypeToggle
-          filterData={filterData}
-          setFilterData={setFilterData}
-        />
-      ),
-      dropdown: null
-    }
-  ];
+  const { filterItems, filterData } = useAppSelector(
+    (state) => state.listingReducer
+  );
+  const { showSearchbar } = useAppSelector((state) => state.listingReducer);
 
-  //TODO: Redux bağlanınca filter için redux kullanılacak
-  return (
-    <div className="relative">
-      {isOverlayActive && (
-        <div className="fixed top-40 z-20 left-0 w-screen h-screen bg-black opacity-20 lg:hidden"></div>
+  useEffect(() => {
+    const storedFilterItems = getLocalStorage("filterItems");
+    storedFilterItems
+      ? dispatch(updateFilterItems(JSON.parse(storedFilterItems)))
+      : dispatch(fetchFilters());
+
+    const storedFilterData = getLocalStorage("filterData");
+    storedFilterData
+      ? dispatch(updateFilterData(JSON.parse(storedFilterData)))
+      : setLocalStorage("filterData", JSON.stringify(filterData));
+  }, []);
+
+  const handleFetchListings = useCallback(
+    debounce((filterData) => {
+      dispatch(fetchListings(filterData));
+    }, 500),
+    []
+  );
+
+  useEffect(() => {
+    handleFetchListings(filterData);
+  }, [handleFetchListings, filterData]);
+
+  useEffect(() => {
+    isOverlayActive
+      ? document.body.classList.add("overflow-hidden")
+      : document.body.classList.remove("overflow-hidden");
+  }, [isOverlayActive]);
+
+  useEffect(() => {
+    dispatch(updateShowSearchbar(true));
+    return () => {
+      dispatch(updateShowSearchbar(false));
+    };
+  }, []);
+
+  return size(filterItems) > 0 ? (
+    <div>
+      {showSearchbar && isMobile && (
+        <MobileSearchBar isInCustomSection={true} />
       )}
-      <AllFilters
-        tempFilteredListings={tempFilteredListings}
-        filterListings={filterListings}
-        filterData={filterData}
-        setFilterData={setFilterData}
-        calculateMinMaxListingPrice={calculateMinMaxListingPrice}
-      />
-      <div className="shadow-bold-blur-20 py-3 px-4 rounded-xl flex flex-nowrap justify-start items-center gap-2 overflow-x-auto filter-wrapper after:clear-both">
-        {map(mockFilterData, (item, index) => (
-          <FilterItem key={index} setIsOverlayActive={setIsOverlayActive}>
-            <FilterItem.Title
-              filterData={filterData}
-              customSpacing={get(item, "type") === "priceTypeToggle"}
-              itemType={get(item, "type")}>
-              {get(item, "title")}
-            </FilterItem.Title>
-            <FilterItem.Dropdown>{get(item, "dropdown")}</FilterItem.Dropdown>
-          </FilterItem>
-        ))}
+      <div className="relative">
+        {isOverlayActive && (
+          <div className="fixed top-44 z-20 left-0 w-screen h-screen bg-black opacity-20 lg:hidden"></div>
+        )}
+        <AllFilters />
+        <div className="shadow-bold-blur-20 py-3 px-4 rounded-xl flex flex-nowrap justify-start items-center gap-2 overflow-x-auto filter-wrapper after:clear-both">
+          <label
+            htmlFor="all_filters_modal"
+            className="border flex items-center justify-center flex-nowrap bg-gray-50 rounded-2xl h-11 whitespace-nowrap cursor-pointer font-mi-sans-semi-bold text-base px-4 border-transparent">
+            <FilterIcon className="mr-3" />
+            All Filters
+          </label>
+          {map(filterItems, (item, index) => {
+            if (
+              get(item, "display") === "bar" ||
+              get(item, "display") === "all"
+            ) {
+              return (
+                <FilterItem
+                  key={index}
+                  setIsOverlayActive={setIsOverlayActive}
+                  filterItem={item}
+                  isInAllFilters={false}
+                />
+              );
+            }
+          })}
+        </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default Filter;

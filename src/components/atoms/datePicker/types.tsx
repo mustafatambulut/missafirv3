@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction } from "react";
 import { Moment } from "moment/moment";
 
 export interface IDatePicker {
+ isInCustomSection?: boolean;
   datePickerClass?: string;
   className?: string;
   isShowLabel?: boolean;

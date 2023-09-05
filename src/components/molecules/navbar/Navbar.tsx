@@ -1,19 +1,21 @@
 import Image from "next/image";
 import { get, map } from "lodash";
 import { useRouter } from "next/navigation";
+import { isMobile } from "react-device-detect";
 
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import UserMenu from "@/components/atoms/userMenu/UserMenu";
 import { INavbar } from "@/components/molecules/navbar/types";
 import { updateIsShowDrawer } from "@/redux/features/landingSlice/landingSlice";
 
 import Button from "@/components/atoms/button/Button";
 import SelectLanguage from "@/components/atoms/selectLanguage/SelectLanguage";
+import SearchBar from "@/components/molecules/searchBar/SearchBar";
 
 const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-
+  const { showSearchbar } = useAppSelector((state) => state.listingReducer);
   const handleLogoSource = () => {
     return isScrolledHeaderActive
       ? "/images/missafir_logo_black.svg"
@@ -37,18 +39,23 @@ const Navbar = ({ data, isScrolledHeaderActive }: INavbar) => {
 
   return (
     <div className="drawer-content flex flex-col">
-      <div className="w-full navbar lg:py-8 lg:px-10">
-        <div className="flex-1">
-          <Image
-            priority
-            width="0"
-            height="0"
-            alt="missafir-logo"
-            src={handleLogoSource()}
-            onClick={handleLogoOnClick}
-            className="w-28 lg:w-44 h-auto cursor-pointer"
-          />
+      <div className="w-full navbar lg:py-8 lg:px-10 flex justify-between">
+        <div className="">
+            <Image
+              priority
+              width="0"
+              height="0"
+              alt="missafir-logo"
+              src={handleLogoSource()}
+              onClick={handleLogoOnClick}
+              className="w-28 lg:w-44 h-auto cursor-pointer"
+            />
         </div>
+        {!isMobile && showSearchbar && (
+          <div className="min-w-[32rem] relative">
+            <SearchBar isInCustomSection={true} />
+          </div>
+        )}
         <div className="flex gap-6">
           {map(get(data, "header.buttons"), (button, key) => (
             <Button

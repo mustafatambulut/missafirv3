@@ -16,16 +16,11 @@ import RenderControl from "@/components/atoms/renderControl/RenderControl";
 const SearchBar = (props: IProps) => {
   const {
     isDrawerOpen,
-    setBookingDestination,
-    setSkipButtonVisibility,
     setActiveSearchItem,
     handleFilterListings,
-    setBookingDate,
-    bookingDate,
-    bookingGuests,
-    setBookingGuests
+    setSkipButtonVisibility,
+    isInCustomSection = false
   } = props;
-
   useEffect(() => {
     isDrawerOpen
       ? document.body.classList.add("overflow-hidden")
@@ -36,13 +31,17 @@ const SearchBar = (props: IProps) => {
     <>
       <div className="flex-1 mb-3 lg:mb-0 w-full">
         <DestinationSelect
-          setActiveSearchItem={setActiveSearchItem}
           componentId="desktop-destination"
+          isInCustomSection={isInCustomSection}
+          setActiveSearchItem={setActiveSearchItem}
           setSkipButtonVisibility={setSkipButtonVisibility}
-          setBookingDestination={setBookingDestination}
         />
       </div>
       <div className="flex-1 mb-3 lg:mb-0 w-full">
+        <DatePicker
+          isInCustomSection={isInCustomSection}
+          setSkipButtonVisibility={setSkipButtonVisibility}
+        />
         {/*todo: datepicker sorunu çözülecek*/}
         {/*<DatePicker*/}
         {/*  numberOfMonths={2}*/}
@@ -55,15 +54,22 @@ const SearchBar = (props: IProps) => {
       <div className="flex-1 mb-3 lg:mb-0 w-full">
         <div className="flex items-center justify-start">
           <Guests
-            data={bookingGuests}
-            setBookingGuests={setBookingGuests}
+            isInCustomSection={isInCustomSection}
             setSkipButtonVisibility={setSkipButtonVisibility}
           />
           <Button
-            onClick={handleFilterListings}
             variant="btn-primary"
-            className="rounded-2xl !h-[56px] ml-3 w-[72px] lg:w-auto">
-            {isMobile ? <SearchIcon /> : <span>Search</span>}
+            onClick={handleFilterListings}
+            className={`${
+              isInCustomSection
+                ? "h-10 w-10 p-0 min-h-0 rounded-xl"
+                : "h-14 w-[72px] lg:w-auto rounded-2xl"
+            } ml-3`}>
+            {isMobile || isInCustomSection ? (
+              <SearchIcon className="fill-white scale-75" />
+            ) : (
+              <span>Search</span>
+            )}
           </Button>
         </div>
       </div>

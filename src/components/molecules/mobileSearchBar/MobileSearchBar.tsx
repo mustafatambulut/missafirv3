@@ -1,5 +1,7 @@
 "use client";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useAppSelector } from "@/redux/hooks";
 
 import {
   BOOKING_DATE,
@@ -13,18 +15,16 @@ import DateDrawer from "@/components/atoms/dateDrawer/DateDrawer";
 import GuestDrawer from "@/components/atoms/guestDrawer/GuestDrawer";
 import SearchDrawer from "@/components/atoms/searchDrawer/SearchDrawer";
 import MobileDrawerSide from "@/components/atoms/mobileDrawerSide/MobileDrawerSide";
-import { useEffect } from "react";
 
 const MobileSearchBar = (props: IProps) => {
   const {
-    drawerCloseRef,
-    bookingDate,
     isDrawerOpen,
-    bookingGuests,
-    bookingDestination,
+    drawerCloseRef,
     handleOpenDrawer,
-    handleFilterListings
+    handleFilterListings,
+    isInCustomSection = false
   } = props;
+  const { bookingDate } = useAppSelector((state) => state.listingReducer);
 
   useEffect(() => {
     isDrawerOpen
@@ -34,34 +34,44 @@ const MobileSearchBar = (props: IProps) => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row rounded-2xl lg:bg-white w-full items-center lg:p-2 lg:h-20">
+      <div
+        className={`flex ${
+          isInCustomSection
+            ? "flex-row p-1 justify-between gap-x-1"
+            : "flex-col"
+        } rounded-2xl lg:bg-white w-full items-center`}>
         <SearchDrawer
-          destination={bookingDestination}
+          isInCustomSection={isInCustomSection}
           onClick={() => handleOpenDrawer(BOOKING_DESTINATION)}
         />
         <DateDrawer
+          isInCustomSection={isInCustomSection}
           booking={bookingDate}
           onClick={() => handleOpenDrawer(BOOKING_DATE)}
         />
         <GuestDrawer
-          guest={bookingGuests}
           onClick={() => handleOpenDrawer(BOOKING_GUESTS)}
           handleFilterListings={handleFilterListings}
+          isInCustomSection={isInCustomSection}
         />
       </div>
-      {createPortal(
-        <div className="drawer z-50">
-          <input
-            ref={drawerCloseRef}
-            id="msfr-search-drawer"
-            type="checkbox"
-            className="drawer-toggle"
-          />
-          <div className="drawer-content"></div>
-          <MobileDrawerSide {...props} />
-        </div>,
-        document.getElementById("drawer-container")
-      )}
+      {typeof window !== "undefined" &&
+        createPortal(
+          <div className="drawer z-50">
+            <input
+              ref={drawerCloseRef}
+              id="msfr-search-drawer"
+              type="checkbox"
+              className="drawer-toggle"
+            />
+            <div className="drawer-content"></div>
+            <MobileDrawerSide
+              {...props}
+              isInCustomSection={isInCustomSection}
+            />
+          </div>,
+          document.getElementById("drawer-container")
+        )}
     </>
   );
 };

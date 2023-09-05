@@ -54,6 +54,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "ownerv2.missafir.com",
         port: ""
+      },
+      {
+        protocol: "https",
+        hostname: "missafirpms.s3.eu-central-1.amazonaws.com",
+        port: ""
       }
     ]
   },

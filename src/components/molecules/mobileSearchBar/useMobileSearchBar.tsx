@@ -4,17 +4,24 @@ import {
   BOOKING_GUESTS,
   BOOKING_DESTINATION
 } from "@/components/molecules/searchBar/constants";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import {
+  updateBookingDate,
+  updateBookingGuests
+} from "@/redux/features/listingSlice/listingSlice";
 
 const useMobileSearchBar = ({
-  bookingDate,
-  bookingGuests,
   drawerCloseRef,
   activeSearchItem,
-  setBookingDate,
   setIsDrawerOpen,
-  setBookingGuests,
-  setActiveSearchItem
+  setActiveSearchItem,
+  handleFilterListings,
+  isInCustomSection
 }) => {
+  const dispatch = useAppDispatch();
+  const { bookingGuests, bookingDate } = useAppSelector(
+    (state) => state.listingReducer
+  );
   const handleDrawerClose = () => {
     if (get(drawerCloseRef, "current")) {
       drawerCloseRef.current.click();
@@ -57,17 +64,21 @@ const useMobileSearchBar = ({
   const handleClearClick = () => {
     switch (activeSearchItem) {
       case BOOKING_DATE:
-        setBookingDate({
-          startDate: null,
-          endDate: null
-        });
+        dispatch(
+          updateBookingDate({
+            startDate: null,
+            endDate: null
+          })
+        );
         break;
       case BOOKING_GUESTS:
-        setBookingGuests({
-          adults: 0,
-          kids: 0,
-          pets: false
-        });
+        dispatch(
+          updateBookingGuests({
+            adults: 0,
+            kids: 0,
+            pets: 0
+          })
+        );
         break;
       default:
         break;
@@ -82,7 +93,7 @@ const useMobileSearchBar = ({
           get(bookingDate, "endDate") == null
         );
       case BOOKING_GUESTS:
-        return get(bookingGuests, "adults") === 0;
+        return isInCustomSection ? false : get(bookingGuests, "adults") === 0;
       default:
         return false;
     }
@@ -105,14 +116,18 @@ const useMobileSearchBar = ({
         return false;
     }
   };
-
   const handleApplyClick = () => {
     switch (activeSearchItem) {
       case BOOKING_DATE:
         setActiveSearchItem(BOOKING_GUESTS);
         break;
       case BOOKING_GUESTS:
-        handleDrawerClose();
+        if (isInCustomSection) {
+          handleFilterListings();
+          handleDrawerClose();
+        } else {
+          handleDrawerClose();
+        }
         break;
       default:
         break;

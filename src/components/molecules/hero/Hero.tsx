@@ -1,6 +1,9 @@
 "use client";
-import { get } from "lodash";
+import { useEffect } from "react";
+import { get, keys, omit } from "lodash";
 import { isMobile } from "react-device-detect";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { updateFilterData } from "@/redux/features/listingSlice/listingSlice";
 
 import { BODY } from "@/app/constants";
 import { HERO_SECTION } from "@/components/molecules/hero/constants";
@@ -13,6 +16,14 @@ import MobileSearchBar from "@/components/molecules/mobileSearchBar/MobileSearch
 
 const Hero = () => {
   const hero = useFetchData<IHero>(BODY, HERO_SECTION);
+  const dispatch = useAppDispatch();
+  const { filterData } = useAppSelector((state) => state.listingReducer);
+
+  useEffect(() => {
+    dispatch(
+      updateFilterData(omit(filterData, keys(omit(filterData, ["price_type"]))))
+    );
+  }, []);
 
   return (
     <Loading isLoading={!get(hero, "image")} loader={<p>Loading feed...</p>}>

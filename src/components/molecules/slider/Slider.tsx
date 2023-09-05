@@ -52,7 +52,16 @@ const Slider = ({
               pagination: customPagination
             }
           : withPagination
-          ? { pagination: true }
+          ? {
+              pagination: {
+                dynamicBullets: true,
+                dynamicMainBullets: 3,
+                renderBullet: function (index, className) {
+                  return `<span class="${className} scale-100"></span>`;
+                },
+                clickable: true
+              }
+            }
           : null)}
         {...(customNavigation
           ? {

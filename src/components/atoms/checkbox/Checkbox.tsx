@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { get } from "lodash";
 
 import { ICheckbox } from "@/components/atoms/checkbox/types";
+import classNames from "classnames";
 
 const Checkbox = ({
   name,
@@ -12,7 +13,8 @@ const Checkbox = ({
   position,
   isDisable,
   className = "",
-  labelClass = ""
+  labelClass = "",
+  customFilledCheckbox = false
 }: ICheckbox) => {
   const leftRef = useRef<HTMLInputElement>(null);
   const rightRef = useRef<HTMLInputElement>(null);
@@ -24,10 +26,27 @@ const Checkbox = ({
       : (rightRef.current.innerText = "");
   }, [leftRef, rightRef]);
 
+  const checkboxClass = classNames(`${className}`, {
+    "form-control w-fit font-mi-sans": !customFilledCheckbox,
+    "border px-3 py-2 font-mi-sans-semi-bold text-sm rounded-20 cursor-pointer flex items-center justify-center gap-2":
+      customFilledCheckbox,
+    "bg-primary-100 text-primary border-primary":
+      customFilledCheckbox && checked
+  });
+  const checkboxLabelClass = classNames(`cursor-pointer ${labelClass}`, {
+    "label-text label gap-x-2 text-gray-700": !customFilledCheckbox,
+    "text-primary-500": customFilledCheckbox && checked
+  });
+  const checkboxInputClass = classNames(
+    `checkbox  checkbox-primary border-gray-300 checked:border-primary ${className}`,
+    {
+      hidden: customFilledCheckbox
+    }
+  );
+
   return (
-    <div className={`form-control w-fit font-mi-sans ${className}`}>
-      <label
-        className={`label-text label cursor-pointer gap-x-2 ${labelClass}`}>
+    <div className={checkboxClass}>
+      <label className={checkboxLabelClass}>
         <span ref={leftRef}>{label}</span>
         <input
           name={name}
@@ -36,7 +55,7 @@ const Checkbox = ({
           checked={checked}
           onChange={onChange}
           disabled={isDisable}
-          className={`checkbox ${className}`}
+          className={checkboxInputClass}
         />
         <span ref={rightRef}>{label}</span>
       </label>
