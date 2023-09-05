@@ -7,7 +7,9 @@ import paymentReducer from "@/redux/features/paymentSlice/paymentSlice";
 import landingReducer from "@/redux/features/landingSlice/landingSlice";
 import messageReducer from "@/redux/features/messageSlice/messageSlice";
 import contactReducer from "@/redux/features/contactSlice/contactSlice";
+import datePickerReducer from "@/redux/features/datePickerSlice/datePickerSlice";
 import reservationReducer from "@/redux/features/reservationSlice/reservationSlice";
+import listingDetailReducer from "@/redux/features/listingDetailSlice/listingDetailSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,7 +20,9 @@ export const store = configureStore({
     profileReducer,
     paymentReducer,
     messageReducer,
-    reservationReducer
+    datePickerReducer,
+    reservationReducer,
+    listingDetailReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

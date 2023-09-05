@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 export interface ISlider {
+  initialSlide?: number;
   spaceBetween?: number;
   slidesPerView?: number | string;
   sliderIdentifier: string;
@@ -13,11 +14,8 @@ export interface ISlider {
   customNavigation?: null | ReactNode;
   customPagination?: null | ICustomPagination;
 }
+
 export interface ICustomPagination {
   clickable?: boolean;
   renderBullet?: ReactNode;
-}
-export interface ISlide {
-  image: string;
-  description?: string;
 }

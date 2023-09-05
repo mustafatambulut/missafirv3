@@ -1,16 +1,25 @@
 "use client";
 import { useEffect, useState } from "react";
+import { isEmpty } from "lodash";
 import classNames from "classnames";
+import { useDispatch } from "react-redux";
 import { isMobile } from "react-device-detect";
 
 import { getScrollPosition } from "@/utils/helper";
 import { IReservationSummary } from "@/components/atoms/reservationSummary/types";
+import { setReservation } from "@/redux/features/reservationSlice/reservationSlice";
 
-import ReservationHeader from "@/components/atoms/reservationHeader/ReservationHeader";
 import ReservationBody from "@/components/molecules/reservationBody/ReservationBody";
+import ReservationHeader from "@/components/atoms/reservationHeader/ReservationHeader";
 import ReservationFooter from "@/components/molecules/reservationFooter/ReservationFooter";
 
-const ReservationSummary = ({ className = "" }: IReservationSummary) => {
+const ReservationSummary = ({
+  reservation,
+  isDateSummary,
+  className = "",
+  hideCouponCode = false
+}: IReservationSummary) => {
+  const dispatch = useDispatch();
   const [isScrollActive, setIsScrollActive] = useState<boolean>(false);
 
   const containerClass = classNames(
@@ -35,11 +44,15 @@ const ReservationSummary = ({ className = "" }: IReservationSummary) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    !isEmpty(reservation) && dispatch(setReservation(reservation));
+  }, [reservation]);
+
   return (
     <div className={containerClass}>
       <div className="flex flex-col gap-y-6">
-        <ReservationHeader />
-        <ReservationBody />
+        <ReservationHeader isDateSummary={isDateSummary} />
+        {!hideCouponCode && <ReservationBody hideCouponCode={hideCouponCode} />}
         <ReservationFooter />
       </div>
     </div>

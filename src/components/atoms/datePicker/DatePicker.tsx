@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { get } from "lodash";
 import "react-dates/initialize";
+import classNames from "classnames";
 import { isMobile } from "react-device-detect";
 import { DayPickerRangeController } from "react-dates";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -16,8 +17,6 @@ import "./DatePicker.css";
 import "react-dates/lib/css/_datepicker.css";
 
 import CalendarIcon from "../../../../public/images/calendar.svg";
-//todo: minimum stay için eklendi düzenlenince aktif edilecek
-//import RoundedInfo from "../../../../public/images/rounded_info.svg";
 import ChevronLeft from "../../../../public/images/chevron_left.svg";
 import ChevronRight from "../../../../public/images/chevron_right.svg";
 
@@ -25,16 +24,17 @@ const DatePicker = ({ isInCustomSection = false }: IDatePicker) => {
   const dispatch = useAppDispatch();
   const { bookingDate } = useAppSelector((state) => state.listingReducer);
   const initialMonth = moment();
+
   const [focusedInput, setFocusedInput] = useState<any>("startDate");
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [isPrevButtonHidden, setIsPrevButtonHidden] = useState<boolean>(true);
 
-  //todo: minimum stay için, düzenlenecek
-
+  // todo: minimum stay için, düzenlenecek
   // const [dayInfo, setDayInfo] = useState<any>("");
 
   const onDatesChange = ({ startDate, endDate }: IBookingDate) => {
     dispatch(updateBookingDate({ startDate, endDate }));
+    // dispatch(setBookingDate({ startDate, endDate }));
   };
 
   const onFocusChange = (focusedInput: any) => {
@@ -50,6 +50,22 @@ const DatePicker = ({ isInCustomSection = false }: IDatePicker) => {
   useEffect(() => {
     isMobile && !isInCustomSection && setShowDatePicker(true);
   }, []);
+
+  const renderDayContents = (day) => {
+    const isToday = moment(day).isSame(moment(), "day");
+    return (
+      <div className="day-content">
+        <div>{day.format("D")}</div>
+        {isToday && (
+          <div className="absolute bottom-0 left-[50%] translate-x-[-50%] text-4xl leading-8 text-primary day-dot">
+            .
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const calendarClassName = classNames("hidden fill-gray-800", {});
 
   const renderControls = () => {
     return (
@@ -79,25 +95,6 @@ const DatePicker = ({ isInCustomSection = false }: IDatePicker) => {
     );
   };
 
-  const renderDayContents = (day) => {
-    const isToday = moment(day).isSame(moment(), "day");
-    return (
-      <div
-        className="day-content"
-        // todo: minimum stay için, düzenlenecek
-        // onMouseLeave={() => setDayInfo("")}
-        // onMouseEnter={() => setDayInfo(day.format("MMMM D"))}
-      >
-        <div>{day.format("D")}</div>
-        {isToday && (
-          <div className="absolute bottom-0 left-[50%] translate-x-[-50%] text-4xl leading-8 text-primary day-dot">
-            .
-          </div>
-        )}
-      </div>
-    );
-  };
-
   const navPrevIcon = () => (
     <div className="nav-button nav-button-prev">
       <ChevronLeft className="scale-50" />
@@ -120,7 +117,7 @@ const DatePicker = ({ isInCustomSection = false }: IDatePicker) => {
       <div
         className="lg:flex lg:items-center h-full"
         onClick={() => setShowDatePicker(true)}>
-        <CalendarIcon className="hidden lg:block fill-gray-800" />
+        <CalendarIcon className={calendarClassName} />
         <div className="lg:flex lg:flex-col lg:ml-3 h-full lg:justify-center">
           <span
             className={`text-gray-600 text-left hidden lg:block ${
@@ -148,8 +145,9 @@ const DatePicker = ({ isInCustomSection = false }: IDatePicker) => {
             </>
           )}
           {showDatePicker && (
-            <div className="lg:absolute lg:top-20 lg:left-0 lg:z-20 w-full h-full booking-date">
+            <div className="booking-date">
               <DayPickerRangeController
+                keepOpenOnDateSelect={true}
                 navNext={navNextIcon()}
                 navPrev={navPrevIcon()}
                 transitionDuration={0}

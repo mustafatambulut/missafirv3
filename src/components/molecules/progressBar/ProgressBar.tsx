@@ -5,12 +5,11 @@ import { useTranslations } from "next-intl";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IProgressBar } from "@/components/molecules/progressBar/types";
-import { STEP_1, STEP_2, STEP_3 } from "@/redux/features/reservationSlice/enum";
+import { STEP_1, STEP_3 } from "@/redux/features/reservationSlice/enum";
 import { changeCurrentStep } from "@/redux/features/reservationSlice/reservationSlice";
 
 import Check from "../../../../public/images/check.svg";
 import CreditCart from "../../../../public/images/credit_card.svg";
-import ShoppingCart from "../../../../public/images/shopping_cart.svg";
 import CustomerReview from "../../../../public/images/customer_review.svg";
 
 const ProgressBar = ({ className = "" }: IProgressBar) => {
@@ -22,10 +21,6 @@ const ProgressBar = ({ className = "" }: IProgressBar) => {
     {
       id: STEP_1,
       title: t("confirmation")
-    },
-    {
-      id: STEP_2,
-      title: t("extra_service")
     },
     {
       id: STEP_3,
@@ -80,8 +75,6 @@ const ProgressBar = ({ className = "" }: IProgressBar) => {
     switch (id) {
       case STEP_1:
         return checked(STEP_1, <CustomerReview className={iconClass(id)} />);
-      case STEP_2:
-        return checked(STEP_2, <ShoppingCart className={iconClass(id)} />);
       case STEP_3:
         return checked(STEP_3, <CreditCart className={iconClass(id)} />);
       default:

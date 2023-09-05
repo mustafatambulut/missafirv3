@@ -1,6 +1,9 @@
 import Link from "next/link";
 import classNames from "classnames";
+
 import { IButton } from "@/components/atoms/button/types";
+
+import "./Button.css";
 
 const Button = ({
   type = "button",
@@ -15,7 +18,7 @@ const Button = ({
   ...props
 }: IButton) => {
   const btnClass = classNames(
-    `btn items-center font-mi-sans-semi-bold normal-case text-base ${
+    `btn items-center font-mi-sans-semi-bold normal-case ${
       disabled || variant
     } ${className}`,
     {

@@ -1,6 +1,7 @@
 "use client";
-import { capitalize } from "lodash";
+import { capitalize, includes, split } from "lodash";
 import { useTranslations } from "next-intl";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import {
   STEP_1,
@@ -16,20 +17,34 @@ import {
 } from "@/redux/features/reservationSlice/reservationSlice";
 
 import Button from "@/components/atoms/button/Button";
-import { useRouter } from "next/navigation";
 
 const ReservationFooter = () => {
+  const path = usePathname();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const t = useTranslations();
   const dispatch = useAppDispatch();
   const { currentStep } = useAppSelector((state) => state.reservationReducer);
 
+  const checkParams = () => {
+    let count = 0;
+    for (const [key] of searchParams.entries()) {
+      includes(["check_in", "check_out"], key) && count++;
+    }
+    return count === 2;
+  };
+
   const handleSubmitBtn = () => dispatch(changeCurrentStep(SUCCESS));
 
   const handleConfirmationBtn = () => {
+    checkParams() && router.push("/reservation");
     dispatch(changeIsPressReservButton(true));
     return checkAuth()
-      ? dispatch(changeCurrentStep(STEP_2))
+      ? dispatch(
+          changeCurrentStep(
+            includes(split(path, "/"), "listing") ? STEP_1 : STEP_3
+          )
+        )
       : router.push("/login");
   };
 

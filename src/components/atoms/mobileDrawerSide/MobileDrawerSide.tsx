@@ -67,6 +67,14 @@ const MobileDrawerSide = (props: IProps) => {
         </div>
         <div className={showComponentByActivate(BOOKING_DATE)}>
           <DatePicker setSkipButtonVisibility={setSkipButtonVisibility} />
+          {/*todo: datepicker sorunu çözülecek*/}
+          {/*<DatePicker*/}
+          {/*  noNavButtons={12}*/}
+          {/*  bookingDate={bookingDate}*/}
+          {/*  setBookingDate={setBookingDate}*/}
+          {/*  orientation="verticalScrollable"*/}
+          {/*  setSkipButtonVisibility={setSkipButtonVisibility}*/}
+          {/*/>*/}
         </div>
         <div className={showComponentByActivate(BOOKING_GUESTS)}>
           <Guests setSkipButtonVisibility={setSkipButtonVisibility} />

@@ -1,36 +1,28 @@
 "use client";
 import { ReactNode, useEffect, useState } from "react";
-import {
-  map,
-  get,
-  clone,
-  split,
-  includes,
-  upperCase,
-  capitalize
-} from "lodash";
-import classNames from "classnames";
 import { useTranslations } from "next-intl";
+import { map, get, clone, upperCase, capitalize } from "lodash";
 
 import {
   IPaymentDetail,
   IReservationBody
 } from "@/components/molecules/reservationBody/types";
-import { percentage } from "@/utils/helper";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { changeTotal } from "@/redux/features/reservationSlice/reservationSlice";
 
 import Collapse from "@/components/atoms/collapse/Collapse";
 import ReservationCost from "@/components/molecules/reservationCost/ReservationCost";
+import { percentage } from "@/utils/helper";
+import { changeTotal } from "@/redux/features/reservationSlice/reservationSlice";
 
-const ReservationBody = ({ className = "" }: IReservationBody) => {
+const ReservationBody = ({
+  className = "",
+  hideCouponCode
+}: IReservationBody) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
 
-  const { total, payment, couponCode, isApplyCouponCode } = useAppSelector(
-    (state) => state.reservationReducer
-  );
-
+  const { total, payment, reservation, couponCode, isApplyCouponCode } =
+    useAppSelector((state) => state.reservationReducer);
   const nightlyTotal =
     get(payment, "nightlyRate") * get(payment, "reservationDay");
   const discountCouponCode = percentage(
@@ -61,16 +53,8 @@ const ReservationBody = ({ className = "" }: IReservationBody) => {
     }
   ]);
 
-  const infoClass = (info) => {
-    return classNames("text-xs", {
-      "text-primary": includes(split(info, " "), "(%10)")
-    });
-  };
-
   useEffect(() => {
     if (isApplyCouponCode) {
-      tempTotal -= discountCouponCode;
-      dispatch(changeTotal(tempTotal));
       const updated: Array<IPaymentDetail> = clone(paymentDetail);
 
       updated.push({
@@ -92,12 +76,25 @@ const ReservationBody = ({ className = "" }: IReservationBody) => {
       titleClass="text-lg pb-3 text-primary-400"
       title={t("payment_details")}>
       <div className="flex flex-col gap-y-4">
-        {map(paymentDetail, ({ info, total }, key) => (
-          <div key={key} className="flex justify-between">
-            <span className={infoClass(info)}>{info}</span>
-            <span className="text-base text-gray-600">{total}</span>
-          </div>
-        ))}
+        {map(
+          get(reservation, "price.breakdown"),
+          ({ label, value, extra }, key) => {
+            return extra ? (
+              <div key={key} className="flex flex-col ">
+                <div className="flex justify-between">
+                  <span className="text-xs">{label}</span>
+                  <span className="text-base text-gray-600">{value}</span>
+                </div>
+                <hr />
+              </div>
+            ) : (
+              <div key={key} className="flex justify-between">
+                <span className="text-xs">{label}</span>
+                <span className="text-base text-gray-600">{value}</span>
+              </div>
+            );
+          }
+        )}
       </div>
     </Collapse>
   );
@@ -106,13 +103,13 @@ const ReservationBody = ({ className = "" }: IReservationBody) => {
     <div className={`${className}`}>
       <PaymentDetailComponent />
       <ReservationCost
-        tempTotal={tempTotal}
+        tempTotal={0}
         paymentDetail={paymentDetail}
         setPaymentDetail={setPaymentDetail}
-        amountWithoutDiscount={amountWithoutDiscount}
+        hideCouponCode={hideCouponCode}
+        amountWithoutDiscount=""
       />
     </div>
   );
 };
-
 export default ReservationBody;

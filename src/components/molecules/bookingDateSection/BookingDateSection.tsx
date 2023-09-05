@@ -5,6 +5,7 @@ const BookingDateSection = ({ className = "" }: IBookingDateSection) => {
   return (
     <div className={`flex gap-x-2 border-2 p-5 ${className}`}>
       <div className="bg-gray-100 w-1/2">
+        {/*todo: datepicker sorunu çözülecek*/}
         {/*<DatePicker*/}
         {/*  bookingDate={bookingDate}*/}
         {/*  setBookingDate={setBookingDate}*/}

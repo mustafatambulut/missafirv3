@@ -48,7 +48,6 @@
     color: #FFFFFF !important;
 }
 
-
 .CalendarDay__selected_start {
     border-top-left-radius: 100%;
     border-bottom-left-radius: 100%;
@@ -141,6 +140,6 @@
     border-radius: 12px !important;
 }
 
-.CalendarMonthGrid__vertical_scrollable{
+.CalendarMonthGrid__vertical_scrollable {
     padding-bottom: 100px;
 }
