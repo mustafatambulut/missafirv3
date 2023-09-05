@@ -1,6 +1,6 @@
 import { get } from "lodash";
 import { strapi, pmsApi } from "./axiosInstances";
-import { getSessionStorage } from "@/utils/helper";
+import {getSessionStorage} from "@/utils/helper";
 
 export const getPage = async (page: string) => {
   const { data } = await strapi.get(`/api/${page}?populate=deep`);
@@ -45,6 +45,18 @@ export const getListings = async (params) => {
   }
 };
 
+export const getRecentReservations = async (reservationType?: string) => {
+  try {
+    const param = reservationType ? `/${reservationType}` : "";
+    return await pmsApi.get(`/profile/reservations${param}`,{
+      headers: {
+        Authorization: `Bearer ${getSessionStorage("token")}`
+      }
+    });
+  } catch (err) {
+    return get(err, "response.data");
+  }
+};
 export const signUp = async ({ email, password, fullname, phone }) => {
   const payload = {
     email,
