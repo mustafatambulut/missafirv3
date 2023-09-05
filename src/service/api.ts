@@ -76,9 +76,19 @@ export const profileEdit = async (payload) => {
   }
 };
 
-export const listingDetail = async (slug) => {
+export const listingDetail = async ({ slug, params }) => {
+  let uri = `/listing/${slug}`;
+  const { check_in, check_out, adults } = params;
+
+  if (check_in && check_out && params) {
+    const query = `?check_in=${check_in}&check_out=${check_out}&adults=${
+      adults || 1
+    }`;
+    uri += query;
+  }
+
   try {
-    const { data } = await pmsApi.get(`/listing/${slug}`);
+    const { data } = await pmsApi.get(uri);
     return get(data, "data");
   } catch (err) {
     return get(err, "data");

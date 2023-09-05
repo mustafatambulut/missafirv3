@@ -2,7 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { STEP_1 } from "@/redux/features/reservationSlice/enum";
 import { STATUS_CONFIRMATION } from "@/app/[lang]/reservation/constants";
-import { IReservationState } from "@/redux/features/reservationSlice/types";
+import {
+  Reservation,
+  IReservationState
+} from "@/redux/features/reservationSlice/types";
 
 // todo: api entegrasyonu sonrası güncellenecek
 const initialState = {
@@ -42,6 +45,28 @@ const initialState = {
         properties: ["2 bedroom", "1 bathroom", "120 m²"]
       }
     ]
+  },
+  reservation: {
+    is_available: false,
+    price: {
+      final: "",
+      listing: "",
+      average_daily_price: "",
+      discount_percentage: "",
+      total_discount_price: "",
+      cleaning_fee: "",
+      total_nights: 0,
+      sub_total: "",
+      original_average_daily_price: "",
+      breakdown: [
+        {
+          label: "",
+          value: "",
+          extra: ""
+        }
+      ]
+    },
+    is_available_reason: null
   },
   payment: {
     nightlyRate: 2000,
@@ -117,6 +142,12 @@ const reservationSlice = createSlice({
       action: PayloadAction<string>
     ) => {
       state.isPressReservButton = action.payload;
+    },
+    setReservation: (
+      state: { reservation: Reservation },
+      action: PayloadAction<string>
+    ) => {
+      state.reservation = action.payload;
     }
   }
 });
@@ -125,6 +156,7 @@ export const {
   changeStatus,
   changeTotal,
   changeGuests,
+  setReservation,
   changeCouponCode,
   changeCurrentStep,
   changeIsApplyCoupon,

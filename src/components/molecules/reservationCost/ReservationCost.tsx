@@ -1,6 +1,7 @@
 "use client";
 import { ReactNode } from "react";
 import { get } from "lodash";
+import classNames from "classnames";
 import { useTranslations } from "next-intl";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -20,8 +21,13 @@ const ReservationCost = ({
 }: IReservationCost) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
-  const { total, payment, isApplyCouponCode, isShowCouponCode } =
-    useAppSelector((state) => state.reservationReducer);
+  const { reservation, isApplyCouponCode, isShowCouponCode } = useAppSelector(
+    (state) => state.reservationReducer
+  );
+
+  const costClass = classNames(`mt-2 ${className}`, {
+    "border-dashed border-t-2 border-gray-200": isApplyCouponCode
+  });
 
   const handleApplyCouponCode = (): void => {
     dispatch(changeIsShowCouponCode(!isShowCouponCode));
@@ -63,8 +69,7 @@ const ReservationCost = ({
   };
 
   return (
-    <div
-      className={`mt-2 border-t-2 border-gray-200 border-dashed ${className}`}>
+    <div className={costClass}>
       <CouponCodeComponent />
       <AlertCouponCodeComponent />
       <div className="mt-3 flex justify-between">
@@ -73,16 +78,20 @@ const ReservationCost = ({
             {t("you_will_pay")}
           </span>
           <span className="text-gray-400 font-mi-sans">
-            {t("total_nights", { days: get(payment, "reservationDay") })}
+            {t("total_nights", {
+              days: get(reservation, "price.total_nights")
+            })}
           </span>
         </div>
         <span className="text-base font-mi-sans text-gray-300 line-through">
-          {`${amountWithoutDiscount} ₺`}
+          {amountWithoutDiscount}
         </span>
       </div>
       <div className="flex justify-between items-center font-mi-sans">
         <span>{!hideCouponCode && <ApplyCouponCodeComponent />}</span>
-        <span className="text-primary text-28">{`${total} ₺`}</span>
+        <span className="text-primary text-28">
+          {get(reservation, "price.final")}
+        </span>
       </div>
     </div>
   );

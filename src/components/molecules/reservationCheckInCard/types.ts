@@ -1,11 +1,6 @@
-export interface IReservationCheckInCard {
-  data?: Data;
-  className?: string;
-}
+import { Reservation } from "@/redux/features/reservationSlice/types";
 
-export interface Data {
-  is_available?: null;
-  price?: string;
-  is_available_reason?: null;
-  available_on?: string;
+export interface IReservationCheckInCard {
+  reservation?: Reservation;
+  className?: string;
 }

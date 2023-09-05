@@ -1,24 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
-import moment from "moment";
 import classNames from "classnames";
 import { capitalize, get } from "lodash";
 import { useDispatch } from "react-redux";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/redux/hooks";
 
-import {
-  setAdults,
-  updateBookingDate
-} from "@/redux/features/listingDetailSlice/listingDetailSlice";
+import { setAdults } from "@/redux/features/listingDetailSlice/listingDetailSlice";
 import { IReservationCheckInCard } from "@/components/molecules/reservationCheckInCard/types";
 
 import Button from "@/components/atoms/button/Button";
 import SelectBox from "@/components/atoms/selectBox/SelectBox";
-import DatePicker from "@/components/atoms/datePicker/DatePicker";
+// import DatePicker from "@/components/atoms/datePicker/DatePicker";
 
 const ReservationCheckInCard = ({
-  data,
+  reservation,
   className = ""
 }: IReservationCheckInCard) => {
   const t = useTranslations();
@@ -116,7 +112,7 @@ const ReservationCheckInCard = ({
     <div className={containerClass}>
       <div className="flex flex-col gap-y-6">
         <h2 className="text-2xl font-mi-sans font-normal text-gray-800">
-          {get(data, "price")}
+          {get(reservation, "price")}
           <span className="text-sm text-gray-400">{` /${t("nightly")}`}</span>
         </h2>
         <div>
@@ -153,7 +149,6 @@ const ReservationCheckInCard = ({
             </div>
           </div>
         </div>
-        {console.log(bookingDate)}
         <div>
           <Button
             disabled={

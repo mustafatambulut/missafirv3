@@ -1,9 +1,9 @@
-import { forEach, get, includes, keys, keysIn, size } from "lodash";
+import { forEach, get, includes, keys, size } from "lodash";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 
 import { listingDetail } from "@/service/api";
-import { checkSameItem, decodeParams } from "@/utils/helper";
+import { decodeParams } from "@/utils/helper";
 import { IDetail } from "@/app/[lang]/listing/[type]/[slug]/types";
 
 import AllDetail from "@/components/molecules/allDetail/AllDetail";
@@ -13,9 +13,9 @@ import DetailSection from "@/components/molecules/detailSection/DetailSection";
 import ReviewSection from "@/components/molecules/reviewSection/ReviewSection";
 import ArrangementSection from "@/components/molecules/arrangementSection/ArrangementSection";
 import AvailabilitySection from "@/components/molecules/availabilitySection/AvailabilitySection";
+import ReservationCheckInCard from "@/components/molecules/reservationCheckInCard/ReservationCheckInCard";
 
 import BodyHeartIcon from "../../../../../../public/images/variants/big_heart.svg";
-import ReservationCheckInCard from "@/components/molecules/reservationCheckInCard/ReservationCheckInCard";
 
 const ReservationSummary = dynamic(
   () => import("@/components/atoms/reservationSummary/ReservationSummary"),
@@ -23,6 +23,7 @@ const ReservationSummary = dynamic(
     ssr: false
   }
 );
+
 const GallerySection = dynamic(
   () => import("@/components/organisms/gallerySection/GallerySection"),
   {
@@ -54,7 +55,10 @@ const Detail = async ({ params, searchParams }: IDetail) => {
     }
   ];
 
-  const res = await listingDetail(decodeParams(get(params, "slug")));
+  const res = await listingDetail({
+    slug: decodeParams(get(params, "slug")),
+    params: queryStringCheck() ? searchParams : false
+  });
 
   if (!res) return notFound();
 
@@ -108,9 +112,15 @@ const Detail = async ({ params, searchParams }: IDetail) => {
         </aside>
         <aside className="w-1/3">
           {queryStringCheck() ? (
-            <ReservationSummary hideCouponCode={true} isDateSummary={true} />
+            <ReservationSummary
+              hideCouponCode={true}
+              isDateSummary={true}
+              reservation={get(res, "item.reservation")}
+            />
           ) : (
-            <ReservationCheckInCard data={get(res, "item.reservation")} />
+            <ReservationCheckInCard
+              reservation={get(res, "item.reservation")}
+            />
           )}
         </aside>
       </main>

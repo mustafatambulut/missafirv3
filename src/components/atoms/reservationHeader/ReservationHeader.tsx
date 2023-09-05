@@ -11,7 +11,7 @@ import DateSummary from "@/components/atoms/dateSummary/DateSummary";
 
 const ReservationHeader = ({ isDateSummary }: IReservationHeader) => {
   const t = useTranslations();
-  const { payment } = useAppSelector((state) => state.reservationReducer);
+  const { reservation } = useAppSelector((state) => state.reservationReducer);
   const { booking } = useAppSelector((state) => state.listingDetailReducer);
 
   const formatDate = (date) => (date ? moment(date).format("DD MMM") : "-");
@@ -20,7 +20,7 @@ const ReservationHeader = ({ isDateSummary }: IReservationHeader) => {
     !isMobile && (
       <>
         <h2 className="text-2xl font-mi-sans font-normal text-gray-700">
-          {`${get(payment, "nightlyRate")} ₺`}
+          {get(reservation, "price.average_daily_price")}
           <span className="text-sm text-gray-400">{` /${t("nightly")}`}</span>
         </h2>
         {isDateSummary && (
