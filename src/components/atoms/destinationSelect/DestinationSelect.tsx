@@ -6,12 +6,12 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 import { BOOKING_DATE } from "@/components/molecules/searchBar/constants";
 import { IDestinationSelect } from "@/components/atoms/destinationSelect/types";
+import { updateBookingDestination } from "@/redux/features/listingSlice/listingSlice";
 
 import "swiper/css";
 import "./DestinationSelect.css";
 
-import Search from "@/components/atoms/search/Search";
-import { updateBookingDestination } from "@/redux/features/listingSlice/listingSlice";
+import Select from "@/components/atoms/select/Select";
 
 const DestinationSelect = ({
   setActiveSearchItem,
@@ -124,7 +124,9 @@ const DestinationSelect = ({
 
   return (
     <div className="relative">
-      <Search
+      <Select
+        isSearchable={true}
+        isClearable={true}
         onChange={handleOnChange}
         items={formattedDestinations}
         showSearchIcon={true}

@@ -13,16 +13,18 @@ const Input = ({ ...props }: any) => {
     righticon,
     position,
     className,
-    containerclass
+    containerclass,
+    inputContainerClassName,
+    labelContainerClassName
   } = props;
 
-  const labelContainerClass = classNames("label", {
+  const labelContainerClass = classNames(`label ${labelContainerClassName}`, {
     "order-1": includes(split(position, "-"), "bottom"),
     hidden: !label
   });
 
   const inputContainerClass = classNames(
-    `flex rounded-lg bg-white items-center`,
+    `flex rounded-lg bg-white items-center ${inputContainerClassName}`,
     {
       "bg-gray-100": isDisable,
       "border border-gray-200": !isDisable,

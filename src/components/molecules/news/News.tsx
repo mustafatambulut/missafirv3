@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { get, map } from "lodash";
+import classNames from "classnames";
+import { get, map, slice } from "lodash";
 
 import Card from "@/components/atoms/card/Card";
 import Button from "@/components/atoms/button/Button";
@@ -9,8 +10,14 @@ import Loading from "@/components/atoms/loading/Loading";
 import Section from "@/components/molecules/section/Section";
 
 import RightArrow from "../../../../public/images/chevron_right.svg";
+import { IFooterComponent, INews } from "@/components/molecules/news/types";
 
-const News = () => {
+const News = ({ buttonPosition = "bottom", newsPerView = 4 }: INews) => {
+  const newsContentClass = classNames({
+    "flex-col": buttonPosition === "bottom",
+    "flex-row": buttonPosition === "left" || buttonPosition === "right"
+  });
+
   //todo: api entregrasyonu yapılınca kaldırılacak
   const mockNews = {
     header: {
@@ -59,7 +66,7 @@ const News = () => {
   };
 
   const PropertyCardComponent = ({ property }: any) => (
-    <Card className="mb-10 lg:mb-0">
+    <Card className="w-72 lg:w-auto">
       <div className="shadow-[0px_1px_20px_0px_#00000014] rounded-2xl">
         <div className="w-full h-60 relative">
           <Link href="/">
@@ -90,35 +97,46 @@ const News = () => {
       </div>
     </Card>
   );
-
-  const FooterComponent = () => (
-    <div className="text-center">
-      <Button
-        variant="btn-primary"
-        link="/"
-        className="mt-10 bg-primary-50 text-primary border-primary-25 hover:bg-primary hover:border-primary group">
-        <span className="group-hover:text-white text-xl font-mi-sans-semi-bold">
-          See All Blogs
-        </span>
-        <RightArrow className="scale-50 fill-primary group-hover:fill-white" />
-      </Button>
-    </div>
-  );
+  const FooterComponent = ({ buttonPosition }: IFooterComponent) => {
+    const footerComponentClass = classNames(
+      "bg-primary-50 text-primary border-primary-25 hover:bg-primary hover:border-primary group",
+      {
+        "h-full w-32 lg:w-40 flex-col":
+          buttonPosition === "left" || buttonPosition === "right",
+        "mt-10": buttonPosition === "bottom"
+      }
+    );
+    return (
+      <div className="text-center">
+        <Button variant="btn-primary" link="/" className={footerComponentClass}>
+          <span className="group-hover:text-white text-xl font-mi-sans-semi-bold">
+            {/*See All Blogs*/}
+            See All
+          </span>
+          <RightArrow className="scale-50 fill-primary group-hover:fill-white" />
+        </Button>
+      </div>
+    );
+  };
 
   return (
     <Loading isLoading={!mockNews} loader={<p>Loading feed...</p>}>
       {/*todo: skeleton eklenecek*/}
       <Section
-        className="px-4 lg:px-8 mt-14"
         title={get(mockNews, "header.title")}
         description={get(mockNews, "header.description")}>
-        <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-x-5">
-          {map(get(mockNews, "body"), (property, key) => (
-            <PropertyCardComponent key={key} property={property} />
-          ))}
+        <div className={`flex ${newsContentClass} gap-x-5 gap-y-10 py-10`}>
+          <div className={`flex flex-row gap-x-5`}>
+            {map(
+              slice(get(mockNews, "body"), 0, newsPerView),
+              (property, key) => (
+                <PropertyCardComponent key={key} property={property} />
+              )
+            )}
+          </div>
+          <FooterComponent buttonPosition={buttonPosition} />
         </div>
       </Section>
-      <FooterComponent />
     </Loading>
   );
 };

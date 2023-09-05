@@ -2,9 +2,24 @@ import { get } from "lodash";
 import { RootState } from "@/redux/store";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { IUserData } from "@/components/atoms/userInfo/types";
 import { IReservationItemProps } from "@/components/molecules/reservationItem/types";
-import { getRecentReservations } from "@/service/api";
+import { getProfile, profileEdit, getRecentReservations } from "@/service/api";
+
+export const fetchProfileData = createAsyncThunk(
+  "profile/fetchProfileData",
+  async () => {
+    const { data } = await getProfile();
+    return data;
+  }
+);
+
+export const updateProfile = createAsyncThunk(
+  "profile/profileEdit",
+  async (profileData) => {
+    const { data } = await profileEdit(profileData);
+    return data;
+  }
+);
 
 export const fetchRecentReservations = createAsyncThunk(
   "profile/fetchRecentReservations",
@@ -15,7 +30,7 @@ export const fetchRecentReservations = createAsyncThunk(
 );
 
 interface ProfileState {
-  user: IUserData;
+  user: any;
   activeSection:
     | "info"
     | "reservations"
@@ -28,29 +43,8 @@ interface ProfileState {
 }
 
 const initialState = {
-  loading: false,
-  user: {
-    avatar: "https://i.ibb.co/dm4mntF/avatar.jpg",
-    firstName: "John",
-    lastName: "Doe",
-    fullName: "John Doe",
-    email: "johndoe@missafir.com",
-    password: "MSFRV3",
-    address: "A Sok. B Mah. C Sitesi No:12",
-    phone: "+905121211212",
-    birthDate: "01/01/1990",
-    gender: "female",
-    notifications: {
-      email: true,
-      push: false,
-      sms: true
-    },
-    contact_permissions: {
-      email: false,
-      push: true,
-      sms: true
-    }
-  },
+  loading:false,
+  user: {},
   // todo: test için eklendi düzenlenecek
   reservations: [],
   activeSection: "reservations",
@@ -83,6 +77,12 @@ const profileSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchProfileData.fulfilled, (state, action) => {
+      state.user = action.payload.data;
+    });
+    builder.addCase(updateProfile.fulfilled, (state, action) => {
+      state.user = action.payload.data;
+    });
     builder.addCase(fetchRecentReservations.pending, (state) => {
       state.loading = true;
     });
