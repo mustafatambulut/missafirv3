@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
-import { useAppSelector } from "@/redux/hooks";
-import { filter, get, map, size } from "lodash";
+import { get, map } from "lodash";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 import Button from "@/components/atoms/button/Button";
+import Loading from "@/components/atoms/loading/Loading";
+import { fetchRecentReservations } from "@/redux/features/profileSlice";
 import SelectFilter from "@/components/atoms/selectFilter/SelectFilter";
 import ReservationItem from "@/components/molecules/reservationItem/ReservationItem";
 
@@ -14,10 +16,11 @@ import ConfirmedIcon from "../../../../public/images/confirmed.svg";
 import CancelledIcon from "../../../../public/images/cancelled.svg";
 
 const ReservationList = () => {
-  const { reservations } = useAppSelector((state) => state.profileReducer);
-
-  const [activeFilter, setActiveFilter] = useState<string>("all");
-  const [filteredReservations, setFilteredReservations] = useState<any[]>([]);
+  const dispatch = useAppDispatch();
+  const { reservations, loading } = useAppSelector(
+    (state) => state.profileReducer
+  );
+  const [activeFilter, setActiveFilter] = useState<string>("");
   const filterOptionIconClass = (type: string): string => {
     return classNames("fill-gray", {
       "fill-primary": activeFilter === type
@@ -48,9 +51,9 @@ const ReservationList = () => {
     {
       attributes: {
         type: "filter",
-        value: "all",
+        value: "",
         label: "All",
-        icon: <AllIcon className={filterOptionIconClass("all")} />
+        icon: <AllIcon className={filterOptionIconClass("")} />
       }
     },
     {
@@ -80,15 +83,7 @@ const ReservationList = () => {
   ];
 
   useEffect(() => {
-    if (activeFilter === "all") {
-      setFilteredReservations(reservations);
-    } else {
-      setFilteredReservations(
-        filter(reservations, (reservation) => {
-          return reservation.status.type === activeFilter;
-        })
-      );
-    }
+    dispatch(fetchRecentReservations(activeFilter));
   }, [activeFilter]);
 
   return (
@@ -117,18 +112,18 @@ const ReservationList = () => {
             ))}
           </div>
           <div className="lg:hidden flex justify-between">
+            {/*todo: select düzenlenecek*/}
             <SelectFilter onChange={setActiveFilter} />
           </div>
         </div>
-        <div className="text-sm lg:text-lg text-gray-800">
-          {size(reservations)} geçmiş rezervasyon
+      </div>
+      <Loading isLoading={loading} loader={<p>Loading feed...</p>}>
+        <div className="relative gap-y-5 flex flex-col">
+          {map(reservations, (reservation, key) => (
+            <ReservationItem reservation={reservation} key={key} />
+          ))}
         </div>
-      </div>
-      <div className="relative gap-y-5 flex flex-col">
-        {map(filteredReservations, (reservation, key) => (
-          <ReservationItem reservation={reservation} key={key} />
-        ))}
-      </div>
+      </Loading>
     </div>
   );
 };

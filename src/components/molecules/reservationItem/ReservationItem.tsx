@@ -43,20 +43,12 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
       isWish = has(get(parent, "dataset"), "wishlist");
       isWish
         ? handleClickWishlist(e)
-        : router.push(`/profile/reservations/${get(reservation, "id")}`);
+        : router.push(`/profile/reservations/${get(reservation, "uuid")}`);
     }
   };
 
   const reservationWrapperClass = classNames(
     "relative rounded-xl cursor-pointer",
-    {
-      "bg-gradient-to-l from-warning-yellow from-40% to-white":
-        get(reservation, "status.type") === "pending",
-      "bg-gradient-to-l from-success-green from-40% to-white":
-        get(reservation, "status.type") === "confirmed",
-      "bg-gradient-to-l from-error-red from-40% to-white":
-        get(reservation, "status.type") === "cancelled"
-    }
   );
 
   const checkIsNotDraggable = (e) => {
@@ -73,7 +65,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
     leftWithAction && setLeft(leftWithAction);
   };
 
-  const handleDrag = (e:any, data:any) => {
+  const handleDrag = (e: any, data: any) => {
     if (percent === 0 && checkIsNotDraggable(e)) return false;
     const w = get(itemRef, "current.offsetWidth");
     const x = get(data, "x") < 0 ? get(data, "x") * -1 : get(data, "x");
@@ -83,7 +75,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
     setLeft(data.x);
   };
 
-  const handleClickWishlist = (e:any) => {
+  const handleClickWishlist = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
     setIsInWishlist(!isInWishlist);
@@ -95,6 +87,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
 
   return (
     <div
+        style={{backgroundColor: get(reservation, "status.hex")}}
       className={reservationWrapperClass}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
