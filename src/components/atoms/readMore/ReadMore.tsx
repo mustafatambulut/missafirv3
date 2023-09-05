@@ -11,6 +11,7 @@ const ReadMore = ({
   children,
   className = "",
   bodyClass = "",
+  labelClass = "",
   showLabel = "Read more",
   lessLabel = "Show less"
 }: IReadMore) => {
@@ -46,7 +47,7 @@ const ReadMore = ({
       <ChildrenComponent />
       <div className="mt-2">
         <span onClick={toggleReadMore} className="cursor-pointer text-primary">
-          <span className="inline-flex items-center gap-x-2">
+          <span className={`inline-flex items-center gap-x-2 ${labelClass}`}>
             {isReadMore ? showLabel : lessLabel}
             <DowArrowPrimary className={indicatorClass} />
           </span>

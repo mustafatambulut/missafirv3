@@ -1,6 +1,9 @@
 import Link from "next/link";
 import classNames from "classnames";
+
 import { IButton } from "@/components/atoms/button/types";
+
+import "./Button.css";
 
 const Button = ({
   type = "button",

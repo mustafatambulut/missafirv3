@@ -64,6 +64,6 @@ export const listingDetail = async (slug) => {
     const { data } = await pmsApi.get(`/listing/${slug}`);
     return get(data, "data");
   } catch (err) {
-    return err;
+    return get(err, "data");
   }
 };

@@ -64,7 +64,8 @@ const ImageCarousel = ({
     isModal
   }: IPhotosComponent): ReactNode => {
     return (
-      <div className={`grid grid-rows-2 grid-cols-4 gap-2 ${className}`}>
+      <div
+        className={`grid grid-rows-3 lg:grid-rows-2 grid-cols-2 lg:grid-cols-4 gap-2 ${className}`}>
         {map(images, ({ path, path_extra, caption }, key) => (
           <Image
             onClick={(e) => handleImage(e, isModal, path_extra)}
@@ -95,7 +96,7 @@ const ImageCarousel = ({
             variant="btn-ghost"
             className="hover:bg-transparent focus:outline-0 border-none h-2 px-1">
             <span className="flex justify-center items-center w-10 h-10 bg-white hover:bg-gray-100 rounded-full">
-              <FavoriteIcon />
+              <FavoriteIcon className="fill-transparent stroke-black" />
             </span>
           </Button>
           {/*todo: share butonu event'i eklenmesi gerek*/}

@@ -3,9 +3,14 @@ import { Moment } from "moment/moment";
 
 export interface IDatePicker {
   datePickerClass?: string;
+  className?: string;
+  isShowLabel?: boolean;
+  orientation?: "verticalScrollable" | "horizontal";
   isOpenedStyle?: boolean;
-  bookingDate: IBookingDate;
-  setBookingDate: Dispatch<SetStateAction<IBookingDate>>;
+  // bookingDate: IBookingDate;
+  noNavButtons?: boolean;
+  numberOfMonths?: number;
+  // setBookingDate: Dispatch<SetStateAction<IBookingDate>>;
   setSkipButtonVisibility: Dispatch<SetStateAction<boolean>>;
 }
 

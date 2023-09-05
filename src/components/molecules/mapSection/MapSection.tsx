@@ -1,6 +1,6 @@
 "use client";
-import { get } from "lodash";
 import dynamic from "next/dynamic";
+import { capitalize, get } from "lodash";
 import { Circle, LayerGroup } from "react-leaflet";
 
 import { IMapSection } from "@/components/molecules/mapSection/types";
@@ -8,20 +8,25 @@ import { IMapSection } from "@/components/molecules/mapSection/types";
 import "leaflet/dist/leaflet.css";
 
 const MapSection = ({ data, className = "" }: IMapSection) => {
+  if (!get(data, "approx_lat") && !get(data, "approx_lng")) return;
+
   const Map = dynamic(() => import("../../molecules/map/Map"), {
     ssr: false
   });
 
-  const { city, district, approx_lat, approx_lng } = data;
-  const center = [approx_lat, approx_lng];
+  const center = [get(data, "approx_lat"), get(data, "approx_lng")];
 
   return (
-    <section className={`flex flex-col gap-y-8 ${className}`}>
+    <section className={`flex flex-col gap-y-4 lg:gap-y-8 ${className}`}>
       <header>
-        <h1 className="text-2xl">Where You’ll Be</h1>
+        <h1 className="text-xl lg:text-2xl">Where You’ll Be</h1>
       </header>
       <div>
-        <Map className="z-0" center={center} scrollWheelZoom={false} zoom={12}>
+        <Map
+          zoom={12}
+          center={center}
+          scrollWheelZoom={false}
+          className="z-0 rounded-xl">
           {({ TileLayer, Marker, Popup }) => (
             <>
               <TileLayer
@@ -44,8 +49,13 @@ const MapSection = ({ data, className = "" }: IMapSection) => {
           )}
         </Map>
       </div>
-      <h1 className="text-xl capitalize">{`${city}, ${district}`}</h1>
-      <article className="text-lg">{get(data, "content")}</article>
+      <h1 className="text-xl">{`${capitalize(get(data, "city"))}, ${capitalize(
+        get(data, "district")
+      )}`}</h1>
+      <article className="text-sm lg:text-lg text-gray-600">
+        {get(data, "content")}
+      </article>
+      <hr className="lg:hidden" />
     </section>
   );
 };

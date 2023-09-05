@@ -9,24 +9,30 @@ import { DayPickerRangeController } from "react-dates";
 
 import { IBookingDate, IDatePicker } from "@/components/atoms/datePicker/types";
 
-import Button from "@/components/atoms/button/Button";
-
 import "./DatePicker.css";
 import "react-dates/lib/css/_datepicker.css";
 
 import CalendarIcon from "../../../../public/images/calendar.svg";
-//todo: minimum stay için eklendi düzenlenince aktif edilecek
-//import RoundedInfo from "../../../../public/images/rounded_info.svg";
 import ChevronLeft from "../../../../public/images/chevron_left.svg";
 import ChevronRight from "../../../../public/images/chevron_right.svg";
+import Button from "@/components/atoms/button/Button";
+import { useAppSelector } from "@/redux/hooks";
+import { useDispatch } from "react-redux";
+import { setBookingDate } from "@/redux/features/datePickerSlice/datePickerSlice";
 
 const DatePicker = ({
-  bookingDate,
-  setBookingDate,
+  className = "",
   datePickerClass = "",
-  isOpenedStyle = false
+  isOpenedStyle = false,
+  noNavButtons = false,
+  numberOfMonths = 2,
+  isShowLabel = true,
+  orientation = "horizontal"
 }: IDatePicker) => {
+  const dispatch = useDispatch();
   const initialMonth = moment();
+  const { bookingDate } = useAppSelector((state) => state.datePickerReducer);
+
   const [focusedInput, setFocusedInput] = useState<any>("startDate");
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [isPrevButtonHidden, setIsPrevButtonHidden] = useState<boolean>(true);
@@ -35,7 +41,7 @@ const DatePicker = ({
   // const [dayInfo, setDayInfo] = useState<any>("");
 
   const onDatesChange = ({ startDate, endDate }: IBookingDate) => {
-    setBookingDate({ startDate, endDate });
+    dispatch(setBookingDate({ startDate, endDate }));
   };
 
   const onFocusChange = (focusedInput: any) => {
@@ -56,41 +62,10 @@ const DatePicker = ({
     isOpenedStyle && setShowDatePicker(isOpenedStyle);
   }, [isOpenedStyle]);
 
-  const renderControls = () => {
-    return (
-      <section className="w-full flex justify-between items-center p-2 bg-white text-gray-600 rounded-xl min-h-[30px]">
-        <div>
-          {/*todo: minimum stay için, düzenlenecek*/}
-          {/*{dayInfo && (*/}
-          {/*  <div className="text-black flex items-center text-sm">*/}
-          {/*    <RoundedInfo className="mr-2" /> Minimum stay for check-in on{" "}*/}
-          {/*    {dayInfo} is 2 nights.*/}
-          {/*  </div>*/}
-          {/*)}*/}
-        </div>
-        {(get(bookingDate, "startDate") || get(bookingDate, "endDate")) && (
-          <div className="flex">
-            <Button
-              onClick={() => setBookingDate({ startDate: null, endDate: null })}
-              variant="btn-link"
-              className="text-gray-600 bg-transparent shadow-none border-none">
-              Clear
-            </Button>
-          </div>
-        )}
-      </section>
-    );
-  };
-
   const renderDayContents = (day) => {
     const isToday = moment(day).isSame(moment(), "day");
     return (
-      <div
-        className="day-content"
-        // todo: minimum stay için, düzenlenecek
-        // onMouseEnter={() => setDayInfo(day.format("MMMM D"))}
-        // onMouseLeave={() => setDayInfo("")}
-      >
+      <div className="day-content">
         <div>{day.format("D")}</div>
         {isToday && (
           <div className="absolute bottom-0 left-[50%] translate-x-[-50%] text-4xl leading-8 text-primary day-dot">
@@ -118,7 +93,7 @@ const DatePicker = ({
   };
 
   const containerClass = classNames(
-    `cursor-pointer w-full rounded-2xl relative mb-20 lg:mb-0`,
+    `cursor-pointer w-full rounded-2xl relative mb-20 lg:mb-0 ${className}`,
     {
       "py-1 lg:px-4 lg:h-[56px]": !isOpenedStyle,
       "prev-hidden": isPrevButtonHidden,
@@ -135,6 +110,39 @@ const DatePicker = ({
     "lg:block": !isOpenedStyle
   });
 
+  const renderControls = () => {
+    return (
+      <section className="w-full flex justify-between items-center p-2 bg-white text-gray-600 rounded-xl min-h-[30px]">
+        <div>
+          {/*todo: minimum stay için, düzenlenecek*/}
+          {/*{dayInfo && (*/}
+          {/*  <div className="text-black flex items-center text-sm">*/}
+          {/*    <RoundedInfo className="mr-2" /> Minimum stay for check-in on{" "}*/}
+          {/*    {dayInfo} is 2 nights.*/}
+          {/*  </div>*/}
+          {/*)}*/}
+        </div>
+        {(get(bookingDate, "startDate") || get(bookingDate, "endDate")) && (
+          <div className="flex">
+            <Button
+              onClick={() =>
+                dispatch(
+                  setBookingDate({
+                    startDate: null,
+                    endDate: null
+                  })
+                )
+              }
+              variant="btn-link"
+              className="text-gray-600 bg-transparent shadow-none border-none">
+              Clear
+            </Button>
+          </div>
+        )}
+      </section>
+    );
+  };
+
   return (
     <div className={containerClass}>
       <div
@@ -142,7 +150,7 @@ const DatePicker = ({
         onClick={() => setShowDatePicker(true)}>
         <CalendarIcon className={calendarClassName} />
         <div className="lg:flex lg:flex-col lg:ml-3 h-full lg:justify-center">
-          {!isOpenedStyle && (
+          {!isOpenedStyle && isShowLabel && (
             <span className="text-gray-600 text-left hidden lg:block lg:text-21">
               Dates
             </span>
@@ -165,29 +173,30 @@ const DatePicker = ({
           {showDatePicker && (
             <div className={datePickerClassName}>
               <DayPickerRangeController
+                keepOpenOnDateSelect={true}
                 navNext={navNextIcon()}
                 navPrev={navPrevIcon()}
-                renderDayContents={renderDayContents}
-                numberOfMonths={isMobile ? 12 : 2}
                 transitionDuration={0}
                 minDate={initialMonth}
+                orientation={orientation}
+                enableOutsideDays={false}
                 hideKeyboardShortcutsPanel
+                noNavButtons={noNavButtons}
+                focusedInput={focusedInput}
                 calendarInfoPosition="bottom"
                 onDatesChange={onDatesChange}
                 onFocusChange={onFocusChange}
                 showKeyboardShortcuts={false}
-                noNavButtons={isMobile}
+                numberOfMonths={numberOfMonths}
                 onPrevMonthClick={handleChangeMonth}
                 onNextMonthClick={handleChangeMonth}
                 noNavPrevButton={isPrevButtonHidden}
+                renderDayContents={renderDayContents}
                 initialVisibleMonth={() => initialMonth}
                 startDate={get(bookingDate, "startDate")}
                 endDate={get(bookingDate, "endDate")}
-                focusedInput={focusedInput}
-                renderCalendarInfo={!isMobile ? renderControls : null}
+                renderCalendarInfo={isMobile || renderControls}
                 onOutsideClick={handleOnOutsideClick}
-                orientation={isMobile ? "verticalScrollable" : "horizontal"}
-                enableOutsideDays={false}
                 isOutsideRange={(day) => day.isBefore(initialMonth, "day")}
               />
             </div>

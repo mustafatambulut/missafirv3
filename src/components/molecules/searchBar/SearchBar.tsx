@@ -11,6 +11,7 @@ import DatePicker from "@/components/atoms/datePicker/DatePicker";
 import DestinationSelect from "@/components/atoms/destinationSelect/DestinationSelect";
 
 import SearchIcon from "../../../../public/images/search.svg";
+import RenderControl from "@/components/atoms/renderControl/RenderControl";
 
 const SearchBar = (props: IProps) => {
   const {
@@ -42,11 +43,14 @@ const SearchBar = (props: IProps) => {
         />
       </div>
       <div className="flex-1 mb-3 lg:mb-0 w-full">
-        <DatePicker
-          bookingDate={bookingDate}
-          setBookingDate={setBookingDate}
-          setSkipButtonVisibility={setSkipButtonVisibility}
-        />
+        {/*todo: datepicker sorunu çözülecek*/}
+        {/*<DatePicker*/}
+        {/*  numberOfMonths={2}*/}
+        {/*  noNavButtons={isMobile}*/}
+        {/*  // bookingDate={bookingDate}*/}
+        {/*  // setBookingDate={setBookingDate}*/}
+        {/*  setSkipButtonVisibility={setSkipButtonVisibility}*/}
+        {/*/>*/}
       </div>
       <div className="flex-1 mb-3 lg:mb-0 w-full">
         <div className="flex items-center justify-start">

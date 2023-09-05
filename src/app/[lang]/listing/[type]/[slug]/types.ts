@@ -1,5 +1,5 @@
 export interface IDetail {
-  params?: Params;
+  params?:Params;
   searchParams?: SearchParams;
 }
 

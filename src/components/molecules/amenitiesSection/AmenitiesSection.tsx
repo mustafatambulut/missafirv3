@@ -1,57 +1,45 @@
 "use client";
-import { ReactNode, useState } from "react";
-import { get, map, take } from "lodash";
+import { useState } from "react";
+import { get, map, size, take } from "lodash";
+import { isMobile } from "react-device-detect";
 
 import { IAmenitiesSection } from "@/components/molecules/amenitiesSection/types";
 
 import Modal from "@/components/atoms/modal/Modal";
 import Button from "@/components/atoms/button/Button";
+import TouchesSection from "@/components/molecules/touchesSection/TouchesSection";
 
 import RightIcon from "../../../../public/images/variants/chevron_right.svg";
-import MissafirLogo from "../../../../public/images/variants/missafir_logo.svg";
 
 const AmenitiesSection = ({ item, className = "" }: IAmenitiesSection) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const TouchesComponent = (): ReactNode => (
-    <article className="flex flex-col gap-y-6">
-      <h5 className="flex items-start text-xl gap-x-2">
-        <MissafirLogo /> Touches
-      </h5>
-      <div className="flex flex-wrap">
-        {map(get(item, "missafir_touches"), (touch, key) => (
-          <div
-            key={key}
-            className="flex flex-col items-center capitalize justify-center rounded-xl h-24 m-2 py-4 px-6 bg-primary-50 text-primary w-fit">
-            {touch}
-          </div>
-        ))}
-      </div>
-    </article>
-  );
-
   return (
     <section className={`flex flex-col gap-y-9 ${className}`}>
-      <h1 className="text-2xl">Amenities</h1>
-      <TouchesComponent />
+      <h1 className="text-lg lg:text-2xl text-gray-800">Amenities</h1>
+      <TouchesSection touches={get(item, "missafir_touches")} />
       <article className="flex flex-col gap-y-6 items-start">
-        <h1 className="text-2xl">What This Place Offers</h1>
+        <h1 className="text-lg text-gray-800 lg:text-2xl">
+          What This Place Offers
+        </h1>
         <div className="flex flex-wrap gap-2">
           {map(take(get(item, "amenities"), 5), ({ name }, key) => (
             <div
               key={key}
-              className="flex flex-col items-center capitalize justify-center rounded-xl h-14 py-2 px-4 bg-gray-50 text-gray-600 w-fit">
+              className="flex flex-col items-center capitalize justify-center rounded-xl h-14 py-2 px-4 bg-gray-50 text-sm lg:text-lg text-gray-600 w-fit">
               {name}
             </div>
           ))}
         </div>
         <Button
-          variant="btn-ghost"
+          variant={isMobile ? "btn-white" : "btn-ghost"}
           onClick={() => setIsOpen(true)}
-          className="text-primary text-lg px-0"
+          className="text-primary text-base lg:text-lg px-0 w-full lg:w-fit border lg:border-none rounded-xl"
           outline={true}>
-          See All Amenities
-          <RightIcon />
+          {isMobile
+            ? `See All ${size(get(item, "amenities"))} Amenities`
+            : "See All Amenities"}
+          <RightIcon className="hidden lg:block" />
         </Button>
         <Modal
           label="Amenities"
@@ -60,14 +48,15 @@ const AmenitiesSection = ({ item, className = "" }: IAmenitiesSection) => {
           isOpen={isOpen}
           setIsOpen={setIsOpen}>
           <div className="py-2 mt-4 flex flex-col gap-y-6">
-            <TouchesComponent />
+            <TouchesSection touches={get(item, "missafir_touches")} />
             <div className="flex flex-col gap-y-6">
               <h1 className="text-xl">What This Place Offers</h1>
               <div className="flex flex-wrap gap-2">
-                {map(get(item, "amenities"), ({ name }, key) => (
+                {map(get(item, "amenities"), ({ icon, name }, key) => (
                   <div
                     key={key}
-                    className="flex flex-col items-center capitalize justify-center rounded-xl h-14 py-2 px-4 bg-gray-50 text-gray-600 w-fit">
+                    className="flex flex-col items-center capitalize justify-center rounded-xl h-14 py-2 px-4 bg-gray-50 text-sm lg:text-lg text-gray-600 w-fit">
+                    <img src={icon || ""} alt="icon" />
                     {name}
                   </div>
                 ))}
@@ -76,6 +65,7 @@ const AmenitiesSection = ({ item, className = "" }: IAmenitiesSection) => {
           </div>
         </Modal>
       </article>
+      <hr className="lg:hidden" />
     </section>
   );
 };

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { get } from "lodash";
+import { isMobile } from "react-device-detect";
 
 import { useAppDispatch } from "@/redux/hooks";
 import { IAvailabilitySection } from "@/components/molecules/availabilitySection/types";
@@ -33,12 +34,15 @@ const AvailabilitySection = ({ className = "" }: IAvailabilitySection) => {
         <h1 className="text-2xl">Availability</h1>
       </header>
       <article>
-        <DatePicker
-          isOpenedStyle={true}
-          bookingDate={bookingDate}
-          setBookingDate={setBookingDate}
-          setSkipButtonVisibility={false}
-        />
+        {/*todo: datepicker sorunu çözülecek*/}
+        {/*<DatePicker*/}
+        {/*  noNavButtons={false}*/}
+        {/*  isOpenedStyle={true}*/}
+        {/*  bookingDate={bookingDate}*/}
+        {/*  numberOfMonths={isMobile ? 1 : 2}*/}
+        {/*  setBookingDate={setBookingDate}*/}
+        {/*  setSkipButtonVisibility={false}*/}
+        {/*/>*/}
       </article>
     </section>
   );
