@@ -1,3 +1,4 @@
+/*eslint-disable*/
 "use client";
 import { useEffect } from "react";
 import { isMobile } from "react-device-detect";

@@ -1,4 +1,5 @@
 import { Moment } from "moment/moment";
+import { Dispatch, SetStateAction } from "react";
 
 export interface IDatePicker {
  isInCustomSection?: boolean;

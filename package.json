@@ -46,6 +46,7 @@
     "react-device-detect": "2.2.3",
     "react-dom": "18.2.0",
     "react-draggable": "4.4.5",
+    "react-dropzone": "^14.2.3",
     "react-fast-marquee": "1.6.0",
     "react-hot-toast": "2.4.1",
     "react-imask": "7.1.3",

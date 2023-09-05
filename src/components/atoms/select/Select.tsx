@@ -2,41 +2,47 @@
 import { ReactNode } from "react";
 import Image from "next/image";
 import classNames from "classnames";
-import { get, map, size } from "lodash";
+import { filter, get, map, size } from "lodash";
 import { isMobile } from "react-device-detect";
-import Select, { components } from "react-select";
+import ReactSelect, { components } from "react-select";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-import { ISearch } from "@/components/atoms/search/types";
 
 import ClearIcon from "../../../../public/images/clear.svg";
 import SearchIcon from "../../../../public/images/search.svg";
 import HistoryIcon from "../../../../public/images/history.svg";
 import LocationIcon from "../../../../public/images/location.svg";
+import { ISelect } from "@/components/atoms/select/types";
 
-const Search = ({
+const Select = ({
   items,
   onChange,
+  name = "",
+  value = null,
   className = "",
-  customIcon = null,
   placeHolder = "",
   controlTitle = "",
-  isClearable = true,
-  isSearchable = true,
+  customIcon = null,
+  menuIsOpen = null,
+  iconOffset = false,
+  isClearable = false,
+  maxMenuHeight = null,
+  isSearchable = false,
   noResultsMessage = "",
-  showSearchIcon = true,
+  searchId = "search-id",
   showOptionIcon = false,
+  searchIconColor = null,
+  showSearchIcon = false,
+  showPlaceholder = true,
+  showControlTitle = true,
   customIconPosition = "left",
   searchIconPosition = "left",
-  controlWrapperClassName = "",
-  searchId = "search-id",
-  value = null,
-  menuIsOpen = null,
-  maxMenuHeight = null
-}: ISearch) => {
+  placeholderClassName = null,
+  controlTitleClassName = null,
+  controlWrapperClassName = ""
+}: ISelect) => {
   const searchClass = classNames(`w-full ${className}`);
   const controlWrapperClass = classNames(
-    `input height-[3rem] rounded-lg border-none shadow-none text-left ${controlWrapperClassName}`,
+    `rounded-lg border-none shadow-none text-left ${controlWrapperClassName}`,
     {
       "pl-10":
         (customIcon && customIconPosition === "left") ||
@@ -50,22 +56,42 @@ const Search = ({
   const customIconClass = classNames(
     "absolute top-[50%] transform translate-y-[-50%]",
     {
-      "left-2": customIconPosition === "left",
-      "right-2": customIconPosition === "right"
+      "left-0": customIconPosition === "left" && !iconOffset,
+      "right-0": customIconPosition === "right" && !iconOffset,
+      "left-2": customIconPosition === "left" && iconOffset,
+      "right-2": customIconPosition === "right" && iconOffset
     }
   );
   const searchIconClass = classNames(
     "absolute top-[50%] transform translate-y-[-50%]",
     {
-      "left-2": searchIconPosition === "left",
-      "right-2": searchIconPosition === "right"
+      "left-0": searchIconPosition === "left" && !iconOffset,
+      "right-0": searchIconPosition === "right" && !iconOffset,
+      "left-2": searchIconPosition === "left" && iconOffset,
+      "right-2": searchIconPosition === "right" && iconOffset,
+      "fill-gray-800": !searchIconColor,
+      [searchIconColor]: searchIconColor
     }
   );
 
+  const controlTitleClass = classNames("w-full", {
+    "text-gray-600 text-sm": !controlTitleClassName,
+    [controlTitleClassName]: controlTitleClassName,
+    block: showControlTitle,
+    hidden: !showControlTitle
+  });
+  const placeholderClass = classNames("w-full", {
+    "text-gray-600 text-base lg:text-lg font-mi-semi-bold":
+      !placeholderClassName,
+    [placeholderClassName]: placeholderClassName,
+    block: showPlaceholder,
+    hidden: !showPlaceholder
+  });
   return (
-    <Select
+    <ReactSelect
+      name={name}
       {...(value && {
-        value: value
+        value: filter(items, (item) => item.value === value)
       })}
       {...(menuIsOpen && { menuIsOpen: menuIsOpen })}
       {...(maxMenuHeight && { menuIsOpen: maxMenuHeight })}
@@ -87,7 +113,7 @@ const Search = ({
             <div className={controlInnerClass}>
               {showSearchIcon && (
                 <div className={searchIconClass}>
-                  <SearchIcon className="fill-gray-800" />
+                  <SearchIcon className={searchIconClass} />
                 </div>
               )}
               {customIcon && (
@@ -95,9 +121,7 @@ const Search = ({
               )}
               <div className="flex-wrap flex w-full h-full">
                 {controlTitle && (
-                  <div className="text-gray-600 w-full text-sm hidden lg:block">
-                    {controlTitle}
-                  </div>
+                  <div className={controlTitleClass}>{controlTitle}</div>
                 )}
                 {get(props, "children")}
               </div>
@@ -106,7 +130,7 @@ const Search = ({
         ),
         Placeholder: (props) => (
           <components.Placeholder className="m-0" {...props}>
-            <div className="text-gray-600 text-base lg:text-lg font-mi-semi-bold">
+            <div className={placeholderClass}>
               {placeHolder && <> {placeHolder} </>}
             </div>
           </components.Placeholder>
@@ -126,7 +150,7 @@ const Search = ({
         ),
         Menu: (props) => (
           <components.Menu
-            className="rounded-xl mt-5 z-20 shadow-none lg:shadow-md"
+            className="rounded-xl mt-5 z-20 shadow-none lg:shadow-md z-50"
             {...props}>
             <div className={`${get(props, "selectProps.menuInnerClassName")}`}>
               {get(props, "children")}
@@ -255,4 +279,4 @@ const Search = ({
   );
 };
 
-export default Search;
+export default Select;

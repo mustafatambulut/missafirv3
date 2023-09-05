@@ -1,16 +1,18 @@
 "use client";
 import React from "react";
-import { get } from "lodash";
-import Select, { Theme } from "react-select";
+import {get, map} from "lodash";
+// todo:select componenti düzenlenecek
+//import { Theme } from "react-select";
 
 import { ISelectFilter } from "@/components/atoms/selectFilter/types";
 
-import Option from "@/components/atoms/option/Option";
-import Control from "@/components/atoms/control/Control";
-import SelectMenu from "@/components/atoms/selectMenu/SelectMenu";
-import SingleValue from "@/components/atoms/singleValue/SingleValue";
-import SelectMenuList from "@/components/atoms/selectMenuList/SelectMenuList";
-import DropdownIndicator from "@/components/atoms/dropdownIndicator/DropdownIndicator";
+// todo:select componenti düzenlenecek
+// import Option from "@/components/atoms/option/Option";
+// import Control from "@/components/atoms/control/Control";
+// import SelectMenu from "@/components/atoms/selectMenu/SelectMenu";
+// import SingleValue from "@/components/atoms/singleValue/SingleValue";
+// import SelectMenuList from "@/components/atoms/selectMenuList/SelectMenuList";
+// import DropdownIndicator from "@/components/atoms/dropdownIndicator/DropdownIndicator";
 
 import AllIcon from "../../../../public/images/circles.svg";
 import PlaneIcon from "../../../../public/images/plane.svg";
@@ -23,7 +25,7 @@ const SelectFilter = ({ onChange }: ISelectFilter) => {
     {
       attributes: {
         type: "filter",
-        value: "all",
+        value: "",
         label: "All",
         icon: <AllIcon className="fill-gray" />
       }
@@ -53,47 +55,61 @@ const SelectFilter = ({ onChange }: ISelectFilter) => {
       }
     }
   ];
+// todo:select componenti düzenlenecek
 
-  const config = {
-    imageShow: true,
-    isSearchable: false,
-    defaultValue: filterOptions[0],
-    theme: (theme: Theme) => ({
-      ...theme,
-      borderRadius: 8,
-      width: 400,
-      colors: {
-        ...theme.colors,
-        primary25: "white",
-        primary: "white"
-      }
-    })
-  };
+//   const config = {
+//     imageShow: true,
+//     isSearchable: false,
+//     defaultValue: filterOptions[0],
+//     theme: (theme: Theme) => ({
+//       ...theme,
+//       borderRadius: 8,
+//       width: 400,
+//       colors: {
+//         ...theme.colors,
+//         primary25: "white",
+//         primary: "white"
+//       }
+//     })
+//   };
+
   return (
-    <Select
-      onChange={(e) => onChange(get(e, "attributes.value"))}
-      className="min-w-[170px]"
-      controlInnerClassName="flex w-full"
-      singleValueClassName="flex gap-3"
-      optionClassName="flex gap-3"
-      instanceId="filter-select"
-      components={{
-        Option: Option,
-        Control: Control,
-        Menu: SelectMenu,
-        SingleValue: SingleValue,
-        MenuList: SelectMenuList,
-        IndicatorSeparator: () => null,
-        DropdownIndicator: (props) => (
-          <DropdownIndicator props={props} showIndicator={true} />
-        )
-      }}
-      theme={get(config, "theme")}
-      options={filterOptions}
-      imageShow={get(config, "imageShow")}
-      defaultValue={get(config, "defaultValue")}
-      isSearchable={get(config, "isSearchable")}
-    />
+      <select className="select select-bordered w-full max-w-xs" onChange={e => onChange(e.target.value)}>
+        {
+          map(filterOptions, (option,index) => {
+            return (
+              <option key={index} value={get(option, "attributes.value")}>
+                {get(option, "attributes.label")}
+              </option>
+            );
+          })
+        }
+      </select>
+      // todo:select componenti düzenlenecek
+    // <Select
+    //   onChange={(e) => onChange(get(e, "attributes.value"))}
+    //   className="min-w-[170px]"
+    //   controlInnerClassName="flex w-full"
+    //   singleValueClassName="flex gap-3"
+    //   optionClassName="flex gap-3"
+    //   instanceId="filter-select"
+    //   components={{
+    //     Option: Option,
+    //     Control: Control,
+    //     Menu: SelectMenu,
+    //     SingleValue: SingleValue,
+    //     MenuList: SelectMenuList,
+    //     IndicatorSeparator: () => null,
+    //     DropdownIndicator: (props) => (
+    //       <DropdownIndicator props={props} showIndicator={true} />
+    //     )
+    //   }}
+    //   theme={get(config, "theme")}
+    //   options={filterOptions}
+    //   imageShow={get(config, "imageShow")}
+    //   defaultValue={get(config, "defaultValue")}
+    //   isSearchable={get(config, "isSearchable")}
+    // />
   );
 };
 
