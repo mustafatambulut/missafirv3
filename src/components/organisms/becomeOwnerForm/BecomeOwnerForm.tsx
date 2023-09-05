@@ -21,7 +21,7 @@ import DownArrowIcon from "../../../../public/images/down_arrow.svg";
 
 const BecomeOwnerForm = () => {
   const t = useTranslations();
-  const { selectedOwnerType, cities, properties, rooms, ü } = useAppSelector(
+  const { selectedOwnerType, cities, properties, rooms } = useAppSelector(
     (state) => state.ownerReducer
   );
   const dispatch = useAppDispatch();
@@ -82,7 +82,7 @@ const BecomeOwnerForm = () => {
       <div className="flex gap-x-14 flex-col lg:flex-row">
         <div className="flex-1 flex flex-col gap-10 items-center justify-center lg:w-1/2 text-center mb-4">
           <h1 className="text-28 text-gray-800">
-            Discover Your Home's Potential Income with Our Advanced Rent
+            Discover Your {"Home's"} Potential Income with Our Advanced Rent
             Calculator
           </h1>
           <p className="text-2xl text-gray-800">

@@ -38,7 +38,7 @@ const Collapse = ({
     setCollapsable(false);
   };
 
-  const handleCollapseChange = (e) => {
+  const handleCollapseChange = () => {
     setCollapsable((v) => !v);
   };
   return (

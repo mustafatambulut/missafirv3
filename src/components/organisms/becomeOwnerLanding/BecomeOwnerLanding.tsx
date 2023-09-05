@@ -45,15 +45,8 @@ const BecomeOwnerLanding = () => {
     }
   });
 
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    isSubmitting,
-    handleSubmit,
-    setFieldValue
-  } = formik;
+  const { values, errors, touched, isSubmitting, handleSubmit, setFieldValue } =
+    formik;
 
   const handleCountryClick = (countryCode) => {
     console.log("countryCode", countryCode);

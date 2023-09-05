@@ -17,6 +17,7 @@ export interface ISelect {
   showOptionIcon?: boolean;
   noResultsMessage?: string;
   customIconPosition?: string;
+  // eslint-disable-next-line no-unused-vars
   onChange: (e: any) => void;
   searchIconPosition?: string;
   menuIsOpen?: null | boolean;

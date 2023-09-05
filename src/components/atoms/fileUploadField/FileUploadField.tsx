@@ -18,7 +18,7 @@ const FileUploadField = () => {
     setFiles((v) => [...v, ...mappedAcceptedFiles, ...rejectedFiles]);
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const contentClass = classNames("flex flex-col gap-y-5 ", {
     "max-h-[260px] overflow-hidden": !showContent && size(files) > 3,

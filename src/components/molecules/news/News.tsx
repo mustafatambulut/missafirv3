@@ -10,8 +10,9 @@ import Loading from "@/components/atoms/loading/Loading";
 import Section from "@/components/molecules/section/Section";
 
 import RightArrow from "../../../../public/images/chevron_right.svg";
+import { IFooterComponent, INews } from "@/components/molecules/news/types";
 
-const News = ({ buttonPosition = "bottom", newsPerView = 4 }) => {
+const News = ({ buttonPosition = "bottom", newsPerView = 4 }: INews) => {
   const newsContentClass = classNames({
     "flex-col": buttonPosition === "bottom",
     "flex-row": buttonPosition === "left" || buttonPosition === "right"
@@ -96,7 +97,7 @@ const News = ({ buttonPosition = "bottom", newsPerView = 4 }) => {
       </div>
     </Card>
   );
-  const FooterComponent = ({ buttonPosition }) => {
+  const FooterComponent = ({ buttonPosition }: IFooterComponent) => {
     const footerComponentClass = classNames(
       "bg-primary-50 text-primary border-primary-25 hover:bg-primary hover:border-primary group",
       {
