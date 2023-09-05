@@ -3,12 +3,20 @@ import { RootState } from "@/redux/store";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { IReservationItemProps } from "@/components/molecules/reservationItem/types";
-import { getProfile } from "@/service/api";
+import { getProfile, profileEdit } from "@/service/api";
 
 export const fetchProfileData = createAsyncThunk(
   "profile/fetchProfileData",
   async () => {
     const { data } = await getProfile();
+    return data;
+  }
+);
+
+export const updateProfile = createAsyncThunk(
+  "profile/profileEdit",
+  async (profileData) => {
+    const { data } = await profileEdit(profileData);
     return data;
   }
 );
@@ -257,7 +265,10 @@ const profileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProfileData.fulfilled, (state, action) => {
-      state.user = action.payload.data
+      state.user = action.payload.data;
+    });
+    builder.addCase(updateProfile.fulfilled, (state, action) => {
+      state.user = action.payload.data;
     });
   }
 });

@@ -71,7 +71,11 @@ export const forgotPassword = async (email) => {
 // todo: parola yenileme endpointi tamamlanınca güncellenecek
 export const profileEdit = async (payload) => {
   try {
-    return await pmsApi.post("/profile/edit", payload);
+    return await pmsApi.post("/profile/edit", payload,{
+      headers: {
+        Authorization: `Bearer ${getSessionStorage("token")}`
+      }
+    });
   } catch (err) {
     return err;
   }
