@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import Image from "next/image";
 import classNames from "classnames";
 import { filter, get, map, size } from "lodash";
@@ -32,6 +32,8 @@ const Select = ({
   showOptionIcon = false,
   searchIconColor = null,
   showSearchIcon = false,
+  showPlaceholder = true,
+  showControlTitle = true,
   customIconPosition = "left",
   searchIconPosition = "left",
   placeholderClassName = null,
@@ -72,14 +74,18 @@ const Select = ({
     }
   );
 
-  const controlTitleClass = classNames("hidden lg:block w-full", {
+  const controlTitleClass = classNames("w-full", {
     "text-gray-600 text-sm": !controlTitleClassName,
-    [controlTitleClassName]: controlTitleClassName
+    [controlTitleClassName]: controlTitleClassName,
+    block: showControlTitle,
+    hidden: !showControlTitle
   });
-  const placeholderClass = classNames("hidden lg:block w-full", {
+  const placeholderClass = classNames("w-full", {
     "text-gray-600 text-base lg:text-lg font-mi-semi-bold":
       !placeholderClassName,
-    [placeholderClassName]: placeholderClassName
+    [placeholderClassName]: placeholderClassName,
+    block: showPlaceholder,
+    hidden: !showPlaceholder
   });
   return (
     <ReactSelect

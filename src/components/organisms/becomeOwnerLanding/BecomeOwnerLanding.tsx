@@ -31,13 +31,10 @@ const BecomeOwnerLanding = () => {
       .email(t("invalid_or_incomplete_email"))
       .max(50, t("email_is_too_long"))
       .required(t("this_field_is_required")),
-    location: Yup.string()
-      .email(t("invalid_or_incomplete_email"))
-      .max(50, t("email_is_too_long"))
-      .required(t("this_field_is_required"))
+    location: Yup.string().required(t("this_field_is_required"))
   });
 
-  const initialValues = { email: "" };
+  const initialValues = { email: "", location: "" };
 
   const formik = useFormik({
     initialValues,
@@ -48,8 +45,15 @@ const BecomeOwnerLanding = () => {
     }
   });
 
-  const { values, errors, touched, handleChange, isSubmitting, handleSubmit } =
-    formik;
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    isSubmitting,
+    handleSubmit,
+    setFieldValue
+  } = formik;
 
   const handleCountryClick = (countryCode) => {
     console.log("countryCode", countryCode);
@@ -101,18 +105,37 @@ const BecomeOwnerLanding = () => {
             <div className="w-72 lg:w-80">
               <div className="form-control flex w-full font-mi-sans text-lg">
                 <div className="flex rounded-lg bg-white items-center border border-gray-200">
+                  {/*<Select*/}
+                  {/*  isSearchable={true}*/}
+                  {/*  searchId="owner-location"*/}
+                  {/*  items={options}*/}
+                  {/*  placeHolder="Location"*/}
+                  {/*  noResultsMessage="No Results"*/}
+                  {/*  showSearchIcon={false}*/}
+                  {/*  className="border-none"*/}
+                  {/*  customIcon={<TargetIcon />}*/}
+                  {/*  customIconPosition="right"*/}
+                  {/*  controlWrapperClassName="input h-[3rem]"*/}
+                  {/*  iconOffset={true}*/}
+                  {/*/>*/}
+
                   <Select
-                    isSearchable={true}
+                    showPlaceholder={true}
+                    showControlTitle={false}
                     searchId="owner-location"
                     items={options}
+                    name="location"
                     placeHolder="Location"
+                    value={get(values, "location")}
                     noResultsMessage="No Results"
                     showSearchIcon={false}
-                    className="border-none"
+                    className="border-none cursor-pointer"
                     customIcon={<TargetIcon />}
                     customIconPosition="right"
                     controlWrapperClassName="input h-[3rem]"
-                    iconOffset={true}
+                    isSearchable={true}
+                    isClearable={true}
+                    onChange={(value) => setFieldValue("location", value.value)}
                   />
                 </div>
               </div>
@@ -123,7 +146,7 @@ const BecomeOwnerLanding = () => {
                 name="email"
                 placeholder="Email"
                 containerclass="text-lg"
-                onChange={handleChange}
+                onChange={(e) => setFieldValue("email", e.target.value)}
                 value={get(values, "email")}
               />
               {get(errors, "email") && get(touched, "email") && (

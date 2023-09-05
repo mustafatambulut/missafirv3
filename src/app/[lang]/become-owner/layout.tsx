@@ -6,6 +6,7 @@ import { isMobile } from "react-device-detect";
 import { useAppSelector } from "@/redux/hooks";
 import { STEP_1 } from "@/redux/features/ownerSlice/enum";
 import { IBecomeOwnerLayout } from "@/app/[lang]/become-owner/types";
+import BecomeOwnerTypes from "@/components/molecules/becomeOwnerTypes/BecomeOwnerTypes";
 
 import Button from "@/components/atoms/button/Button";
 import News from "@/components/molecules/news/News";
@@ -24,7 +25,7 @@ const BecomeOwnerLayout = ({ children }: IBecomeOwnerLayout) => {
     <BecomeOwnerLanding />
   ) : (
     <section className="mt-20 lg:mt-48 flex flex-col gap-y-10 lg:gap-y-20 relative px-4 lg:px-40 overflow-hidden">
-      <Section className="flex justify-center">
+      <Section className="flex justify-center mt-12">
         <div className="relative">
           <Image
             src="/images/owner_home.png"
@@ -45,6 +46,18 @@ const BecomeOwnerLayout = ({ children }: IBecomeOwnerLayout) => {
         </div>
       </Section>
       <main>
+        <div className="mt-24 lg:hidden text-center">
+          <h1 className="text-28 font-mi-sans-semi-bold mb-5">
+            Find Out Your Potential Rental Income
+          </h1>
+          <p className="text-lg">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et
+          </p>
+        </div>
+        <div className="my-10 w-full lg:w-1/2 mx-auto">
+          <BecomeOwnerTypes />
+        </div>
         <section>{children}</section>
       </main>
       {/*todo: timeline gelecek*/}

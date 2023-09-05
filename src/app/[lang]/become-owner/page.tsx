@@ -7,6 +7,8 @@ import {
   SUCCESS
 } from "@/redux/features/ownerSlice/enum";
 import BecomeOwnerForm from "@/components/organisms/becomeOwnerForm/BecomeOwnerForm";
+import BecomeOwnerCalculateResults from "@/components/molecules/becomeOwnerCalculateResults/BecomeOwnerCalculateResults";
+import BecomeOwnerSuccess from "@/components/molecules/becomeOwnerSuccess/BecomeOwnerSuccess";
 
 const BecomeOwner = () => {
   const { currentStep } = useAppSelector((step) => step.ownerReducer);
@@ -15,9 +17,9 @@ const BecomeOwner = () => {
     case STEP_2:
       return <BecomeOwnerForm />;
     case STEP_3:
-      return <div>STEP 3</div>;
+      return <BecomeOwnerCalculateResults />;
     case STEP_4:
-      return <div>STEP 4</div>;
+      return <BecomeOwnerSuccess />;
     case SUCCESS:
       return <div>STEP 5</div>;
   }

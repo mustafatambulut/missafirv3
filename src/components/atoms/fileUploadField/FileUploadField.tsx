@@ -58,7 +58,7 @@ const FileUploadField = () => {
               />
             </div>
             <div className="flex flex-1 justify-between items-center px-4">
-              <span>{get(file, "file.name")}</span>
+              <span className="line-clamp-2">{get(file, "file.name")}</span>
               <span
                 className="cursor-pointer"
                 onClick={() => handeDeleteFile(get(file, "file.name"))}>

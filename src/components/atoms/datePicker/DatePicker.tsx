@@ -8,7 +8,7 @@ import { DayPickerRangeController } from "react-dates";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { updateBookingDate } from "@/redux/features/listingSlice/listingSlice";
 
-import {IBookingDate, IDatePicker} from "@/components/atoms/datePicker/types";
+import { IBookingDate, IDatePicker } from "@/components/atoms/datePicker/types";
 
 import Button from "@/components/atoms/button/Button";
 

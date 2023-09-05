@@ -11,6 +11,8 @@ export interface ISelect {
   controlTitle?: string;
   isClearable?: boolean;
   isSearchable?: boolean;
+  showPlaceholder: boolean,
+  showControlTitle: boolean,
   showSearchIcon?: boolean;
   showOptionIcon?: boolean;
   noResultsMessage?: string;
@@ -20,6 +22,7 @@ export interface ISelect {
   menuIsOpen?: null | boolean;
   customIcon?: null | ReactNode;
   maxMenuHeight?: null | number;
+
   searchIconColor?: string | null;
   controlWrapperClassName?: string;
   controlTitleClassName?: string | null;

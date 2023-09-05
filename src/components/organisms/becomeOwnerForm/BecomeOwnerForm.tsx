@@ -1,13 +1,12 @@
 "use client";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import classNames from "classnames";
-import { filter, get, map } from "lodash";
+import { filter, get } from "lodash";
 import { useTranslations } from "next-intl";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
-import { OWNER_TYPE_2 } from "@/redux/features/ownerSlice/enum";
-import { updateSelectedOwnerType } from "@/redux/features/ownerSlice/ownerSlice";
+import { OWNER_TYPE_2, STEP_3 } from "@/redux/features/ownerSlice/enum";
+import { updateCurrentStep } from "@/redux/features/ownerSlice/ownerSlice";
 
 import Input from "@/components/atoms/input/Input";
 import Select from "@/components/atoms/select/Select";
@@ -19,25 +18,13 @@ import FileUploadField from "@/components/atoms/fileUploadField/FileUploadField"
 
 import TargetIcon from "../../../../public/images/target.svg";
 import DownArrowIcon from "../../../../public/images/down_arrow.svg";
-import IndividualIcon from "../../../../public/images/individual.svg";
-// todo: icon düzenlenecek
-import CorporationIcon from "../../../../public/images/corporation.svg";
 
 const BecomeOwnerForm = () => {
   const t = useTranslations();
-  const { ownerTypes, selectedOwnerType, cities, properties, rooms } =
-    useAppSelector((state) => state.ownerReducer);
+  const { selectedOwnerType, cities, properties, rooms, ü } = useAppSelector(
+    (state) => state.ownerReducer
+  );
   const dispatch = useAppDispatch();
-
-  const ownerTypeClass = (type) => {
-    return classNames(
-      "rounded-lg lg:rounded-20 text-xl font-mi-sans-semi-bold w-1/2 py-2 px-3 lg:py-6 lg:px-6 cursor-pointer flex flex-col gap-y-3 justify-center items-center",
-      {
-        "text-primary bg-primary-25": type === selectedOwnerType,
-        "text-gray-500": type !== selectedOwnerType
-      }
-    );
-  };
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -47,7 +34,15 @@ const BecomeOwnerForm = () => {
     location: Yup.string().required(t("this_field_is_required")),
     phone: Yup.string().required(t("this_field_is_required")),
     rooms: Yup.string().required(t("this_field_is_required")),
-    property_type: Yup.string().required(t("this_field_is_required"))
+    property_type: Yup.string().required(t("this_field_is_required")),
+    check_1: Yup.boolean().oneOf(
+      [true],
+      "You need to accept the terms and conditions"
+    ),
+    check_2: Yup.boolean().oneOf(
+      [true],
+      "You need to accept the terms and conditions"
+    )
   });
 
   const initialValues = {
@@ -56,6 +51,8 @@ const BecomeOwnerForm = () => {
     rooms: "",
     photos: [],
     location: "",
+    check_1: false,
+    check_2: false,
     property_type: "",
     entire_property_rent: false
   };
@@ -66,6 +63,7 @@ const BecomeOwnerForm = () => {
     onSubmit: async (values) => {
       // todo: api entegrasyonu yapılacak
       console.log({ values });
+      dispatch(updateCurrentStep(STEP_3));
     }
   });
 
@@ -81,33 +79,6 @@ const BecomeOwnerForm = () => {
 
   return (
     <div className="flex flex-col items-center gap-y-14">
-      <div className="mt-24 lg:hidden text-center">
-        <h1 className="text-28 font-mi-sans-semi-bold mb-5">
-          Find Out Your Potential Rental Income
-        </h1>
-        <p className="text-lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et
-        </p>
-      </div>
-      <div className="flex gap-x-4 w-full">
-        {map(ownerTypes, (ownerType) => (
-          <div
-            onClick={() =>
-              dispatch(updateSelectedOwnerType(get(ownerType, "type")))
-            }
-            className={ownerTypeClass(get(ownerType, "type"))}>
-            <IndividualIcon
-              className={`${
-                get(ownerType, "type") === selectedOwnerType
-                  ? "fill-primary"
-                  : "fill-gray-500"
-              }`}
-            />
-            <span className="text-sm">{ownerType.label}</span>
-          </div>
-        ))}
-      </div>
       <div className="flex gap-x-14 flex-col lg:flex-row">
         <div className="flex-1 flex flex-col gap-10 items-center justify-center lg:w-1/2 text-center mb-4">
           <h1 className="text-28 text-gray-800">
@@ -156,6 +127,8 @@ const BecomeOwnerForm = () => {
                   }>
                   <div className="form-control flex w-full font-mi-sans text-lg">
                     <Select
+                      showPlaceholder={true}
+                      showControlTitle={true}
                       searchId="owner-location"
                       name="location"
                       value={get(values, "location")}
@@ -180,6 +153,8 @@ const BecomeOwnerForm = () => {
               </div>
               <div className="form-control flex w-full font-mi-sans text-lg py-6">
                 <Select
+                  showPlaceholder={true}
+                  showControlTitle={true}
                   searchId="owner-property-type"
                   items={properties}
                   name="property_type"
@@ -227,6 +202,8 @@ const BecomeOwnerForm = () => {
               </div>
               <div className="form-control flex w-full font-mi-sans text-lg pt-6">
                 <Select
+                  showPlaceholder={true}
+                  showControlTitle={true}
                   searchId="owner-rooms"
                   name="rooms"
                   value={get(values, "rooms")}
@@ -258,7 +235,7 @@ const BecomeOwnerForm = () => {
                   label={t("email")}
                   placeholder={t("email")}
                   containerclass="text-lg border-none"
-                  inputContainerClassName="border-none"
+                  inputContainerClassName="border-none shadow-none"
                   labelContainerClassName="p-0 text-lg text-gray-600 font-mi-sans-semi-bold"
                   onChange={handleChange}
                   value={get(values, "email")}
@@ -312,11 +289,35 @@ const BecomeOwnerForm = () => {
                 <FileUploadField />
               </Collapse>
             </div>
+            <div className="grid grid-cols-1 gap-y-3">
+              <Checkbox
+                value="check_1"
+                name="check_1"
+                checked={get(values, "confirmationForm")}
+                onChange={(e) => {
+                  setFieldValue("check_1", get(e, "target.checked"));
+                }}
+                label="Under Personal Data Protection Law No. 6698."
+                labelClass="text-sm lg:text-base text-gray-700 items-start lg:items-center p-0"
+                position="right"
+              />
+              <Checkbox
+                value="check_2"
+                name="check_2"
+                checked={get(values, "confirmationForm")}
+                onChange={(e) => {
+                  setFieldValue("check_2", get(e, "target.checked"));
+                }}
+                label="I've read and agree to the terms in the Missafir Privacy Policy."
+                labelClass="text-sm lg:text-base text-gray-700 items-start lg:items-center p-0"
+                position="right"
+              />
+            </div>
             <Button
               type="submit"
-              variant="btn-white"
+              variant="btn-primary"
               disabled={!(formik.isValid && formik.dirty)}
-              className="bg-primary-400 border-none text-white w-full">
+              className="border-none text-white w-full">
               <div>
                 <span>Calculate rent increase</span>
                 {isSubmitting && (
