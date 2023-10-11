@@ -14,6 +14,14 @@ export const fetchDataByPage = createAsyncThunk(
   }
 );
 
+// export const fetchDataByPage = createAsyncThunk(
+//   "landing/fetchDataByPage",
+//   async (page: string) => {
+//     const res = await getPage(page);
+//     return get(res, "status") !== 200 ? [] : get(res, "data.data.attributes");
+//   }
+// );
+
 export const fetchLocations = createAsyncThunk(
   "landing/fetchLocations",
   async () => {
@@ -26,13 +34,20 @@ const initialState = {
   entities: [],
   loading: true,
   isShowDrawer: false,
-  locations: {}
+  locations: {},
+  activePath: "/"
 } as ILandingState;
 
 const landingSlice = createSlice({
   name: "landing",
   initialState,
   reducers: {
+    updateActivePath: (
+      state: { activePath?: string },
+      action: PayloadAction<boolean>
+    ) => {
+      state.activePath = action.payload;
+    },
     updateIsShowDrawer: (
       state: { isShowDrawer: boolean },
       action: PayloadAction<boolean>
@@ -53,6 +68,7 @@ const landingSlice = createSlice({
     builder.addCase(
       fetchDataByPage.fulfilled,
       (state: ILandingState, action) => {
+        state.entities = [];
         get(state, "entities").push(get(action, "payload"));
         state.loading = false;
       }
@@ -67,5 +83,6 @@ const landingSlice = createSlice({
   }
 });
 
-export const { updateIsShowDrawer, updateLocations } = landingSlice.actions;
+export const { updateIsShowDrawer, updateLocations, updateActivePath } =
+  landingSlice.actions;
 export default landingSlice.reducer;

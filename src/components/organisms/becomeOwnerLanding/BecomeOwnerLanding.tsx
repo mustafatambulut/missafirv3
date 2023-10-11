@@ -4,24 +4,23 @@ import Image from "next/image";
 import { get, map } from "lodash";
 import { useFormik } from "formik";
 import { useTranslations } from "next-intl";
+
+import {
+  updateCurrentStep,
+  updateSelectedCountry
+} from "@/redux/features/ownerSlice/ownerSlice";
+import { sendDealRequest } from "@/service/api";
+import { toast, Toaster } from "react-hot-toast";
+import { STEP_2 } from "@/redux/features/ownerSlice/enum";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 import Input from "@/components/atoms/input/Input";
 import Button from "@/components/atoms/button/Button";
+import ToastMessage from "@/components/atoms/toastMessage/ToastMessage";
+import Typography from "@/components/atoms/typography/Typography";
 import Banner from "@/components/molecules/banner/Banner";
 import Section from "@/components/molecules/section/Section";
 
-import TargetIcon from "../../../../public/images/target.svg";
-import { updateCurrentStep } from "@/redux/features/ownerSlice/ownerSlice";
-import { STEP_2 } from "@/redux/features/ownerSlice/enum";
-import Select from "@/components/atoms/select/Select";
-
-const options = [
-  { value: "france", label: "France", code: 1 },
-  { value: "israel", label: "Israel", code: 2 },
-  { value: "egypt", label: "Egypt", code: 3 },
-  { value: "sweden", label: "Sweden", code: 4 }
-];
 const BecomeOwnerLanding = () => {
   const t = useTranslations();
   const { countries } = useAppSelector((state) => state.ownerReducer);
@@ -31,55 +30,80 @@ const BecomeOwnerLanding = () => {
       .email(t("invalid_or_incomplete_email"))
       .max(50, t("email_is_too_long"))
       .required(t("this_field_is_required")),
-    location: Yup.string().required(t("this_field_is_required"))
+    country_name: Yup.string().required(t("this_field_is_required"))
   });
 
-  const initialValues = { email: "", location: "" };
+  const initialValues = { email: "", country_name: "" };
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      // todo: api entegrasyonu yapılacak
-      console.log({ values });
+      const res = await sendDealRequest(values);
+      if (get(res, "data.message") === "success") {
+        toast.custom((item) => (
+          <ToastMessage
+            toast={toast}
+            className="w-96 bg-green-600 justify-between"
+            item={item}
+            title={t("deal_request_successfully_sent")}
+            status="success"></ToastMessage>
+        ));
+      }
     }
   });
 
   const { values, errors, touched, isSubmitting, handleSubmit, setFieldValue } =
     formik;
 
-  const handleCountryClick = (countryCode) => {
-    console.log("countryCode", countryCode);
+  const handleCountryClick = (countryId) => {
+    dispatch(updateSelectedCountry(countryId));
     dispatch(updateCurrentStep(STEP_2));
+  };
+
+  const getCountryIcon = (code) => {
+    switch (code) {
+      case 1:
+        return "/images/turkey.svg";
+      case 2:
+        return "/images/croatia.svg";
+      case 3:
+        return "/images/montenegro.svg";
+      case 4:
+        return "/images/cyprus.svg";
+      default:
+        return null;
+    }
   };
 
   return (
     <div className="px-4 lg:px-8 pt-40">
       <Section
-        title="Select Your Country"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ">
+        title={t("select_your_country")}
+        description={t(
+          "you_can_find_us_in_the_most_popular_locations_of_these_countries"
+        )}>
         <div className="flex flex-wrap justify-center">
-          {map(countries, (country, index) => (
+          {map(countries, (country, key) => (
             <div
-              onClick={() => handleCountryClick(country.code)}
-              key={index}
+              key={key}
+              onClick={() => handleCountryClick(get(country, "code"))}
               className=" w-full lg:w-1/3 px-0 py-2 lg:px-5 lg:py-5">
               <div className="cursor-pointer text-3xl shadow-base-blur-20 p-5 gap-x-4 w-full h-full rounded-2xl flex justify-start items-center">
-                <Image
-                  priority
-                  width="80"
-                  height="80"
-                  alt="missafir-logo"
-                  src={get(country, "icon")}
-                  className=""
-                />
+                {getCountryIcon(get(country, "code")) && (
+                  <Image
+                    priority
+                    width="80"
+                    height="80"
+                    alt="missafir-logo"
+                    src={getCountryIcon(get(country, "code"))}
+                    className="rounded-full"
+                  />
+                )}
                 <div className="flex flex-col">
-                  <div className="text-22 lg:text-28">
+                  <Typography variant="p1" element="span">
                     {get(country, "label")}
-                  </div>
-                  <div className="text-lg lg:text-21 text-gray-400">
-                    {get(country, "description")}
-                  </div>
+                  </Typography>
                 </div>
               </div>
             </div>
@@ -88,58 +112,49 @@ const BecomeOwnerLanding = () => {
       </Section>
       <Banner
         type="primary"
-        title="Not available in your area?"
-        body="If you have properties in your area that you want to increase their income with Missafir, you can share your information with us. Let us find the solution for you.">
+        title={t("not_available_in_your_area")}
+        body={t("become_owner_banner_body")}>
         <form
           noValidate
           onSubmit={handleSubmit}
           className="flex flex-col w-full lg:items-start lg:justify-start">
+          <Toaster duration={4000} position="top-right" reverseOrder={false} />
           <div className="flex flex-col lg:flex-row gap-x-4 gap-y-6 lg:gap-y-0">
             <div className="w-72 lg:w-80">
               <div className="form-control flex w-full font-mi-sans text-lg">
                 <div className="flex rounded-lg bg-white items-center border border-gray-200">
-                  {/*<Select*/}
-                  {/*  isSearchable={true}*/}
-                  {/*  searchId="owner-location"*/}
-                  {/*  items={options}*/}
-                  {/*  placeHolder="Location"*/}
-                  {/*  noResultsMessage="No Results"*/}
-                  {/*  showSearchIcon={false}*/}
-                  {/*  className="border-none"*/}
-                  {/*  customIcon={<TargetIcon />}*/}
-                  {/*  customIconPosition="right"*/}
-                  {/*  controlWrapperClassName="input h-[3rem]"*/}
-                  {/*  iconOffset={true}*/}
-                  {/*/>*/}
-
-                  <Select
-                    showPlaceholder={true}
-                    showControlTitle={false}
-                    searchId="owner-location"
-                    items={options}
-                    name="location"
-                    placeHolder="Location"
-                    value={get(values, "location")}
-                    noResultsMessage="No Results"
-                    showSearchIcon={false}
-                    className="border-none cursor-pointer"
-                    customIcon={<TargetIcon />}
-                    customIconPosition="right"
-                    controlWrapperClassName="input h-[3rem]"
-                    isSearchable={true}
-                    isClearable={true}
-                    onChange={(value) => setFieldValue("location", value.value)}
+                  <Input
+                    type="text"
+                    name="country_name"
+                    placeholder={t("location")}
+                    containerclass="text-lg border-none"
+                    inputcontainerclass="border-none shadow-none"
+                    value={get(values, "country_name")}
+                    onChange={({ target }) =>
+                      setFieldValue("country_name", get(target, "value"))
+                    }
                   />
                 </div>
+                {get(errors, "country_name") &&
+                  get(touched, "country_name") && (
+                    <Typography
+                      variant="p3"
+                      element="span"
+                      className="text-white text-sm lg:text-base">
+                      {get(errors, "country_name")}
+                    </Typography>
+                  )}
               </div>
             </div>
             <div className="w-72 lg:w-80">
               <Input
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder={t("email")}
                 containerclass="text-lg"
-                onChange={(e) => setFieldValue("email", e.target.value)}
+                onChange={({ target }) =>
+                  setFieldValue("email", get(target, "value"))
+                }
                 value={get(values, "email")}
               />
               {get(errors, "email") && get(touched, "email") && (
@@ -153,12 +168,10 @@ const BecomeOwnerLanding = () => {
               variant="btn-white"
               disabled={isSubmitting}
               className="bg-primary-400 border-none text-white w-32 lg:w-fit">
-              <div>
-                <span>Submit</span>
-                {isSubmitting && (
-                  <span className="loading loading-spinner"></span>
-                )}
-              </div>
+              <span>{t("submit")}</span>
+              {isSubmitting && (
+                <span className="loading loading-spinner"></span>
+              )}
             </Button>
           </div>
         </form>

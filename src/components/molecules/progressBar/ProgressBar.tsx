@@ -17,6 +17,11 @@ const ProgressBar = ({ className = "" }: IProgressBar) => {
   const dispatch = useAppDispatch();
   const { currentStep } = useAppSelector((state) => state.reservationReducer);
 
+  // todo: bu kısım sonradan aktif edilecek
+  // {
+  //   id: STEP_2,
+  //       title: t("extra_service")
+  // },
   const steps = [
     {
       id: STEP_1,
@@ -75,6 +80,9 @@ const ProgressBar = ({ className = "" }: IProgressBar) => {
     switch (id) {
       case STEP_1:
         return checked(STEP_1, <CustomerReview className={iconClass(id)} />);
+      // todo: bu kısım sonradan aktif edilecek
+      // case STEP_2:
+      //   return checked(STEP_2, <ShoppingCart className={iconClass(id)} />);
       case STEP_3:
         return checked(STEP_3, <CreditCart className={iconClass(id)} />);
       default:

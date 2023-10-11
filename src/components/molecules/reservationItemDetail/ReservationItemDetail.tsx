@@ -9,9 +9,11 @@ import Draggable from "react-draggable";
 import ReservationItemContent from "@/components/atoms/reservationItemContent/ReservationItemContent";
 import Slider from "@/components/molecules/slider/Slider";
 
-import HeartIcon from "../../../../public/images/wishlist_heart_outline.svg";
-import HeartIconFilled from "../../../../public/images/wishlist_heart_filled.svg";
+//import HeartIcon from "../../../../public/images/wishlist_heart_outline.svg";
+//import HeartIconFilled from "../../../../public/images/wishlist_heart_filled.svg";
 import { IReservationItemDetail } from "@/components/molecules/reservationItemDetail/types";
+import ChevronLeft from "../../../../public/images/chevron_left.svg";
+import ChevronRight from "../../../../public/images/chevron_right.svg";
 
 const ReservationItemDetail = ({
   left,
@@ -20,15 +22,36 @@ const ReservationItemDetail = ({
   handleStop,
   handleDrag,
   reservation,
-  isInWishlist,
-  isMobileDevice,
-  handleClickWishlist
-}: IReservationItemDetail) => {
-  const renderWishlistHeart = () => {
-    return isInWishlist ? (
-      <HeartIconFilled className="scale-75" />
-    ) : (
-      <HeartIcon className="scale-75" />
+  //isInWishlist,
+  isMobileDevice
+}: //handleClickWishlist
+  IReservationItemDetail) => {
+  // const renderWishlistHeart = () => {
+  //   return isInWishlist ? (
+  //     <HeartIconFilled className="scale-75" />
+  //   ) : (
+  //     <HeartIcon className="scale-75" />
+  //   );
+  // };
+
+  const CustomNavigation = () => {
+    return (
+      <>
+        <div
+          className={`swiper-button-prev after:hidden reservations-image-${get(
+            reservation,
+            "uuid"
+          )} scale-50 left-0`}>
+          <ChevronLeft />
+        </div>
+        <div
+          className={`swiper-button-next after:hidden reservations-image-${get(
+            reservation,
+            "uuid"
+          )} scale-50 right-0`}>
+          <ChevronRight />
+        </div>
+      </>
     );
   };
 
@@ -56,10 +79,14 @@ const ReservationItemDetail = ({
           style={{ transform: `translate3d(${left}px, 0, 0)` }}>
           <Link href={`/profile/reservations/${get(reservation, "uuid")}`}>
             <Card>
-              <div className="flex gap-3 lg:gap-6 shadow-base-blur-20 rounded-l-xl lg:rounded-xl relative bg-white">
+              <div className="flex gap-3 lg:gap-6 shadow-base-blur-10 rounded-l-xl lg:rounded-xl relative bg-white">
                 <div className="w-40 lg:w-72 h-48 lg:h-64 relative">
                   <Slider
-                    sliderIdentifier="reservations-image"
+                    customNavigation={<CustomNavigation />}
+                    sliderIdentifier={`reservations-image-${get(
+                      reservation,
+                      "uuid"
+                    )}`}
                     slidesPerView={1}
                     spaceBetween={0}
                     withPagination={true}>
@@ -67,7 +94,7 @@ const ReservationItemDetail = ({
                       <div key={key} className="lg:w-72 h-48 lg:h-64">
                         <Image
                           key={key}
-                          src={get(image, "path")}
+                          src={get(image, "path") || "/"}
                           alt="reservation"
                           fill={true}
                           className="rounded-tl-xl rounded-bl-xl object-cover"
@@ -86,12 +113,13 @@ const ReservationItemDetail = ({
                   {/*    </Badge>*/}
                   {/*  ))}*/}
                   {/*</div>*/}
-                  <div
-                    className="absolute right-2 top-1 z-10"
-                    data-wishlist={true}
-                    onClick={handleClickWishlist}>
-                    {renderWishlistHeart()}
-                  </div>
+                  {/*todo:wishlist eklenecek*/}
+                  {/*<div*/}
+                  {/*  className="absolute right-2 top-1 z-10"*/}
+                  {/*  data-wishlist={true}*/}
+                  {/*  onClick={handleClickWishlist}>*/}
+                  {/*  {renderWishlistHeart()}*/}
+                  {/*</div>*/}
                 </div>
                 <ReservationItemContent reservation={reservation} />
               </div>

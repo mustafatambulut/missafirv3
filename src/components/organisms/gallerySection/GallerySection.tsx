@@ -22,7 +22,7 @@ const GallerySection = ({ images, className = "" }: IGallerySection) => {
           slidesPerView={isMobile ? 1 : 2}
           spaceBetween={isMobile ? 12 : 20}>
           {map(images, ({ path, caption }, key) => (
-            <div key={key} className="static">
+            <div key={key} className="static h-60 lg:h-auto">
               <span className="absolute top-3 right-3">
                 <Button
                   onClick={() => alert("favorite")}
@@ -33,17 +33,16 @@ const GallerySection = ({ images, className = "" }: IGallerySection) => {
               </span>
               <Image
                 priority
-                src={path}
-                width={500}
-                height={300}
-                alt={caption}
-                className=""
+                src={path || "/"}
+                fill={true}
+                alt={caption || "/"}
+                className="object-cover"
               />
             </div>
           ))}
         </Slider>
       ) : (
-        <ImageCarousel width={600} height={600} images={images} />
+        <ImageCarousel width={600} height={600} images={images || "/"} />
       )}
     </div>
   );

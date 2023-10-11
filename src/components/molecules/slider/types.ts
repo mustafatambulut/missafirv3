@@ -13,6 +13,7 @@ export interface ISlider {
   customSlide?: null | ReactNode;
   customNavigation?: null | ReactNode;
   customPagination?: null | ICustomPagination;
+  autoHiddenNavigation?: boolean;
 }
 
 export interface ICustomPagination {

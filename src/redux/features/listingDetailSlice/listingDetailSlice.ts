@@ -3,43 +3,62 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IListingDetailState } from "@/redux/features/listingDetailSlice/types";
 
 const initialState = {
-  booking: {
+  resPayload: {
+    slug: "",
+    check_in: null,
+    check_out: null,
+    adults: 1,
+    kids: 0,
+    pets: 0
+  },
+  isBookingInfoEditing: false,
+  bookingDate: {
     startDate: null,
     endDate: null
   },
-  checkIn: null,
-  checkOut: null,
-  adults: 1
+  availabilityModalOpen: false,
+  links: null
 } as IListingDetailState;
 
 const listingDetailSlice = createSlice({
   name: "listingDetail",
   initialState,
   reducers: {
-    updateBookingDate: (
+    setBookingDate: (
       state: IListingDetailState,
       action: PayloadAction<boolean>
     ) => {
-      state.booking = action.payload;
+      state.bookingDate = action.payload;
     },
-    setCheckIn: (
+    setIsBookingInfoEditing: (
       state: IListingDetailState,
       action: PayloadAction<boolean>
     ) => {
-      state.checkIn = action.payload;
+      state.isBookingInfoEditing = action.payload;
     },
-    setCheckOut: (
+    setResPayload: (
       state: IListingDetailState,
       action: PayloadAction<boolean>
     ) => {
-      state.checkOut = action.payload;
+      state.resPayload = action.payload;
     },
-    setAdults: (state: IListingDetailState, action: PayloadAction<boolean>) => {
-      state.adults = action.payload;
+    setAvailabilityModalOpen: (
+      state: IListingDetailState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.availabilityModalOpen = action.payload;
+    },
+    setLinks: (state: IListingDetailState, action: PayloadAction<boolean>) => {
+      state.links = action.payload;
     }
   }
 });
 
-export const { setCheckIn, setCheckOut, setAdults, updateBookingDate } =
-  listingDetailSlice.actions;
+export const {
+  setLinks,
+  setResPayload,
+  setBookingDate,
+  setAvailabilityModalOpen,
+  setIsBookingInfoEditing
+} = listingDetailSlice.actions;
 export default listingDetailSlice.reducer;

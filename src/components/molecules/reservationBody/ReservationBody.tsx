@@ -1,81 +1,39 @@
 "use client";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect } from "react";
+import { map, get } from "lodash";
 import { useTranslations } from "next-intl";
-import { map, get, clone, upperCase, capitalize } from "lodash";
 
-import {
-  IPaymentDetail,
-  IReservationBody
-} from "@/components/molecules/reservationBody/types";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { IReservationBody } from "@/components/molecules/reservationBody/types";
+import { changeTotal } from "@/redux/features/reservationSlice/reservationSlice";
 
 import Collapse from "@/components/atoms/collapse/Collapse";
 import ReservationCost from "@/components/molecules/reservationCost/ReservationCost";
-import { percentage } from "@/utils/helper";
-import { changeTotal } from "@/redux/features/reservationSlice/reservationSlice";
+import ReservationHeader from "@/components/atoms/reservationHeader/ReservationHeader";
 
 const ReservationBody = ({
   className = "",
-  hideCouponCode
+  hideCouponCode,
+  isDateSummary
 }: IReservationBody) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
 
-  const { total, payment, reservation, couponCode, isApplyCouponCode } =
-    useAppSelector((state) => state.reservationReducer);
-  const nightlyTotal =
-    get(payment, "nightlyRate") * get(payment, "reservationDay");
-  const discountCouponCode = percentage(
-    nightlyTotal,
-    get(payment, "couponCodePercent")
-  );
-
-  const amountWithoutDiscount = nightlyTotal + get(payment, "extras.total");
-  let tempTotal =
-    amountWithoutDiscount -
-    percentage(nightlyTotal, get(payment, "discountPercent"));
-
-  const [paymentDetail, setPaymentDetail] = useState<Array<IPaymentDetail>>([
-    {
-      info: t("payment_nights", {
-        cost: get(payment, "nightlyRate"),
-        day: get(payment, "reservationDay")
-      }),
-      total: `${nightlyTotal} ₺`
-    },
-    {
-      info: t("percent_discount", { percent: get(payment, "discountPercent") }),
-      total: `-${percentage(nightlyTotal, get(payment, "discountPercent"))} ₺`
-    },
-    {
-      info: capitalize(get(payment, "extras.label")),
-      total: `${get(payment, "extras.total")} ₺`
-    }
-  ]);
+  const { total, reservation } = useAppSelector((st) => st.reservationReducer);
 
   useEffect(() => {
-    if (isApplyCouponCode) {
-      const updated: Array<IPaymentDetail> = clone(paymentDetail);
-
-      updated.push({
-        info: t("discount_coupon_code", { couponCode: upperCase(couponCode) }),
-        total: `${discountCouponCode} ₺`
-      });
-      setPaymentDetail(updated);
-    }
-  }, [isApplyCouponCode]);
-
-  useEffect(() => {
-    if (!total) dispatch(changeTotal(tempTotal));
+    if (!total) dispatch(changeTotal(0));
   }, [total]);
 
   const PaymentDetailComponent = (): ReactNode => (
     <Collapse
+      closeOnOutsideClick={false}
       arrowColor="fill-primary-400"
       contentClass="font-mi-sans text-gray-400"
-      titleClass="text-lg pb-3 text-primary-400"
+      titleClass="text-lg text-primary-400 justify-start lg:justify-between"
+      titlePlacement="justify-start lg:justify-between"
       title={t("payment_details")}>
-      <div className="flex flex-col gap-y-4">
+      <div className="flex flex-col gap-y-1">
         {map(
           get(reservation, "price.breakdown"),
           ({ label, value, extra }, key) => {
@@ -100,15 +58,23 @@ const ReservationBody = ({
   );
 
   return (
-    <div className={`${className}`}>
-      <PaymentDetailComponent />
-      <ReservationCost
-        tempTotal={0}
-        paymentDetail={paymentDetail}
-        setPaymentDetail={setPaymentDetail}
-        hideCouponCode={hideCouponCode}
-        amountWithoutDiscount=""
-      />
+    <div className={`flex flex-col gap-y-4 ${className}`}>
+      <div className="order-2 lg:order-1">
+        <ReservationHeader isDateSummary={isDateSummary} />
+      </div>
+      {get(reservation, "is_available") && (
+        <div className="order-1 lg:order-2">
+          <PaymentDetailComponent />
+        </div>
+      )}
+      {get(reservation, "is_available") && (
+        <div className="order-3 flex flex-row justify-between items-center lg:flex-col w-full gap-y-4">
+          <ReservationCost
+            hideCouponCode={hideCouponCode}
+            amountWithoutDiscount=""
+          />
+        </div>
+      )}
     </div>
   );
 };

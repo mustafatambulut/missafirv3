@@ -11,6 +11,7 @@ export interface ISelect {
   controlTitle?: string;
   isClearable?: boolean;
   isSearchable?: boolean;
+  filterOption?: any;
   showPlaceholder: boolean,
   showControlTitle: boolean,
   showSearchIcon?: boolean;
@@ -27,5 +28,8 @@ export interface ISelect {
   searchIconColor?: string | null;
   controlWrapperClassName?: string;
   controlTitleClassName?: string | null;
+  menuClassName?: string | null;
   placeholderClassName?: string | null;
+  valueContainerClassName?: string | null,
+  rotateIconOnShow?: boolean
 }

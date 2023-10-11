@@ -48,7 +48,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
   };
 
   const reservationWrapperClass = classNames(
-    "relative rounded-xl cursor-pointer",
+    "relative rounded-xl cursor-pointer"
   );
 
   const checkIsNotDraggable = (e) => {
@@ -87,7 +87,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
 
   return (
     <div
-        style={{backgroundColor: get(reservation, "status.hex")}}
+      style={{ backgroundColor: get(reservation, "status.hex") }}
       className={reservationWrapperClass}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}

@@ -4,6 +4,7 @@ import { get } from "lodash";
 import classNames from "classnames";
 
 import { IReview } from "@/components/molecules/review/types";
+import { useTranslations } from "next-intl";
 
 import Modal from "@/components/atoms/modal/Modal";
 import Button from "@/components/atoms/button/Button";
@@ -14,6 +15,7 @@ import RightIcon from "../../../../public/images/variants/small_right_arrow.svg"
 
 const Review = ({ data, isModal = false, className = "" }: IReview) => {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations()
 
   const articleClass = classNames("text-gray-600", {
     truncate: isModal
@@ -70,7 +72,7 @@ const Review = ({ data, isModal = false, className = "" }: IReview) => {
               variant="btn-ghost"
               className="text-15 text-primary font-mi-sans lg:px-0 gap-x-1"
               outline={true}>
-              Show More <RightIcon />
+              {t("show_more")} <RightIcon />
             </Button>
           </footer>
           <Modal

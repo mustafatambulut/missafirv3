@@ -8,6 +8,8 @@ import {
 } from "@/components/molecules/amenities/types";
 
 import AmenityItem from "@/components/molecules/amenityItem/AmenityItem";
+import { useTranslations } from "next-intl";
+import Typography from "@/components/atoms/typography/Typography";
 
 const Amenities = ({
   isTitleVisible,
@@ -15,6 +17,7 @@ const Amenities = ({
   setAllFiltersData
 }: IAmenities) => {
   const [amenitiesData, setAmenitiesData] = useState<IAmenitiesData[]>([]);
+  const t = useTranslations()
   const mockAmenities = [
     {
       title: "Popular in this location",
@@ -87,9 +90,9 @@ const Amenities = ({
     <>
       {isTitleVisible && (
         <div className="flex justify-between items-center w-full">
-          <h6 className="text-xl font-mi-sans-semi-bold text-gray-700">
-            Amenities
-          </h6>
+          <Typography element="h6" variant="h6" className="font-mi-sans-semi-bold text-gray-700">
+            {t("amenities")}
+          </Typography>
         </div>
       )}
       {map(mockAmenities, (amenity, key) => (

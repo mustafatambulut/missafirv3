@@ -2,21 +2,32 @@
 import { useEffect, useState } from "react";
 import IMask from "imask";
 import moment from "moment";
-import { get } from "lodash";
 import { IMaskInput } from "react-imask";
+import { get, isNull, size } from "lodash";
+import { useTranslations } from "next-intl";
 
-import { useAppDispatch } from "@/redux/hooks";
+import {
+  updateCardInfo,
+  setIsValidPayload
+} from "@/redux/features/paymentSlice/paymentSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import useCheckAuth from "@/app/[lang]/reservation/useCheckAuth";
 import { IPayment } from "@/components/organisms/paymentSection/types";
-import { updateCardInfo } from "@/redux/features/paymentSlice/paymentSlice";
 
 import Input from "@/components/atoms/input/Input";
+import Alert from "@/components/atoms/alert/Alert";
 
 import "react-credit-cards-2/dist/es/styles-compiled.css";
+import CancelIcon from "@/../public/images/variants/close.svg";
 
-const PaymentSection = ({ className = "" }: IPayment) => {
+const PaymentSection = ({ className = "", message }: IPayment) => {
   useCheckAuth();
+  const t = useTranslations();
   const dispatch = useAppDispatch();
+
+  let flag: boolean = !!size(message);
+  const { isValidPayload } = useAppSelector((st) => st.paymentReducer);
+  const [showAlert, setShowAlert] = useState<boolean>(flag);
   const [cardInfo, setCardInfo] = useState({
     number: "",
     expiry: "",
@@ -59,22 +70,48 @@ const PaymentSection = ({ className = "" }: IPayment) => {
 
   return (
     <div className={`flex flex-col gap-y-3 lg:gap-y-6 ${className}`}>
-      <h1 className="text-28 hidden lg:block">Safe and Secure Payment</h1>
+      <h1 className="text-28 hidden lg:block">
+        {t("safe_and_secure_payments")}
+      </h1>
+      {!isNull(isValidPayload) && !isValidPayload && (
+        <Alert
+          variant="danger"
+          title="hata var"
+          icon={
+            <CancelIcon
+              onClick={() => dispatch(setIsValidPayload(true))}
+              className="cursor-pointer fill-primary"
+            />
+          }
+        />
+      )}
+      {showAlert && (
+        <Alert
+          variant="danger"
+          title={message}
+          icon={
+            <CancelIcon
+              onClick={() => setShowAlert(false)}
+              className="cursor-pointer fill-primary"
+            />
+          }
+        />
+      )}
       <div className="flex flex-col gap-y-3 lg:gap-y-6">
         <div className="form-control w-full">
           <label className="label text-base lg:text-lg -mt-1" htmlFor="number">
-            Card Number
+            {t("card_number")}
           </label>
           <IMaskInput
             id="number"
             radix="."
-            mask={Number}
+            mask={"0000 0000 0000 0000"}
             unmask={true}
             name="number"
             onFocus={handleInputFocus}
             onChange={handleInputChange}
             value={get(cardInfo, "number")}
-            placeholder="Type the number on your card"
+            placeholder={t("type_the_number_on_your_card")}
             className="text-base lg:text-lg focus:outline-0 w-full border border-gray-200 pl-4 p-2 rounded-lg"
           />
         </div>
@@ -85,20 +122,20 @@ const PaymentSection = ({ className = "" }: IPayment) => {
           onFocus={handleInputFocus}
           onChange={handleInputChange}
           value={get(cardInfo, "name")}
-          placeholder="Type the name on your card"
+          placeholder={t("type_the_name_on_your_card")}
           containerclass="text-base lg:text-lg -mt-1"
         />
       </div>
       <div className="flex gap-x-3 lg:gap-x-6">
         <div className="form-control w-full">
           <label className="label text-base lg:text-lg -mt-1" htmlFor="expiry">
-            Expiration
+            {t("expiration")}
           </label>
           <IMaskInput
             id="expiry"
             mask={Date}
             name="expiry"
-            placeholder="MM/YYYY"
+            placeholder="MM/YY"
             onFocus={handleInputFocus}
             onChange={handleInputChange}
             value={get(cardInfo, "expiry")}
@@ -111,15 +148,14 @@ const PaymentSection = ({ className = "" }: IPayment) => {
         </div>
         <div className="form-control w-full">
           <label className="label text-base lg:text-lg -mt-1" htmlFor="cvc">
-            Security Code
+            {t("security_code")}
           </label>
           <IMaskInput
             id="cvc"
-            min={100}
-            max={999}
+            max={9999}
             name="cvc"
             mask={Number}
-            placeholder="CVV/CVC"
+            placeholder="CVV"
             value={get(cardInfo, "cvc")}
             onFocus={handleInputFocus}
             onChange={handleInputChange}

@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { isMobile } from "react-device-detect";
 
 import { getScrollPosition } from "@/utils/helper";
 
@@ -10,7 +9,7 @@ const usePageScroll = () => {
 
   const handleScroll = () => {
     const scrollPosition = getScrollPosition();
-    const requiredScrollPosition = isMobile ? 10 : 30;
+    const requiredScrollPosition = 10;
     setIsScrolledHeaderActive(scrollPosition > requiredScrollPosition);
   };
 

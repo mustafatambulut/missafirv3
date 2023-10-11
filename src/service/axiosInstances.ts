@@ -13,8 +13,8 @@ export const browserLang = () => {
 
 export const strapi = axios.create({
   baseURL: isProduction()
-    ? process.env.NEXT_PUBLIC_API_URL_PROD
-    : process.env.NEXT_PUBLIC_API_URL_DEV
+    ? process.env.NEXT_PUBLIC_API_PROD
+    : process.env.NEXT_PUBLIC_API_DEV
 });
 
 export const pmsApi = axios.create({
@@ -26,7 +26,6 @@ export const pmsApi = axios.create({
 const setHeaders = () => {
   forEach([pmsApi, strapi], (api) => {
     api.defaults.headers.common["device"] = DEVICE;
-    api.defaults.headers.common["lang"] = browserLang();
   });
 };
 

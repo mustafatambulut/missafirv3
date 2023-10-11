@@ -18,7 +18,6 @@ import { changeIsSend } from "@/redux/features/contactSlice/contactSlice";
 const ContactForm = ({ className = "" }: IContactForm) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
-  const { formItems } = useAppSelector((state) => state.contactReducer);
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -49,7 +48,6 @@ const ContactForm = ({ className = "" }: IContactForm) => {
     validationSchema,
     onSubmit: async (values) => {
       // todo: api entegrasyonu yapılacak
-      console.log({ values });
       dispatch(changeIsSend(true));
     }
   });
@@ -75,9 +73,9 @@ const ContactForm = ({ className = "" }: IContactForm) => {
           <div className="w-full lg:h-24">
             <Input
               type="text"
-              name={get(formItems, "[0].name")}
-              label={get(formItems, "[0].label")}
-              placeholder={get(formItems, "[0].placeholder")}
+              name="fullname"
+              label={t("full_name")}
+              placeholder={t("full_name")}
               containerclass="text-lg -mt-1"
               value={get(values, "fullname")}
               onChange={handleChange}
@@ -91,9 +89,9 @@ const ContactForm = ({ className = "" }: IContactForm) => {
           <div className="w-full lg:h-24">
             <Input
               type="email"
-              name={get(formItems, "[1].name")}
-              label={get(formItems, "[1].label")}
-              placeholder={get(formItems, "[1].placeholder")}
+              name="email"
+              label={t("email")}
+              placeholder={t("email")}
               containerclass="text-lg"
               onChange={handleChange}
               value={get(values, "email")}
@@ -105,17 +103,16 @@ const ContactForm = ({ className = "" }: IContactForm) => {
             )}
           </div>
           <PhoneInput
+            id="phone"
             country="tr"
-            name={get(formItems, "[2].name")}
-            label={get(formItems, "[2].label")}
+            name="phone"
+            label={t("phone")}
             buttonClass="border border-r-0"
             inputClass="font-mi-sans h-12 w-full"
             containerclass="flex bg-white"
             dropdownClass="rounded-lg shadow-md"
-            placeholder={get(formItems, "[2].placeholder")}
+            placeholder={t("phone")}
             alwaysDefaultMask={true}
-            defaultMask={"(...) ... .. .."}
-            className="flex text-lg rounded-xl"
             value={get(values, "phone")}
             onChange={(value) => setFieldValue("phone", value)}
           />
@@ -127,9 +124,9 @@ const ContactForm = ({ className = "" }: IContactForm) => {
           <div className="w-full lg:h-24">
             <Input
               type="text"
-              name={get(formItems, "[3].name")}
-              label={get(formItems, "[3].label")}
-              placeholder={get(formItems, "[3].placeholder")}
+              name="subject"
+              label={t("subject")}
+              placeholder={t("subject")}
               containerclass="text-lg"
               onChange={handleChange}
               value={get(values, "subject")}
@@ -142,17 +139,17 @@ const ContactForm = ({ className = "" }: IContactForm) => {
           </div>
           <div className="w-full lg:h-24 lg:mb-20">
             <label className="label text-lg" htmlFor="details">
-              {get(formItems, "[4].label")}
+              {t("details")}
             </label>
             <textarea
               rows={5}
               id="details"
-              name={get(formItems, "[4].name")}
+              name="details"
               className="border focus:outline-0 rounded-lg p-2 w-full"
               maxLength={255}
               onChange={handleChange}
               value={get(values, "details")}
-              placeholder={get(formItems, "[4].placeholder")}></textarea>
+              placeholder={t("details")}></textarea>
             {get(errors, "details") && get(touched, "details") && (
               <div className="text-primary text-sm lg:text-base">
                 {get(errors, "details")}
@@ -161,7 +158,7 @@ const ContactForm = ({ className = "" }: IContactForm) => {
           </div>
           <div className="flex justify-end">
             <Button type="submit" disabled={isSubmitting} className="text-xl">
-              {get(formItems, "[5].label")}
+              {t("send")}
               {isSubmitting && (
                 <span className="loading loading-spinner"></span>
               )}

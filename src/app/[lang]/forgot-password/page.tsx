@@ -37,7 +37,7 @@ const ForgotPassword = () => {
           <ToastMessage
             toast={toast}
             item={item}
-            title="Success!"
+            title={t("toast_success")}
             status="success">
             <p className="text-xl text-black">{get(res, "data.message")}</p>
           </ToastMessage>
@@ -46,7 +46,7 @@ const ForgotPassword = () => {
         router.refresh();
       } else {
         toast.custom((item) => (
-          <ToastMessage toast={toast} item={item} title="Oops!" status="error">
+          <ToastMessage toast={toast} item={item} title={t("toast_error")} status="error">
             <p className="text-xl text-black">{get(res, "message")}</p>
           </ToastMessage>
         ));
@@ -66,10 +66,10 @@ const ForgotPassword = () => {
         <Toaster position="top-right" reverseOrder={false} />
         <div className="flex w-full flex-col gap-y-4">
           <h1 className="text-lg lg:text-3xl font-semibold text-gray-900">
-            Forgot Password
+            {t("forgot_password")}
           </h1>
           <h5 className="text-sm lg:text-base text-gray-400">
-            Enter your Email and get verification.
+            {t("enter_your_email_and_get_verification")}
           </h5>
           <div className="flex flex-col">
             <div className="flex container mx-auto justify-center flex-col gap-y-4">
@@ -89,7 +89,7 @@ const ForgotPassword = () => {
                 disabled={isSubmitting}
                 type="submit"
                 className="text-base lg:text-xl">
-                Get Verification
+                {t("get_verification")}
                 {isSubmitting && (
                   <span className="loading loading-spinner"></span>
                 )}

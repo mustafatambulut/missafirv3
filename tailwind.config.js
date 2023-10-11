@@ -1,5 +1,6 @@
 /** @type {import("tailwindcss").Config} */
 const plugin = require("tailwindcss/plugin");
+const { scopedPreflightStyles } = require("tailwindcss-scoped-preflight");
 
 const config = {
   important: true,
@@ -22,12 +23,31 @@ const config = {
         x: "0.6rem", // 10px
         20: "1.25rem" // 20px
       },
+      lineHeight: {
+        14: "0.875rem", // 14px
+        22: "1.375rem", // 22px
+        30: "1.875rem", // 30px
+        34: "2.125rem", // 34px
+        43: "2.6875rem", // 43px
+        50: "3.125rem", // 50px
+        70: "4.375rem" // 70px
+      },
       fontSize: {
         xxs: "0.6rem", // 10px
+        10: "0.6rem", // 10px
+        12: "0.75rem", // 12px
+        14: "0.875rem", // 14px
         15: "0.94rem", // 15px
+        16: "1rem", // 16px
+        18: "1.13rem", // 18px
+        20: "1.25rem", // 20px
         21: "1.31rem", // 21px
         22: "1.38rem", // 22px
+        24: "1.5rem", // 24px
         28: "1.75rem", // 28px
+        32: "2rem", // 32px
+        34: "2.13rem", // 34px
+        36: "2.25rem", // 36px
         40: "2.5rem", // 42px
         42: "2.63rem", // 42px
         54: "3.37rem" // 54px
@@ -124,6 +144,10 @@ const config = {
     }
   },
   plugins: [
+    scopedPreflightStyles({
+      cssSelector: ".notw", // or .tailwind-preflight or even [data-twp=true]
+      mode: "except matched"
+    }),
     plugin(function ({ addComponents }) {
       addComponents({
         ".btn-primary": {

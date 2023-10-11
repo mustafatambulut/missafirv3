@@ -5,15 +5,17 @@ import { ITouchesSection } from "@/components/molecules/touchesSection/types";
 
 import MiLogo from "../../../../public/images/variants/missafir_logo.svg";
 import MiSmallLogo from "../../../../public/images/variants/missafir_logo_small.svg";
+import { useTranslations } from "next-intl";
 
 const TouchesSection = ({ touches, className = "" }: ITouchesSection) => {
+  const t = useTranslations()
   if (!size(touches)) return;
 
   return (
     <article className={`flex flex-col gap-y-6 ${className}`}>
       <h5 className="flex items-center lg:items-start lg:text-xl gap-x-2">
         <span>{isMobile ? <MiSmallLogo /> : <MiLogo />}</span>
-        <span className="mt-1 lg:mt-0">Touches</span>
+        <span className="mt-1 lg:mt-0">{t("touches")}</span>
       </h5>
       <div className="flex flex-wrap">
         {map(touches, (touch, key) => (

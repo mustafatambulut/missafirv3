@@ -1,35 +1,35 @@
 "use client";
 import { ReactNode } from "react";
-import Link from "next/link";
 import * as Yup from "yup";
 import { get } from "lodash";
+import Link from "next/link";
 import { useFormik } from "formik";
 import classNames from "classnames";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { toast, Toaster } from "react-hot-toast";
+import jwt_decode from "jwt-decode";
 
 import { auth } from "@/service/api";
-import { setSessionStorage } from "@/utils/helper";
+import { setLocalStorage } from "@/utils/helper";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 import Input from "@/components/atoms/input/Input";
 import Button from "@/components/atoms/button/Button";
 import Checkbox from "@/components/atoms/checkbox/Checkbox";
-import ToastMessage from "@/components/atoms/toastMessage/ToastMessage";
 
 import AppleIcon from "../../../../public/images/apple.svg";
 import GoogleIcon from "../../../../public/images/google.svg";
 import FacebookIcon from "../../../../public/images/variants/facebook.svg";
 import { changeIsPressReservButton } from "@/redux/features/reservationSlice/reservationSlice";
 
+import CookiesUtils from "../../../utils/cookies";
+
 const Login = () => {
   const router = useRouter();
   const t = useTranslations();
   const dispatch = useAppDispatch();
-  const { isPressReservButton } = useAppSelector(
-    (step) => step.reservationReducer
-  );
+  const { isPressReservButton, isPressCheckAvailabilityButton } =
+    useAppSelector((step) => step.reservationReducer);
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -53,24 +53,23 @@ const Login = () => {
       const res = await auth(values);
 
       if (get(res, "data.token")) {
-        setSessionStorage("token", get(res, "data.token"));
+        const profileData = jwt_decode(get(res, "data.token"));
+        setLocalStorage(
+          "authUser",
+          JSON.stringify({
+            email: get(profileData, "email"),
+            fullname: get(profileData, "fullname")
+          })
+        );
+        setLocalStorage("token", get(res, "data.token"));
+        CookiesUtils.setItem("token", get(res, "data.token"));
 
-        toast.custom((item) => (
-          <ToastMessage
-            toast={toast}
-            className="w-96 bg-green-600 justify-between"
-            item={item}
-            title="Success!"
-            status="success"></ToastMessage>
-        ));
-        router.push(isPressReservButton ? "/reservation" : "/");
+        isPressCheckAvailabilityButton
+          ? router.back()
+          : router.push(isPressReservButton ? "/reservation" : "/");
+
         router.refresh();
       } else {
-        toast.custom((item) => (
-          <ToastMessage toast={toast} item={item} title="Oops!" status="error">
-            <p className="text-md text-black">{get(res, "message")}</p>
-          </ToastMessage>
-        ));
       }
     }
   });
@@ -94,7 +93,9 @@ const Login = () => {
   const SocialAuthCard = () => {
     return (
       <div className="flex flex-col justify-center lg:justify-start gap-y-6">
-        <h1 className="text-base text-gray-400">or select method to log in:</h1>
+        <h1 className="text-base text-gray-400">
+          {t("select_method_to_login")}
+        </h1>
         <div className="flex gap-x-2 lg:gap-x-4">
           <Button
             className="w-28 lg:w-1/3 gap-x-3 border-gray-300 text-gray-600"
@@ -124,8 +125,7 @@ const Login = () => {
       <>
         <div className="flex items-center px-10 lg:px-20 justify-center w-full rounded-xl lg:rounded-3xl h-20 lg:h-40 bg-gradient-to-r from-primary to-pink">
           <p className="text-white text-center text-md lg:text-2xl">
-            Become a member and take advantage of 10% discount on your first
-            reservation!
+            {t("become_a_member_and_take_advantage")}
           </p>
         </div>
 
@@ -157,13 +157,12 @@ const Login = () => {
       className="flex lg:justify-center font-mi-sans mt-20 lg:mt-40 px-4 lg:px-80"
       noValidate
       onSubmit={handleSubmit}>
-      <Toaster duration={4000} position="top-right" reverseOrder={false} />
       <div className="flex w-full flex-col gap-y-8">
         <HeaderComponent />
         <div className="flex flex-col">
           <div className={formClass}>
             {isPressReservButton && (
-              <h1 className="text-center text-2xl">Login with e-mail</h1>
+              <h1 className="text-center text-2xl">{t("login_with_e-mail")}</h1>
             )}
             <Input
               type="email"

@@ -1,12 +1,22 @@
 "use client";
+import { useEffect } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { filter, get } from "lodash";
 import { useTranslations } from "next-intl";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { filter, get, map, size } from "lodash";
 
+import {
+  fetchRoomTypes,
+  fetchHomeTypes,
+  updateDistricts,
+  updateCurrentStep,
+  fetchCorporateTypes,
+  updateNeighborhoods,
+  fetchNestedLocations
+} from "@/redux/features/ownerSlice/ownerSlice";
+import { sendBecomeOwnerRequest } from "@/service/api";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { OWNER_TYPE_2, STEP_3 } from "@/redux/features/ownerSlice/enum";
-import { updateCurrentStep } from "@/redux/features/ownerSlice/ownerSlice";
 
 import Input from "@/components/atoms/input/Input";
 import Select from "@/components/atoms/select/Select";
@@ -16,54 +26,98 @@ import Collapse from "@/components/atoms/collapse/Collapse";
 import PhoneInput from "@/components/atoms/phoneInput/PhoneInput";
 import FileUploadField from "@/components/atoms/fileUploadField/FileUploadField";
 
-import TargetIcon from "../../../../public/images/target.svg";
 import DownArrowIcon from "../../../../public/images/down_arrow.svg";
 
 const BecomeOwnerForm = () => {
   const t = useTranslations();
-  const { selectedOwnerType, cities, properties, rooms } = useAppSelector(
-    (state) => state.ownerReducer
-  );
+  const {
+    selectedOwnerType,
+    selectedCountry,
+    cities,
+    districts,
+    neighborhoods,
+    roomTypes,
+    homeTypes,
+    corporateTypes,
+    loadingCities,
+    loadingDistricts,
+    loadingNeighborHoods
+  } = useAppSelector((state) => state.ownerReducer);
   const dispatch = useAppDispatch();
 
   const validationSchema = Yup.object({
+    owner_type: Yup.string().required(t("this_field_is_required")),
     email: Yup.string()
       .email(t("invalid_or_incomplete_email"))
       .max(50, t("email_is_too_long"))
       .required(t("this_field_is_required")),
-    location: Yup.string().required(t("this_field_is_required")),
+    city_id: Yup.string().required(t("this_field_is_required")),
+    district_id: Yup.string().required(t("this_field_is_required")),
+    neighborhood_id: Yup.string().required(t("this_field_is_required")),
+    corporate_type:
+      selectedOwnerType === OWNER_TYPE_2
+        ? Yup.string().required(t("this_field_is_required"))
+        : Yup.string(),
     phone: Yup.string().required(t("this_field_is_required")),
     rooms: Yup.string().required(t("this_field_is_required")),
-    property_type: Yup.string().required(t("this_field_is_required")),
+    home_type: Yup.string().required(t("this_field_is_required")),
     check_1: Yup.boolean().oneOf(
       [true],
-      "You need to accept the terms and conditions"
+      t("you_need_to_accept_the_terms_and_conditions")
     ),
     check_2: Yup.boolean().oneOf(
       [true],
-      "You need to accept the terms and conditions"
+      t("you_need_to_accept_the_terms_and_conditions")
     )
   });
 
   const initialValues = {
-    email: "",
+    country_id: selectedCountry,
+    city_id: "",
+    district_id: "",
+    neighborhood_id: "",
+    home_type: "",
+    corporate_type: "",
+    owner_type: selectedOwnerType,
     phone: "",
-    rooms: "",
+    email: "",
     photos: [],
-    location: "",
+    rooms: "",
+    entire_property: false,
     check_1: false,
-    check_2: false,
-    property_type: "",
-    entire_property_rent: false
+    check_2: false
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema,
+    enableReinitialize: true,
     onSubmit: async (values) => {
-      // todo: api entegrasyonu yapılacak
-      console.log({ values });
-      dispatch(updateCurrentStep(STEP_3));
+      const formData = new FormData();
+      formData.append("country_id", get(values, "country_id"));
+      formData.append("city_id", get(values, "city_id"));
+      formData.append("district_id", get(values, "district_id"));
+      formData.append("neighborhood_id", get(values, "neighborhood_id"));
+      formData.append("home_type", get(values, "home_type"));
+      formData.append("owner_type", get(values, "owner_type"));
+      formData.append("phone", get(values, "phone"));
+      formData.append("email", get(values, "email"));
+      formData.append("rooms", get(values, "rooms"));
+      formData.append(
+        "entire_property",
+        get(values, "entire_property") ? 1 : 0
+      );
+      selectedOwnerType === OWNER_TYPE_2 &&
+        formData.append("corporate_type", get(values, "corporate_type"));
+      if (size(get(values, "photos"))) {
+        for (const image of get(values, "photos")) {
+          formData.append("photos[]", get(image, "file"));
+        }
+      }
+      const res = await sendBecomeOwnerRequest(formData);
+      if (get(res, "data.message") === "success") {
+        dispatch(updateCurrentStep(STEP_3));
+      }
     }
   });
 
@@ -77,91 +131,229 @@ const BecomeOwnerForm = () => {
     setFieldValue
   } = formik;
 
+  const OwnerFormLocations = () => {
+    return (
+      <div className="pb-6">
+        <div className="flex w-full items-center">
+          <div className="flex flex-col items-start justify-center flex-1">
+            <div className="text-lg text-gray-600 font-mi-sans-semi-bold">
+              {t("location")}
+            </div>
+            <div className="text-sm text-gray-500">
+              {get(values, "city_id") !== "" &&
+                getLocationLabel(cities, "city_id")}
+              {get(values, "district_id") !== "" && (
+                <span>/{getLocationLabel(districts, "district_id")}</span>
+              )}
+              {get(values, "neighborhood_id") !== "" && (
+                <span>
+                  /{getLocationLabel(neighborhoods, "neighborhood_id")}
+                </span>
+              )}
+              {!get(values, "city_id") &&
+                !get(values, "district_id") &&
+                !get(values, "neighborhood_id") &&
+                t("select_your_city")}
+            </div>
+          </div>
+        </div>
+        <div className="form-control flex flex-col lg:flex-row gap-x-4 w-full justify-between items-center font-mi-sans text-lg">
+          <Select
+            isDisabled={size(cities) === 0}
+            rotateIconOnShow={true}
+            showPlaceholder={true}
+            showControlTitle={true}
+            menuClassName="border border-gray-300 lg:border-none w-auto"
+            searchId="owner-city"
+            name="city_id"
+            value={get(values, "city_id")}
+            items={map(cities, (city) => ({
+              label: city.name,
+              value: city.id
+            }))}
+            placeHolder={t("city")}
+            noResultsMessage={t("no_results")}
+            className={`border-none cursor-pointer ${
+              loadingCities ? "animate-pulse" : null
+            }`}
+            controlWrapperClassName="p-0"
+            searchIconColor="fill-primary"
+            isSearchable={true}
+            isClearable={true}
+            showSearchIcon={false}
+            customIconPosition="right"
+            customIcon={<DownArrowIcon className="fill-primary scale-150" />}
+            onChange={(value) =>
+              handleLocationChange(value ? value?.value : "", "city_id")
+            }
+          />
+          <div className="text-gray-300 hidden lg:block">|</div>
+          <Select
+            isDisabled={size(districts) === 0}
+            rotateIconOnShow={true}
+            showPlaceholder={true}
+            showControlTitle={true}
+            menuClassName="border border-gray-300 lg:border-none w-auto"
+            searchId="owner-district"
+            name="district_id"
+            value={get(values, "district_id")}
+            items={map(districts, ({ name, id }) => ({
+              label: name,
+              value: id
+            }))}
+            placeHolder={t("district")}
+            noResultsMessage={t("no_results")}
+            className={`border-none cursor-pointer ${
+              loadingDistricts ? "animate-pulse" : null
+            }`}
+            controlWrapperClassName="p-0"
+            searchIconColor="fill-primary"
+            isSearchable={true}
+            isClearable={true}
+            showSearchIcon={false}
+            customIconPosition="right"
+            customIcon={<DownArrowIcon className="fill-primary scale-150" />}
+            onChange={(value) =>
+              handleLocationChange(value ? value.value : "", "district_id")
+            }
+          />
+          <div className="text-gray-300 hidden lg:block">|</div>
+          <Select
+            isDisabled={size(neighborhoods) === 0}
+            rotateIconOnShow={true}
+            showPlaceholder={true}
+            showControlTitle={true}
+            menuClassName="border border-gray-300 lg:border-none w-auto"
+            searchId="owner-neighborhood"
+            name="neighborhood_id"
+            value={get(values, "neighborhood_id")}
+            items={map(neighborhoods, ({ name, id }) => ({
+              label: name,
+              value: id
+            }))}
+            placeHolder={t("neighborhood")}
+            noResultsMessage={t("no_results")}
+            className={`border-none cursor-pointer ${
+              loadingNeighborHoods ? "animate-pulse" : null
+            }`}
+            controlWrapperClassName="p-0"
+            searchIconColor="fill-primary"
+            isSearchable={true}
+            isClearable={true}
+            showSearchIcon={false}
+            customIconPosition="right"
+            customIcon={<DownArrowIcon className="fill-primary scale-150" />}
+            onChange={(value) =>
+              handleLocationChange(
+                value ? get(value, "value") : "",
+                "neighborhood_id"
+              )
+            }
+          />
+        </div>
+
+        {get(errors, "neighborhood_id") && get(touched, "neighborhood_id") && (
+          <div className="text-primary">{get(errors, "location")}</div>
+        )}
+      </div>
+    );
+  };
+
+  const handleLocationChange = (value, locationType) => {
+    const generateLocation = () => {
+      switch (locationType) {
+        case "city_id":
+          return `${selectedCountry}/${value}`;
+        case "district_id":
+          return `${selectedCountry}/${get(values, "city_id")}/${value}`;
+        default:
+          return value;
+      }
+    };
+
+    const generateType = () => {
+      switch (locationType) {
+        case "city_id":
+          return "district_id";
+        case "district_id":
+          return "neighborhood_id";
+        default:
+          return locationType;
+      }
+    };
+    switch (locationType) {
+      case "city_id":
+        dispatch(updateDistricts([]));
+        dispatch(updateNeighborhoods([]));
+        setFieldValue("district_id", "");
+        setFieldValue("neighborhood_id", "");
+        break;
+      case "district_id":
+        dispatch(updateNeighborhoods([]));
+        setFieldValue("neighborhood_id", "");
+        break;
+      default:
+        break;
+    }
+
+    setFieldValue(locationType, value);
+    locationType !== "neighborhood_id" &&
+      value !== "" &&
+      dispatch(
+        fetchNestedLocations({
+          location: generateLocation(),
+          type: generateType()
+        })
+      );
+  };
+
+  const getLocationLabel = (target, value) => {
+    const label = filter(target, ({ id }) => id === get(values, value));
+    return size(label) ? get(label, "[0].name") : "";
+  };
+
+  useEffect(() => {
+    dispatch(fetchCorporateTypes());
+    dispatch(fetchHomeTypes());
+    dispatch(fetchRoomTypes());
+    dispatch(
+      fetchNestedLocations({ location: selectedCountry, type: "city_id" })
+    );
+  }, []);
   return (
     <div className="flex flex-col items-center gap-y-14">
       <div className="flex gap-x-14 flex-col lg:flex-row">
         <div className="flex-1 flex flex-col gap-10 items-center justify-center lg:w-1/2 text-center mb-4">
           <h1 className="text-28 text-gray-800">
-            Discover Your {"Home's"} Potential Income with Our Advanced Rent
-            Calculator
+            {t(
+              "discover_your_homes_potential_income_with_our_advanced_rent_calculator"
+            )}
           </h1>
           <p className="text-2xl text-gray-800">
-            With
-            <span className="text-primary">
-              professional property management
-            </span>
-            your property can yield a higher income. Please enter your info into
-            the form to use the rent increase calculator.
+            {t("become_owner_form_title")}
           </p>
-          <p className="text-lg text-gray-700">
-            *Please note: The figures here are just estimates. An accurate
-            potential rent increase for your home will be determined after an
-            assessment by our specialists.
-          </p>
+          <p className="text-lg text-gray-700">{t("become_owner_form_note")}</p>
         </div>
         <form noValidate onSubmit={handleSubmit} className="lg:w-1/2">
           <div className="grid grid-cols-1 gap-y-6">
-            <div className="shadow-base-blur-20 rounded-20 p-6 divide-y">
-              <div className="pb-6">
-                <Collapse
-                  className="rounded-none overflow-visible"
-                  arrowColor="fill-primary scale-150"
-                  showArrowIcon={false}
-                  title={
-                    <div className="flex w-full items-center">
-                      <div className="flex flex-col items-start justify-center flex-1">
-                        <div className="text-lg text-gray-600 font-mi-sans-semi-bold">
-                          Location
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {get(values, "location")
-                            ? filter(
-                                cities,
-                                (city) => city.value === get(values, "location")
-                              )[0].label
-                            : "Select your city"}
-                        </div>
-                      </div>
-                      <TargetIcon />
-                    </div>
-                  }>
-                  <div className="form-control flex w-full font-mi-sans text-lg">
-                    <Select
-                      showPlaceholder={true}
-                      showControlTitle={true}
-                      searchId="owner-location"
-                      name="location"
-                      value={get(values, "location")}
-                      items={cities}
-                      placeHolder="Location"
-                      noResultsMessage="No Results"
-                      showSearchIcon={true}
-                      className="border-none cursor-pointer"
-                      controlWrapperClassName="p-0"
-                      searchIconColor="fill-primary"
-                      isSearchable={true}
-                      isClearable={true}
-                      onChange={(value) =>
-                        setFieldValue("location", value.value)
-                      }
-                    />
-                  </div>
-                </Collapse>
-                {get(errors, "location") && get(touched, "location") && (
-                  <div className="text-primary">{get(errors, "location")}</div>
-                )}
-              </div>
+            <div className="shadow-base-blur-20 rounded-20 p-4 lg:p-6 divide-y">
+              <OwnerFormLocations />
               <div className="form-control flex w-full font-mi-sans text-lg py-6">
                 <Select
+                  rotateIconOnShow={true}
                   showPlaceholder={true}
                   showControlTitle={true}
+                  menuClassName="border border-gray-300 lg:border-none"
                   searchId="owner-property-type"
-                  items={properties}
-                  name="property_type"
-                  value={get(values, "property_type")}
-                  placeHolder="Choose your property type"
+                  items={map(homeTypes, ({ title, value }) => ({
+                    label: title,
+                    value: value
+                  }))}
+                  name="home_type"
+                  value={get(values, "home_type")}
+                  placeHolder={t("choose_your_property_type")}
                   placeholderClassName="text-sm text-gray-500"
-                  noResultsMessage="No Results"
+                  noResultsMessage={t("no_results")}
                   showSearchIcon={false}
                   className="border-none cursor-pointer"
                   controlWrapperClassName="p-0"
@@ -169,48 +361,80 @@ const BecomeOwnerForm = () => {
                   customIcon={
                     <DownArrowIcon className="fill-primary scale-150" />
                   }
-                  controlTitle="Property"
+                  controlTitle={t("property")}
                   controlTitleClassName="text-lg text-gray-600 font-mi-sans-semi-bold"
-                  onChange={(value) =>
-                    setFieldValue("property_type", value.value)
-                  }
+                  onChange={({ value }) => setFieldValue("home_type", value)}
                 />
                 {selectedOwnerType === OWNER_TYPE_2 && (
-                  <div className="mt-2">
+                  <div className="mt-2 lg:mt-4">
                     <Checkbox
-                      name="entire_property_rent"
-                      checked={get(values, "entire_property_rent")}
+                      name="entire_property"
+                      checked={get(values, "entire_property")}
                       onChange={(e) => {
                         setFieldValue(
-                          "entire_property_rent",
+                          "entire_property",
                           get(e, "target.checked")
                         );
                       }}
                       position="right"
                       className="p-0"
-                      label="The entire property is for rent"
+                      label={t("the_entire_property_is_for_rent")}
                       labelClass="p-0 items-center flex"
                     />
                   </div>
                 )}
-                {get(errors, "property_type") &&
-                  get(touched, "property_type") && (
-                    <div className="text-primary">
-                      {get(errors, "property_type")}
-                    </div>
-                  )}
+                {get(errors, "home_type") && get(touched, "home_type") && (
+                  <div className="text-primary">{get(errors, "home_type")}</div>
+                )}
               </div>
+              {selectedOwnerType === OWNER_TYPE_2 && (
+                <div className="form-control flex w-full font-mi-sans text-lg pt-6">
+                  <Select
+                    rotateIconOnShow={true}
+                    showPlaceholder={true}
+                    showControlTitle={true}
+                    menuClassName="border border-gray-300 lg:border-none"
+                    searchId="owner-corporate"
+                    name="corporate_type"
+                    value={get(values, "corporate_type")}
+                    items={map(corporateTypes, ({ title, value }) => ({
+                      label: title,
+                      value
+                    }))}
+                    placeHolder={t("select_your_corporation_type")}
+                    placeholderClassName="text-sm text-gray-500"
+                    noResultsMessage={t("no_results")}
+                    showSearchIcon={false}
+                    className="border-none cursor-pointer"
+                    controlWrapperClassName="p-0"
+                    customIconPosition="right"
+                    customIcon={
+                      <DownArrowIcon className="fill-primary scale-150" />
+                    }
+                    controlTitle={t("corporation_type")}
+                    controlTitleClassName="text-lg text-gray-600 font-mi-sans-semi-bold"
+                    onChange={(value) =>
+                      setFieldValue("corporate_type", value.value)
+                    }
+                  />
+                </div>
+              )}
               <div className="form-control flex w-full font-mi-sans text-lg pt-6">
                 <Select
+                  rotateIconOnShow={true}
                   showPlaceholder={true}
                   showControlTitle={true}
+                  menuClassName="border border-gray-300 lg:border-none"
                   searchId="owner-rooms"
                   name="rooms"
                   value={get(values, "rooms")}
-                  items={rooms}
-                  placeHolder="Number of rooms"
+                  items={map(roomTypes, ({ title, value }) => ({
+                    label: title,
+                    value
+                  }))}
+                  placeHolder={t("select_your_room_number")}
                   placeholderClassName="text-sm text-gray-500"
-                  noResultsMessage="No Results"
+                  noResultsMessage={t("no_results")}
                   showSearchIcon={false}
                   className="border-none cursor-pointer"
                   controlWrapperClassName="p-0"
@@ -218,7 +442,7 @@ const BecomeOwnerForm = () => {
                   customIcon={
                     <DownArrowIcon className="fill-primary scale-150" />
                   }
-                  controlTitle="Rooms"
+                  controlTitle={t("rooms")}
                   controlTitleClassName="text-lg text-gray-600 font-mi-sans-semi-bold"
                   onChange={(value) => setFieldValue("rooms", value.value)}
                 />
@@ -227,19 +451,20 @@ const BecomeOwnerForm = () => {
                 <div className="text-primary">{get(errors, "rooms")}</div>
               )}
             </div>
-            <div className="shadow-base-blur-20 rounded-20 p-6 grid grid-cols-1 gap-y-6">
+            <div className="shadow-base-blur-20 rounded-20 p-4 lg:p-6 grid grid-cols-1 gap-y-6">
               <div className="w-full">
                 <Input
                   type="email"
                   name="email"
                   label={t("email")}
-                  placeholder={t("email")}
+                  placeholder={t("write_your_email")}
                   containerclass="text-lg border-none"
-                  inputContainerClassName="border-none shadow-none"
-                  labelContainerClassName="p-0 text-lg text-gray-600 font-mi-sans-semi-bold"
+                  inputcontainerclass="border-none shadow-none"
+                  labelcontainerclass="p-0 text-lg text-gray-600 font-mi-sans-semi-bold"
+                  placeholderClass="w-full text-sm text-gray-500 block"
                   onChange={handleChange}
                   value={get(values, "email")}
-                  className="p-0"
+                  className="p-0 border-none"
                 />
                 {get(errors, "email") && get(touched, "email") && (
                   <div className="text-primary">{get(errors, "email")}</div>
@@ -247,18 +472,15 @@ const BecomeOwnerForm = () => {
               </div>
               <div className="w-full">
                 <PhoneInput
+                  id="phone"
                   country="tr"
                   name="phone"
-                  label="Phone Number"
+                  label={t("phone_number")}
                   labelClass="p-0 text-lg text-gray-600 font-mi-sans-semi-bold"
-                  buttonClass="bg-white border-none"
-                  inputClass="font-mi-sans h-12 w-full border-none"
-                  containerclass="flex bg-white"
-                  dropdownClass="rounded-lg shadow-md"
-                  placeholder="Enter your number"
+                  buttonClass="border-none px-0"
+                  inputClass="border-none pl-0"
+                  className="border-none"
                   alwaysDefaultMask={true}
-                  defaultMask={"(...) ... .. .."}
-                  className="flex text-lg rounded-xl border-none"
                   value={get(values, "phone")}
                   onChange={(value) => setFieldValue("phone", value)}
                 />
@@ -267,26 +489,33 @@ const BecomeOwnerForm = () => {
                 )}
               </div>
             </div>
-            <div className="shadow-base-blur-20 rounded-20 p-6">
+            <div className="shadow-base-blur-20 rounded-20 p-4 lg:p-6">
               <Collapse
+                closeOnOutsideClick={false}
                 className="rounded-none"
                 arrowColor="fill-primary scale-150"
                 controlOutsideClick={false}
                 title={
                   <div className="flex-1">
                     <div className="text-lg text-gray-600">
-                      <span className="font-mi-sans-semi-bold">Photos</span>
+                      <span className="font-mi-sans-semi-bold">
+                        {t("photos")}
+                      </span>
                       <span className="text-sm text-primary ml-1">
-                        (optional)
+                        ({t("optional")})
                       </span>
                     </div>
                     <div className="text-sm text-gray-500">
-                      Upload photos of your home for a more accurate estimated
-                      earnings information.
+                      {t(
+                        "upload_photos_of_your_home_for_a_more_accurate_estimated_earnings_information"
+                      )}
                     </div>
                   </div>
                 }>
-                <FileUploadField />
+                <FileUploadField
+                  handleOnChange={(value) => setFieldValue("photos", value)}
+                  value={get(values, "photos")}
+                />
               </Collapse>
             </div>
             <div className="grid grid-cols-1 gap-y-3">
@@ -297,7 +526,7 @@ const BecomeOwnerForm = () => {
                 onChange={(e) => {
                   setFieldValue("check_1", get(e, "target.checked"));
                 }}
-                label="Under Personal Data Protection Law No. 6698."
+                label={t("under_personal_data_protection_law")}
                 labelClass="text-sm lg:text-base text-gray-700 items-start lg:items-center p-0"
                 position="right"
               />
@@ -308,7 +537,7 @@ const BecomeOwnerForm = () => {
                 onChange={(e) => {
                   setFieldValue("check_2", get(e, "target.checked"));
                 }}
-                label="I've read and agree to the terms in the Missafir Privacy Policy."
+                label={t("read_and_agree_privacy_policy")}
                 labelClass="text-sm lg:text-base text-gray-700 items-start lg:items-center p-0"
                 position="right"
               />
@@ -316,10 +545,10 @@ const BecomeOwnerForm = () => {
             <Button
               type="submit"
               variant="btn-primary"
-              disabled={!(formik.isValid && formik.dirty)}
+              disabled={!(get(formik, "isValid") && get(formik, "dirty"))}
               className="border-none text-white w-full">
               <div>
-                <span>Calculate rent increase</span>
+                <span>{t("calculate_rent_increase")}</span>
                 {isSubmitting && (
                   <span className="loading loading-spinner"></span>
                 )}

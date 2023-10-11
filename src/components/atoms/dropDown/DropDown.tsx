@@ -1,43 +1,34 @@
 "use client";
-import Image from "next/image";
 import { useState } from "react";
 import classNames from "classnames";
-import { usePathname } from "next/navigation";
 import OutsideClickHandler from "react-outside-click-handler";
-import { compact, filter, includes, size, split } from "lodash";
 
-import { LOCALES } from "@/app/constants";
 import { IDropDown } from "@/components/atoms/dropDown/types";
 
 import ArrowUp from "../../../../public/images/up_arrow.svg";
+import UserLight from "../../../../public/images/user_light.svg";
+import UserDark from "../../../../public/images/user_dark.svg";
 import ArrowDown from "../../../../public/images/down_arrow.svg";
+import Typography from "../typography/Typography";
 
 const DropDown = ({
+  variant = "",
   label,
   children,
-  imageSrc = "",
   className = "",
-  menuClass = "",
-  isScrolledHeaderActive
+  menuClass = ""
 }: IDropDown) => {
-  const pathName = usePathname();
   const [isShow, setIsShow] = useState<boolean>(false);
   const menuClassName = classNames(
-    `dropdown-content z-50 menu p-2 mt-2 shadow bg-base-100 rounded-xl w-52 ${menuClass}`,
+    `dropdown-content z-50 menu p-2 mt-2 shadow bg-base-100 rounded-xl w-52 scale-100 ${menuClass}`,
     {
       "visible opacity-100": isShow
     }
   );
 
-  const isHomePage = !size(
-    filter(compact(split(pathName, "/")), (item) => {
-      if (!includes(LOCALES, item)) return item;
-    })
-  );
-
   const labelClass = classNames("text-lg", {
-    "text-black": isScrolledHeaderActive,
-    "text-white": !isScrolledHeaderActive && isHomePage
+    "text-black": variant === "light",
+    "text-white": variant === "dark"
   });
 
   const handleOutsideClick = () => setIsShow(false);
@@ -48,25 +39,44 @@ const DropDown = ({
         <div
           onClick={() => setIsShow(!isShow)}
           className="flex cursor-pointer items-center gap-x-2">
-          <label className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <Image
-                alt="user"
-                width={24}
-                height={24}
-                src={`${imageSrc || "/images/user_light.svg"}`}
-                className="rounded-full bg-gray-100 p-1 lg:bg-transparent lg:p-0"
-              />
+          <label className="btn btn-ghost btn-circle avatar w-auto">
+            <div className="flex justify-center items-center">
+              {/*<Image*/}
+              {/*  alt="user"*/}
+              {/*  width={24}*/}
+              {/*  height={24}*/}
+              {/*  src={`${imageSrc || "/images/user_light.svg"}`}*/}
+              {/*  className="rounded-full bg-gray-100 p-1 lg:bg-transparent lg:p-0"*/}
+              {/*/>*/}
+              {variant === "light" ? (
+                <div className="rounded-full w-6 h-6 bg-gray-50 flex justify-center items-center">
+                  <UserDark className="fill-gray-400" />
+                </div>
+              ) : (
+                <UserLight />
+              )}
             </div>
           </label>
-          <div className={labelClass}>{label}</div>
+          <div className={labelClass}>
+            <Typography element="span" variant="p3">
+              {label}
+            </Typography>
+          </div>
           {isShow ? (
-            <ArrowUp className="fill-gray-600" />
+            <ArrowUp
+              className={variant === "light" ? "fill-gray-600" : "fill-white"}
+            />
           ) : (
-            <ArrowDown className="fill-gray-600" />
+            <ArrowDown
+              className={variant === "light" ? "fill-gray-600" : "fill-white"}
+            />
           )}
         </div>
-        <ul className={menuClassName}>{children}</ul>
+        <ul className={menuClassName}>
+          <Typography element="span" variant="p3">
+            {children}
+          </Typography>
+        </ul>
       </div>
     </OutsideClickHandler>
   );

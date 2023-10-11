@@ -7,6 +7,7 @@ import SuccessIcon from "../../../../public/images/care.svg";
 import DangerIcon from "../../../../public/images/exclamation.svg";
 import WarningIcon from "../../../../public/images/announcement.svg";
 import CloseIcon from "../../../../public/images/variants/close_small.svg";
+import Typography from "../typography/Typography";
 
 const ToastMessage = ({
   item,
@@ -25,7 +26,7 @@ const ToastMessage = ({
   );
 
   const titleClass = classNames(
-    `text-lg font-semibold lg:text-2xl capitalize`,
+    `font-semibold capitalize`,
     {
       "text-error-red": status === "error",
       "text-success-green": status === "success",
@@ -57,7 +58,7 @@ const ToastMessage = ({
     <div className={containerClass}>
       <div className={iconClass}>{icon()}</div>
       <div className="col-span-2">
-        <h1 className={titleClass}>{title}</h1>
+        <Typography variant="h4" element="span" className={titleClass}>{title}</Typography>
         {children}
       </div>
       <div className="text-end col-span-1">

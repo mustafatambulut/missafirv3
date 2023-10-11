@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   checkSameItem,
   getCurrentLang,
-  getSessionStorage
+  getLocalStorage
 } from "@/utils/helper";
 import { LOCALES, PROTECTED } from "@/app/constants";
 
@@ -16,7 +16,7 @@ const RouteGuard = ({ children }) => {
 
   const authCheck = () => {
     const lang = getCurrentLang();
-    if (!getSessionStorage("token")) {
+    if (!getLocalStorage("token")) {
       const isProtected = checkSameItem(PROTECTED, split(pathname, "/"));
 
       if (isProtected) {
@@ -31,7 +31,7 @@ const RouteGuard = ({ children }) => {
 
   useEffect(() => {
     authCheck();
-  }, [getSessionStorage("token")]);
+  }, [getLocalStorage("token")]);
 
   return children;
 };

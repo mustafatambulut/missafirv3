@@ -18,7 +18,7 @@ const SocialMenu = ({ links, className = "" }: ISocialMenu) => {
               link={get(link, "attributes.link")}>
               <Image
                 priority
-                src={get(link, "attributes.image") || ""}
+                src={get(link, "attributes.image") || "/"}
                 width="0"
                 height="0"
                 className="w-8 h-auto bg-gray-50 p-1 rounded-full"

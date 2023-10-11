@@ -6,6 +6,7 @@ import { ICollapse } from "@/components/atoms/collapse/types";
 
 import UpArrow from "../../../../public/images/up_arrow.svg";
 import DownArrow from "../../../../public/images/down_arrow.svg";
+import classNames from "classnames";
 
 const Collapse = ({
   title,
@@ -14,11 +15,19 @@ const Collapse = ({
   contentClass,
   className = "",
   arrowColor = "fill-black",
-  showArrowIcon = true
+  closeOnOutsideClick = true,
+  showArrowIcon = true,
+  titlePlacement = "justify-between"
 }: ICollapse) => {
   const collapseRef = useRef<HTMLInputElement>(null);
   const [collapsable, setCollapsable] = useState<boolean>(false);
 
+  const titleClassName = classNames(
+    `p-0 collapse-title items-center cursor-pointer flex min-h-0 ${titleClass}`,
+    {
+      [titlePlacement]: titlePlacement
+    }
+  );
   const IconComponent = () => {
     return collapsable ? (
       <UpArrow className={arrowColor} />
@@ -29,13 +38,20 @@ const Collapse = ({
 
   const ContentComponent = () => {
     return (
-      <div className={`p-0 collapse-content ${contentClass}`}>{children}</div>
+      <div
+        className={`p-0 ${
+          collapsable && "mt-2"
+        } collapse-content ${contentClass}`}>
+        {children}
+      </div>
     );
   };
 
   const handleOutsideClick = () => {
-    if (collapseRef.current) collapseRef.current.checked = false;
-    setCollapsable(false);
+    if (closeOnOutsideClick && collapseRef.current) {
+      collapseRef.current.checked = false;
+      setCollapsable(false);
+    }
   };
 
   const handleCollapseChange = () => {
@@ -47,11 +63,10 @@ const Collapse = ({
         <input
           ref={collapseRef}
           type="checkbox"
-          className="peer"
+          className="peer min-h-0"
           onChange={(e) => handleCollapseChange(e)}
         />
-        <div
-          className={`p-0 collapse-title items-center cursor-pointer flex justify-between min-h-0 ${titleClass}`}>
+        <div className={titleClassName}>
           {title}
           {showArrowIcon && <IconComponent />}
         </div>

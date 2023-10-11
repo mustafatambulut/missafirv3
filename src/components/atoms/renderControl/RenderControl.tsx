@@ -26,7 +26,6 @@ const RenderControl = ({
         {/*  </div>*/}
         {/*)}*/}
       </div>
-      {/*{console.log(bookingDate)}*/}
       {/*{(get(bookingDate, "startDate") || get(bookingDate, "endDate")) && (*/}
       {/*  <div className="flex">*/}
       {/*    <Button*/}

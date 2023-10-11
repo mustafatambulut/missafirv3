@@ -22,7 +22,7 @@ const ExtraPayments = ({ reservation }: IExtraPayments) => {
                   {get(extraPayment, "image") && (
                     <div className="w-[160px] h-[126px] lg:h-[151px] relative">
                       <Image
-                        src={get(extraPayment, "image")}
+                        src={get(extraPayment, "image") || "/"}
                         alt="home"
                         key={key}
                         fill={true}
@@ -60,7 +60,7 @@ const ExtraPayments = ({ reservation }: IExtraPayments) => {
                   {get(extraPayment, "image") && (
                     <div className="w-[160px] h-[126px] lg:h-[151px] relative">
                       <Image
-                        src={get(extraPayment, "image")}
+                        src={get(extraPayment, "image") || "/"}
                         alt="home"
                         key={key}
                         fill={true}

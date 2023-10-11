@@ -4,8 +4,10 @@ import { IPhoneInput } from "@/components/atoms/phoneInput/types";
 
 import "./PhoneInput.css";
 import "react-phone-input-2/lib/style.css";
+import classNames from "classnames";
 
 const PhoneInput = ({
+  id,
   name,
   value,
   label,
@@ -20,12 +22,27 @@ const PhoneInput = ({
   dropdownClass = "",
   containerClass = ""
 }: IPhoneInput) => {
+  const buttonClassName = classNames(
+    `border-gray-200 bg-white rounded-lg hover:rounded-lg cursor-pointer px-2 relative h-full ${buttonClass}`
+  );
+
+  const inputClassName = classNames(
+    `flex border-gray-200 h-12 text-gray-800 rounded-lg pl-3 flex-1 ${inputClass}`
+  );
+
+  const baseClassName = classNames(
+    `flex flex-row-reverse justify-between gap-x-2 text-sm border border-none pl-0 p-0 rounded-lg h-12 input focus:outline-0 w-full text-gray-800 ${containerClass}`
+  );
+
+  const dropdownClassName = classNames(`rounded-lg ${dropdownClass}`);
+
   return (
     <div className={`form-control flex justify-between w-full ${className}`}>
       <label className={`label ${labelClass}`} htmlFor={name}>
         {label}
       </label>
       <BasePhoneInput
+        id={id}
         name={name}
         value={value}
         label={label}
@@ -33,11 +50,13 @@ const PhoneInput = ({
         onChange={onChange}
         isDisable={isDisable}
         placeholder={placeholder}
-        dropdownClass={`z-50 ${dropdownClass}`}
+        dropdownClass={dropdownClassName}
         containerClass={containerClass}
-        inputClass={`rounded-lg ${inputClass}`}
-        buttonClass={`rounded-l-lg border-gray-200 ${buttonClass}`}
+        inputClass={inputClassName}
+        buttonClass={buttonClassName}
+        className={baseClassName}
         alwaysDefaultMask={true}
+        countryCodeEditable={false}
         defaultMask={"(...) ... .. .."}
       />
     </div>

@@ -1,8 +1,14 @@
 export const HOME: string = "home";
+export const FAQ: string = "faq";
+export const SUSTAINABILITY: string = "sustainability";
+export const LIFEATMISSAFIR: string = "life-at";
+export const INVITEEARN: string = "invite-earn";
+export const WHOWEARE: string = "who-we-are";
 export const BODY: string = "body";
 export const TR: string = "tr";
 export const EN: string = "en";
 export const HR: string = "hr";
-export const LOCALES = [TR, EN, HR];
-export const PROTECTED = [];
+export const RU: string = "ru";
+export const LOCALES = [TR, EN, HR, RU];
+export const PROTECTED = ["profile", "inbox"];
 export const DEVICE = "web";

@@ -5,18 +5,20 @@ import { IBanner } from "@/components/molecules/banner/types";
 
 const Banner = ({
   type,
-  title,
-  body,
+  title = "",
+  body = "",
   bodyClass = "",
   className = "",
   titleClass = "",
-  children
+  children,
+  style = null,
+  useCustomBg = false
 }: IBanner) => {
   const containerClass = classNames(
     `flex flex-col gap-y-6 shadow-bold-blur-20-dark items-start px-6 py-9 lg:p-14 rounded-xl lg:rounded-3xl ${className}`,
     {
-      "bg-gradient-to-r from-primary to-pink": type === "primary",
-      "bg-white": type === "light"
+      "bg-gradient-to-r from-primary to-pink": !useCustomBg && type === "primary",
+      "bg-white": !useCustomBg && type === "light"
     }
   );
 
@@ -45,9 +47,9 @@ const Banner = ({
   };
 
   return (
-    <div className={containerClass}>
-      <h1 className={titleClassName}>{title}</h1>
-      <BodyComponent />
+    <div className={containerClass} style={style}>
+      {title ? <h1 className={titleClassName}>{title}</h1> : null}
+      {body ? <BodyComponent /> : null}
       {children}
     </div>
   );

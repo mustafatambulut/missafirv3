@@ -1,13 +1,12 @@
-import { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Image from "next/image";
-import classNames from "classnames";
 import { isArray, map } from "lodash";
 
 import { ICard } from "@/components/organisms/card/types";
 
 import Slider from "@/components/molecules/slider/Slider";
 
-import HeartIcon from "../../../../public/images/variants/heart.svg";
+//import HeartIcon from "../../../../public/images/variants/heart.svg";
 
 const Card = ({
   setIsFav,
@@ -32,15 +31,16 @@ const Card = ({
 }: ICard) => {
   const [isFavored, setIsFavored] = useState<boolean>(false);
 
-  const favClass = classNames("stroke-white w-10 h-10 cursor-pointer", {
-    "fill-primary": isFavored
-  });
+  // const favClass = classNames("stroke-white w-10 h-10 cursor-pointer", {
+  //   "fill-primary": isFavored
+  // });
 
   //todo: favoriye ekleme işlemi düzenlenecek (slider baştan alıyor)
-  const handleFavButton = (e) => {
-    e.preventDefault();
-    setIsFavored(!isFavored);
-  };
+
+  // const handleFavButton = (e) => {
+  //   e.preventDefault();
+  //   setIsFavored(!isFavored);
+  // };
 
   useEffect(() => {
     if (typeof setIsFav === "function") setIsFav(isFavored);
@@ -50,23 +50,32 @@ const Card = ({
     return isArray(images) ? (
       <Slider {...sliderOptions}>
         {map(images, (image, key) => (
-          <Image
-            key={key}
-            src={image}
-            alt="detail"
-            fill={true}
-            className="object-cover"
-          />
+          <section key={key}>
+            {image && (
+              <Image
+                src={image}
+                alt="detail"
+                priority={true}
+                fill={true}
+                className="object-cover h-full w-full"
+              />
+            )}
+          </section>
         ))}
       </Slider>
     ) : (
-      <Image
-        width={1000}
-        height={1000}
-        alt="slide-img"
-        src={images}
-        className="rounded-t-xl"
-      />
+      <>
+        {images && (
+          <Image
+            width={1000}
+            height={1000}
+            alt="slide-img"
+            src={images}
+            priority={true}
+            className="rounded-t-xl"
+          />
+        )}
+      </>
     );
   };
 
@@ -81,13 +90,14 @@ const Card = ({
               {badgeTitle}
             </div>
           )}
-          {!!setIsFav && (
-            <div
-              onClick={handleFavButton}
-              className="absolute z-30 top-0 right-0 m-3">
-              <HeartIcon className={favClass} />
-            </div>
-          )}
+          {/*todo: favoriye ekleme bağlanınca açılacak*/}
+          {/*{!!setIsFav && (*/}
+          {/*  <div*/}
+          {/*    onClick={handleFavButton}*/}
+          {/*    className="absolute z-30 top-0 right-0 m-3">*/}
+          {/*    <HeartIcon className={favClass} />*/}
+          {/*  </div>*/}
+          {/*)}*/}
         </div>
       )}
       <h2 className={`card-title my-2 ${titleClass}`}>{title}</h2>
@@ -96,4 +106,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default React.memo(Card);

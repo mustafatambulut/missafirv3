@@ -1,11 +1,13 @@
 "use client";
+import { get } from "lodash";
 import dynamic from "next/dynamic";
-import { capitalize, get } from "lodash";
 import { Circle, LayerGroup } from "react-leaflet";
 
 import { IMapSection } from "@/components/molecules/mapSection/types";
 
 import "leaflet/dist/leaflet.css";
+import { useTranslations } from "next-intl";
+import Typography from "@/components/atoms/typography/Typography";
 
 const MapSection = ({ data, className = "" }: IMapSection) => {
   if (!get(data, "approx_lat") && !get(data, "approx_lng")) return;
@@ -15,11 +17,12 @@ const MapSection = ({ data, className = "" }: IMapSection) => {
   });
 
   const center = [get(data, "approx_lat"), get(data, "approx_lng")];
+  const t = useTranslations()
 
   return (
     <section className={`flex flex-col gap-y-4 lg:gap-y-8 ${className}`}>
       <header>
-        <h1 className="text-xl lg:text-2xl">Where You’ll Be</h1>
+        <h1 className="text-xl lg:text-2xl">{t("where_you_will_be")}</h1>
       </header>
       <div>
         <Map
@@ -42,19 +45,20 @@ const MapSection = ({ data, className = "" }: IMapSection) => {
               </LayerGroup>
               <Marker position={center}>
                 <Popup>
-                  The full address is not shown until the reservation is made.
+                  {t("the_full_address_is_not_shown_until_the_reservation_is_made")}
                 </Popup>
               </Marker>
             </>
           )}
         </Map>
       </div>
-      <h1 className="text-xl">{`${capitalize(get(data, "city"))}, ${capitalize(
-        get(data, "district")
-      )}`}</h1>
-      <article className="text-sm lg:text-lg text-gray-600">
+      <Typography element="h6" variant="h6">{`${get(data, "city")}, ${get(
+        data,
+        "district"
+      )}`}</Typography>
+      <Typography variant="p3" element="p" className="text-gray-600 mi-sans">
         {get(data, "content")}
-      </article>
+      </Typography>
       <hr className="lg:hidden" />
     </section>
   );

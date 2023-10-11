@@ -10,4 +10,5 @@ export interface ICollapse {
   title: string | ReactNode;
   controlOutsideClick?: boolean;
   children: string | ReactNode;
+  closeOnOutsideClick?: boolean;
 }

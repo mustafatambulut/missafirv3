@@ -1,49 +1,69 @@
-/*eslint-disable*/
 "use client";
-import { useEffect, useState } from "react";
-import moment from "moment";
-import { get } from "lodash";
+import { get, includes, map } from "lodash";
 import { isMobile } from "react-device-detect";
+import { useTranslations } from "next-intl";
 
-import { useAppDispatch } from "@/redux/hooks";
+import {
+  setResPayload,
+  setBookingDate
+} from "@/redux/features/listingDetailSlice/listingDetailSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IAvailabilitySection } from "@/components/molecules/availabilitySection/types";
-import { updateBookingDate } from "@/redux/features/listingDetailSlice/listingDetailSlice";
 
 import DatePicker from "@/components/atoms/datePicker/DatePicker";
 
 import "./AvailabilitySection.css";
+import Typography from "@/components/atoms/typography/Typography";
 
-const AvailabilitySection = ({ className = "" }: IAvailabilitySection) => {
+const AvailabilitySection = ({
+  className = "",
+  resData
+}: IAvailabilitySection) => {
   const dispatch = useAppDispatch();
-  const [bookingDate, setBookingDate] = useState({
-    startDate: null,
-    endDate: null
-  });
+  const { bookingDate, resPayload } = useAppSelector(
+    (state) => state.listingDetailReducer
+  );
 
-  useEffect(() => {
+  const handleChangeDate = (date) => {
+    dispatch(setBookingDate(date));
     dispatch(
-      updateBookingDate({
-        startDate: moment(get(bookingDate, "startDate")).toISOString(),
-        endDate: moment(get(bookingDate, "endDate")).toISOString()
+      setResPayload({
+        ...resPayload,
+        check_in: get(date, "startDate")?.format("YYYY-MM-DD") || null,
+        check_out: get(date, "endDate")?.format("YYYY-MM-DD") || null
       })
     );
-  }, [bookingDate]);
+  };
+  const t = useTranslations();
+
+  const unavailableDates = map(get(resData, "item.unavailable_dates"), "date");
+
+  const handleUnavailableDates = (day) => {
+    return includes(unavailableDates, day.format("DD.MM.YYYY"));
+  };
 
   return (
     <section className={`flex flex-col gap-y-9 ${className}`}>
       <header>
-        <h1 className="text-2xl">Availability</h1>
+        <Typography variant="h5" element="h5" className="text-gray-800">{t("availability")}</Typography>
       </header>
       <article>
-        {/*todo: datepicker sorunu çözülecek*/}
-        {/*<DatePicker*/}
-        {/*  noNavButtons={false}*/}
-        {/*  isOpenedStyle={true}*/}
-        {/*  bookingDate={bookingDate}*/}
-        {/*  numberOfMonths={isMobile ? 1 : 2}*/}
-        {/*  setBookingDate={setBookingDate}*/}
-        {/*  setSkipButtonVisibility={false}*/}
-        {/*/>*/}
+        <DatePicker
+          isOutsideRange={handleUnavailableDates}
+          minimumNights={get(resData, "item.min_nights")}
+          isOpened={true}
+          date={bookingDate}
+          isShowLabel={false}
+          isShowDates={false}
+          noNavButtons={false}
+          isBordered={!isMobile}
+          bookingDate={bookingDate}
+          setDate={handleChangeDate}
+          daySize={isMobile ? 45 : 57}
+          setBookingDate={setBookingDate}
+          setSkipButtonVisibility={false}
+          numberOfMonths={isMobile ? 1 : 2}
+        />
       </article>
     </section>
   );

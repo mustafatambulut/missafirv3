@@ -118,7 +118,7 @@ const FilterItemDropdown = ({
 
   const itemClass = classNames("flex gap-2 lg:gap-3 flex-wrap");
   const dropdownClass = classNames("", {
-    "dropdown-content z-40 menu p-4 lg:shadow-[0px_1px_20px_0px_#00000014] bg-white lg:rounded-lg lg:min-w-min absolute left-[-1rem] mt-0 lg:mt-3 lg:left-auto":
+    "dropdown-content z-40 menu p-4 lg:shadow-[0px_1px_20px_0px_#00000014] bg-white lg:rounded-lg lg:min-w-min absolute left-0 mt-0 lg:mt-3 lg:left-auto":
       !isInAllFilters,
     "max-w-auto": !isInAllFilters && !isMobile,
     "w-screen": !isInAllFilters && isMobile

@@ -1,23 +1,32 @@
 "use client";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
-import { get, map } from "lodash";
+import { get, map, size } from "lodash";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+
+import {
+  fetchRecentReservations,
+  fetchRecentReservationsByPage
+} from "@/redux/features/profileSlice";
+import { useTranslations } from "next-intl";
 
 import Button from "@/components/atoms/button/Button";
 import Loading from "@/components/atoms/loading/Loading";
-import { fetchRecentReservations } from "@/redux/features/profileSlice";
 import SelectFilter from "@/components/atoms/selectFilter/SelectFilter";
 import ReservationItem from "@/components/molecules/reservationItem/ReservationItem";
+import ReservationListSkeleton from "@/components/molecules/skeletons/reservationListSkeleton/ReservationListSkeleton";
 
 import PlaneIcon from "../../../../public/images/plane.svg";
 import AllIcon from "../../../../public/images/circles.svg";
 import ConfirmedIcon from "../../../../public/images/confirmed.svg";
 import CancelledIcon from "../../../../public/images/cancelled.svg";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Typography from "@/components/atoms/typography/Typography";
 
 const ReservationList = () => {
   const dispatch = useAppDispatch();
-  const { reservations, loading } = useAppSelector(
+  const t = useTranslations();
+  const { reservations, loading, pagination } = useAppSelector(
     (state) => state.profileReducer
   );
   const [activeFilter, setActiveFilter] = useState<string>("");
@@ -52,7 +61,7 @@ const ReservationList = () => {
       attributes: {
         type: "filter",
         value: "",
-        label: "All",
+        label: t("all"),
         icon: <AllIcon className={filterOptionIconClass("")} />
       }
     },
@@ -60,7 +69,7 @@ const ReservationList = () => {
       attributes: {
         type: "filter",
         value: "confirmed",
-        label: "Confirmed",
+        label: t("confirmed"),
         icon: <ConfirmedIcon className={filterOptionIconClass("confirmed")} />
       }
     },
@@ -68,7 +77,7 @@ const ReservationList = () => {
       attributes: {
         type: "filter",
         value: "pending",
-        label: "Pending",
+        label: t("pending"),
         icon: <PlaneIcon className={filterOptionIconClass("pending")} />
       }
     },
@@ -76,11 +85,21 @@ const ReservationList = () => {
       attributes: {
         type: "filter",
         value: "cancelled",
-        label: "Cancelled",
+        label: t("cancelled"),
         icon: <CancelledIcon className={filterOptionIconClass("cancelled")} />
       }
     }
   ];
+
+  const handleLoadNextPage = () => {
+    pagination.current !== pagination.total &&
+      dispatch(
+        fetchRecentReservationsByPage({
+          activeFilter,
+          page: pagination.current + 1
+        })
+      );
+  };
 
   useEffect(() => {
     dispatch(fetchRecentReservations(activeFilter));
@@ -89,9 +108,9 @@ const ReservationList = () => {
   return (
     <div className="flex flex-col gap-y-3">
       <div className="hidden lg:flex justify-between items-center">
-        <h1 className="text-gray-800 font-mi-sans-semi-bold text-28">
-          Geçmiş Rezervasyonlar
-        </h1>
+        <Typography variant="h4" element="h4" className="text-gray-800 font-mi-sans-semi-bold">
+          {t("past_reservations")}
+        </Typography>
       </div>
       <div className="grid grid-cols-1 gap-y-2">
         <div>
@@ -103,7 +122,7 @@ const ReservationList = () => {
                 variant="btn-ghost"
                 onClick={() => setActiveFilter(filter.attributes.value)}>
                 {get(filter, "attributes.icon")}
-                <span>{get(filter, "attributes.label")}</span>
+                <Typography variant="p3" element="span">{get(filter, "attributes.label")}</Typography>
                 <div
                   className={tabMenuBorderClass(
                     get(filter, "attributes.value")
@@ -117,12 +136,18 @@ const ReservationList = () => {
           </div>
         </div>
       </div>
-      <Loading isLoading={loading} loader={<p>Loading feed...</p>}>
-        <div className="relative gap-y-5 flex flex-col">
+      <Loading isLoading={loading} loader={<ReservationListSkeleton />}>
+        <InfiniteScroll
+          scrollThreshold={0.6}
+          next={handleLoadNextPage}
+          hasMore={pagination.current !== pagination.total}
+          loader={<ReservationListSkeleton />}
+          dataLength={size(reservations)}
+          className="relative gap-y-5 py-2 pr-1 flex flex-col">
           {map(reservations, (reservation, key) => (
             <ReservationItem reservation={reservation} key={key} />
           ))}
-        </div>
+        </InfiniteScroll>
       </Loading>
     </div>
   );

@@ -10,9 +10,12 @@ import Button from "@/components/atoms/button/Button";
 import CareIcon from "../../../../public/images/variants/care.svg";
 import LeftArrowIcon from "../../../../public/images/left_arrow.svg";
 import BodyHeartIcon from "../../../../public/images/contact_heart.svg";
+import { useTranslations } from "next-intl";
+import Typography from "../typography/Typography";
 
 const ContactSuccess = ({ className = "" }: IContactSuccess) => {
   const router = useRouter();
+  const t = useTranslations();
   const dispatch = useAppDispatch();
 
   const handleBackButton = () => {
@@ -29,12 +32,12 @@ const ContactSuccess = ({ className = "" }: IContactSuccess) => {
         </div>
       </header>
       <main className="flex flex-col text-center gap-y-6">
-        <h1 className="text-28 lg:text-4xl">
-          We have forwarded your problem to the relevant department.
-        </h1>
-        <h2 className="text-lg lg:text-2xl text-gray-500">
-          Your problem is very important to us. We are looking into it closely.
-        </h2>
+        <Typography variant="h2" element="h4">
+          {t("contact_success_title")}
+        </Typography>
+        <Typography variant="p1" element="p" className="text-gray-500">
+          {t("contact_success_description")}
+        </Typography>
       </main>
       <footer className="flex-wrap">
         <Button
@@ -43,9 +46,9 @@ const ContactSuccess = ({ className = "" }: IContactSuccess) => {
           className="flex text-primary px-0"
           outline={true}>
           <LeftArrowIcon className="w-3 lg:w-5" />
-          <span className="text-lg lg:text-2xl">
-            I would like to communicate
-          </span>
+          <Typography variant="h5" element="span">
+            {t("iw_communicate")}
+          </Typography>
         </Button>
       </footer>
       <div className="hidden lg:block absolute bottom-0 left-0">

@@ -1,20 +1,22 @@
 import Button from "@/components/atoms/button/Button";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 const ReservationComments = () => {
   const [review, setReview] = useState<string>("");
+  const t = useTranslations()
   return (
     <div className="mt-8">
       <div className="mb-8">
         <div className="text-base lg:text-28 font-mi-sans-semi-bold text-gray-800">
-          Your Review
+          {t("your_review")}
         </div>
-        <div className="text-xs lg:text-xl text-gray-600 mt-2">No review yet</div>
+        <div className="text-xs lg:text-xl text-gray-600 mt-2">{t("no_review_yet")}</div>
       </div>
 
       <div>
         <div className="text-gray-700 text-sm lg:text-lg">
-          How was it your experience?
+          {t("how_was_it_your_experience")}
         </div>
         <div className="flex flex-col lg:flex-row rounded-xl b border items-end gap-3 mt-3 p-2">
           <textarea
@@ -24,7 +26,7 @@ const ReservationComments = () => {
             placeholder="Add review..."></textarea>
           {review.length > 0 && (
             <Button variant="btn-primary" className="text-sm lg:text-2xl">
-              Send
+              {t("send")}
             </Button>
           )}
         </div>
@@ -33,7 +35,7 @@ const ReservationComments = () => {
       <div className="hidden">
         <div className="mb-8">
           <div className="text-base lg:text-28 font-mi-sans-semi-bold text-gray-800">
-            Comments(1)
+            {t("comments")}(1)
           </div>
         </div>
 
@@ -42,9 +44,7 @@ const ReservationComments = () => {
             JD
           </div>
           <div className="flex-1 rounded-xl b border text-sm lg:text-xl font-mi-sans-semi-bold text-gray-600 p-3">
-            Hi, I wanted to check with you if its possible to check in at 2pm? I
-            have a dental appointment at 2:30, the car is going to pick me up
-            from your address.
+            {t("example_comment")}
           </div>
         </div>
       </div>

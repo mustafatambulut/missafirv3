@@ -3,15 +3,19 @@ import classNames from "classnames";
 import { isMobile } from "react-device-detect";
 
 import {
-  NOT_CHECK_IN,
-  DONE_CHECK_IN,
-  DONE_CHECK_OUT
+  STAYING,
+  INQUIRY,
+  UPCOMING,
+  CANCELLED,
+  CHECKED_OUT
 } from "@/components/molecules/inboxCard/constants";
 import { IInboxCard } from "@/components/molecules/inboxCard/types";
 
 import NotCheckInIcon from "../../../../public/images/not_check_in.svg";
 import DoneCheckInIcon from "../../../../public/images/done_check_in.svg";
 import DoneCheckOutIcon from "../../../../public/images/done_check_out.svg";
+import PendingReservationIcon from "../../../../public/images/pending_reservation.svg";
+import CancelledReservationIcon from "../../../../public/images/canceled_reservation.svg";
 
 const InboxCard = ({
   date = "",
@@ -24,7 +28,7 @@ const InboxCard = ({
   imageSrc = false,
   showStatus = true,
   onClick,
-  status = NOT_CHECK_IN
+  status = UPCOMING
 }: IInboxCard) => {
   const contentClass = classNames("block mr-auto", {
     "w-40": imageSrc,
@@ -37,12 +41,16 @@ const InboxCard = ({
     if (!showStatus) return;
 
     switch (status) {
-      case NOT_CHECK_IN:
+      case UPCOMING:
         return <NotCheckInIcon />;
-      case DONE_CHECK_IN:
+      case STAYING:
         return <DoneCheckInIcon />;
-      case DONE_CHECK_OUT:
+      case CHECKED_OUT:
         return <DoneCheckOutIcon />;
+      case CANCELLED:
+        return <CancelledReservationIcon />;
+      case INQUIRY:
+        return <PendingReservationIcon />;
     }
   };
 

@@ -6,6 +6,7 @@ import FilterItem from "@/components/molecules/filterItem/FilterItem";
 
 const AllFiltersContent = () => {
   const { filterItems } = useAppSelector((state) => state.listingReducer);
+
   return (
     <div className="mt-3 px-5">
       {map(filterItems, (item, index) => {

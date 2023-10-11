@@ -1,5 +1,6 @@
 "use client";
 import classNames from "classnames";
+import { Toaster } from "react-hot-toast";
 
 import { useAppSelector } from "@/redux/hooks";
 import { IReservationLayout } from "@/app/[lang]/reservation/types";
@@ -13,9 +14,7 @@ import "./Reservation.css";
 
 const ReservationLayout = ({ children }: IReservationLayout) => {
   const { creditCard } = useAppSelector((state) => state.paymentReducer);
-  const { currentStep, reservation } = useAppSelector(
-    (state) => state.reservationReducer
-  );
+  const { currentStep } = useAppSelector((state) => state.reservationReducer);
 
   const isSuccess = currentStep === SUCCESS;
 
@@ -29,6 +28,7 @@ const ReservationLayout = ({ children }: IReservationLayout) => {
 
   return (
     <section className="mt-20 lg:mt-28 flex flex-col gap-y-10 lg:gap-y-20 relative px-0 lg:px-10">
+      <Toaster position="top-right" reverseOrder={false} />
       {!isSuccess && (
         <nav className="flex justify-center gap-x-10 lg:gap-x-72 px-4 lg:px-10">
           <ProgressBar />
@@ -39,7 +39,7 @@ const ReservationLayout = ({ children }: IReservationLayout) => {
         {!isSuccess && (
           <aside className="lg:flex lg:flex-col lg:gap-y-6 lg:w-1/3">
             {currentStep === STEP_3 && <CreditCard data={creditCard} />}
-            <ReservationSummary reservation={reservation} />
+            <ReservationSummary />
           </aside>
         )}
       </main>

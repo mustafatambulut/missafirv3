@@ -1,6 +1,12 @@
 "use client";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import classNames from "classnames";
+import moment from "moment/moment";
+import { useLocale } from "next-intl";
+import turkish from "moment/locale/tr";
+import english from "moment/locale/en-gb";
+import montenegro from "moment/locale/hr";
 import { get, isNull, split } from "lodash";
 import { usePathname } from "next/navigation";
 import { isMobile } from "react-device-detect";
@@ -12,13 +18,13 @@ import {
 } from "@/utils/helper";
 import {
   fetchLocations,
-  updateLocations,
-  fetchDataByPage
+  fetchDataByPage,
+  updateActivePath
 } from "@/redux/features/landingSlice/landingSlice";
 import { HOME } from "@/app/constants";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import useFetchData from "@/app/hooks/useFetchData";
 import usePageScroll from "@/app/hooks/usePageScroll";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IFooterBrand } from "@/components/atoms/footerBrand/types";
 import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
 import { IFooter } from "@/components/molecules/footer/types";
@@ -30,17 +36,22 @@ import { changeIsPressReservButton } from "@/redux/features/reservationSlice/res
 import Loading from "@/components/atoms/loading/Loading";
 import Drawer from "@/components/molecules/drawer/Drawer";
 import Navbar from "@/components/molecules/navbar/Navbar";
+import HeaderSkeleton from "@/components/molecules/skeletons/headerSkeleton/HeaderSkeleton";
 
 const Header = ({ lang }: string) => {
+  const locale = useLocale();
   const pathName = usePathname();
+  const dispatch = useAppDispatch();
+  const { isScrolledHeaderActive } = usePageScroll();
   const [header, setHeader] = useState<IHeader>(null);
   const [footerMenu, setFooterMenu] = useState<IFooter>(null);
   const [footerBrand, setFooterBrand] = useState<IFooterBrand>(null);
 
-  const dispatch = useAppDispatch();
-  const { isScrolledHeaderActive } = usePageScroll();
   const entities = useFetchData([HEADER, FOOTER, FOOTER_BRAND]);
-  const { isShowDrawer } = useAppSelector((state) => state.landingReducer);
+
+  const { isShowDrawer, activePath } = useAppSelector(
+    (state) => state.landingReducer
+  );
 
   const headerClass = classNames("fixed top-0 w-full z-40", {
     "bg-white shadow-lg": isScrolledHeaderActive
@@ -69,25 +80,17 @@ const Header = ({ lang }: string) => {
     userMenuData
   };
 
-  const NavbarComponent = (): ReactNode => {
-    if (header && userMenuData) {
-      return (
-        <Navbar
-          data={navbarData}
-          isScrolledHeaderActive={isScrolledHeaderActive}
-        />
-      );
-    }
-  };
-
-  const DrawerComponent = (): ReactNode => {
-    if (isMobile && isShowDrawer) {
-      return <Drawer data={drawerData} />;
+  const getVariant = () => {
+    if (activePath === `/${locale}` || activePath === "/") {
+      return isScrolledHeaderActive ? "light" : "dark";
+    } else {
+      return "light";
     }
   };
 
   useEffect(() => {
     if (!entities) return;
+
     setHeader(get(entities, "header"));
     setFooterMenu(get(entities, "footer"));
     setFooterBrand(get(entities, "footerBrand"));
@@ -96,10 +99,12 @@ const Header = ({ lang }: string) => {
   useEffect(() => {
     setLocalStorage("lang", lang);
     dispatch(fetchDataByPage(HOME));
-    const locations = getLocalStorage("locations");
-    locations
-      ? dispatch(updateLocations(JSON.parse(locations)))
-      : dispatch(fetchLocations());
+    // todo: tüm clientlerde localstorage güncellemek için yorum satırına alındı, geri alınacak
+    // const locations = getLocalStorage("locations");
+    // locations
+    //   ? dispatch(updateLocations(JSON.parse(locations)))
+    //   : dispatch(fetchLocations());
+    dispatch(fetchLocations());
   }, []);
 
   useEffect(() => {
@@ -112,17 +117,47 @@ const Header = ({ lang }: string) => {
     if (!checkSameItem(split(pathName, "/"), ["login", "signup"])) {
       dispatch(changeIsPressReservButton(false));
     }
+    dispatch(updateActivePath(pathName));
   }, [pathName]);
 
+  useEffect(() => {
+    const lang = getLocalStorage("lang");
+    if (lang) {
+      switch (lang) {
+        case "tr":
+          moment.updateLocale("tr", turkish);
+          break;
+        case "en":
+          moment.updateLocale("en", english);
+          break;
+        case "hr":
+          moment.updateLocale("hr", montenegro);
+          break;
+        default:
+          moment.updateLocale("en-gb", english);
+          break;
+      }
+    }
+  }, []);
+
   return (
-    <Loading
-      isLoading={isNull(entities)}
-      loader={<p className="text-xl">Loading feed...</p>}>
-      {/*todo: skeleton eklenecek*/}
+    <Loading isLoading={isNull(entities)} loader={<HeaderSkeleton />}>
       <div className={headerClass}>
         <div className={drawerClass}>
-          <NavbarComponent />
-          <DrawerComponent />
+          {header && userMenuData && (
+            <Navbar
+              activePath={activePath}
+              variant={getVariant()}
+              data={navbarData}
+              isScrolledHeaderActive={isScrolledHeaderActive}
+            />
+          )}
+          {typeof window !== "undefined" && isMobile
+            ? createPortal(
+                <Drawer activePath={activePath} data={drawerData} />,
+                window.document.body
+              )
+            : null}
         </div>
       </div>
     </Loading>

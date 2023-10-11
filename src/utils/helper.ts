@@ -1,5 +1,20 @@
-import { forEach, get, has, isArray, size } from "lodash";
+import {
+  get,
+  has,
+  head,
+  join,
+  map,
+  size,
+  find,
+  split,
+  values,
+  isArray,
+  compact,
+  forEach,
+  includes
+} from "lodash";
 
+import { Route } from "@/utils/route";
 import { getPage } from "@/service/api";
 import { ILocation } from "@/utils/types";
 
@@ -61,21 +76,12 @@ export const formatPrice = (price, currencyType = "TRY") => {
   return formattedOutput.format(price);
 };
 
-export const getPriceFormatByLocale = () => {
-  switch (getCurrentLang()) {
-    case "en":
-      return "EUR";
-    case "tr":
-      return "TRY";
-    case "hr":
-      return "EUR";
-    default:
-      return "TRY";
-  }
-};
-
 export const getLocalStorage = (key: string) => {
   if (typeof window !== "undefined") return localStorage.getItem(key);
+};
+
+export const removeLocalStorage = (key: string): void => {
+  if (typeof window !== "undefined") localStorage.removeItem(key);
 };
 
 export const setLocalStorage = (key: string, value: any): void => {
@@ -94,10 +100,6 @@ export const removeSessionStorage = (key: string): void => {
   if (typeof window !== "undefined") sessionStorage.removeItem(key);
 };
 
-export const removeLocalStorage = (key: string): void => {
-  if (typeof window !== "undefined") localStorage.removeItem(key);
-};
-
 export const getCurrentLang = (): string => getLocalStorage("lang");
 
 export const checkSameItem = (
@@ -107,7 +109,7 @@ export const checkSameItem = (
   return firstArr.some((l) => secondArr.includes(l));
 };
 
-export const checkAuth = () => !!getSessionStorage("token");
+export const checkAuth = () => !!getLocalStorage("token");
 
 export const decodeParams = (param: string) => {
   return decodeURIComponent(decodeURIComponent(param));
@@ -115,4 +117,33 @@ export const decodeParams = (param: string) => {
 
 export const getLocation = (param: ILocation): string => {
   return typeof window !== "undefined" && location[param];
+};
+
+export const addSuffix = (lang) => {
+  const route = Route;
+  return get(find(get(route, "excludeKeys"), lang), lang);
+};
+
+export const getObjectValues = (arr: Array<any>) => {
+  return map(arr, (key) => head(values(key)));
+};
+
+export const removeSuffixOfSlug = (slug) => {
+  const route = Route;
+
+  const filtered = map(split(head(slug), "-"), (item) => {
+    if (!includes(getObjectValues(get(route, "excludeKeys")), item))
+      return item;
+  });
+
+  return decodeParams(join(compact(filtered), "-"));
+};
+
+export const isValidUrl = (url: string) => {
+  try {
+    new URL(url);
+    return true;
+  } catch (err) {
+    return false;
+  }
 };

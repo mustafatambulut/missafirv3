@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useAppSelector } from "@/redux/hooks";
 
 import {
   BOOKING_DATE,
@@ -15,6 +14,7 @@ import DateDrawer from "@/components/atoms/dateDrawer/DateDrawer";
 import GuestDrawer from "@/components/atoms/guestDrawer/GuestDrawer";
 import SearchDrawer from "@/components/atoms/searchDrawer/SearchDrawer";
 import MobileDrawerSide from "@/components/atoms/mobileDrawerSide/MobileDrawerSide";
+import { isMobile } from "react-device-detect";
 
 const MobileSearchBar = (props: IProps) => {
   const {
@@ -22,9 +22,9 @@ const MobileSearchBar = (props: IProps) => {
     drawerCloseRef,
     handleOpenDrawer,
     handleFilterListings,
-    isInCustomSection = false
+    isInCustomSection = false,
+    bookingDate
   } = props;
-  const { bookingDate } = useAppSelector((state) => state.listingReducer);
 
   useEffect(() => {
     isDrawerOpen
@@ -55,7 +55,7 @@ const MobileSearchBar = (props: IProps) => {
           isInCustomSection={isInCustomSection}
         />
       </div>
-      {typeof window !== "undefined" &&
+      {(typeof window !== "undefined" && isMobile) &&
         createPortal(
           <div className="drawer z-50">
             <input

@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Missafir-Sans';
-    src: local('Missafir-Sans'), url(/fonts/MissafirSans.otf) format('truetype');
+    src: local('Missafir-Sans'), url(/fonts/missafir-sans-regular.otf) format('opentype');
 }
 
 @font-face {
     font-family: 'Missafir-Sans-Semi-bold';
-    src: local('Missafir-Sans-Semi-bold'), url(/fonts/MissafirSans-Semibold.otf) format('truetype');
+    src: local('Missafir-Sans-Semi-bold'), url(/fonts/missafir-sans-semibold.otf) format('opentype');
 }
 
 @font-face {

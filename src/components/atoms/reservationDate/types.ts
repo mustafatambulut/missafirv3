@@ -1,8 +1,5 @@
-
 export interface IReservationDate {
-  reservationDate: {
-    date: string;
-    time: string;
-  };
+  reservationDate: string;
+  reservationTime: string;
   label: string;
 }

@@ -1,7 +1,9 @@
 import {
-  NOT_CHECK_IN,
-  DONE_CHECK_IN,
-  DONE_CHECK_OUT
+  UPCOMING,
+  STAYING,
+  CHECKED_OUT,
+  CANCELLED,
+  INQUIRY
 } from "@/components/molecules/inboxCard/constants";
 
 export interface IInboxCard {
@@ -12,7 +14,7 @@ export interface IInboxCard {
   imageSrc?: boolean;
   isRead?: boolean;
   showStatus?: boolean;
-  status?: NOT_CHECK_IN | DONE_CHECK_IN | DONE_CHECK_OUT;
+  status?: UPCOMING | STAYING | CHECKED_OUT | CANCELLED | INQUIRY;
   statusDate?: string;
   imageClass?: string;
   className?: string;

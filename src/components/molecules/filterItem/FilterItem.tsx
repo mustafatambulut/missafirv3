@@ -73,7 +73,7 @@ const FilterItem = ({
     } else {
       dispatch(updateFilterData({ ...filterData, [filterName]: filterValue }));
     }
-    isMobile && setIsDropdownOpen(false);
+    isMobile && !isInAllFilters && setIsDropdownOpen(false);
   };
 
   useEffect(() => {

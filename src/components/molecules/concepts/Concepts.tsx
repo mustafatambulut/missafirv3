@@ -11,6 +11,7 @@ import {
 
 import CloseIcon from "../../../../public/images/close.svg";
 import ConceptItem from "@/components/atoms/conceptItem/ConceptItem";
+import Typography from "@/components/atoms/typography/Typography";
 
 const Concepts = ({
   data,
@@ -85,9 +86,9 @@ const Concepts = ({
     <div className="flex flex-wrap gap-3 grid-cols-3">
       {isTitleVisible && (
         <div className="flex justify-between items-center w-full mb-3">
-          <h6 className="text-xl font-mi-sans-semi-bold text-gray-700">
+          <Typography variant="h6" element="h6" className="font-mi-sans-semi-bold text-gray-700">
             {get(data, "title")}
-          </h6>
+          </Typography>
           {isInAllFilters && (
             <CloseIcon
               className="fill-gray-800 scale-75"

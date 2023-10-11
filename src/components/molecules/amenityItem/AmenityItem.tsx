@@ -3,6 +3,7 @@ import { get, map } from "lodash";
 import { IAmenityItem } from "@/components/molecules/amenityItem/types";
 
 import Checkbox from "@/components/atoms/checkbox/Checkbox";
+import Typography from "@/components/atoms/typography/Typography";
 
 const AmenityItem = ({
   data,
@@ -12,7 +13,7 @@ const AmenityItem = ({
 }: IAmenityItem) => {
   return (
     <div className="flex flex-col gap-2">
-      <div className="text-lg">{get(data, "title")}</div>
+      <Typography variant="p3" element="p">{get(data, "title")}</Typography>
       <div className="flex flex-col h-36 flex-wrap gap-y-3 gap-x-7 content-start">
         {map(data.items, (item, key) => (
           <div key={key} className="justify-self-start m-0">

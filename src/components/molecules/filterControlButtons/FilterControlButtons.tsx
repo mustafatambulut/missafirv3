@@ -3,6 +3,7 @@
 import { IFilterControlButtons } from "@/components/molecules/filterControlButtons/types";
 
 import Button from "@/components/atoms/button/Button";
+import { useTranslations } from "next-intl";
 
 const FilterControlButtons = ({
   handleClear,
@@ -10,6 +11,7 @@ const FilterControlButtons = ({
   handleCancel,
   filteredCount
 }: IFilterControlButtons) => {
+  const t = useTranslations()
   const renderButtons = () => {
     return (
       <Button
@@ -25,7 +27,7 @@ const FilterControlButtons = ({
     <div className="flex justify-end w-full mt-4">
       {renderButtons()}
       <Button onClick={applyFilter} className="ml-2" variant="btn-primary">
-        <div>Show {filteredCount} stays</div>
+        <div>{t("show")} {filteredCount} {t("stays")}</div>
       </Button>
     </div>
   );

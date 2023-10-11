@@ -10,6 +10,7 @@ import { PARTNER_SECTION } from "@/components/molecules/partner/constants";
 import Loading from "@/components/atoms/loading/Loading";
 import Marquee from "@/components/atoms/marquee/Marquee";
 import Section from "@/components/molecules/section/Section";
+import PartnersSkeleton from "@/components/molecules/skeletons/partnersSkeleton/PartnersSkeleton";
 
 const Partner = () => {
   const [partners, setPartners] = useState(null);
@@ -25,8 +26,7 @@ const Partner = () => {
   }, [result]);
 
   return (
-    <Loading isLoading={!partners} loader={<p>Loading feed...</p>}>
-      {/*todo: skeleton eklenecek*/}
+    <Loading isLoading={!partners} loader={<PartnersSkeleton />}>
       <Section
         className="px-4 lg:px-20 mt-14"
         title={get(partners, "header.title")}

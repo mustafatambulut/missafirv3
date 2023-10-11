@@ -1,5 +1,6 @@
 import { get } from "lodash";
 import moment from "moment/moment";
+import { useTranslations } from "next-intl";
 
 import { IDateDrawer } from "@/components/atoms/dateDrawer/types";
 
@@ -12,6 +13,7 @@ const DateDrawer = ({
   isInCustomSection = false
 }: IDateDrawer) => {
   const hasDate = get(booking, "startDate") || get(booking, "endDate");
+  const t = useTranslations();
 
   const ShowDateComponent = () => {
     return (
@@ -24,10 +26,14 @@ const DateDrawer = ({
             <span className="whitespace-nowrap">
               {moment(get(booking, "startDate")).format("DD MMM")}
             </span>
-            <span className="mx-1">-</span>
-            <span className="whitespace-nowrap">
-              {moment(get(booking, "endDate")).format("DD MMM")}
-            </span>
+            {get(booking, "endDate") ? (
+              <>
+                <span className="mx-1">-</span>
+                <span className="whitespace-nowrap">
+                  {moment(get(booking, "endDate")).format("DD MMM")}
+                </span>
+              </>
+            ) : null}
           </div>
         </div>
       )
@@ -52,8 +58,11 @@ const DateDrawer = ({
             } fill-gray-800`}
           />
           <div className="flex flex-col items-start">
-            <span className={`${isInCustomSection ? "text-xs" : "text-base"}`}>
-              Dates
+            <span
+              className={`${
+                isInCustomSection ? "text-xs text-gray-600" : "text-base"
+              }`}>
+              {isInCustomSection ? t("any_week") : t("dates")}
             </span>
             <ShowDateComponent />
           </div>

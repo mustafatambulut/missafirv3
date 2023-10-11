@@ -1,15 +1,32 @@
 "use client";
 import { useState } from "react";
+import {
+  get,
+  map,
+  find,
+  omit,
+  size,
+  join,
+  clone,
+  split,
+  compact,
+  includes,
+  lowerCase,
+  difference
+} from "lodash";
 import classNames from "classnames";
-import { find, get, lowerCase } from "lodash";
 import Select, { Theme } from "react-select";
+import { usePathname, useRouter } from "next/navigation";
 
-import { getCurrentLang } from "@/utils/helper";
+import { Route } from "@/utils/route";
+import { LOCALES } from "@/app/constants";
+import { useAppSelector } from "@/redux/hooks";
+import { addSuffix, getCurrentLang } from "@/utils/helper";
 import { ISelectLanguage } from "@/components/atoms/selectLanguage/types";
 
-import Option from "@/components/atoms/option/Option";
 import Control from "@/components/atoms/control/Control";
 import SelectMenu from "@/components/atoms/selectMenu/SelectMenu";
+import LangOption from "@/components/atoms/langOption/LangOption";
 import SingleValue from "@/components/atoms/singleValue/SingleValue";
 import SelectMenuList from "@/components/atoms/selectMenuList/SelectMenuList";
 import DropdownIndicator from "@/components/atoms/dropdownIndicator/DropdownIndicator";
@@ -20,44 +37,53 @@ const SelectLanguage = ({
   showIndicator,
   className = ""
 }: ISelectLanguage) => {
+  const router = useRouter();
+  const pathName = usePathname();
   const [currentLocale] = useState(lowerCase(getCurrentLang()));
+  const { links } = useAppSelector((state) => state.listingDetailReducer);
+
+  const langs = map(get(languages, "data"), (language: any) => {
+    const cloned = clone(language);
+
+    return {
+      attributes: {
+        ...get(omit(cloned, ["attributes.value"]), "attributes"),
+        value: lowerCase(get(language, "attributes.value"))
+      }
+    };
+  });
 
   const selectClass = classNames(`text-sm rounded-xl ${className}`, {
-    "bg-gray-700": variant === "dark",
-    "bg-none": variant === "ghost",
-    "bg-gray-100": variant === "gray"
+    "bg-gray-100": variant === "light",
+    "bg-none": variant === "dark"
   });
 
   const optionClass = classNames(
-    `my-1 p-0 m-0 rounded-lg text-gray-700 cursor-pointer focus:text-black`,
-    {
-      "bg-gray-700": variant === "dark",
-      "hover:bg-gray-600": variant === "dark",
-      "text-white": variant === "dark",
-      "hover:bg-gray-100": variant === "ghost" || variant === "gray",
-      "focus:bg-gray-hover": variant === "ghost" || variant === "gray"
-    }
+    `my-1 p-0 m-0 rounded-lg text-gray-700 cursor-pointer focus:text-black hover:bg-gray-100
+      focus:bg-gray-hover`
   );
 
   const singleValueChildrenClass = classNames(
     "text-base uppercase ml-2 text-lg",
     {
-      "text-white": variant === "dark" || variant === "ghost",
-      "text-black": variant === "gray"
+      "text-white": variant === "dark",
+      "text-black": variant === "light"
     }
   );
 
-  const menuClass = classNames("rounded-lg", {
-    "bg-gray-700": variant === "dark"
-  });
+  const menuClass = classNames("rounded-lg bg-white");
+
+  const controlClass = classNames(
+    "cursor-pointer shadow-none bg-transparent text-xs lg:text-base h-12 rounded-xl",
+    {
+      "border-none": variant === "light"
+    }
+  );
 
   const config = {
     imageShow: true,
     isSearchable: false,
-    defaultValue: find(get(languages, "data"), [
-      "attributes.value",
-      currentLocale
-    ]),
+    defaultValue: find(langs, ["attributes.value", currentLocale]),
     theme: (theme: Theme) => ({
       ...theme,
       borderRadius: 0,
@@ -70,7 +96,29 @@ const SelectLanguage = ({
     menuClass,
     optionClass,
     selectClass,
+    controlClass,
     singleValueChildrenClass
+  };
+
+  const handleOnChange = ({ attributes }) => {
+    const route = Route;
+    const suffix = addSuffix(get(attributes, "value"));
+    const slug = get(
+      find(links, get(attributes, "value")),
+      get(attributes, "value")
+    );
+    const staticRoutes = map(get(route, "statics"), get(attributes, "value"));
+    const path = difference(compact(split(pathName, "/")), LOCALES);
+
+    if (!size(path)) {
+      path.unshift(get(attributes, "value"));
+      return router.push(`/${join(path, "/")}`);
+    } else if (slug && !includes(staticRoutes, path[0])) {
+      return router.push(`/${get(attributes, "value")}/${slug}-${suffix}`);
+    } else {
+      path.unshift(get(attributes, "value"));
+      return router.push(`/${join(path, "/")}`);
+    }
   };
 
   return (
@@ -78,6 +126,7 @@ const SelectLanguage = ({
       width={24}
       height={24}
       type="language"
+      onChange={handleOnChange}
       imageWidthClassName="w-6"
       menuListClassName="m-0 p-1"
       indicatorClassName="pl-0 pr-2"
@@ -89,12 +138,12 @@ const SelectLanguage = ({
       menuClassName={get(config, "menuClass")}
       optionSelectedClassName="bg-gray-150 text-black"
       optionClassName={get(config, "optionClass")}
-      singleValueChildrenClassName={get(config, "singleValueChildrenClass")}
+      controlClassName={get(config, "controlClass")}
       singleValueClassName="flex items-center gap-x-0.5 justify-around"
       optionLabelClassName="text-base lg:text-lg py-2 uppercase font-mi-sans"
-      controlClassName="cursor-pointer shadow-none bg-transparent text-xs lg:text-base h-12 rounded-xl"
+      singleValueChildrenClassName={get(config, "singleValueChildrenClass")}
       components={{
-        Option: Option,
+        Option: LangOption,
         Control: Control,
         Menu: SelectMenu,
         SingleValue: SingleValue,
@@ -105,7 +154,7 @@ const SelectLanguage = ({
         )
       }}
       theme={get(config, "theme")}
-      options={get(languages, "data")}
+      options={langs}
       imageShow={get(config, "imageShow")}
       defaultValue={get(config, "defaultValue")}
       isSearchable={get(config, "isSearchable")}

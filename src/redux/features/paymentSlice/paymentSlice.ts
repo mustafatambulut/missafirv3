@@ -8,7 +8,8 @@ const initialState = {
     cvc: "",
     name: "",
     focus: ""
-  }
+  },
+  isValidPayload: null
 } as IPaymentState;
 
 const paymentSlice = createSlice({
@@ -17,9 +18,15 @@ const paymentSlice = createSlice({
   reducers: {
     updateCardInfo: (state: IPaymentState, action: PayloadAction<boolean>) => {
       state.creditCard = action.payload;
+    },
+    setIsValidPayload: (
+      state: IPaymentState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.isValidPayload = action.payload;
     }
   }
 });
 
-export const { updateCardInfo } = paymentSlice.actions;
+export const { updateCardInfo, setIsValidPayload } = paymentSlice.actions;
 export default paymentSlice.reducer;

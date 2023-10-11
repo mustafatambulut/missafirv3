@@ -1,8 +1,22 @@
+import { IBookingDate } from "@/components/atoms/datePicker/types";
+
 export interface IListingSlice {
   filterItems: any[];
+  searchClicked?: boolean;
+  showSearchbar?: boolean;
+  listingResultsTitle?: string;
+  searchLocation?: any;
+  pagination?: {
+    total?: number;
+    current?: number;
+  };
   listings: IListingData[];
   filterData: any;
   loading: boolean;
+  bookingGuests: BookingGuest;
+  preFilterData: any;
+  bookingDestination: any;
+  bookingDate: IBookingDate;
 }
 
 export interface IListingProps {
@@ -42,4 +56,10 @@ export interface City {
 export interface District {
   id: number;
   name: string;
+}
+
+export interface BookingGuest {
+  adults?: number;
+  kids?: number;
+  pets?: number;
 }

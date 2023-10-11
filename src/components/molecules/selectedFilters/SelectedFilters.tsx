@@ -11,6 +11,7 @@ import Slider from "@/components/molecules/slider/Slider";
 
 import CloseIcon from "../../../../public/images/close.svg";
 import { numericFormatter } from "react-number-format";
+import { useTranslations } from "next-intl";
 
 const SelectedFilters = ({
   filterData,
@@ -21,6 +22,8 @@ const SelectedFilters = ({
   const [selectedFilters, setSelectedFilters] = useState<
     ISelectedFiltersData[]
   >([]);
+
+  const t = useTranslations()
 
   const handleClearAllFilters = () => {
     const [min, max] = calculateMinMaxListingPrice();
@@ -113,7 +116,7 @@ const SelectedFilters = ({
           case "price":
             if (
               allFiltersData[key].min !==
-                allFiltersData.defaultPriceRange.min ||
+              allFiltersData.defaultPriceRange.min ||
               allFiltersData[key].max !== allFiltersData.defaultPriceRange.max
             )
               selectedFilters.push({
@@ -179,12 +182,12 @@ const SelectedFilters = ({
     <div className="flex flex-col gap-y-4 pb-3">
       <div className="flex items-center justify-between">
         <div className="text-gray-700 lg:text-gray-800 font-mi-sans-semi-bold text-lg lg:text-2xl">
-          Your Selections
+          {t("your_selections")}
         </div>
         <div
           className="text-base lg:text-lg text-gray-700 cursor-pointer"
           onClick={handleClearAllFilters}>
-          Clear All
+          {t("clear_all")}
         </div>
       </div>
       {size(selectedFilters) > 0 && (

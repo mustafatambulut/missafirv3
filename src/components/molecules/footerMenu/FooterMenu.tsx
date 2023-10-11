@@ -3,13 +3,14 @@ import { get, map } from "lodash";
 import { IFooterMenu } from "@/components/molecules/footerMenu/types";
 
 import Menu from "@/components/molecules/menu/Menu";
+import Typography from "@/components/atoms/typography/Typography";
 
 const FooterMenu = ({ items, className = "" }: IFooterMenu) => {
   return (
     <>
       {map(items, (menu, key) => (
         <div className={className} key={key}>
-          <h1 className="text-lg uppercase font-gray-800 font-bariol-bold lg:text-xs">{get(menu, "title")}</h1>
+          <Typography variant="p6" element="p" className="uppercase font-gray-800 font-bariol-bold">{get(menu, "title")}</Typography>
           <Menu
             variant="footer"
             isCollapsable={false}

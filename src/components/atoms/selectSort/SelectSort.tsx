@@ -4,7 +4,9 @@ import classNames from "classnames";
 import OutsideClickHandler from "react-outside-click-handler";
 
 import SortIcon from "../../../../public/images/sort.svg";
-
+import Typography from "../typography/Typography";
+import { useTranslations } from "next-intl";
+//kaldırılacak kullanılmıyor bu component
 const SelectSort = () => {
   const sortMenuRef = createRef();
   const [activeSort, setActiveSort] = useState<number>(0);
@@ -27,6 +29,8 @@ const SelectSort = () => {
     { label: "Yeni Eklenenler", value: "newAdded" }
   ];
 
+  const t = useTranslations()
+
   const handleOutsideClick = () => {
     sortMenuRef.current?.removeAttribute("open");
   };
@@ -41,7 +45,7 @@ const SelectSort = () => {
         <details className="dropdown dropdown-end" ref={sortMenuRef}>
           <summary className={sortClass}>
             <SortIcon />
-            <span className="hidden lg:block">Sırala</span>
+            <Typography variant="p3" element="span" className="hidden lg:block">{t("sort_by")}</Typography>
           </summary>
           <ul className="dropdown-content z-[1] menu p-2 shadow rounded-box mt-3 bg-white">
             {map(sortOptions, (option, key) => (

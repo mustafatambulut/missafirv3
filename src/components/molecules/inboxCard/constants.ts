@@ -1,3 +1,5 @@
-export const NOT_CHECK_IN: string = "notCheckIn";
-export const DONE_CHECK_IN: string = "doneCheckIn";
-export const DONE_CHECK_OUT: string = "doneCheckOut";
+export const UPCOMING = "upcoming";
+export const STAYING = "staying";
+export const CHECKED_OUT = "checkedout";
+export const CANCELLED = "cancelled";
+export const INQUIRY = "inquiry";

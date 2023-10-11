@@ -3,8 +3,9 @@
 }
 
 .CalendarDay .day-content {
-    height: 36px !important;
-    width: 36px !important;
+    /*height: 100%!important;*/
+    height: calc(100% + 0.3em) !important;
+    width: 100% !important;
     display: flex;
     position: relative;
     justify-content: center;
@@ -85,6 +86,7 @@
 
 .CalendarMonth_caption {
     text-align: center !important;
+    padding-bottom: 1rem !important;
 }
 
 .nav-button {
@@ -124,6 +126,11 @@
     padding: 0 !important;
 }
 
+.DayPicker_weekHeader__verticalScrollable ul {
+    display: flex;
+    justify-content: space-between;
+}
+
 .CalendarMonthGrid__vertical_scrollable, .CalendarMonthGrid__vertical_scrollable .CalendarMonth_table {
     width: 100% !important;
 }
@@ -141,5 +148,23 @@
 }
 
 .CalendarMonthGrid__vertical_scrollable {
-    padding-bottom: 100px;
+    padding-bottom: 90px;
+}
+
+.DayPicker_weekHeaders{
+    display: none!important;
+}
+
+.CalendarDay__blocked_calendar, .CalendarDay__blocked_calendar:active, .CalendarDay__blocked_calendar:hover{
+    background-color: transparent !important;
+    color: #C8CDD0 !important;
+}
+
+.CalendarMonthGrid__vertical > div, .CalendarMonthGrid__vertical_scrollable > div {
+    margin-bottom: 30px !important;
+}
+
+.DayPicker_transitionContainer__verticalScrollable{
+    overflow-y: hidden!important;
+    padding-top: 0!important;
 }

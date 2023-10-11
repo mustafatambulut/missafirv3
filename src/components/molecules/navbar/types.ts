@@ -4,6 +4,7 @@ import { IUserMenuData } from "@/components/atoms/userMenu/types";
 export interface INavbar {
   data: Data;
   isScrolledHeaderActive: boolean;
+  variant: "light" | "dark";
 }
 
 export interface Data {

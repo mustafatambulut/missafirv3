@@ -1,6 +1,6 @@
 export interface ISelectLanguage {
   id?: number;
-  variant?: "dark" | "gray" | "ghost";
+  variant?: "dark" | "light";
   className?: string;
   showIndicator?: boolean;
   languages: Languages;

@@ -32,7 +32,7 @@ const AllFilters = () => {
       <div className="modal">
         <div
           ref={outsideRef}
-          className="no-scrollbar w-full p-0 lg:pt-0 modal-box lg:max-w-5xl rounded-none lg:rounded-2xl max-h-screen lg:max-h-[calc(100%-5em)]">
+          className="no-scrollbar w-full p-0 lg:pt-0 modal-box lg:max-w-5xl rounded-none lg:rounded-2xl h-screen lg:h-[calc(100%-5em)]">
           <div>
             <AllFiltersHeader modalButtonTrigger={modalButtonTrigger} />
             <AllFiltersContent />

@@ -18,6 +18,8 @@ import Section from "@/components/molecules/section/Section";
 
 import "swiper/css";
 import "swiper/css/free-mode";
+import TestimonialSkeleton from "@/components/molecules/skeletons/testimonialSkeleton/TestimonialSkeleton";
+import Typography from "@/components/atoms/typography/Typography";
 
 const Testimonial = () => {
   const testimonials = useFetchData<ITestimonial>(BODY, TESTIMONIAL_SECTION);
@@ -29,19 +31,24 @@ const Testimonial = () => {
           fill
           className="mb-2"
           alt="testimonials"
-          src={get(item, "header_image")}
+          src={get(item, "header_image") || "/"}
         />
       </div>
-      <div className="text-xl lg:text-2xl">{get(item, "info")}</div>
-      <div className="text-base lg:text-2xl font-mi-sans-semi-bold">
-        {get(item, "footer_desc")}
+      <div className="h-28 line-clamp-5">
+        <Typography element="p" variant="p3">
+          {get(item, "info")}
+        </Typography>
+      </div>
+      <div className="line-clamp-1">
+        <Typography element="h6" variant="h6">
+          {get(item, "footer_desc")}
+        </Typography>
       </div>
     </Card>
   );
 
   return (
-    <Loading isLoading={!testimonials} loader={<p>Loading feed...</p>}>
-      {/*todo: skeleton eklenecek*/}
+    <Loading isLoading={!testimonials} loader={<TestimonialSkeleton />}>
       <Section
         className="px-4 lg:px-20 mt-14"
         title={get(testimonials, "header.title")}

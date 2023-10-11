@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { IAlert } from "@/components/atoms/alert/types";
+import Typography from "../typography/Typography";
 
 const Alert = ({
   icon,
@@ -26,7 +27,7 @@ const Alert = ({
     <div
       className={`flex rounded-lg items-center justify-between p-3 my-2 ${containerClass} ${className}`}>
       <p className={textClass}>{title}</p>
-      <span onClick={onClick}>{icon}</span>
+      <Typography variant="p3" element="span" onClick={onClick}>{icon}</Typography>
     </div>
   );
 };

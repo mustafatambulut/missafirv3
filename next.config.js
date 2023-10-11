@@ -1,5 +1,5 @@
 /** @type {import("next").NextConfig} */
-const withNextIntl = require("next-intl/plugin")("./src/app/i18n.ts");
+const withNextIntl = require("next-intl/plugin")(`./src/i18n.ts`);
 const nextConfig = {
   webpack: (config) => {
     config.module.rules.push({
@@ -12,12 +12,22 @@ const nextConfig = {
     domains: [
       "i.ibb.co",
       "svgshare.com",
+      "cdn-icons-png.flaticon.com",
+      "missafir.s3.eu-central-1.amazonaws.com",
       "via.placeholder.com",
       "avatars.githubusercontent.com",
       "cloudflare-ipfs.com",
       "missafir.com",
       "ownerv2.missafir.com",
-      "missafirpms.s3.eu-central-1.amazonaws.com"
+      "img.freepik.com",
+      "missafirpms.s3.eu-central-1.amazonaws.com",
+      "images.pexels.com",
+      "prenohq.com",
+      "i0.wp.com",
+      "assets-global.website-files.com",
+      "logowik.com",
+      "cdnuploads.aa.com.tr",
+      "missafir.s3.eu-central-1.amazonaws.com"
     ],
     remotePatterns: [
       {
@@ -57,19 +67,44 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "img.freepik.com",
+        port: ""
+      },
+      {
+        protocol: "https",
         hostname: "missafirpms.s3.eu-central-1.amazonaws.com",
+        port: ""
+      },
+      {
+        protocol: "https",
+        hostname: "strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com",
+        port: ""
+      },
+      {
+        protocol: "https",
+        hostname: "missafirv3-strapi.s3.eu-central-1.amazonaws.com",
         port: ""
       }
     ]
   },
   reactStrictMode: true,
+  experimental: {
+    serverActions: true
+  },
   typescript: {
     ignoreBuildErrors: true
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/:lang/checkout/success",
+        destination: "/api/checkout/success"
+      },
+      {
+        source: "/:lang/checkout/failed",
+        destination: "/api/checkout/failed"
+      }
+    ];
   }
 };
-
-module.exports = withNextIntl({
-  nextConfig
-});
-
-module.exports = nextConfig;
+module.exports = withNextIntl(nextConfig);

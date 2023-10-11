@@ -1,5 +1,6 @@
 export interface IPaymentState {
   creditCard: ICard;
+  isValidPayload?: null | boolean;
 }
 
 export interface ICard {

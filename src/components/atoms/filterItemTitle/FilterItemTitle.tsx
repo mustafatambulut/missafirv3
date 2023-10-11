@@ -37,7 +37,7 @@ const FilterItemTitle = ({
     <label
       tabIndex={0}
       className={labelClass}
-      onClick={() => (setIsDropdownOpen ? setIsDropdownOpen((v) => !v) : null)}>
+      onClick={() => (!isInAllFilters && (setIsDropdownOpen ? setIsDropdownOpen((v) => !v) : null))}>
       {get(filterItem, "title")}
       {size(get(filterItem, "items")) > 0 && !isInAllFilters && (
         <DownArrowIcon className={dropdownArrowClass} />

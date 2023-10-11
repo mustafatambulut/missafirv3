@@ -3,7 +3,7 @@ import { get, map } from "lodash";
 import classNames from "classnames";
 
 import { ISort } from "@/components/atoms/sort/types";
-
+//kaldırılacak kullanılmıyor bu component
 const Sort = ({ filterData, setFilterData, setIsDropdownOpen }: ISort) => {
   const sortItemClass = (value: string) => {
     return classNames("text-gray-500 text-base font-mi-sans-semi-bold", {

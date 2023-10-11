@@ -12,6 +12,7 @@ const ReadMore = ({
   className = "",
   bodyClass = "",
   labelClass = "",
+  showAsHtml = false,
   showLabel = "Read more",
   lessLabel = "Show less"
 }: IReadMore) => {
@@ -32,9 +33,19 @@ const ReadMore = ({
     const text = children;
 
     if (type === "text") {
-      return (
-        <p className="w-full">
-          {isReadMore ? `${text?.slice(0, 150)}...` : text}
+      return showAsHtml ? (
+        <p
+          className={`w-full ${
+            isReadMore ? "line-clamp-2" : "line-clamp-none"
+          }`}
+          dangerouslySetInnerHTML={{ __html: text }}
+        />
+      ) : (
+        <p
+          className={`w-full ${
+            isReadMore ? "line-clamp-2" : "line-clamp-none"
+          }`}>
+          {text}
         </p>
       );
     }

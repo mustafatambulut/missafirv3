@@ -9,15 +9,12 @@ import {
   IImageCarousel,
   IPhotosComponent
 } from "@/components/molecules/imageCarousel/types";
-import { getLocation } from "@/utils/helper";
 
 import Modal from "@/components/atoms/modal/Modal";
 import Button from "@/components/atoms/button/Button";
 import Slider from "@/components/molecules/slider/Slider";
 
 import PadIcon from "../../../../public/images/pad.svg";
-import ShareIcon from "../../../../public/images/share.svg";
-import FavoriteIcon from "../../../../public/images/favorite.svg";
 import LeftIcon from "../../../../public/images/variants/left_arrow.svg";
 
 const ImageCarousel = ({
@@ -34,8 +31,8 @@ const ImageCarousel = ({
   const [showCarouselModal, setShowCarouselModal] = useState<boolean>(false);
 
   const imageClassName = (key: number, isModal: boolean) => {
-    return classNames(`w-full ${imageClass}`, {
-      "col-span-2 row-span-2": key === 0,
+    return classNames(`w-full relative ${imageClass}`, {
+      "col-span-2 row-span-2 h-[25rem]": key === 0,
       "cursor-pointer": isModal
     });
   };
@@ -66,17 +63,22 @@ const ImageCarousel = ({
     return (
       <div
         className={`grid grid-rows-3 lg:grid-rows-2 grid-cols-2 lg:grid-cols-4 gap-2 ${className}`}>
-        {map(images, ({ path, path_extra, caption }, key) => (
-          <Image
-            onClick={(e) => handleImage(e, isModal, path_extra)}
-            key={key}
-            src={path}
-            width={width}
-            height={height}
-            className={imageClassName(key, isModal)}
-            alt={caption}
-          />
-        ))}
+        {map(images, ({ path, path_extra, caption }, key) => {
+          return (
+            path && (
+              <div className={`${imageClassName(key, isModal)}`}>
+                <Image
+                  onClick={(e) => handleImage(e, isModal, path_extra)}
+                  key={key}
+                  src={path}
+                  fill={true}
+                  className="object-cover w-full h-full"
+                  alt={caption || "photo"}
+                />
+              </div>
+            )
+          );
+        })}
       </div>
     );
   };
@@ -88,33 +90,13 @@ const ImageCarousel = ({
 
   return (
     <div className={className}>
-      <div className="absolute right-10 top-28">
-        <div className="flex justify-center">
-          {/*todo: favori ekleme özelliği tamamlanacak*/}
-          <Button
-            onClick={() => alert("favorite")}
-            variant="btn-ghost"
-            className="hover:bg-transparent focus:outline-0 border-none h-2 px-1">
-            <span className="flex justify-center items-center w-10 h-10 bg-white hover:bg-gray-100 rounded-full">
-              <FavoriteIcon className="fill-transparent stroke-black" />
-            </span>
-          </Button>
-          {/*todo: share butonu event'i eklenmesi gerek*/}
-          <Button
-            onClick={() => navigator.clipboard.writeText(getLocation("href"))}
-            variant="btn-ghost"
-            className="hover:bg-transparent focus:outline-0 border-none h-2 px-1">
-            <span className="flex justify-center items-center w-10 h-10 bg-white hover:bg-gray-100 rounded-full">
-              <ShareIcon />
-            </span>
-          </Button>
-        </div>
-      </div>
+      {/*todo: daha sonra aktif edilecek*/}
+      {/*<FavAndShare/>*/}
       <PhotosComponent isModal={false} images={take(images, 5)} />
       <Button
         onClick={() => setIsOpenModal(true)}
         variant="btn-white"
-        className="absolute hover:bg-gray-100 focus:outline-0 border-none text-gray-600 h-2 right-10 bottom-56">
+        className="absolute hover:bg-gray-100 focus:outline-0 border-none text-gray-600 h-2 right-10 bottom-[2rem]">
         <PadIcon />
         {`All ${size(images)} Photos`}
       </Button>
@@ -147,7 +129,7 @@ const ImageCarousel = ({
               key={key}
               fill={true}
               alt={caption}
-              src={path_extra}
+              src={path_extra || "/"}
               className="rounded-xl object-cover"
             />
           ))}

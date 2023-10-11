@@ -1,7 +1,6 @@
-import { Reservation } from "@/redux/features/reservationSlice/types";
-
 export interface IReservationSummary {
-  reservation: Reservation;
+  slug?: string;
+  resData?: any;
   className?: string;
   isDateSummary?: boolean;
   hideCouponCode?: boolean;

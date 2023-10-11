@@ -1,6 +1,6 @@
 import Link from "next/link";
 import classNames from "classnames";
-import { map, size, startCase } from "lodash";
+import { map, size } from "lodash";
 
 import { IBreadcrumbs } from "@/components/atoms/breadcrumbs/types";
 
@@ -11,17 +11,12 @@ const Breadcrumbs = ({ items, listClass, className = "" }: IBreadcrumbs) => {
       "text-gray-500": key === size(items)
     });
   };
-
   return (
-    <div className={`max-w-xs breadcrumbs ${className}`}>
+    <div className={`max-w-full overflow-x-auto breadcrumbs ${className}`}>
       <ul className="text-sm">
-        {map(items, ({ url, label }, key) => (
+        {map(items, ({ url, title }, key) => (
           <li key={key} className={listClassName(++key)}>
-            {key === size(items) ? (
-              startCase(label)
-            ) : (
-              <Link href={url}>{startCase(label)}</Link>
-            )}
+            {url ? <Link href={url}>{title}</Link> : title}
           </li>
         ))}
       </ul>

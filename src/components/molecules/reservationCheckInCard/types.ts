@@ -1,6 +1,12 @@
-import { Reservation } from "@/redux/features/reservationSlice/types";
+import { Dispatch, SetStateAction } from "react";
 
 export interface IReservationCheckInCard {
-  reservation?: Reservation;
+  resData?: any;
   className?: string;
+  searchParams: any;
+}
+
+export interface Guest {
+  guest: string | number;
+  setGuest: Dispatch<SetStateAction<string | number>>;
 }

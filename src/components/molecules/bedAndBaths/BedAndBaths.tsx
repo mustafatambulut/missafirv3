@@ -12,6 +12,7 @@ import BedAndBathItem from "@/components/atoms/bedAndBathItem/BedAndBathItem";
 //import FilterControlButtons from "@/components/molecules/filterControlButtons/FilterControlButtons";
 
 import CloseIcon from "../../../../public/images/close.svg";
+import Typography from "@/components/atoms/typography/Typography";
 //import { useAppSelector } from "@/redux/hooks";
 
 const BedAndBaths = ({
@@ -93,9 +94,9 @@ const BedAndBaths = ({
     <div className="flex flex-col justify-start items-start gap-3">
       {isTitleVisible && (
         <div className="flex justify-between items-center w-full">
-          <h6 className="text-xl font-mi-sans-semi-bold text-gray-700">
+          <Typography variant="h6" element="span" className="font-mi-sans-semi-bold text-gray-700">
             {get(data, "title")}
-          </h6>
+          </Typography>
           {!isInAllFilters && (
             <CloseIcon
               className="fill-gray-800 scale-75"
@@ -111,7 +112,7 @@ const BedAndBaths = ({
           <BedAndBathItem
             key={key}
             data={item}
-            //handleFilter={handleFilter}
+          //handleFilter={handleFilter}
           />
         );
       })}

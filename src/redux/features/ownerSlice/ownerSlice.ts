@@ -1,45 +1,80 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+import { OWNER_TYPE_1, STEP_1 } from "@/redux/features/ownerSlice/enum";
 import {
-  OWNER_TYPE_1,
-  OWNER_TYPE_2,
-  STEP_1
-} from "@/redux/features/ownerSlice/enum";
+  getCorporateTypes,
+  getHomeTypes,
+  getNestedLocations,
+  getRoomTypes
+} from "@/service/api";
+import { IListingSlice } from "@/redux/features/listingSlice/types";
+import { get } from "lodash";
+
+export const fetchCorporateTypes = createAsyncThunk(
+  "landing/fetchCorporateTypes",
+  async () => {
+    const { data } = await getCorporateTypes();
+    return data.data;
+  }
+);
+
+export const fetchHomeTypes = createAsyncThunk(
+  "landing/fetchHomeTypes",
+  async () => {
+    const { data } = await getHomeTypes();
+    return data.data;
+  }
+);
+
+export const fetchRoomTypes = createAsyncThunk(
+  "landing/fetchRoomTypes",
+  async () => {
+    const { data } = await getRoomTypes();
+    return data.data;
+  }
+);
+
+export const fetchNestedLocations = createAsyncThunk(
+  "landing/fetchNestedLocations",
+  async ({ location, type }) => {
+    const { data } = await getNestedLocations(location);
+    return { type, data: data.data };
+  }
+);
 
 // todo: api entegrasyonu sonrası güncellenecek
 const initialState = {
   currentStep: STEP_1,
   selectedOwnerType: OWNER_TYPE_1,
-  ownerTypes: [
-    { type: OWNER_TYPE_1, label: "I want to rent my home" },
-    {
-      type: OWNER_TYPE_2,
-      label: "We are a corporation"
-    }
-  ],
+  corporateTypes: [],
+  homeTypes: [],
+  roomTypes: [],
+  cities: [],
+  districts: [],
+  neighborhoods: [],
+  selectedCountry: null,
+  loadingCities: false,
+  loadingDistricts: false,
+  loadingNeighborHoods: false,
   countries: [
     {
       icon: "https://www.missafir.com/wp-content/uploads/2023/06/flag-turkey.svg",
       label: "Turkey",
-      description: "View 3,557 property",
       code: 1
     },
     {
       icon: "https://www.missafir.com/wp-content/uploads/2023/06/flag-croatia.svg",
       label: "Croatia",
-      description: "View 3,557 property",
       code: 2
     },
     {
       icon: "https://www.missafir.com/wp-content/uploads/2023/06/flag-montenegro.svg",
       label: "Montenegro",
-      description: "View 3,557 property",
       code: 3
     },
     {
       icon: "https://www.missafir.com/wp-content/uploads/2023/06/flag-turkey.svg",
       label: "Northern Cyprus",
-      description: "View 3,557 property",
       code: 4
     }
   ],
@@ -805,11 +840,6 @@ const initialState = {
       "Be the first to know about releases and industry news and insights.",
     link: "/"
   },
-  cities: [
-    { value: "1", label: "İçmeler, Marmaris/Muğla, Türkiye", code: 1 },
-    { value: "2", label: "Şişli, İstanbul, Türkiye", code: 1 },
-    { value: "3", label: "Amasra, Bartın, Türkiye", code: 1 }
-  ],
 
   properties: [
     { value: "1", label: "Apartman" },
@@ -834,11 +864,87 @@ const ownerSlice = createSlice({
     },
     updateSelectedOwnerType: (state, action) => {
       state.selectedOwnerType = action.payload;
+    },
+    updateSelectedCountry: (state, action) => {
+      state.selectedCountry = action.payload;
+    },
+    updateDistricts: (state, action) => {
+      state.districts = action.payload;
+    },
+    updateNeighborhoods: (state, action) => {
+      state.neighborhoods = action.payload;
+    },
+    updateCities: (state, action) => {
+      state.cities = action.payload;
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(
+      fetchHomeTypes.fulfilled,
+      (state: IListingSlice, action) => {
+        state.homeTypes = action.payload.items;
+      }
+    );
+    builder.addCase(
+      fetchRoomTypes.fulfilled,
+      (state: IListingSlice, action) => {
+        state.roomTypes = action.payload.items;
+      }
+    );
+    builder.addCase(
+      fetchCorporateTypes.fulfilled,
+      (state: IListingSlice, action) => {
+        state.corporateTypes = action.payload.items;
+      }
+    );
+    builder.addCase(fetchNestedLocations.pending, (state, { meta }) => {
+      if (get(meta, "arg.operationType")) {
+        switch (get(meta, "arg.operationType")) {
+          case "city_id":
+            state.loadingCities = true;
+            break;
+          case "district_id":
+            state.loadingDistricts = true;
+            break;
+          case "neighborhood_id":
+            state.loadingNeighborHoods = true;
+            break;
+          default:
+            break;
+        }
+      }
+    });
+    builder.addCase(
+      fetchNestedLocations.fulfilled,
+      (state: IListingSlice, action) => {
+        const operationType = get(action, "payload.type");
+        switch (operationType) {
+          case "city_id":
+            state.loadingCities = false;
+            state.cities = action.payload.data.cities;
+            break;
+          case "district_id":
+            state.loadingDistricts = false;
+            state.districts = action.payload.data.districts;
+            break;
+          case "neighborhood_id":
+            state.loadingNeighborHoods = false;
+            state.neighborhoods = action.payload.data.districts;
+            break;
+          default:
+            break;
+        }
+      }
+    );
   }
 });
 
-export const { updateCurrentStep, updateSelectedOwnerType } =
-  ownerSlice.actions;
+export const {
+  updateCurrentStep,
+  updateSelectedOwnerType,
+  updateSelectedCountry,
+  updateDistricts,
+  updateNeighborhoods
+} = ownerSlice.actions;
 
 export default ownerSlice.reducer;

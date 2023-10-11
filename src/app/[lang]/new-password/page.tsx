@@ -40,7 +40,7 @@ const NewPassword = () => {
           <ToastMessage
             toast={toast}
             item={item}
-            title="Success!"
+            title={t("toast_success")}
             status="success">
             <p className="text-md lg:text-xl text-black">
               {get(res, "data.message")}
@@ -51,7 +51,7 @@ const NewPassword = () => {
         router.refresh();
       } else {
         toast.custom((item) => (
-          <ToastMessage toast={toast} item={item} title="Oops!" status="error">
+          <ToastMessage toast={toast} item={item} title={t("toast_error")} status="error">
             <p className="text-md lg:text-xl text-black">
               {get(res, "message")}
             </p>
@@ -77,10 +77,10 @@ const NewPassword = () => {
         />
         <div className="flex w-full flex-col gap-y-4">
           <h1 className="text-lg lg:text-3xl font-semibold text-gray-900">
-            New Password
+            {t("new_password")}
           </h1>
           <h5 className="text-sm lg:text-base text-gray-400">
-            This is the last step in recovering your password.
+            {t("new_password_last_step")}
           </h5>
           <div className="flex flex-col">
             <div className="flex container mx-auto justify-center flex-col gap-y-4">

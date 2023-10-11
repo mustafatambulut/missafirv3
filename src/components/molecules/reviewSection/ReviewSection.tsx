@@ -14,9 +14,11 @@ import Indicator from "@/components/atoms/indicator/Indicator";
 
 import StarIcon from "../../../../public/images/star.svg";
 import RightIcon from "../../../../public/images/variants/chevron_right.svg";
+import { useTranslations } from "next-intl";
 
 const ReviewSection = ({ review, className = "" }: IReviewSection) => {
   const [showAllReviews, setShowAllReviews] = useState(false);
+  const t = useTranslations()
 
   const Modal = dynamic(() => import("@/components/atoms/modal/Modal"), {
     ssr: false
@@ -51,7 +53,7 @@ const ReviewSection = ({ review, className = "" }: IReviewSection) => {
           {get(review, "averageRate")}
         </span>
         <Indicator size={1} className="bg-gray-800" />
-        <span>{get(review, "total")} Reviews</span>
+        <span>{get(review, "total")} {t("reviews")}</span>
       </div>
     );
   };
@@ -70,7 +72,7 @@ const ReviewSection = ({ review, className = "" }: IReviewSection) => {
           variant="btn-ghost"
           onClick={handleShowMore}
           className="items-center text-primary text-lg font-mi-sans lg:px-0 gap-x-1">
-          Show More <RightIcon />
+          {t("show_more")} <RightIcon />
         </Button>
         <Modal
           label={<RateComponent />}

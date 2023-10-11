@@ -5,5 +5,5 @@ export interface IAlert {
   className?: string;
   variant: "success" | "danger" | "warning" | "info";
   icon: ReactNode;
-  onClick?: void;
+  onClick?: () => void;
 }

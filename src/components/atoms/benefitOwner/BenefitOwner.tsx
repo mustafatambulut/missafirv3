@@ -10,15 +10,16 @@ import { BENEFIT_OWNER_SECTION } from "@/components/atoms/benefitOwner/constants
 import Card from "@/components/atoms/card/Card";
 import Section from "@/components/molecules/section/Section";
 import Loading from "@/components/atoms/loading/Loading";
+import BenefitSkeleton from "@/components/molecules/skeletons/benefitSkeleton/BenefitSkeleton";
+import Typography from "../typography/Typography";
 
 const BenefitOwner = () => {
   const benefit = useFetchData<IBenefitOwner>(BODY, BENEFIT_OWNER_SECTION);
 
   return (
-    <Loading isLoading={!benefit} loader={<p>Loading feed...</p>}>
-      {/*todo: skeleton eklenecek*/}
+    <Loading isLoading={!benefit} loader={<BenefitSkeleton />}>
       <Section
-        className="px-4 lg:px-8 mt-14"
+        className="px-2 lg:px-8 mt-14"
         title={get(benefit, "header.title")}
         description={get(benefit, "header.description")}>
         <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-8 lg:my-20">
@@ -31,15 +32,15 @@ const BenefitOwner = () => {
                     width={64}
                     height={64}
                     className="mb-7"
-                    src={get(benefit, "image")}
+                    src={get(benefit, "image") || "/"}
                   />
                 )}
-                <h3 className="text-center mb-3 text-28 font-mi-sans-semi-bold text-gray-800">
+                <Typography variant="h3" element="h3" className="text-center mb-3 text-28 font-mi-sans-semi-bold text-gray-800">
                   {get(benefit, "title")}
-                </h3>
-                <div className="text-center text-gray-600 tex-2xl line-clamp-3">
+                </Typography>
+                <Typography variant="p3" element="div" className="text-center text-gray-600 tex-2xl line-clamp-3">
                   {get(benefit, "description")}
-                </div>
+                </Typography>
               </div>
             </Card>
           ))}

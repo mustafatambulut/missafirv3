@@ -10,24 +10,27 @@ import Button from "@/components/atoms/button/Button";
 import TouchesSection from "@/components/molecules/touchesSection/TouchesSection";
 
 import RightIcon from "../../../../public/images/variants/chevron_right.svg";
+import { useTranslations } from "next-intl";
+import Typography from "@/components/atoms/typography/Typography";
 
 const AmenitiesSection = ({ item, className = "" }: IAmenitiesSection) => {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations()
 
   return (
     <section className={`flex flex-col gap-y-9 ${className}`}>
-      <h1 className="text-lg lg:text-2xl text-gray-800">Amenities</h1>
+      <h1 className="text-lg lg:text-2xl text-gray-800">{t("amenities")}</h1>
       <TouchesSection touches={get(item, "missafir_touches")} />
       <article className="flex flex-col gap-y-6 items-start">
-        <h1 className="text-lg text-gray-800 lg:text-2xl">
-          What This Place Offers
-        </h1>
-        <div className="flex flex-wrap gap-2">
+        <Typography variant="h5" element="h5" className="text-gray-800">
+          {t("what_this_place_offers")}
+        </Typography>
+        <div className="flex flex-wrap gap-4">
           {map(take(get(item, "amenities"), 5), ({ name }, key) => (
             <div
               key={key}
               className="flex flex-col items-center capitalize justify-center rounded-xl h-14 py-2 px-4 bg-gray-50 text-sm lg:text-lg text-gray-600 w-fit">
-              {name}
+              <Typography variant="p3" element="p">{name}</Typography>
             </div>
           ))}
         </div>
@@ -37,12 +40,12 @@ const AmenitiesSection = ({ item, className = "" }: IAmenitiesSection) => {
           className="text-primary text-base lg:text-lg px-0 w-full lg:w-fit border lg:border-none rounded-xl"
           outline={true}>
           {isMobile
-            ? `See All ${size(get(item, "amenities"))} Amenities`
-            : "See All Amenities"}
+            ? `${t("see_all")} ${size(get(item, "amenities"))} ${t("amenities")}`
+            : t("see_all_amenities")}
           <RightIcon className="hidden lg:block" />
         </Button>
         <Modal
-          label="Amenities"
+          label={t("amenities")}
           bodyClass="lg:w-11/12 lg:max-w-5xl"
           headerClass="text-2xl"
           isOpen={isOpen}
@@ -50,14 +53,14 @@ const AmenitiesSection = ({ item, className = "" }: IAmenitiesSection) => {
           <div className="py-2 mt-4 flex flex-col gap-y-6">
             <TouchesSection touches={get(item, "missafir_touches")} />
             <div className="flex flex-col gap-y-6">
-              <h1 className="text-xl">What This Place Offers</h1>
-              <div className="flex flex-wrap gap-2">
+              <Typography variant="h6" element="h6" className="text-gray-800">{t("what_this_place_offers")}</Typography>
+              <div className="flex flex-wrap gap-4">
                 {map(get(item, "amenities"), ({ icon, name }, key) => (
                   <div
                     key={key}
                     className="flex flex-col items-center capitalize justify-center rounded-xl h-14 py-2 px-4 bg-gray-50 text-sm lg:text-lg text-gray-600 w-fit">
-                    <img src={icon || ""} alt="icon" />
-                    {name}
+                    {icon && <img src={icon} alt="icon" />}
+                    <Typography variant="p3" element="p">{name}</Typography>
                   </div>
                 ))}
               </div>

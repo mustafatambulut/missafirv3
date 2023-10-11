@@ -9,9 +9,11 @@ import {
 import BecomeOwnerForm from "@/components/organisms/becomeOwnerForm/BecomeOwnerForm";
 import BecomeOwnerCalculateResults from "@/components/molecules/becomeOwnerCalculateResults/BecomeOwnerCalculateResults";
 import BecomeOwnerSuccess from "@/components/molecules/becomeOwnerSuccess/BecomeOwnerSuccess";
+import { useTranslations } from "next-intl";
 
 const BecomeOwner = () => {
   const { currentStep } = useAppSelector((step) => step.ownerReducer);
+  const t = useTranslations()
 
   switch (currentStep) {
     case STEP_2:
@@ -21,7 +23,7 @@ const BecomeOwner = () => {
     case STEP_4:
       return <BecomeOwnerSuccess />;
     case SUCCESS:
-      return <div>STEP 5</div>;
+      return <div>{t("step_5")}</div>;
   }
 };
 

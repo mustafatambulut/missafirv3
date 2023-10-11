@@ -23,14 +23,15 @@ const Slider = ({
   children,
   sliderContainerClassName = "",
   sliderWrapperClassName = "",
-  sliderIdentifier
+  sliderIdentifier,
+  autoHiddenNavigation = true
 }: ISlider) => {
   const swiperSlideClass = classNames({
     "w-auto": slidesPerView === "auto"
   });
 
   return (
-    <div className={`relative ${sliderContainerClassName}`}>
+    <div className={`relative group ${sliderContainerClassName}`}>
       <Swiper
         onSwiper={onSwiper}
         watchSlidesProgress
@@ -56,9 +57,6 @@ const Slider = ({
               pagination: {
                 dynamicBullets: true,
                 dynamicMainBullets: 3,
-                renderBullet: function (index, className) {
-                  return `<span class="${className} scale-100"></span>`;
-                },
                 clickable: true
               }
             }
@@ -83,7 +81,14 @@ const Slider = ({
             })
           : children}
       </Swiper>
-      {customNavigation && customNavigation}
+      {customNavigation && (
+        <div
+          className={`${
+            autoHiddenNavigation ? "hidden lg:group-hover:block" : "lg:block"
+          }`}>
+          {customNavigation}
+        </div>
+      )}
     </div>
   );
 };

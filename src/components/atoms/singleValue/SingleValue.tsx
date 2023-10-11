@@ -6,6 +6,7 @@ import { components } from "react-select";
 import { ISingleValue } from "@/components/atoms/singleValue/types";
 
 import OptionImage from "@/components/atoms/optionImage/OptionImage";
+import Typography from "../typography/Typography";
 
 const SingleValue = ({ ...props }: ISingleValue) => {
   const singleValueClass = classNames(
@@ -48,16 +49,18 @@ const SingleValue = ({ ...props }: ISingleValue) => {
           </>
         )}
         <div className="grid grid-cols-1">
-          <span className="text-xs capitalize">
+          <Typography variant="p6" element="span" className="text-xs capitalize">
             {get(props, "selectProps.selectTitle")}
-          </span>
-          <span
+          </Typography>
+          <Typography
+            variant="p6"
+            element="span"
             className={`${get(
               props,
               "selectProps.singleValueChildrenClassName"
             )}`}>
             {get(props, "data.attributes.label")}
-          </span>
+          </Typography>
         </div>
       </div>
     </components.SingleValue>

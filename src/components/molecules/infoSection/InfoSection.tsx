@@ -1,78 +1,66 @@
 "use client";
-import { useState } from "react";
-import { get } from "lodash";
-import classNames from "classnames";
+import { get, isEmpty } from "lodash";
 
-import {
-  IInfoSection,
-  IInfoSectionData
-} from "@/components/molecules/infoSection/types";
+import { IInfoSectionData } from "@/components/molecules/infoSection/types";
+import ReactMarkdown from "react-markdown";
 
 import Section from "@/components/molecules/section/Section";
+import Loading from "@/components/atoms/loading/Loading";
+import InfoSkeleton from "@/components/molecules/skeletons/infoSkeleton/InfoSekeleton";
+import Typography from "@/components/atoms/typography/Typography";
+import useFetchData from "@/app/hooks/useFetchData";
+import { BODY } from "@/app/constants";
+import { INFO_SECTION } from "../infoSection/constants";
 
-import UpArrowPrimary from "../../../../public/images/chevron_up.svg";
+import "./index.css";
 
-const InfoSection = ({ collapsable = false }: IInfoSection) => {
-  const [showContent, setShowContent] = useState(false);
-
-  const infoSectionClass = classNames(
-    "grid grid-cols-1 gap-6 overflow-hidden h-36",
-    { "overflow-visible h-auto": collapsable && showContent }
-  );
-
-  const indicatorClass = classNames("fill-primary", {
-    "rotate-180": collapsable && showContent
-  });
-
-  // todo: test amaçlı oluşturuldu, silinecek
-  const mockInfo: IInfoSectionData[] = [
-    {
-      header: "Lorem ipsum dolor sit amet",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam sit amet sodales malesuada, elit nunc faucibus eros, nec aliquet elit nibh eu eros. Quisque sed semper nisl. Fusce sed semper nisl."
-    },
-    {
-      header: "Lorem ipsum dolor sit amet",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam sit amet sodales malesuada, elit nunc faucibus eros, nec aliquet elit nibh eu eros. Quisque sed semper nisl. Fusce sed semper nisl."
-    },
-    {
-      header: "Lorem ipsum dolor sit amet",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam sit amet sodales malesuada, elit nunc faucibus eros, nec aliquet elit nibh eu eros. Quisque sed semper nisl. Fusce sed semper nisl."
-    },
-    {
-      header: "Lorem ipsum dolor sit amet",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam sit amet sodales malesuada, elit nunc faucibus eros, nec aliquet elit nibh eu eros. Quisque sed semper nisl. Fusce sed semper nisl."
-    },
-    {
-      header: "Lorem ipsum dolor sit amet",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam sit amet sodales malesuada, elit nunc faucibus eros, nec aliquet elit nibh eu eros. Quisque sed semper nisl. Fusce sed semper nisl."
-    }
-  ];
-
+const InfoSection = ({ infoContents }: any) => {
+  let info: any;
+  isEmpty(infoContents)
+    ? (info = useFetchData<IInfoSectionData>(BODY, INFO_SECTION) || [])
+    : (info = infoContents);
+  const InfoLoading = () => {
+    return (
+      <Section className="px-4 my-14 lg:mt-14 flex flex-col gap-y-3">
+        <InfoSkeleton />
+        <InfoSkeleton />
+        <InfoSkeleton />
+        <InfoSkeleton />
+        <InfoSkeleton />
+      </Section>
+    );
+  };
   return (
-    <Section className="px-4 lg:px-10 my-14 lg:mt-14">
-      <div className={infoSectionClass}>
-        <div>
-          {mockInfo.map((item, index) => {
+    <Loading isLoading={!info} loader={<InfoLoading />}>
+      <Section className="px-2 lg:px-10 my-14 lg:mt-14 flex flex-col gap-y-3">
+        {info?.infoContents &&
+          info?.infoContents.length &&
+          info?.infoContents.map((item, index) => {
             return (
-              <div key={index} className="flex flex-col mb-5 lg:mb-10">
-                <div className="text-3xl font-bold mb-5 lg:mb-8">
-                  {get(item, "header")}
+              <div
+                key={index}
+                tabIndex={0}
+                className="collapse collapse-plus rounded-xl">
+                <div className="collapse-title bg-primary-25 text-primary cursor-pointer">
+                  <Typography element="h5" variant="h5">
+                    {get(item, "title")}
+                  </Typography>
                 </div>
-                <p className="text-lg lg:text-2xl text-gray-600">
-                  {get(item, "body")}
-                </p>
+                <div className="collapse-content bg-gray-50 min-h-[5.3rem] visible text-sm lg:text-lg text-gray-800">
+                  <Typography
+                    element="div"
+                    variant="p3"
+                    className="text-gray-800">
+                    <ReactMarkdown className="notw">
+                      {get(item, "description")}
+                    </ReactMarkdown>
+                  </Typography>
+                </div>
               </div>
             );
           })}
-        </div>
-      </div>
-      <div
-        className="bg-white cursor-pointer text-[#D01E50] text-base lg:text-2xl flex items-center"
-        onClick={() => setShowContent((v) => !v)}>
-        <span className="mr-2">Devamını oku</span>
-        <UpArrowPrimary className={indicatorClass} />
-      </div>
-    </Section>
+      </Section>
+    </Loading>
   );
 };
 

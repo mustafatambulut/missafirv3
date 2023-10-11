@@ -10,7 +10,7 @@ const Checkbox = ({
   label,
   checked,
   onChange,
-  position,
+  position = "left",
   isDisable,
   className = "",
   labelClass = "",
@@ -47,7 +47,11 @@ const Checkbox = ({
   return (
     <div className={checkboxClass}>
       <label className={checkboxLabelClass}>
-        <span ref={leftRef}>{label}</span>
+        <span
+          className={position === "right" ? "hidden" : "block"}
+          ref={leftRef}>
+          {label}
+        </span>
         <input
           name={name}
           value={value}
@@ -57,7 +61,11 @@ const Checkbox = ({
           disabled={isDisable}
           className={checkboxInputClass}
         />
-        <span ref={rightRef}>{label}</span>
+        <span
+          className={position === "left" ? "hidden" : "block"}
+          ref={rightRef}>
+          {label}
+        </span>
       </label>
     </div>
   );

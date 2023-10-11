@@ -5,12 +5,16 @@ import {
   IChange,
   IPriceRangeInputs
 } from "@/components/atoms/priceRangeInputs/types";
+import { useTranslations } from "next-intl";
+import Typography from "../typography/Typography";
 
 const PriceRangeInputs = ({
   minPrice,
   maxPrice,
   handleInput
 }: IPriceRangeInputs) => {
+  const t = useTranslations();
+
   const handleValueChange = (type: string, values: IChange) => {
     const value = get(values, "floatValue");
     if (type === "min") {
@@ -41,9 +45,16 @@ const PriceRangeInputs = ({
             return floatValue >= 0;
           }}
         />
-        <span className="absolute left-4 text-gray-500 text-sm cursor-default">
-          min price
-        </span>
+        <Typography
+          variant="p5"
+          element="span"
+          className="absolute left-4 text-gray-500 cursor-default"
+        >
+          {t("min_price")}
+        </Typography>
+        {/* <span className="absolute left-4 text-gray-500 text-sm cursor-default">
+          {t("min_price")}
+        </span> */}
       </div>
       <span>-</span>
       <div className="relative">
@@ -59,9 +70,13 @@ const PriceRangeInputs = ({
             return floatValue <= maxPrice;
           }}
         />
-        <span className="absolute left-4 text-gray-500 text-sm cursor-default">
-          max price
-        </span>
+        <Typography
+          variant="p5"
+          element="span"
+          className="absolute left-4 text-gray-500 cursor-default"
+        >
+          {t("max_price")}
+        </Typography>
       </div>
     </div>
   );

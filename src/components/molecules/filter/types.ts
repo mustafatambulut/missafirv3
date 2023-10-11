@@ -27,6 +27,8 @@ export interface IFilterData {
     | "new";
   beds: IBedsData;
   priceType: string;
+  check_in: string;
+  check_out: string;
   bathrooms: IBathroomsData;
   concepts: IConceptsData[];
   price: { min: number; max: number };

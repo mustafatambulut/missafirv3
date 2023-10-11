@@ -10,6 +10,7 @@ import { IContactFooter } from "@/components/organisms/contactFooter/types";
 import Input from "@/components/atoms/input/Input";
 import Button from "@/components/atoms/button/Button";
 import Banner from "@/components/molecules/banner/Banner";
+import Typography from "@/components/atoms/typography/Typography";
 
 const ContactFooter = ({ className = "" }: IContactFooter) => {
   const t = useTranslations();
@@ -29,7 +30,6 @@ const ContactFooter = ({ className = "" }: IContactFooter) => {
     validationSchema,
     onSubmit: async (values) => {
       // todo: api entegrasyonu yapılacak
-      console.log({ values });
     }
   });
 
@@ -50,16 +50,19 @@ const ContactFooter = ({ className = "" }: IContactFooter) => {
             <div className="w-72 lg:w-80">
               <Input
                 type="email"
-                name={get(banner, "formItems.[0].name")}
-                placeholder={get(banner, "formItems.[0].placeholder")}
+                name="email"
+                placeholder={t("email")}
                 containerclass="text-lg"
                 onChange={handleChange}
                 value={get(values, "email")}
               />
               {get(errors, "email") && get(touched, "email") && (
-                <div className="text-white text-sm lg:text-base">
+                <Typography variant="p2" element="div" className="text-white">
+                  {/* <div className="text-white text-sm lg:text-base">
                   {get(errors, "email")}
-                </div>
+                </div> */}
+                  {get(errors, "email")}
+                </Typography>
               )}
             </div>
             <Button
@@ -67,7 +70,7 @@ const ContactFooter = ({ className = "" }: IContactFooter) => {
               variant="btn-white"
               disabled={isSubmitting}
               className="bg-primary-300 border-none text-white w-32 lg:w-fit">
-              {get(banner, "formItems.[1].label")}
+              {t("subscribe")}
               {isSubmitting && (
                 <span className="loading loading-spinner"></span>
               )}

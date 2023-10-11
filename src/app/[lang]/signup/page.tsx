@@ -1,7 +1,6 @@
 "use client";
-import { ReactNode } from "react";
-import { get } from "lodash";
 import * as Yup from "yup";
+import { get } from "lodash";
 import { useFormik } from "formik";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -9,17 +8,15 @@ import { useRouter } from "next/navigation";
 import { signUp } from "@/service/api";
 import { useAppSelector } from "@/redux/hooks";
 import { setLocalStorage } from "@/utils/helper";
+import CookiesUtils from "../../../utils/cookies";
 
-import Input from "@/components/atoms/input/Input";
 import Button from "@/components/atoms/button/Button";
-import Checkbox from "@/components/atoms/checkbox/Checkbox";
-import PhoneInput from "@/components/atoms/phoneInput/PhoneInput";
-import SingleDatePicker from "@/components/atoms/singleDatePicker/SingleDatePicker";
+import SignUpPartial from "@/components/atoms/signUpPartial/SignUpPartial";
+import DefaultSignUpPartial from "@/components/atoms/defaultSignUpPartial/DefaultSignUpPartial";
 
 import AppleIcon from "../../../../public/images/apple.svg";
 import GoogleIcon from "../../../../public/images/google.svg";
 import FacebookIcon from "../../../../public/images/variants/facebook.svg";
-import ChevronRightIcon from "../../../../public/images/variants/chevron_right.svg";
 
 const Signup = () => {
   const router = useRouter();
@@ -29,7 +26,6 @@ const Signup = () => {
   );
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
   const validationSchema = Yup.object({
     email: Yup.string()
       .email(t("invalid_or_incomplete_email"))
@@ -41,46 +37,49 @@ const Signup = () => {
     fullname: Yup.string().required(t("this_field_is_required")),
     phone: Yup.string()
       .matches(phoneRegExp, t("phone_number_is_not_valid"))
-      .required(t("this_field_is_required"))
+      .required(t("this_field_is_required")),
     // confirmPassword: Yup.string()
     //   .required(t("this_field_is_required"))
     //   .oneOf(
     //     [Yup.ref("password"), null],
     //     t("phone_number_is_not_valid")
     //   )
+    confirmationForm: Yup.boolean().oneOf(
+      [true],
+      "You need to accept the terms and conditions"
+    ),
+    policy: Yup.boolean().oneOf(
+      [true],
+      "You need to accept the terms and conditions"
+    )
   });
-
   const initialValues = {
     email: "",
     phone: "",
-    address: "",
     fullname: "",
-    birthDate: new Date(),
     password: "",
     confirmPassword: "",
-    confirmationForm: false
+    confirmationForm: false,
+    policy: false
   };
-
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
       const res = await signUp(values);
       setLocalStorage("token", get(res, "data.token"));
+      CookiesUtils.setItem("token", get(res, "data.token"));
       router.push("/login");
       router.refresh();
     }
   });
-
-  const { values, errors, touched, handleChange, setFieldValue, handleSubmit } =
-    formik;
 
   // todo: daha sonra aktif edilecek
   // eslint-disable-next-line no-unused-vars
   const SocialAuthCard = () => {
     return (
       <div className="flex flex-col justify-center lg:justify-start gap-y-6">
-        <h1 className="text-base text-gray-400">or select method to log in:</h1>
+        <h1 className="text-base text-gray-400"> {t('or_select_method_to_log_in')} </h1>
         <div className="flex gap-x-2 lg:gap-x-4">
           <Button
             className="w-28 lg:w-1/3 gap-x-3 border-gray-300 text-gray-600"
@@ -105,304 +104,17 @@ const Signup = () => {
     );
   };
 
-  const BannerComponent = (): ReactNode => {
-    return (
-      <>
-        <div className="flex items-center px-10 lg:px-20 justify-center w-full rounded-xl lg:rounded-3xl h-20 lg:h-40 bg-gradient-to-r from-primary to-pink">
-          <p className="text-white text-center text-md lg:text-2xl">
-            Become a member and take advantage of 10% discount on your first
-            reservation!
-          </p>
-        </div>
-        <Button
-          link="/"
-          variant="btn-ghost"
-          className="text-primary text-xl font-mi-sans"
-          outline={true}>
-          Continue without login
-          <ChevronRightIcon />
-        </Button>
-      </>
-    );
-  };
-
-  const DefaultSignUpComponent = (): ReactNode => {
-    return (
-      <>
-        <h1 className="text-3xl font-semibold text-gray-900">{t("sign_up")}</h1>
-        <div className="flex flex-col gap-y-2 lg:gap-y-4">
-          <div className="flex flex-col gap-y-2 lg:gap-y-0 lg:gap-x-7 lg:flex-row">
-            <div className="w-full lg:h-24">
-              <Input
-                type="text"
-                name="fullname"
-                label="Full name"
-                placeholder="Full name"
-                containerclass="text-lg -mt-1"
-                value={get(values, "fullname")}
-                onChange={handleChange}
-              />
-              {get(errors, "fullname") && get(touched, "fullname") && (
-                <div className="text-primary text-sm lg:text-base">
-                  {get(errors, "fullname")}
-                </div>
-              )}
-            </div>
-            <div className="w-full lg:h-24">
-              <SingleDatePicker
-                label="Birth Date"
-                datePickerClass="border-gray-300"
-                selected={get(values, "birthDate")}
-                onChange={(date) => setFieldValue("birthDate", date)}
-              />
-              {get(errors, "birthDate") && get(touched, "birthDate") && (
-                <div className="text-primary">{get(errors, "birthDate")}</div>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-col gap-y-2 lg:gap-y-0 lg:gap-x-7 lg:flex-row">
-            <div className="w-full lg:h-24">
-              <Input
-                type="email"
-                name="email"
-                label="Email"
-                placeholder="Email"
-                containerclass="text-lg"
-                onChange={handleChange}
-                value={get(values, "email")}
-              />
-              {get(errors, "email") && get(touched, "email") && (
-                <div className="text-primary text-sm lg:text-base">
-                  {get(errors, "email")}
-                </div>
-              )}
-            </div>
-            <div className="w-full lg:h-24">
-              <PhoneInput
-                country="tr"
-                name="phone"
-                label="Phone"
-                buttonClass="border border-r-0 bg-white"
-                inputClass="font-mi-sans h-12 w-full"
-                containerclass="flex bg-white"
-                dropdownClass="rounded-lg shadow-md"
-                placeholder="+90 (___) ___ __ __"
-                alwaysDefaultMask={true}
-                defaultMask={"(...) ... .. .."}
-                className="flex text-lg rounded-xl"
-                value={get(values, "phone")}
-                onChange={(value) => setFieldValue("phone", value)}
-              />
-              {get(errors, "phone") && get(touched, "phone") && (
-                <div className="text-primary text-sm lg:text-base">
-                  {get(errors, "phone")}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-col mt-2">
-            <label className="label" htmlFor="address">
-              Address
-            </label>
-            <textarea
-              rows={5}
-              id="address"
-              name="address"
-              className="border focus:outline-0 rounded-lg p-2 w-full"
-              maxLength={255}
-              onChange={handleChange}
-              value={get(values, "address")}
-              placeholder="Address"></textarea>
-            {get(errors, "address") && get(touched, "address") && (
-              <div className="text-primary text-sm lg:text-base">
-                {get(errors, "address")}
-              </div>
-            )}
-          </div>
-        </div>
-        <hr />
-        <div className="flex flex-col lg:gap-y-7">
-          <Input
-            type="password"
-            name="password"
-            label="Password"
-            placeholder="Password"
-            containerclass="text-lg"
-            onChange={handleChange}
-            value={get(values, "password")}
-          />
-          {get(errors, "password") && get(touched, "password") && (
-            <div className="text-primary text-sm lg:text-base">
-              {get(errors, "password")}
-            </div>
-          )}
-          <Input
-            type="password"
-            name="confirmPassword"
-            label="Confirm Password"
-            placeholder="Confirm Password"
-            containerclass="text-lg"
-            onChange={handleChange}
-            value={get(values, "confirmPassword")}
-          />
-          {get(errors, "confirmPassword") &&
-            get(touched, "confirmPassword") && (
-              <div className="text-primary text-sm lg:text-base">
-                {get(errors, "confirmPassword")}
-              </div>
-            )}
-        </div>
-        <div className="flex flex-col mt-2 lg:mt-0">
-          <Checkbox
-            value="confirmation_form"
-            name="confirmationForm"
-            checked={get(values, "confirmationForm")}
-            onChange={(e) => {
-              setFieldValue("confirmationForm", get(e, "target.checked"));
-            }}
-            label="I accept the sending of commercial electronic messages to me via e-mail, text message and telephone within the scope of the consent form."
-            labelClass="text-sm lg:text-base items-start lg:items-center"
-            position="right"
-          />
-          <Checkbox
-            value="privacy_policy"
-            name="policy"
-            onChange={(e) => {
-              setFieldValue("policy", get(e, "target.value"));
-            }}
-            label="I accept the Terms of Use and Privacy Policy."
-            labelClass="text-sm lg:text-base items-start lg:items-center"
-            position="right"
-          />
-        </div>
-        <div className="flex flex-col">
-          <Button type="submit" className="text-xl">
-            {t("sign_up")}
-          </Button>
-          <div className="flex justify-center items-center gap-x-1 text-base">
-            <p className="text-gray-400">Do you have account?</p>
-            <Button
-              link="/login"
-              variant="btn-ghost"
-              className="text-primary font-mi-sans px-0"
-              outline={true}>
-              {t("login_now")}
-            </Button>
-          </div>
-        </div>
-      </>
-    );
-  };
-
-  const SignUp = () => {
-    return (
-      <>
-        <BannerComponent />
-        <div className="flex flex-col gap-y-2 lg:gap-y-4">
-          <Input
-            type="text"
-            name="fullname"
-            label="Full name"
-            placeholder="Full name"
-            containerclass="text-lg -mt-1"
-            value={get(values, "fullname")}
-            onChange={handleChange}
-          />
-          {get(errors, "fullname") && get(touched, "fullname") && (
-            <div className="text-primary text-sm lg:text-base">
-              {get(errors, "fullname")}
-            </div>
-          )}
-          <Input
-            type="email"
-            name="email"
-            label="Email"
-            placeholder="Email"
-            containerclass="text-lg"
-            onChange={handleChange}
-            value={get(values, "email")}
-          />
-          {get(errors, "email") && get(touched, "email") && (
-            <div className="text-primary text-sm lg:text-base">
-              {get(errors, "email")}
-            </div>
-          )}
-          <PhoneInput
-            country="tr"
-            name="phone"
-            label="Phone"
-            buttonClass="border border-r-0 bg-white"
-            inputClass="font-mi-sans h-12 w-full"
-            containerclass="flex bg-white"
-            dropdownClass="rounded-lg shadow-md"
-            placeholder="+90 (___) ___ __ __"
-            alwaysDefaultMask={true}
-            defaultMask={"(...) ... .. .."}
-            className="flex text-lg rounded-xl"
-            value={get(values, "phone")}
-            onChange={(value) => setFieldValue("phone", value)}
-          />
-          {get(errors, "phone") && get(touched, "phone") && (
-            <div className="text-primary text-sm lg:text-base">
-              {get(errors, "phone")}
-            </div>
-          )}
-          <Input
-            type="password"
-            name="password"
-            label="Password"
-            placeholder="Password"
-            containerclass="text-lg"
-            onChange={handleChange}
-            value={get(values, "password")}
-          />
-          {get(errors, "password") && get(touched, "password") && (
-            <div className="text-primary text-sm lg:text-base">
-              {get(errors, "password")}
-            </div>
-          )}
-          <Input
-            type="password"
-            name="confirmPassword"
-            label="Confirm Password"
-            placeholder="Confirm Password"
-            containerclass="text-lg"
-            onChange={handleChange}
-            value={get(values, "confirmPassword")}
-          />
-          {get(errors, "confirmPassword") &&
-            get(touched, "confirmPassword") && (
-              <div className="text-primary text-sm lg:text-base">
-                {get(errors, "confirmPassword")}
-              </div>
-            )}
-        </div>
-        <div className="flex flex-col">
-          <Button type="submit" className="text-xl">
-            {t("sign_up")}
-          </Button>
-          <div className="flex justify-center items-center gap-x-1 text-base">
-            <p className="text-gray-400">Do you have account?</p>
-            <Button
-              link="/login"
-              variant="btn-ghost"
-              className="text-primary font-mi-sans px-0"
-              outline={true}>
-              {t("login_now")}
-            </Button>
-          </div>
-        </div>
-      </>
-    );
-  };
-
   return (
     <div className="flex flex-col font-mi-sans mt-20 lg:mt-40 px-4 lg:px-80">
       <form
-        className="flex flex-col lg:gap-y-8"
+        className="flex flex-col gap-y-8"
         noValidate
-        onSubmit={handleSubmit}>
-        {isPressReservButton ? <SignUp /> : <DefaultSignUpComponent />}
+        onSubmit={get(formik, "handleSubmit")}>
+        {isPressReservButton ? (
+          <SignUpPartial formik={formik} />
+        ) : (
+          <DefaultSignUpPartial formik={formik} />
+        )}
       </form>
       {/*todo: daha sonra aktif edilecek*/}
       {/*<div className="divider text-gray-600">or</div>*/}

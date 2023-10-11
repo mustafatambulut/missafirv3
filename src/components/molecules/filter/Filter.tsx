@@ -8,24 +8,29 @@ import { getLocalStorage, setLocalStorage } from "@/utils/helper";
 import {
   fetchFilters,
   fetchListings,
+  updateBookingDate,
   updateFilterData,
   updateFilterItems,
+  updateSearchClicked,
   updateShowSearchbar
 } from "@/redux/features/listingSlice/listingSlice";
+import { useTranslations } from "next-intl";
 
 import AllFilters from "@/components/molecules/allfilters/AllFilters";
 import FilterItem from "@/components/molecules/filterItem/FilterItem";
 import MobileSearchBar from "@/components/molecules/mobileSearchBar/MobileSearchBar";
 
 import FilterIcon from "../../../../public/images/filters.svg";
+import Typography from "@/components/atoms/typography/Typography";
 
 const Filter = () => {
   const dispatch = useAppDispatch();
   const [isOverlayActive, setIsOverlayActive] = useState(false);
-  const { filterItems, filterData } = useAppSelector(
+  const { filterItems, filterData, bookingDate } = useAppSelector(
     (state) => state.listingReducer
   );
   const { showSearchbar } = useAppSelector((state) => state.listingReducer);
+  const t = useTranslations()
 
   useEffect(() => {
     const storedFilterItems = getLocalStorage("filterItems");
@@ -46,6 +51,10 @@ const Filter = () => {
     []
   );
 
+  const handleChangeBookingDate = (date) => {
+    dispatch(updateBookingDate(date));
+  };
+
   useEffect(() => {
     handleFetchListings(filterData);
   }, [handleFetchListings, filterData]);
@@ -60,13 +69,20 @@ const Filter = () => {
     dispatch(updateShowSearchbar(true));
     return () => {
       dispatch(updateShowSearchbar(false));
+      dispatch(updateSearchClicked(false));
     };
   }, []);
 
   return size(filterItems) > 0 ? (
     <div>
       {showSearchbar && isMobile && (
-        <MobileSearchBar isInCustomSection={true} />
+        <div className="px-3 lg:px-0">
+          <MobileSearchBar
+            bookingDate={bookingDate}
+            setBookingDate={handleChangeBookingDate}
+            isInCustomSection={true}
+          />
+        </div>
       )}
       <div className="relative">
         {isOverlayActive && (
@@ -78,7 +94,7 @@ const Filter = () => {
             htmlFor="all_filters_modal"
             className="border flex items-center justify-center flex-nowrap bg-gray-50 rounded-2xl h-11 whitespace-nowrap cursor-pointer font-mi-sans-semi-bold text-base px-4 border-transparent">
             <FilterIcon className="mr-3" />
-            All Filters
+            <Typography variant="p4" element="span">{t("all_filters")}</Typography>
           </label>
           {map(filterItems, (item, index) => {
             if (

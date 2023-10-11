@@ -7,6 +7,7 @@ import { FOOTER_BRAND } from "@/components/atoms/footerBrand/constants";
 
 import Loading from "@/components/atoms/loading/Loading";
 import Menu from "@/components/molecules/menu/Menu";
+import Typography from "../typography/Typography";
 
 const FooterBrand = ({ className = "" }: FooterBrandProps) => {
   const data = useFetchData(FOOTER_BRAND);
@@ -16,8 +17,8 @@ const FooterBrand = ({ className = "" }: FooterBrandProps) => {
       {/*todo: skeleton eklenecek*/}
       <footer className={`footer footer-center p-4 ${className}`}>
         <div className="flex">
-          {get(data, "header.title")}
-          <p>{get(data, "header.description")}</p>
+          <Typography variant="p6" element="span">{get(data, "header.title")} </Typography>
+          <Typography variant="p6" element="p">{get(data, "header.description")} </Typography>
         </div>
         <div>
           <Menu

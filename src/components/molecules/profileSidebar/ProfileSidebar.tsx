@@ -3,7 +3,6 @@ import { get, includes, map } from "lodash";
 import Link from "next/link";
 import classNames from "classnames";
 import { usePathname } from "next/navigation";
-import { useAppSelector } from "@/redux/hooks";
 
 import UserInfo from "@/components/atoms/userInfo/UserInfo";
 
@@ -11,12 +10,14 @@ import FileIcon from "../../../../public/images/file.svg";
 import LockIcon from "../../../../public/images/lock.svg";
 import UserIcon from "../../../../public/images/user_dark.svg";
 import CommentIcon from "../../../../public/images/comment.svg";
-import SettingIcon from "../../../../public/images/setting.svg";
+//import SettingIcon from "../../../../public/images/setting.svg";
 import HeartIcon from "../../../../public/images/heart_outline.svg";
+import Typography from "@/components/atoms/typography/Typography";
+import { useTranslations } from "next-intl";
 
 const ProfileSidebar = () => {
   const pathname = usePathname();
-  const { user } = useAppSelector((state) => state.profileReducer);
+  const t = useTranslations()
 
   const tabMenuIconClass = (type: string): string => {
     return classNames("scale-125 fill-gray hover:text-gray-600", {
@@ -49,39 +50,41 @@ const ProfileSidebar = () => {
       {
         type: "info",
         icon: <UserIcon className={tabMenuIconClass("info")} />,
-        label: "Temel Bilgiler"
+        label: t("basic_knowledge")
       },
       {
         type: "reservations",
         icon: <FileIcon className={tabMenuIconClass("reservations")} />,
-        label: "Seyahatlerim"
+        label: t("my_travels")
       },
       {
         type: "password",
         icon: <LockIcon className={tabMenuIconClass("password")} />,
-        label: "Şifre İşlemleri"
+        label: t("password_transactions")
       },
-      {
-        type: "reviews",
-        icon: <CommentIcon className={tabMenuIconClass("reviews")} />,
-        label: "Değerlendirmelerim"
-      },
-      {
-        type: "wishlist",
-        icon: <HeartIcon className={tabMenuIconClass("wishlist")} />,
-        label: "İstek Listelerim"
-      },
-      {
-        type: "settings",
-        icon: <SettingIcon className={tabMenuIconClass("settings")} />,
-        label: "Ayarlar"
-      }
+      // {
+      //   type: "reviews",
+      //   icon: <CommentIcon className={tabMenuIconClass("reviews")} />,
+      //   label: t("my_reviews")
+      // },
+      // {
+      //   type: "wishlist",
+      //   icon: <HeartIcon className={tabMenuIconClass("wishlist")} />,
+      //   label: t("my_wishlist")
+      // }
+      //todo: geçici süreliğine gizlendi
+
+      // {
+      //   type: "settings",
+      //   icon: <SettingIcon className={tabMenuIconClass("settings")} />,
+      //   label: "Ayarlar"
+      // }
     ]
   };
 
   return (
     <div className="lg:w-80 flex flex-col gap-y-3 lg:gap-y-8">
-      <UserInfo user={user} />
+      <UserInfo />
       <div className="tabs max-w-full lg:divide-y overflow-x-auto no-scrollbar flex flex-row flex-nowrap lg:flex-col gap-4 lg:gap-0 lg:items-start lg:shadow-base-blur-10 lg:rounded-xl">
         {map(get(tabData, "tabItems"), (listingTab, key) => (
           <Link
@@ -92,7 +95,7 @@ const ProfileSidebar = () => {
               <div className="hidden lg:block">
                 <div>{get(listingTab, "icon")}</div>
               </div>
-              <span>{get(listingTab, "label")}</span>
+              <Typography variant="p2" element="span">{get(listingTab, "label")}</Typography>
             </div>
             <div className={tabMenuBorderClass(get(listingTab, "type"))}></div>
           </Link>

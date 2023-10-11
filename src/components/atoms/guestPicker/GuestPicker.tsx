@@ -9,6 +9,8 @@ import { IGuestPicker } from "@/components/atoms/guestPicker/types";
 import PlusIcon from "../../../../public/images/plus.svg";
 import MinusIcon from "../../../../public/images/minus.svg";
 import GuestsIcon from "../../../../public/images/guests.svg";
+import { useTranslations } from "next-intl";
+import Typography from "../typography/Typography";
 
 const GuestPicker = ({
   data,
@@ -18,6 +20,7 @@ const GuestPicker = ({
   contentClass = ""
 }: IGuestPicker) => {
   const dispatch = useAppDispatch();
+  const t = useTranslations();
   const { bookingGuests } = useAppSelector((state) => state.listingReducer);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -30,7 +33,7 @@ const GuestPicker = ({
         })
       );
     } else {
-      get(data, "adults") > 0 &&
+      get(data, "adults") > 1 &&
         dispatch(
           updateBookingGuests({
             ...bookingGuests,
@@ -73,8 +76,8 @@ const GuestPicker = ({
       <li className="mb-5 lg:mb-0">
         <div className="flex justify-between items-center hover:bg-white active:bg-white active:text-gray-800">
           <div className="flex flex-col">
-            <span className="text-sm lg:text-lg">Adults</span>
-            <span className="text-gray-500 text-sm">(over 18)</span>
+            <Typography variant="p3" element="span"> {t("adults")} </Typography>
+            <Typography variant="p3" element="span" className="text-gray-500">({t("over18")})</Typography>
           </div>
           <div className="flex items-center justify-center">
             <div
@@ -82,7 +85,7 @@ const GuestPicker = ({
               onClick={() => changeAdults("minus")}>
               <MinusIcon className="cursor-pointer" />
             </div>
-            <span className="mx-2">{get(data, "adults")}</span>
+            <Typography variant="p3" element="span" className="mx-2">{get(data, "adults")}</Typography>
             <div
               className="border border-gray-800 rounded-full flex items-center justify-center"
               onClick={() => changeAdults("plus")}>
@@ -102,22 +105,33 @@ const GuestPicker = ({
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
         {!isMobile && <GuestsIcon />}
         <div className="flex flex-col lg:ml-3">
-          <span
-            className={`text-sm text-gray-600 ${
-              isMobile &&
+          <Typography
+            variant="p3"
+            element="span"
+            className={`text-sm text-gray-600 ${isMobile &&
               (get(data, "adults") || get(data, "kids") || get(data, "pets")) &&
               "hidden"
-            }`}>
-            Guests
-          </span>
+              }`}>
+            {t("guests")}
+          </Typography>
           <div className={`flex ${contentClass}`}>
             {get(data, "adults") > 0 && (
-              <span className="mr-2">{get(data, "adults")} Adults</span>
+              <Typography
+                variant="p3"
+                element="span"
+                className="mr-2">
+                {get(data, "adults")} {t("adults")}
+              </Typography>
             )}
             {get(data, "kids") > 0 && (
-              <span className="mr-2">{get(data, "kids")} Kids</span>
+              <Typography
+                variant="p3"
+                element="span"
+                className="mr-2">
+                {get(data, "kids")} {t("kids")}
+              </Typography>
             )}
-            {get(data, "pets") && <span className="mr-2">Pets</span>}
+            {get(data, "pets") && <Typography variant="p3" element="span" className="mr-2">{t("pets")}</Typography>}
           </div>
         </div>
       </label>
@@ -126,8 +140,8 @@ const GuestPicker = ({
         <li className="mb-5 lg:mb-0">
           <div className="flex justify-between items-center hover:bg-white active:bg-white active:text-gray-800">
             <div className="flex flex-col">
-              <span className="text-sm lg:text-lg">Adults</span>
-              <span className="text-gray-500 text-sm">(over 18)</span>
+              <Typography variant="p3" element="span">{t("adults")}</Typography>
+              <Typography variant="p4" element="span" className="text-gray-500">({t("over18")})</Typography>
             </div>
             <div className="flex items-center justify-center">
               <div
@@ -135,7 +149,7 @@ const GuestPicker = ({
                 onClick={() => changeAdults("minus")}>
                 <MinusIcon className="cursor-pointer" />
               </div>
-              <span className="mx-2">{get(data, "adults")}</span>
+              <Typography variant="p3" element="span" className="mx-2">{get(data, "adults")}</Typography>
               <div
                 className="border border-gray-800 rounded-full flex items-center justify-center"
                 onClick={() => changeAdults("plus")}>
@@ -147,8 +161,8 @@ const GuestPicker = ({
         <li className="mb-5 lg:mb-0">
           <div className="flex justify-between items-center hover:bg-white active:bg-white active:text-gray-800">
             <div className="flex flex-col">
-              <span className="text-lg">Kids</span>
-              <span className="text-gray-500 text-sm">(0-17)</span>
+              <Typography variant="p3" element="span" className="text-lg">{t("kids")}</Typography>
+              <Typography variant="p4" element="span" className="text-gray-500">({t("0_17")})</Typography>
             </div>
             <div className="flex items-center justify-center">
               <div
@@ -156,7 +170,7 @@ const GuestPicker = ({
                 onClick={() => changeKids("minus")}>
                 <MinusIcon className="cursor-pointer" />
               </div>
-              <span className="mx-2">{get(data, "kids")}</span>
+              <Typography variant="p3" element="span" className="mx-2">{get(data, "kids")}</Typography>
               <div
                 className="border border-gray-800 rounded-full flex items-center justify-center"
                 onClick={() => changeKids("plus")}>
@@ -167,7 +181,7 @@ const GuestPicker = ({
         </li>
         <li className="mb-5 lg:mb-0">
           <div className="flex justify-between items-center hover:bg-white active:bg-white active:text-gray-800">
-            <span className="text-lg">Pets</span>
+            <Typography variant="p3" element="span">{t("pets")}</Typography>
             <input type="checkbox" className="toggle" onChange={changePets} />
           </div>
         </li>

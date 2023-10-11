@@ -1,164 +1,210 @@
-/*eslint-disable*/
 "use client";
 import { useEffect, useState } from "react";
+import {
+  map,
+  get,
+  has,
+  split,
+  isNull,
+  isEmpty,
+  toNumber,
+  includes,
+  capitalize
+} from "lodash";
 import classNames from "classnames";
-import { capitalize, get } from "lodash";
-import { useDispatch } from "react-redux";
+import { toast } from "react-hot-toast";
 import { useTranslations } from "next-intl";
-import { useAppSelector } from "@/redux/hooks";
+import { isMobile } from "react-device-detect";
+import { usePathname, useRouter } from "next/navigation";
 
-import { setAdults } from "@/redux/features/listingDetailSlice/listingDetailSlice";
+import {
+  setResPayload,
+  setBookingDate,
+  setIsBookingInfoEditing
+} from "@/redux/features/listingDetailSlice/listingDetailSlice";
+import {
+  changeIsPressCheckAvailabilityButton,
+  setDailyPrice,
+  setReservation
+} from "@/redux/features/reservationSlice/reservationSlice";
+import { checkAuth } from "@/utils/helper";
+import { basket, checkoutPreview } from "@/service/api";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IReservationCheckInCard } from "@/components/molecules/reservationCheckInCard/types";
 
 import Button from "@/components/atoms/button/Button";
-import SelectBox from "@/components/atoms/selectBox/SelectBox";
-// import DatePicker from "@/components/atoms/datePicker/DatePicker";
+import Guests from "@/components/atoms/guests/Guests";
+import DatePicker from "@/components/atoms/datePicker/DatePicker";
+import ToastMessage from "@/components/atoms/toastMessage/ToastMessage";
 
 const ReservationCheckInCard = ({
-  reservation,
+  resData,
+  searchParams,
   className = ""
 }: IReservationCheckInCard) => {
+  const router = useRouter();
   const t = useTranslations();
-  const dispatch = useDispatch();
+  const pathname = usePathname();
+  const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isDisable, setIsDisable] = useState<boolean>(true);
+  const { bookingDate, resPayload } = useAppSelector(
+    (state) => state.listingDetailReducer
+  );
+  const { bookingGuests } = useAppSelector((state) => state.listingReducer);
+  const { dailyPrice } = useAppSelector((state) => state.reservationReducer);
 
-  const [guest, setGuest] = useState<number | string>(1);
-  // const [bookingDate, setBookingDate] = useState<any>({
-  //   startDate: null,
-  //   endDate: null
-  // });
-
-  // const { adults, checkIn, checkOut, booking } = useAppSelector(
-  //   (state) => state.listingDetailReducer
-  // );
-
-  const { bookingDate } = useAppSelector((state) => state.datePickerReducer);
-
-  const options = [
-    {
-      name: "1",
-      value: 1
-    },
-    {
-      name: "2",
-      value: 2
-    },
-    {
-      name: "3",
-      value: 3
-    },
-    {
-      name: "4",
-      value: 4
-    },
-    {
-      name: "5",
-      value: 5
-    },
-    {
-      name: "6",
-      value: 6
-    },
-    {
-      name: "7",
-      value: 7
-    },
-    {
-      name: "8",
-      value: 8
-    },
-    {
-      name: "9",
-      value: 9
-    },
-    {
-      name: "10",
-      value: 10
-    }
-  ];
+  const [activeEditItem, setActiveEditItem] = useState<string>("date");
+  const { reservation } = get(resData, "item");
 
   const containerClass = classNames(
-    `w-full h-fit bg-white px-5 py-2 lg:py-8 lg:relative lg:rounded-3xl border border-gray-100 shadow-lg shadow-black lg:shadow-gray-200 fixed bottom-0 z-50 lg:z-0 font-mi-sans-semi-bold ${className}`,
+    `w-screen lg:w-full h-fit bg-white px-4 lg:px-5 py-2 lg:py-8 lg:relative lg:rounded-3xl border border-gray-100 shadow-lg shadow-black lg:shadow-gray-200 fixed bottom-0 left-0 z-30 lg:z-0 font-mi-sans-semi-bold ${className}`,
     {}
   );
 
-  // useEffect(() => {
-  //   dispatch(
-  //     updateBookingDate({
-  //       // startDate: moment(get(bookingDate, "startDate")).toISOString(),
-  //       startDate: get(bookingDate, "startDate"),
-  //       endDate: get(bookingDate, "endDate")
-  //       // endDate: moment(get(bookingDate, "endDate")).toISOString()
-  //     })
-  //   );
-  // }, [bookingDate]);
+  const reservBtnClass = classNames(`lg:flex text-xl font-mi-sans border-0`, {
+    "bg-gradient-to-tr from-[#E1004C] to-[#F8479E]": !isDisable,
+    "w-full": !isMobile,
+    "w-auto": isMobile
+  });
 
-  // useEffect(() => {
-  //   dispatch(
-  //     updateBookingDate({
-  //       starDate: get(bookingDate, "startDate")
-  //         ? moment(get(bookingDate, "startDate")).format("YYYY-MM-DD")
-  //         : null,
-  //       endDate: get(bookingDate, "endDate")
-  //         ? moment(get(bookingDate, "endDate")).format("YYYY-MM-DD")
-  //         : null
-  //     })
-  //   );
-  // }, []);
+  const handleChangeDate = (date) => dispatch(setBookingDate(date));
+
+  const handleApply = async () => {
+    if (
+      !get(resData, "item.reservation.is_available") &&
+      !isEmpty(searchParams)
+    ) {
+      return;
+    }
+
+    setIsLoading(true);
+    dispatch(changeIsPressCheckAvailabilityButton(true));
+    if (!checkAuth()) return router.push("/login");
+
+    const payload = {
+      ...resPayload,
+      check_in: get(bookingDate, "startDate").format("YYYY-MM-DD"),
+      check_out: get(bookingDate, "endDate").format("YYYY-MM-DD"),
+      adults: toNumber(get(bookingGuests, "adults")),
+      kids: toNumber(get(bookingGuests, "kids")),
+      pets: toNumber(get(bookingGuests, "pets"))
+    };
+
+    const result = includes(split(pathname, "/"), "reservation")
+      ? await checkoutPreview(payload)
+      : await basket(payload);
+    const { data } = result;
+
+    (!!get(data, "code") || !data) && setIsLoading(false);
+    if (get(data, "data.item.reservation.is_available")) {
+      dispatch(
+        setDailyPrice(
+          get(data, "data.item.reservation.price.average_daily_price")
+        )
+      );
+      dispatch(setResPayload(payload));
+      dispatch(setIsBookingInfoEditing(false));
+      dispatch(setReservation(get(data, "data.item.reservation")));
+    } else {
+      toast.custom((item) => (
+        <ToastMessage
+          toast={toast}
+          item={item}
+          title={t("toast_error")}
+          status="warning">
+          <p className="text-xl text-black">{t("no_availability")}</p>
+        </ToastMessage>
+      ));
+    }
+  };
 
   useEffect(() => {
-    dispatch(setAdults(guest));
-  }, [guest]);
+    dispatch(
+      setDailyPrice(
+        has(get(reservation, "price"), "average_daily_price")
+          ? get(reservation, "price.average_daily_price")
+          : get(reservation, "price")
+      )
+    );
+  }, [get(reservation, "price")]);
+
+  const unavailableDates = map(get(resData, "item.unavailable_dates"), "date");
+
+  const handleUnavailableDates = (day) => {
+    return includes(unavailableDates, day.format("DD.MM.YYYY"));
+  };
+
+  useEffect(() => {
+    setIsDisable(
+      isLoading ||
+      isNull(get(bookingDate, "startDate")) ||
+      isNull(get(bookingDate, "endDate"))
+    );
+  }, [isLoading, get(bookingDate, "startDate"), get(bookingDate, "endDate")]);
 
   return (
     <div className={containerClass}>
       <div className="flex flex-col gap-y-6">
-        <h2 className="text-2xl font-mi-sans font-normal text-gray-800">
-          {get(reservation, "price")}
-          <span className="text-sm text-gray-400">{` /${t("nightly")}`}</span>
-        </h2>
-        <div>
+        <div className="flex flex-col flex-1 lg:w-full">
+          <h2 className="text-2xl font-mi-sans font-normal text-gray-800 hidden lg:block">
+            {get(reservation, "is_available") ||
+              (isEmpty(searchParams) && (
+                <span className="text-gray-400 flex items-end gap-x-1">
+                  <span className="text-28 text-gray-800">{dailyPrice}</span>
+                  <span className="text-sm">/{t("nightly")}</span>
+                </span>
+              ))}
+          </h2>
           <div>
-            <label className="label text-lg tex-gray-500" htmlFor="date">
-              Dates
-            </label>
-            <div name="date">
-              {/*todo: datepicker sorunu çözülecek*/}
-              {/*<DatePicker*/}
-              {/*  isShowLabel={false}*/}
-              {/*  className="border"*/}
-              {/*  isOpenedStyle={false}*/}
-              {/*  numberOfMonths={1}*/}
-              {/*  // bookingDate={bookingDate}*/}
-              {/*  // setBookingDate={setBookingDate}*/}
-              {/*  setSkipButtonVisibility={true}*/}
-              {/*/>*/}
-            </div>
-          </div>
-          <div>
-            <label className="label text-lg tex-gray-500" htmlFor="adults">
-              Guests
-            </label>
-            <div name="adults">
-              <SelectBox
-                className="rounded-xl w-full h-10"
-                id="adults"
-                options={options}
-                name="adults"
-                onChange={({ target }) => setGuest(target.value)}
-                value={guest}
+            <label className="label text-lg text-gray-500">{t("dates")}</label>
+            <div>
+              <DatePicker
+                isOutsideRange={handleUnavailableDates}
+                minimumNights={get(resData, "item.min_nights")}
+                isShowLabel={false}
+                numberOfMonths={1}
+                date={bookingDate}
+                setDate={handleChangeDate}
+                daySize={isMobile ? 44 : 50}
+                withDatePreview={true}
+                showCalendarIcon={false}
+                customOpenHandler={() => setActiveEditItem("date")}
+                customOpenStatement={activeEditItem}
               />
             </div>
           </div>
+          <div>
+            <label className="label text-lg text-gray-500" htmlFor="adults">
+              {t("guests")}
+            </label>
+            <Guests
+              isInListingDetail={true}
+              showIcon={false}
+              placeholder=""
+              customOpenHandler={() => setActiveEditItem("guests")}
+              customOpenStatement={activeEditItem}
+            />
+          </div>
         </div>
-        <div>
+        <div className="w-full flex justify-between items-center  ">
+          <h2 className="text-2xl font-mi-sans font-normal text-gray-800 lg:hidden">
+            {get(reservation, "is_available") ||
+              (isEmpty(searchParams) && (
+                <span className="text-gray-400 flex items-end gap-x-1">
+                  <span className="text-28 text-gray-800">{dailyPrice}</span>
+                  <span className="text-sm">/{t("nightly")}</span>
+                </span>
+              ))}
+          </h2>
           <Button
-            disabled={
-              false
-              // isEmpty(get(bookingDate, "startDate")) ||
-              // isEmpty(get(bookingDate, "endDate"))
-            }
-            className="hidden lg:block text-xl font-mi-sans w-full border-0 enabled:bg-gradient-to-tr enabled:from-[#E1004C] to-[#F8479E]">
-            {capitalize(t("reserve"))}
+            onClick={handleApply}
+            disabled={isDisable}
+            className={reservBtnClass}>
+            {get(reservation, "is_available")
+              ? capitalize(t("reserve"))
+              : "Check Availability"}
+            {isLoading && <span className="loading loading-spinner"></span>}
           </Button>
         </div>
       </div>

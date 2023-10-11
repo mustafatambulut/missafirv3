@@ -6,6 +6,7 @@ import { IFooterMenu } from "@/components/molecules/footerMenu/types";
 
 export interface IDrawer {
   data: IDrawerData;
+  variant: "light" | "dark";
 }
 
 export interface IDrawerData {

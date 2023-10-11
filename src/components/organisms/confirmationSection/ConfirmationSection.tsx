@@ -1,80 +1,66 @@
 "use client";
 import { ReactNode } from "react";
+import moment from "moment";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { get, map, take } from "lodash";
 import { useTranslations } from "use-intl";
+import { useRouter } from "next/navigation";
 import { isMobile } from "react-device-detect";
 
 import { useAppSelector } from "@/redux/hooks";
 import { IConfirmationSection } from "@/components/organisms/confirmationSection/types";
 
-import Collapse from "@/components/atoms/collapse/Collapse";
+import Loading from "@/components/atoms/loading/Loading";
 import Slider from "@/components/molecules/slider/Slider";
+import ReservationConfirmationSkeleton from "@/components/molecules/skeletons/reservationConfirmationSkeleton/ReservationConfirmationSkeleton";
 
-import Key from "../../../../public/images/key.svg";
-import Clock from "../../../../public/images/clock.svg";
-import BrokenLink from "../../../../public/images/broken_link.svg";
+import BathIcon from "../../../../public/images/bath.svg";
+import SquareIcon from "../../../../public/images/square.svg";
+import PencilIcon from "../../../../public/images/pencil.svg";
+import UserIcon from "../../../../public/images/user_dark.svg";
+import BedroomIcon from "../../../../public/images/bedroom.svg";
+import CalendarIcon from "../../../../public/images/calendar.svg";
+
+const AllDetail = dynamic(
+  () => import("@/components/molecules/allDetail/AllDetail"),
+  {
+    ssr: false
+  }
+);
 
 const ConfirmationSection = ({ className = "" }: IConfirmationSection) => {
+  const router = useRouter();
   const t = useTranslations();
-  const { entities } = useAppSelector((state) => state.reservationReducer);
-
-  const HouseRulesComponent = (): ReactNode => {
-    return (
-      <div className="flex flex-col gap-y-6">
-        <h1 className="text-xl">{t("house_rules")}</h1>
-        {map(get(entities, "details[1].homeRules"), (rule, key) => (
-          <div className="flex items-start gap-x-3" key={key}>
-            <Image src={get(rule, "img")} width="22" height="22" alt="" />
-            <p className="text-lg text-gray-500 font-normal font-mi-sans">
-              {t(get(rule, "text"))}
-            </p>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
+  const { detail } = useAppSelector((state) => state.reservationReducer);
+  const { resPayload } = useAppSelector((state) => state.listingDetailReducer);
+  if (!detail) return router.back();
+// todosx
   const PropertiesComponent = (): ReactNode => {
     return (
-      <div className="flex gap-x-6 text-15 font-mi-sans text-gray-600">
-        {map(get(entities, "details.properties"), (prop, key) => (
-          <span key={key}>{prop}</span>
-        ))}
-      </div>
-    );
-  };
-
-  const KeyInfoComponent = (): ReactNode => {
-    return (
-      <div className="flex flex-col gap-y-8 text-gray-500 font-normal font-mi-sans">
-        <h1 className="text-xl -mb-3 text-gray-800">{t("key_info")}</h1>
-        <div className="flex gap-x-3">
-          <Clock />
-          <div className="flex gap-x-6">
-            <div className="flex flex-col gap-y-1">
-              <span>Check-in from</span>
-              <span>16:00</span>
-            </div>
-            <div className="flex flex-col gap-y-1">
-              <span>Check-out by</span>
-              <span>11:00</span>
-            </div>
+      <article className="text-15 text-gray-600">
+        <div className="flex gap-x-5 my-4">
+          <div className="flex gap-x-2 items-center">
+            <BedroomIcon className="hidden lg:block" />
+            {get(detail, "item.rooms_bedrooms_count")}
+            <span>{t("bedroom")}</span>
+          </div>
+          <div className="flex gap-x-2 items-center">
+            <BathIcon className="hidden lg:block" />
+            {get(detail, "item.rooms_bathrooms_count")}
+            <span>{t("bathroom")}</span>
+          </div>
+          <div className="flex gap-x-2 items-center">
+            <SquareIcon className="hidden lg:block" />
+            {get(detail, "item.space")}
+            <span>m²</span>
           </div>
         </div>
-        <div className="flex gap-x-3">
-          <Key />
-          <p>{get(entities, "details[0].keyInfo.info[0]")}</p>
-        </div>
-        <div className="flex gap-x-3">
-          <BrokenLink />
-          <p>{get(entities, "details[0].keyInfo.info[1]")}</p>
-        </div>
-      </div>
+      </article>
     );
   };
 
-  const MobileImageComponent = () => {
+  const MobileImageComponent = (): ReactNode => {
     return (
       <>
         {isMobile && (
@@ -84,14 +70,14 @@ const ConfirmationSection = ({ className = "" }: IConfirmationSection) => {
             sliderIdentifier="booking-slider"
             slidesPerView={isMobile ? 1 : 2}
             spaceBetween={isMobile ? 12 : 20}>
-            {map(get(entities, "images"), (src, key) => (
+            {map(get(detail, "item.pictures"), ({ path, caption }, key) => (
               <Image
                 key={key}
                 priority
-                src={src}
+                src={path || "/"}
                 width={500}
                 height={300}
-                alt="image"
+                alt={caption}
                 className="rounded-3xl w-auto"
               />
             ))}
@@ -101,73 +87,133 @@ const ConfirmationSection = ({ className = "" }: IConfirmationSection) => {
     );
   };
 
-  const ImageComponent = () => (
+  const ImageComponent = (): ReactNode => (
     <div className="hidden lg:flex gap-x-5">
-      {map(take(get(entities, "images"), 2), (src, key) => (
+      {map(take(get(detail, "item.pictures"), 2), ({ path, caption }, key) => (
         <Image
           key={key}
           priority
-          src={src}
+          src={path || "/"}
           width={440}
           height={248}
-          alt="image"
+          alt={caption}
           className="rounded-3xl 2xl:w-full"
         />
       ))}
     </div>
   );
 
-  const AllDetailComponent = () => (
-    <div className="gap-y-6 text-lg hidden lg:block">
-      <h1 className="mb-6 text-2xl font-semibold text-gray-800">
-        {t("all_details")}
-      </h1>
-      <div className="flex flex-row gap-x-60 xl:gap-x-80">
-        <KeyInfoComponent />
-        <HouseRulesComponent />
+  const renderInfoSection = () => {
+    return isMobile ? (
+      <div className="flex bg-gray-50 w-full lg:hidden p-3 justify-between items-center rounded-2xl">
+        <div className="flex items-center gap-x-6">
+          <div className="flex flex-col">
+            <div className="flex gap-x-2 text-gray-800 font-mi-sans-semi-bold text-base">
+              <div>{moment(get(detail, "check_in")).format("DD MMM")}</div>
+              <span>-</span>
+              <div>{moment(get(detail, "check_out")).format("DD MMM")}</div>
+            </div>
+            <div className="text-gray-600 text-sm flex">
+              {get(detail, "item.reservation.price.total_nights")}-
+              {t("night_stay")}
+            </div>
+          </div>
+          <PencilIcon />
+        </div>
+        <div className="flex items-center gap-x-6">
+          <div className="flex flex-col">
+            <div className="text-sm text-gray-600">{t("total_guest")}</div>
+            <div className="text-base text-gray-800 font-mi-sans-semi-bold">
+              {get(detail, "adults") || 1} {t("guest")}
+            </div>
+          </div>
+          <PencilIcon />
+        </div>
       </div>
-    </div>
-  );
-
-  const MobileAllDetailComponent = () => (
-    <Collapse
-      className="gap-y-6 text-lg lg:hidden"
-      titleClass="text-2xl font-semibold text-gray-800 border-b p-0"
-      title={t("all_details")}>
-      <div className="flex flex-col gap-y-6 gap-x-60">
-        <KeyInfoComponent />
-        <HouseRulesComponent />
+    ) : (
+      <div className="flex gap-5 flex-wrap">
+        <div className="flex bg-gray-100 py-3 px-4 rounded-xl  gap-x-4 items-center">
+          <div>
+            <CalendarIcon className="fill-gray-800 scale-125" />
+          </div>
+          <div>
+            <h5 className="text-xl text-gray-700 font-semibold">
+              {t("check_in")}
+            </h5>
+            <p className="text-lg text-gray-500">{`${moment(
+              get(resPayload, "check_in")
+            ).format("DD MMM YYYY")} ${get(detail, "item.check_in_time")}`}</p>
+          </div>
+        </div>
+        <div className="flex bg-gray-100 py-3 px-4 rounded-xl  gap-x-4 items-center">
+          <div>
+            <CalendarIcon className="fill-gray-800 scale-125" />
+          </div>
+          <div>
+            <h5 className="text-xl text-gray-700 font-semibold">
+              {t("check_out")}
+            </h5>
+            <p className="text-lg text-gray-500">
+              {`${moment(get(resPayload, "check_out")).format(
+                "DD MMM YYYY"
+              )} ${get(detail, "item.check_out_time")}`}
+            </p>
+          </div>
+        </div>
+        <div className="flex bg-gray-100 py-3 px-4 rounded-xl  gap-x-4 items-center">
+          <div>
+            <UserIcon className="fill-gray-800 scale-150" />
+          </div>
+          <div>
+            <h5 className="text-xl text-gray-500 text-gray-700 font-semibold">
+              {get(resPayload, "adults") || get(detail, "adults")} {t("guest")}
+            </h5>
+          </div>
+        </div>
       </div>
-    </Collapse>
-  );
+    );
+  };
 
   return (
-    <div className={`flex flex-col gap-y-4 lg:gap-y-9 text-28 ${className}`}>
-      <h1 className="text-22 text-center font-semibold text-gray-800 py-0 my-0 lg:hidden">
-        {t("confirmation")}
-      </h1>
-      <h1 className="text-28 font-semibold text-gray-800 hidden lg:block">
-        {t("review_your_booking_details")}
-      </h1>
-      <section>
-        {/*todo: refactor edilecek.*/}
-        <ImageComponent />
-        <MobileImageComponent />
-      </section>
-      <div>
-        <div className="flex flex-col-reverse lg:flex-col">
-          <h1 className="text-lg lg:text-28 font-semibold text-gray-800 mb-2 lg:mb-3">
-            {get(entities, "title")}
-          </h1>
-          <p className="lg:mb-4 text-lg text-gray-400 font-normal">
-            {get(entities, "location")}
-          </p>
+    <Loading isLoading={!detail} loader={<ReservationConfirmationSkeleton />}>
+      <div className={`flex flex-col gap-y-4 lg:gap-y-9 text-28 ${className}`}>
+        <h1 className="text-22 text-center font-semibold text-gray-800 py-0 my-0 lg:hidden">
+          {t("confirmation")}
+        </h1>
+        <h1 className="text-28 font-semibold text-gray-800 hidden lg:block">
+          {t("review_your_booking_details")}
+        </h1>
+        <section>
+          {/*todo: refactor edilecek.*/}
+          <ImageComponent />
+          <MobileImageComponent />
+        </section>
+        <div>
+          <div className="flex flex-col-reverse lg:flex-col">
+            <h1 className="text-lg lg:text-28 font-semibold text-gray-800 mb-2 lg:mb-3">
+              {get(detail, "item.title")}
+            </h1>
+            <p className="lg:mb-4 text-lg text-gray-400 font-normal">
+              {`${get(detail, "item.district.name")}, ${get(
+                detail,
+                "item.city.name"
+              )}`}
+            </p>
+          </div>
+          <PropertiesComponent />
+          {renderInfoSection()}
         </div>
-        <PropertiesComponent />
+        <AllDetail
+          detail={{
+            self_check_in: get(detail, "item.self_check_in"),
+            check_in_time: get(detail, "item.check_in_time"),
+            check_out_time: get(detail, "item.check_out_time"),
+            cancelation_policy: get(detail, "item.cancelation_policy"),
+            house_rules: get(detail, "item.house_rules")
+          }}
+        />
       </div>
-      <AllDetailComponent />
-      <MobileAllDetailComponent />
-    </div>
+    </Loading>
   );
 };
 

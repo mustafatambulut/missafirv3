@@ -8,4 +8,5 @@ export interface IReadMore {
   showLabel?: string;
   lessLabel?: string;
   children: ReactNode | string;
+  showAsHtml?: boolean;
 }

@@ -15,6 +15,7 @@ import Loading from "@/components/atoms/loading/Loading";
 import TabTitle from "@/components/atoms/tabTitle/TabTitle";
 import Section from "@/components/molecules/section/Section";
 import TabContent from "@/components/molecules/tabContent/TabContent";
+import TechExperienceSkeleton from "@/components/molecules/skeletons/techExperienceSkeleton/TechExperienceSkeleton";
 
 const TechExperience = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -35,10 +36,9 @@ const TechExperience = () => {
   }, [techExperience]);
 
   return (
-    <Loading isLoading={!techExperience} loader={<p>Loading feed...</p>}>
-      {/*todo: skeleton eklenecek*/}
+    <Loading isLoading={!techExperience} loader={<TechExperienceSkeleton />}>
       <Section
-        className="px-4 lg:px-8 mt-14"
+        className="px-2 lg:px-8 mt-14"
         title={get(techExperience, "header.title")}
         description={get(techExperience, "header.description")}>
         <div className="tab-container w-full">
@@ -50,6 +50,7 @@ const TechExperience = () => {
                 title={title}
                 activeTab={activeTab}
                 onClick={() => setActiveTab(key)}
+                className="line-clamp-1"
               />
             ))}
           </div>

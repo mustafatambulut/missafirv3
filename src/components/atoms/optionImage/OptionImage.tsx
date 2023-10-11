@@ -13,7 +13,7 @@ const OptionImage = ({
     <div className={`${className}`}>
       {src && (
         <Image
-          src={src}
+          src={src || "/"}
           className={imageClassName}
           alt="image"
           width={width}

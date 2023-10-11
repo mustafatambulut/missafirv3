@@ -4,4 +4,5 @@ import { IFilterData } from "@/components/molecules/filter/types";
 export interface IListing {
   listing: IListingData;
   filterData: IFilterData;
+  inListingResults?: boolean;
 }

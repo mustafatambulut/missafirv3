@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import Image from "next/image";
 import classNames from "classnames";
 import { filter, get, map, size } from "lodash";
@@ -12,6 +12,7 @@ import SearchIcon from "../../../../public/images/search.svg";
 import HistoryIcon from "../../../../public/images/history.svg";
 import LocationIcon from "../../../../public/images/location.svg";
 import { ISelect } from "@/components/atoms/select/types";
+import { useTranslations } from "next-intl";
 
 const Select = ({
   items,
@@ -38,28 +39,34 @@ const Select = ({
   searchIconPosition = "left",
   placeholderClassName = null,
   controlTitleClassName = null,
-  controlWrapperClassName = ""
+  controlWrapperClassName = "",
+  filterOption = null,
+  valueContainerClassName = null,
+  rotateIconOnShow = false,
+  menuClassName = null,
+  isDisabled = false
 }: ISelect) => {
+  const t = useTranslations();
+  //todo: düzenlenecek
+  const [isOpen, setIsOpen] = useState(false);
   const searchClass = classNames(`w-full ${className}`);
   const controlWrapperClass = classNames(
-    `rounded-lg border-none shadow-none text-left ${controlWrapperClassName}`,
-    {
-      "pl-10":
-        (customIcon && customIconPosition === "left") ||
-        (showSearchIcon && searchIconPosition === "left"),
-      "pr-10":
-        (customIcon && customIconPosition === "right") ||
-        (showSearchIcon && searchIconPosition === "right")
-    }
+    `rounded-lg border-none shadow-none text-left bg-transparent ${controlWrapperClassName}`
   );
-  const controlInnerClass = classNames(`w-full text-gray-800 ${className}`);
+  const controlInnerClass = classNames(`w-full ${className}`, {
+    "text-gray-800 ": !isDisabled,
+    "text-gray-200": isDisabled
+  });
   const customIconClass = classNames(
-    "absolute top-[50%] transform translate-y-[-50%]",
+    "absolute top-[50%] transform translate-y-[-50%] transition-all transform",
     {
       "left-0": customIconPosition === "left" && !iconOffset,
       "right-0": customIconPosition === "right" && !iconOffset,
       "left-2": customIconPosition === "left" && iconOffset,
-      "right-2": customIconPosition === "right" && iconOffset
+      "right-2": customIconPosition === "right" && iconOffset,
+      "rotate-180": rotateIconOnShow && isOpen,
+      "invert-[.96] sepia-[.07] saturate-[.74] hue-rotate-[161deg] brightness-[.97] contrast-[.9]":
+        isDisabled
     }
   );
   const searchIconClass = classNames(
@@ -74,22 +81,53 @@ const Select = ({
     }
   );
 
+  const menuClass = classNames(
+    "rounded-xl mt-5 shadow-none lg:shadow-md z-50",
+    {
+      [menuClassName]: menuClassName
+    }
+  );
+
   const controlTitleClass = classNames("w-full", {
     "text-gray-600 text-sm": !controlTitleClassName,
     [controlTitleClassName]: controlTitleClassName,
+    "text-gray-200": isDisabled,
     block: showControlTitle,
-    hidden: !showControlTitle
+    hidden: !showControlTitle,
+    "ml-7":
+      (customIcon && customIconPosition === "left") ||
+      (showSearchIcon && searchIconPosition === "left"),
+    "mr-7":
+      showSearchIcon ||
+      (customIcon && customIconPosition === "right") ||
+      (showSearchIcon && searchIconPosition === "right")
   });
   const placeholderClass = classNames("w-full", {
-    "text-gray-600 text-base lg:text-lg font-mi-semi-bold":
+    "text-base lg:text-lg font-mi-semi-bold":
       !placeholderClassName,
     [placeholderClassName]: placeholderClassName,
+    "text-gray-200": !placeholderClassName && isDisabled || placeholderClassName && isDisabled,
+    "text-gray-600 ": !placeholderClassName && !isDisabled,
     block: showPlaceholder,
     hidden: !showPlaceholder
   });
+  const valueContainerClass = classNames("px-0", {
+    [valueContainerClassName]: valueContainerClassName,
+    "ml-7":
+      (customIcon && customIconPosition === "left") ||
+      (showSearchIcon && searchIconPosition === "left"),
+    "mr-7":
+      showSearchIcon ||
+      (customIcon && customIconPosition === "right") ||
+      (showSearchIcon && searchIconPosition === "right")
+  });
   return (
     <ReactSelect
+      isDisabled={isDisabled}
       name={name}
+      {...(filterOption && {
+        filterOption: filterOption
+      })}
       {...(value && {
         value: filter(items, (item) => item.value === value)
       })}
@@ -104,30 +142,33 @@ const Select = ({
       isSearchable={isSearchable}
       inputId={`input-${searchId}`}
       instanceId={`select-${searchId}`}
+      backspaceRemovesValue={true}
       components={{
         DropdownIndicator: () => null,
         IndicatorSeparator: () => null,
         LoadingIndicator: () => null,
-        Control: (props) => (
-          <components.Control className={controlWrapperClass} {...props}>
-            <div className={controlInnerClass}>
-              {showSearchIcon && (
-                <div className={searchIconClass}>
-                  <SearchIcon className={searchIconClass} />
-                </div>
-              )}
-              {customIcon && (
-                <div className={customIconClass}>{customIcon}</div>
-              )}
-              <div className="flex-wrap flex w-full h-full">
-                {controlTitle && (
-                  <div className={controlTitleClass}>{controlTitle}</div>
+        Control: (props) => {
+          return (
+            <components.Control className={controlWrapperClass} {...props}>
+              <div className={controlInnerClass}>
+                {showSearchIcon && (
+                  <div className={searchIconClass}>
+                    <SearchIcon className={searchIconClass} />
+                  </div>
                 )}
-                {get(props, "children")}
+                {customIcon && (
+                  <div className={customIconClass}>{customIcon}</div>
+                )}
+                <div className="flex-wrap flex w-full h-full">
+                  {controlTitle && (
+                    <div className={controlTitleClass}>{controlTitle}</div>
+                  )}
+                  {get(props, "children")}
+                </div>
               </div>
-            </div>
-          </components.Control>
-        ),
+            </components.Control>
+          );
+        },
         Placeholder: (props) => (
           <components.Placeholder className="m-0" {...props}>
             <div className={placeholderClass}>
@@ -144,14 +185,16 @@ const Select = ({
                 props,
                 "selectProps.noOptionsMessageInnerClassName"
               )}`}>
-              {noResultsMessage ? <>{noResultsMessage}</> : <>No results</>}
+              {noResultsMessage ? (
+                <>{noResultsMessage}</>
+              ) : (
+                <> {t("no_results")} </>
+              )}
             </div>
           </components.NoOptionsMessage>
         ),
         Menu: (props) => (
-          <components.Menu
-            className="rounded-xl mt-5 z-20 shadow-none lg:shadow-md z-50"
-            {...props}>
+          <components.Menu className={menuClass} {...props}>
             <div className={`${get(props, "selectProps.menuInnerClassName")}`}>
               {get(props, "children")}
             </div>
@@ -185,33 +228,35 @@ const Select = ({
           );
         },
         Input: (props) => (
-          <components.Input
-            className={`m-0 p-0 ${
-              isMobile ? "rsi-container absolute w-full" : null
-            }`}
-            {...props}>
+          <components.Input className={`m-0 p-0 w-full`} {...props}>
             {get(props, "children")}
           </components.Input>
         ),
         ValueContainer: (props) => (
-          <components.ValueContainer className="pl-0" {...props}>
+          <components.ValueContainer className={valueContainerClass} {...props}>
             {get(props, "children")}
           </components.ValueContainer>
         ),
         IndicatorsContainer: (props) => (
           <components.IndicatorsContainer
-            className="absolute right-2 top-[50%] transform translate-y-[-50%]"
+            className="absolute right-0 top-[50%] transform translate-y-[-50%]"
             {...props}>
             {get(props, "children")}
           </components.IndicatorsContainer>
         ),
-        ClearIndicator: (props) => (
-          <components.ClearIndicator
-            className={`${get(props, "selectProps.clearIndicatorClassName")}`}
-            {...props}>
-            <ClearIcon />
-          </components.ClearIndicator>
-        ),
+        ClearIndicator:
+          customIconPosition === "right"
+            ? null
+            : (props) => (
+                <components.ClearIndicator
+                  className={`${get(
+                    props,
+                    "selectProps.clearIndicatorClassName"
+                  )}`}
+                  {...props}>
+                  <ClearIcon />
+                </components.ClearIndicator>
+              ),
         Option: (props) => {
           const image = get(props, "data.image");
           const isPopularDestinations = get(
@@ -223,9 +268,8 @@ const Select = ({
               className="bg-transparent text-left cursor-pointer m-0 pt-2 pb-0 px-0 lg:px-3"
               {...props}>
               <div
-                className={`${
-                  isPopularDestinations && "text-center"
-                } rounded flex items-start p-1`}>
+                className={`${isPopularDestinations && "text-center"
+                  } rounded flex items-start p-1`}>
                 {showOptionIcon && (
                   <>
                     {!isPopularDestinations ? (
@@ -238,9 +282,8 @@ const Select = ({
                   </>
                 )}
                 <div
-                  className={`flex flex-col ${
-                    !isPopularDestinations && "ml-2"
-                  }`}>
+                  className={`flex flex-col ${!isPopularDestinations && "ml-2"
+                    }`}>
                   {image && (
                     <Image
                       src={`/images/${image}`}
@@ -266,10 +309,9 @@ const Select = ({
         GroupHeading: (props) => (
           <components.GroupHeading className="px-4" {...props}>
             <div
-              className={`${
-                size(get(props, "selectProps.options")) > 1 &&
+              className={`${size(get(props, "selectProps.options")) > 1 &&
                 "border-t pt-4 mt-3"
-              } text-left normal-case text-gray-500 text-sm font-mi-semi-bold`}>
+                } text-left normal-case text-gray-500 text-sm font-mi-semi-bold`}>
               {get(props, "children")}
             </div>
           </components.GroupHeading>

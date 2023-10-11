@@ -11,7 +11,7 @@ import {
   ICity,
   ICityAttributes
 } from "@/components/molecules/cities/types";
- 
+
 import Card from "@/components/atoms/card/Card";
 import Loading from "@/components/atoms/loading/Loading";
 import Slider from "@/components/molecules/slider/Slider";
@@ -20,20 +20,22 @@ import Section from "@/components/molecules/section/Section";
 import "./Cities.css";
 import NextIcon from "../../../../public/images/arrow_right.svg";
 import PreviousIcon from "../../../../public/images/arrow_left.svg";
+import CitiesSkeleton from "../skeletons/citiesSkeleton/CitiesSkeleton";
+import Typography from "@/components/atoms/typography/Typography";
 
 const CustomNavigation = () => {
   return (
     <>
-      <div className="cities swiper-button-prev rounded-full shadow w-[60px] h-[60px] after:hidden hidden lg:flex left-auto right-20 top-[-50px]">
+      <div className="cities swiper-button-prev rounded-full shadow w-[60px] h-[60px] after:hidden bg-none p-0 hidden lg:flex left-auto right-20 top-[-50px]">
         <PreviousIcon className="fill-primary" />
       </div>
-      <div className="cities swiper-button-next rounded-full shadow w-[60px] h-[60px] after:hidden hidden lg:flex top-[-50px]">
+      <div className="cities swiper-button-next rounded-full shadow w-[60px] h-[60px] after:hidden bg-none p-0 hidden lg:flex top-[-50px]">
         <NextIcon className="fill-primary" />
       </div>
     </>
   );
 };
- 
+
 const Cities = () => {
   const cities = useFetchData<ICity>(BODY, CITY_SECTION);
   const CardComponent = ({ city }: ICityAttributes) => {
@@ -42,7 +44,7 @@ const Cities = () => {
         <div className="w-full h-40 lg:h-60 relative">
           {get(city, "attributes.image") && (
             <Image
-              src={get(city, "attributes.image")}
+              src={get(city, "attributes.image") || "/"}
               alt="image"
               className="object-cover rounded-2xl"
               fill={true}
@@ -50,26 +52,26 @@ const Cities = () => {
           )}
         </div>
         <div className="p-2">
-          <h2 className="font-mi-sans-semi-bold text-22 lg:text-28 text-[#515151]">
+          <Typography element="h6" variant="h6" className="text-gray-800">
             {get(city, "attributes.title")}
-          </h2>
-          <p className="text-lg lg:text-xl text-[#A9A9A9]">
+          </Typography>
+          <Typography element="p" variant="p4" className="text-gray-500 mt-2">
             {get(city, "attributes.description")}
-          </p>
+          </Typography>
         </div>
       </Card>
     );
   };
 
   return (
-    <Loading isLoading={!cities} loader={<p>Loading feed...</p>}>
-      {/*todo: skeleton eklenecek*/}
+    <Loading isLoading={!cities} loader={<CitiesSkeleton />}>
       <Section
-        className="px-4 lg:px-8 mt-14"
+        className="px-2 lg:px-8 mt-14"
         title={get(cities, "header.title")}
         description={get(cities, "header.description")}>
         <Slider
           sliderIdentifier="cities"
+          autoHiddenNavigation={false}
           slidesPerView={isMobile ? 1 : 3}
           spaceBetween={isMobile ? 12 : 14}
           customNavigation={<CustomNavigation />}

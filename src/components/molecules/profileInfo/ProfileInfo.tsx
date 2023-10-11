@@ -1,88 +1,116 @@
 "use client";
 import * as Yup from "yup";
+import moment from "moment";
 import { get } from "lodash";
 import { useEffect } from "react";
 import { useFormik } from "formik";
-import { IMaskInput } from "react-imask";
-import PhoneInput from "react-phone-input-2";
+import PhoneInput from "@/components/atoms/phoneInput/PhoneInput";
+import { IMaskInput, IMask } from "react-imask";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 import { fetchProfileData, updateProfile } from "@/redux/features/profileSlice";
 
 import Input from "@/components/atoms/input/Input";
 import Button from "@/components/atoms/button/Button";
+import Checkbox from "@/components/atoms/checkbox/Checkbox";
 
 import "react-phone-input-2/lib/style.css";
 import "react-datepicker/dist/react-datepicker.css";
-import moment from "moment";
-import Checkbox from "@/components/atoms/checkbox/Checkbox";
+import { useTranslations } from "next-intl";
+import Typography from "@/components/atoms/typography/Typography";
 
 const ProfileInfo = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.profileReducer);
-
+  const t = useTranslations();
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   //todo: dil dosyaları düzenlenecek
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .email("Email hatalı")
-      .max(50, "Email çok uzun")
-      .required("Zorunlu alan"),
-    phone: Yup.string().required("Zorunlu alan"),
-    gender: Yup.string().required("Zorunlu alan"),
-    address: Yup.string().required("Zorunlu alan"),
-    fullname: Yup.string().required("Zorunlu alan"),
-    birthday: Yup.string().required("Zorunlu alan")
+    phone: Yup.string()
+      .matches(phoneRegExp, "phone_number_is_not_valid")
+      .required(t("required_field")),
+    gender: Yup.string().required(t("required_field")),
+    address: Yup.string().required(t("required_field")),
+    fullname: Yup.string().required(t("required_field")),
+    birthday: Yup.string().required(t("required_field"))
   });
 
   const initialValues = {
-    email: "",
-    phone: "",
-    gender: "",
-    address: "",
-    fullname: "",
-    birthday: "",
-    is_newsletter: false
+    phone: get(user, "phone"),
+    gender: get(user, "gender"),
+    address: get(user, "address"),
+    fullname: get(user, "fullname"),
+    birthday: moment(get(user, "birthday", ""), "YYYY-MM-DD").format(
+      "DD-MM-YYYY"
+    ),
+    is_newsletter: get(user, "is_newsletter")
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema,
+    enableReinitialize: true,
     onSubmit: async (values) => {
-      // todo: event eklenecek
-      //alert(JSON.stringify(values));
-      dispatch(updateProfile(values));
+      const editedValues = {
+        ...values,
+        birthday: moment(values.birthday, "DD-MM-YYYY").format("YYYY-MM-DD")
+      };
+      dispatch(updateProfile(editedValues));
     }
   });
 
-  const { values, errors, touched, isSubmitting, handleSubmit, setFieldValue } =
-    formik;
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleSubmit,
+    setFieldValue,
+    dirty
+  } = formik;
+
+  const blocks = {
+    // day block with mask set to MaskedRange from 1 to 31 with a length of 2
+    d: {
+      mask: IMask.MaskedRange,
+      from: 1,
+      to: 31,
+      maxLength: 2
+    },
+    // month block with mask set to MaskedRange from 1 to 12 with a length of 2
+    m: {
+      mask: IMask.MaskedRange,
+      from: 1,
+      to: 12,
+      maxLength: 2
+    },
+    // year block with mask set to MaskedRange from 1900 to 2999 with a length of 4
+    Y: {
+      mask: IMask.MaskedRange,
+      from: 1900,
+      to: 2999
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchProfileData());
   }, []);
 
-  useEffect(() => {
-    setFieldValue("email", get(user, "email", ""));
-    setFieldValue("phone", get(user, "phone", ""));
-    setFieldValue("gender", get(user, "gender", ""));
-    setFieldValue("address", get(user, "address", ""));
-    setFieldValue("fullname", get(user, "fullname", ""));
-    setFieldValue("birthday", moment(get(user, "birthday", "")).format("DD-MM-YYYY"));
-    setFieldValue("is_newsletter", get(user, "is_newsletter", ""));
-  }, [user]);
-
   return (
     <form noValidate onSubmit={handleSubmit}>
       <div className="flex w-full flex-col gap-y-8">
-        <h1 className="text-3xl font-semibold text-gray-900">Temel Bilgiler</h1>
+        <Typography variant="h4" element="h4" className="font-semibold text-gray-900">
+          {t("basic_knowledge")}
+        </Typography>
         <div className="flex flex-col">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="form-control">
               <Input
                 type="text"
                 name="fullname"
-                label="Full Name"
-                placeholder="Full Name"
+                label={t("full_name")}
+                placeholder={t("full_name")}
                 containerclass="text-base lg:text-lg"
                 value={get(values, "fullname")}
                 onChange={(e) => setFieldValue("fullname", e.target.value)}
@@ -95,21 +123,22 @@ const ProfileInfo = () => {
               <Input
                 type="email"
                 name="email"
-                label="Email"
-                placeholder="Email"
+                label={t("email")}
+                disabled
+                placeholder={t("email")}
                 containerclass="text-base lg:text-lg"
-                value={get(values, "email")}
-                onChange={(e) => setFieldValue("email", e.target.value)}
+                value={get(user, "email")}
               />
               {get(errors, "email") && get(touched, "email") && (
                 <div className="text-primary">{get(errors, "email")}</div>
               )}
             </div>
             <div className="form-control font-mi-sans text-lg">
-              <label className="label">Birth Date</label>
-              <div className="border border-gray-300 rounded-lg">
+              <label className="label">{t("birth_date")}</label>
+              <div className="border border-gray-200 rounded-lg">
                 <IMaskInput
-                  mask="00-00-0000"
+                  blocks={blocks}
+                  mask={"d{-}`m{-}`Y"}
                   name="birthday"
                   value={get(values, "birthday")}
                   onAccept={(birthday) => setFieldValue("birthday", birthday)}
@@ -121,22 +150,14 @@ const ProfileInfo = () => {
               )}
             </div>
             <div className="form-control font-mi-sans text-lg">
-              <label className="label" htmlFor="phone">
-                Phone Number
-              </label>
               <PhoneInput
                 id="phone"
                 country="tr"
                 name="phone"
-                buttonStyle={{ border: "none" }}
-                inputClass="flex border-none h-full text-gray-800 rounded-lg"
-                dropdownClass="rounded-lg"
-                placeholder="+90 (___) ___ __ __"
+                label={t("phone_number")}
                 alwaysDefaultMask={true}
-                defaultMask={"(...) ... .. .."}
-                onChange={(phone) => setFieldValue("phone", phone)}
                 value={get(values, "phone")}
-                className="text-sm border border-gray-300 pl-0 p-0.5 rounded-lg h-12 input focus:outline-0 w-full text-gray-800"
+                onChange={(value) => setFieldValue("phone", value)}
               />
               {get(errors, "phone") && get(touched, "phone") && (
                 <div className="text-primary">{get(errors, "phone")}</div>
@@ -144,13 +165,13 @@ const ProfileInfo = () => {
             </div>
             <div className="form-control font-mi-sans text-lg">
               <label className="label" htmlFor="address">
-                Address
+                {t("address")}
               </label>
               <textarea
                 rows={5}
                 id="address"
                 name="address"
-                className="border border-gray-300 focus:outline-0 rounded-lg p-2 w-full text-gray-800 text-base lg:text-lg"
+                className="border border-gray-200 focus:outline-0 rounded-lg p-2 w-full text-gray-800 text-base lg:text-lg"
                 maxLength={255}
                 onChange={(e) => setFieldValue("address", e.target.value)}
                 value={get(values, "address")}
@@ -163,7 +184,7 @@ const ProfileInfo = () => {
             <div className="form-control flex-col gap-y-4">
               <div className="flex flex-col font-mi-sans text-lg">
                 <label className="label" htmlFor="address">
-                  Cinsiyet
+                  {t("gender")}
                 </label>
                 <div className="flex gap-x-5">
                   <div className="form-control">
@@ -178,7 +199,7 @@ const ProfileInfo = () => {
                         }
                         checked={get(values, "gender") === "male"}
                       />
-                      <span className="label-text">Erkek</span>
+                      <span className="label-text">{t("man")}</span>
                     </label>
                   </div>
                   <div className="form-control">
@@ -193,7 +214,7 @@ const ProfileInfo = () => {
                         }
                         checked={get(values, "gender") === "female"}
                       />
-                      <span className="label-text">Kadın</span>
+                      <span className="label-text">{t("woman")}</span>
                     </label>
                   </div>
                   <div className="form-control">
@@ -208,7 +229,7 @@ const ProfileInfo = () => {
                         }
                         checked={get(values, "gender") === "other"}
                       />
-                      <span className="label-text">Diğer</span>
+                      <span className="label-text">{t("other")}</span>
                     </label>
                   </div>
                 </div>
@@ -219,32 +240,34 @@ const ProfileInfo = () => {
             </div>
             <div className="form-control">
               <Checkbox
-                  value="is_newsletter"
-                  name="is_newsletter"
-                  checked={get(values, "is_newsletter")}
-                  onChange={(e) => {
-                    setFieldValue("is_newsletter", get(e, "target.checked"));
-                  }}
-                  label="Bültenlere abone olmak istiyorum."
-                  labelClass="text-sm lg:text-base items-start lg:items-center p-0"
-                  position="right"
+                value="is_newsletter"
+                name="is_newsletter"
+                checked={get(values, "is_newsletter")}
+                onChange={(e) => {
+                  setFieldValue("is_newsletter", get(e, "target.checked"));
+                }}
+                label={t("i_want_to_subscribe_to_newsletters")}
+                labelClass="text-sm lg:text-base items-center p-0"
+                position="right"
               />
             </div>
           </div>
         </div>
         <div className="flex justify-end gap-x-4 mt-5">
-          <Button
-            type="button"
-            variant="btn-ghost"
-            className="text-22 text-primary-500 font-mi-sans-semi-bold pl-0"
-            onClick={() => formik.resetForm()}>
-            Değişikliklerden vazgeç
-          </Button>
+          {dirty && (
+            <Button
+              type="button"
+              variant="btn-ghost"
+              className="text-base lg:text-22 text-primary-500 font-mi-sans-semi-bold pl-0"
+              onClick={() => formik.resetForm()}>
+              {t("discard_changes")}
+            </Button>
+          )}
           <Button
             type="submit"
-            className="btn btn-primary text-22"
-            disabled={isSubmitting}>
-            Kaydet
+            className="btn btn-primary text-base lg:text-22"
+            disabled={isSubmitting || !dirty}>
+            {t("save")}
           </Button>
         </div>
       </div>

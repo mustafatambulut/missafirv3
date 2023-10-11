@@ -1,57 +1,59 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import classNames from "classnames";
-import { get, includes, split } from "lodash";
+import { get, includes, isEmpty, split } from "lodash";
 
 const Input = ({ ...props }: any) => {
   const leftRef = useRef<HTMLInputElement>(null);
-  const rightRef = useRef<HTMLInputElement>(null);
   const {
     label,
     isDisable,
     lefticon,
     righticon,
-    position,
+    position = "top-left",
     className,
     containerclass,
-    inputContainerClassName,
-    labelContainerClassName
+    inputcontainerclass,
+    labelcontainerclass,
+    errormessage = null
   } = props;
 
-  const labelContainerClass = classNames(`label ${labelContainerClassName}`, {
-    "order-1": includes(split(position, "-"), "bottom"),
-    hidden: !label
-  });
+  const labelContainerClassName = classNames(
+    `label w-full ${labelcontainerclass}`,
+    {
+      "order-1": includes(split(position, "-"), "bottom"),
+      hidden: !label,
+      "text-red-500": errormessage,
+      "justify-end": includes(split(position, "-"), "right"),
+      "justify-start": position === "top-left"
+    }
+  );
 
-  const inputContainerClass = classNames(
-    `flex rounded-lg bg-white items-center ${inputContainerClassName}`,
+  const inputContainerClassName = classNames(
+    `flex rounded-lg bg-white items-center ${inputcontainerclass}`,
     {
       "bg-gray-100": isDisable,
       "border border-gray-200": !isDisable,
+      "border border-red-500": !isDisable && errormessage,
       "px-2": !!lefticon
     }
   );
 
-  useEffect(() => {
-    if (!get(leftRef, "current") && !get(rightRef, "current")) return;
-
-    includes(split(position, "-"), "right")
-      ? (leftRef.current.innerText = "")
-      : (rightRef.current.innerText = "");
-  }, [leftRef, rightRef]);
+  const inputClassName = classNames("input focus:outline-0 w-full", {
+    "placeholder:text-red-500": errormessage,
+    [className]: className,
+    "text-gray-800": !isEmpty(get(props, "value")),
+    "w-full text-sm text-gray-500 block": isEmpty(get(props, "value"))
+  });
 
   return (
     <div className={`form-control flex w-full font-mi-sans ${containerclass}`}>
-      <label className={labelContainerClass}>
+      <label className={labelContainerClassName}>
         <span ref={leftRef}>{label}</span>
-        <span ref={rightRef}>{label}</span>
       </label>
-      <div className={inputContainerClass}>
+      <div className={inputContainerClassName}>
         {lefticon}
-        <input
-          {...props}
-          className={`input focus:outline-0 w-full text-gray-800 ${className}`}
-        />
+        <input {...props} className={inputClassName} />
         {righticon}
       </div>
     </div>

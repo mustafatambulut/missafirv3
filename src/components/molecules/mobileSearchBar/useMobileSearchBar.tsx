@@ -30,19 +30,20 @@ const useMobileSearchBar = ({
   };
 
   const handleClickBackButton = () => {
-    switch (activeSearchItem) {
-      case BOOKING_DESTINATION:
-        handleDrawerClose();
-        break;
-      case BOOKING_DATE:
-        setActiveSearchItem(BOOKING_DESTINATION);
-        break;
-      case BOOKING_GUESTS:
-        setActiveSearchItem(BOOKING_DATE);
-        break;
-      default:
-        break;
-    }
+    // switch (activeSearchItem) {
+    //   case BOOKING_DESTINATION:
+    //     handleDrawerClose();
+    //     break;
+    //   case BOOKING_DATE:
+    //     setActiveSearchItem(BOOKING_DESTINATION);
+    //     break;
+    //   case BOOKING_GUESTS:
+    //     setActiveSearchItem(BOOKING_DATE);
+    //     break;
+    //   default:
+    //     break;
+    // }
+    handleDrawerClose();
   };
 
   const handleClickSkipButton = () => {
@@ -74,7 +75,7 @@ const useMobileSearchBar = ({
       case BOOKING_GUESTS:
         dispatch(
           updateBookingGuests({
-            adults: 0,
+            adults: 1,
             kids: 0,
             pets: 0
           })
@@ -82,20 +83,6 @@ const useMobileSearchBar = ({
         break;
       default:
         break;
-    }
-  };
-
-  const applyButtonDisabledStatus = () => {
-    switch (activeSearchItem) {
-      case BOOKING_DATE:
-        return (
-          get(bookingDate, "startDate") == null ||
-          get(bookingDate, "endDate") == null
-        );
-      case BOOKING_GUESTS:
-        return isInCustomSection ? false : get(bookingGuests, "adults") === 0;
-      default:
-        return false;
     }
   };
 
@@ -121,14 +108,11 @@ const useMobileSearchBar = ({
       case BOOKING_DATE:
         setActiveSearchItem(BOOKING_GUESTS);
         break;
-      case BOOKING_GUESTS:
-        if (isInCustomSection) {
-          handleFilterListings();
-          handleDrawerClose();
-        } else {
-          handleDrawerClose();
-        }
+      case BOOKING_GUESTS: {
+        handleFilterListings();
+        handleDrawerClose();
         break;
+      }
       default:
         break;
     }
@@ -139,7 +123,6 @@ const useMobileSearchBar = ({
     handleClearClick,
     handleClickSkipButton,
     handleClickBackButton,
-    applyButtonDisabledStatus,
     clearButtonVisibilityStatus
   };
 };

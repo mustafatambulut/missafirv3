@@ -8,6 +8,7 @@ import { IContactBody } from "@/components/organisms/contactBody/types";
 import ContactInfo from "@/components/atoms/contactInfo/ContactInfo";
 
 import UnderLine from "../../../../public/images/underline.svg";
+import Typography from "@/components/atoms/typography/Typography";
 
 const ContactBody = ({ className = "" }: IContactBody) => {
   const { contactInfo, contactBody } = useAppSelector(
@@ -25,18 +26,18 @@ const ContactBody = ({ className = "" }: IContactBody) => {
 
   const TitleComponent = (): ReactNode => (
     <div className="hidden lg:block">
-      <h6 className="text-xs lg:text-base text-gray-600">
+      <Typography variant="h6" element="h1" className=" text-gray-600">
         {get(contactBody, "title")}
-      </h6>
-      <h1 className="flex justify-center text-left lg:text-center">
+      </Typography>
+      <h4 className="flex justify-center text-left lg:text-center">
         <span className="flex flex-col w-28 text-center">
-          <h1 className="text-pink-600">
+          <h4 className="text-pink-600">
             {get(contactBody, "subTitle.partialFirst")}
-          </h1>
+          </h4>
           <UnderLine />
         </span>
         {get(contactBody, "subTitle.partialSecond")}
-      </h1>
+      </h4>
     </div>
   );
 

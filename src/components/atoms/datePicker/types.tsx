@@ -1,18 +1,18 @@
 import { Moment } from "moment/moment";
-import { Dispatch, SetStateAction } from "react";
 
 export interface IDatePicker {
- isInCustomSection?: boolean;
+  daySize?: number;
+  isInCustomSection?: boolean;
+  unavailableDates?: string[];
   datePickerClass?: string;
   className?: string;
   isShowLabel?: boolean;
   orientation?: "verticalScrollable" | "horizontal";
   isOpenedStyle?: boolean;
-  // bookingDate: IBookingDate;
   noNavButtons?: boolean;
   numberOfMonths?: number;
-  // setBookingDate: Dispatch<SetStateAction<IBookingDate>>;
-  setSkipButtonVisibility: Dispatch<SetStateAction<boolean>>;
+  // eslint-disable-next-line no-unused-vars
+  isOutsideRange?: (day: Moment) => boolean;
 }
 
 export interface IBookingDate {

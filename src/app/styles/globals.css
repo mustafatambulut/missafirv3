@@ -44,3 +44,7 @@ input:-webkit-autofill:focus {
     height: 100vh !important;
     padding-bottom: env(safe-area-inset-bottom);
 }
+
+nextjs-portal {
+    display: none;
+}

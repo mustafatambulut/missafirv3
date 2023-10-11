@@ -12,10 +12,10 @@ const Marquee = ({
   marqueeItemClassName = ""
 }: IMarquee) => {
   return (
-    <ReactFastMarquee speed={speed} direction={direction} className={className}>
+    <ReactFastMarquee autoFill={true} speed={speed} direction={direction} className={className}>
       {map(items, (image, key) => (
         <div className={marqueeItemClassName} key={key}>
-          <Image src={image} alt="image" width={160} height={50} />
+          <Image src={image || "/"} alt="image" width={160} height={50} />
         </div>
       ))}
     </ReactFastMarquee>

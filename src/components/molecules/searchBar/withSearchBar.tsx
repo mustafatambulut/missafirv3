@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Tooltip as ReactTooltip } from "react-tooltip";
 
 import {
   BOOKING_DATE,
@@ -23,7 +22,8 @@ import {
   updateBookingDestination,
   updateBookingGuests,
   updateFilterData,
-  updatePreFilterData
+  updatePreFilterData,
+  updateSearchClicked
 } from "@/redux/features/listingSlice/listingSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
@@ -47,7 +47,6 @@ const withSearchBar = (WrappedComponent) => {
     const [activeSearchItem, setActiveSearchItem] = useState<string>("");
     const [skipButtonVisibility, setSkipButtonVisibility] =
       useState<boolean>(true);
-    const [isTooltipOpen, setIsTooltipOpen] = useState<boolean>(false);
     const preFilterKeys = [
       "adults",
       "kids",
@@ -103,10 +102,7 @@ const withSearchBar = (WrappedComponent) => {
     }, [activeSearchItem, bookingDestination, bookingDate, bookingGuests]);
 
     const handleFilterListings = () => {
-      setIsTooltipOpen(false);
-      if (isEmpty(preFilterData)) return setIsTooltipOpen(true);
-
-      const isInCustomSection = get(props, "isInCustomSection", false);
+      dispatch(updateSearchClicked(true));
       if (isEmpty(preFilterData)) {
         dispatch(updateFilterData(omit(filterData, preFilterKeys)));
       } else {
@@ -121,7 +117,7 @@ const withSearchBar = (WrappedComponent) => {
           )
         );
       }
-      !isInCustomSection && router.push("/listing");
+      router.push("/listing", { shallow: true });
     };
 
     useEffect(() => {
@@ -138,30 +134,15 @@ const withSearchBar = (WrappedComponent) => {
     }, [bookingDestination]);
 
     useEffect(() => {
-      if (bookingDate.startDate) {
-        dispatch(
-          updatePreFilterData({
-            ...preFilterData,
-            check_in: bookingDate.startDate.format("YYYY-MM-DD")
-          })
-        );
-      } else {
-        dispatch(updatePreFilterData(omit(preFilterData, "check_in")));
-      }
-    }, [bookingDate.startDate]);
-
-    useEffect(() => {
-      if (bookingDate.endDate) {
-        dispatch(
-          updatePreFilterData({
-            ...preFilterData,
-            check_out: bookingDate.endDate.format("YYYY-MM-DD")
-          })
-        );
-      } else {
-        dispatch(updatePreFilterData(omit(preFilterData, "check_out")));
-      }
-    }, [bookingDate.endDate]);
+      const omitFilter = omit(preFilterData, ["check_in", "check_out"]);
+      bookingDate.startDate
+        ? (omitFilter["check_in"] = bookingDate.startDate.format("YYYY-MM-DD"))
+        : null;
+      bookingDate.endDate
+        ? (omitFilter["check_out"] = bookingDate.endDate.format("YYYY-MM-DD"))
+        : null;
+      dispatch(updatePreFilterData(omitFilter));
+    }, [bookingDate]);
 
     useEffect(() => {
       if (bookingGuests.adults > 0) {
@@ -226,7 +207,7 @@ const withSearchBar = (WrappedComponent) => {
       let destinationData = bookingDestination;
       has(filterData, "adults")
         ? (guestsData["adults"] = filterData.adults)
-        : (guestsData["adults"] = 0);
+        : (guestsData["adults"] = 1);
       has(filterData, "kids")
         ? (guestsData["kids"] = filterData.kids)
         : (guestsData["kids"] = 0);
@@ -254,18 +235,11 @@ const withSearchBar = (WrappedComponent) => {
 
     return (
       <>
-        <ReactTooltip
-          isOpen={isTooltipOpen}
-          id="searchbar-tooltip"
-          place="bottom"
-          content="En az bir alan doldurmak zorunludur"
-          closeOnEsc={true}
-          className="bg-white opacity-100 font-mi-sans-semi-bold text-gray-600 z-20 shadow"
-        />
-
         <div
           data-tooltip-id="searchbar-tooltip"
-          className={`flex rounded-2xl lg:bg-white w-full items-center lg:p-2 ${
+          className={`flex rounded-2xl lg:bg-white w-full items-center ${
+            get(props, "isInCustomSection") ? "lg:px-2" : "lg:p-2"
+          }  ${
             get(props, "isInCustomSection")
               ? "shadow-bold-blur-20 flex-row"
               : "flex-col lg:flex-row"

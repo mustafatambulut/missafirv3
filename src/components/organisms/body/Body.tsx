@@ -14,14 +14,14 @@ const Body = () => {
     <div>
       <Hero />
       <Cities />
-      <ListingDetails /> {/*todo:refactor edilecek*/}
+      <ListingDetails />
       <Premium />
       <TechExperience />
       <Testimonial />
       <Partner />
       <BenefitOwner />
       <News />
-      <InfoSection collapsable={true} /> {/*todo:refactor edilecek*/}
+      <InfoSection />
     </div>
   );
 };

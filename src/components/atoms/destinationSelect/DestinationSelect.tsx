@@ -1,29 +1,30 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { compact, has, keys, map } from "lodash";
+import { useTranslations } from "next-intl";
 import { isMobile } from "react-device-detect";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { compact, get, has, lowerCase, map, sortBy } from "lodash";
 
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { BOOKING_DATE } from "@/components/molecules/searchBar/constants";
 import { IDestinationSelect } from "@/components/atoms/destinationSelect/types";
 import { updateBookingDestination } from "@/redux/features/listingSlice/listingSlice";
 
+import Select from "@/components/atoms/select/Select";
+
 import "swiper/css";
 import "./DestinationSelect.css";
-
-import Select from "@/components/atoms/select/Select";
 
 const DestinationSelect = ({
   setActiveSearchItem,
   isInCustomSection = false
 }: IDestinationSelect) => {
+  const t = useTranslations();
   const dispatch = useAppDispatch();
-  const { filterData, bookingDestination } = useAppSelector(
+  const { filterData, preFilterData } = useAppSelector(
     (state) => state.listingReducer
   );
   const { locations } = useAppSelector((state) => state.landingReducer);
   const [formattedDestinations, setFormattedDestinations] = useState([]);
-
   //todo : örnek location datası. popular Destinations için kullanılacak
 
   // const destinationOptions = [
@@ -102,6 +103,15 @@ const DestinationSelect = ({
   //   }
   // ];
 
+  const destinationFilterOption = (option, inputValue) => {
+    const { label, value, data } = option;
+    return (
+      lowerCase(label).includes(lowerCase(inputValue)) ||
+      lowerCase(get(data, "desc")).includes(lowerCase(inputValue)) ||
+      lowerCase(value).includes(lowerCase(inputValue))
+    );
+  };
+
   const handleOnChange = (e: any) => {
     dispatch(updateBookingDestination(e));
     setActiveSearchItem(BOOKING_DATE);
@@ -109,22 +119,33 @@ const DestinationSelect = ({
 
   useEffect(() => {
     const formattedDestinations = compact(
-      map(keys(locations), (location) => {
+      map(locations, (location) => {
         return {
-          value: location,
-          label: locations[location].district,
+          value: get(location, "id"),
+          label:
+            get(location, "type") === "district"
+              ? get(location, "district")
+              : get(location, "city"),
           isPopularDestinations: false,
-          desc: `${locations[location].city} / ${locations[location].country}`,
-          isHistory: false
+          desc:
+            get(location, "type") === "district"
+              ? `${get(location, "city")} / ${get(location, "country")}`
+              : get(location, "country"),
+          isHistory: false,
+          order: get(location, "order"),
+          slug: get(location, "slug"),
+          country: get(location, "country")
         };
       })
     );
-    setFormattedDestinations(formattedDestinations);
+
+    setFormattedDestinations(sortBy(formattedDestinations, ["order"]));
   }, [locations]);
 
   return (
     <div className="relative">
       <Select
+        filterOption={destinationFilterOption}
         isSearchable={true}
         isClearable={true}
         onChange={handleOnChange}
@@ -134,17 +155,21 @@ const DestinationSelect = ({
         searchId="booking-location"
         placeHolder={
           isMobile
-            ? "Where do you want to go?"
+            ? t("where_do_you_want_to_go")
             : isInCustomSection
-            ? "Destination"
-            : "Search destinations"
+            ? t("any_where")
+            : t("search_destinations")
         }
         {...(isInCustomSection &&
           has(filterData, "district_id") && {
-            value: bookingDestination
+            value: get(preFilterData, "district_id")
           })}
         {...(!isInCustomSection && {
-          controlTitle: "Where"
+          controlTitle: t("where")
+        })}
+        {...(isInCustomSection && {
+          placeholderClassName: "lg:text-base text-gray-600 font-mi-semi-bold",
+          valueContainerClassName: "w-[6.3rem]"
         })}
         {...(isMobile && !isInCustomSection && { menuIsOpen: true })}
       />

@@ -1,141 +1,100 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
-import classNames from "classnames";
-import { get, map, slice } from "lodash";
+import { get, map } from "lodash";
+import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
 
-import Card from "@/components/atoms/card/Card";
 import Button from "@/components/atoms/button/Button";
 import Loading from "@/components/atoms/loading/Loading";
+import Typography from "@/components/atoms/typography/Typography";
 import Section from "@/components/molecules/section/Section";
+import NewsSkeleton from "@/components/molecules/skeletons/newsSkeleton/NewsSkeleton";
 
 import RightArrow from "../../../../public/images/chevron_right.svg";
-import { IFooterComponent, INews } from "@/components/molecules/news/types";
 
-const News = ({ buttonPosition = "bottom", newsPerView = 4 }: INews) => {
-  const newsContentClass = classNames({
-    "flex-col": buttonPosition === "bottom",
-    "flex-row": buttonPosition === "left" || buttonPosition === "right"
-  });
+const PropertyCard = dynamic(
+  () => import("@/components/molecules/propertyCard/PropertyCard"),
+  { ssr: false }
+);
+
+const News = () => {
+  const t = useTranslations();
 
   //todo: api entregrasyonu yapılınca kaldırılacak
   const mockNews = {
     header: {
-      title: "Explore travel trends and property news",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
+      title: t("landing_news_title"),
+      description: t("landing_news_subtitle")
     },
     body: [
       {
         image:
-          "https://i.ibb.co/ZcvGfqT/7088b05eb69889b0f0e2de41d7f3d46d4f3f39ace7e11432c8f8b317f4796119bdeb6542f7ae62ed2121fe5d0bf9b4097f02.jpg",
+          "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/missafir_blogairbnbfethiye_44bd7a6789.png",
         date: "06.07.2023",
-        title: "Outstanding Flat with Calming View at Nisantasi",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
-        tags: ["lorem", "ipsum", "dolor"]
+        title: t("blog_fethiye_title"),
+        description: t("blog_fethiye_subtitle"),
+        tags: ["#airbnb", "#" + t("accommodation") + ""],
+        link: "https://www.missafir.com/airbnb-fethiye/"
       },
       {
         image:
-          "https://i.ibb.co/ZcvGfqT/7088b05eb69889b0f0e2de41d7f3d46d4f3f39ace7e11432c8f8b317f4796119bdeb6542f7ae62ed2121fe5d0bf9b4097f02.jpg",
-        date: "06.07.2023",
-        title: "Outstanding Flat with Calming View at Nisantasi",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
-        tags: ["lorem", "ipsum", "dolor"]
+          "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/expat_istanbul_1395198d96.png",
+        date: "01.05.2023",
+        title: t("blog_expat_title"),
+        description: t("blog_expat_subtitle"),
+        tags: ["#" + t("RealEstate") + ""],
+        link: "https://www.missafir.com/expat-istanbul/"
       },
       {
         image:
-          "https://i.ibb.co/ZcvGfqT/7088b05eb69889b0f0e2de41d7f3d46d4f3f39ace7e11432c8f8b317f4796119bdeb6542f7ae62ed2121fe5d0bf9b4097f02.jpg",
+          "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/Ekran_goeruentuesue_2023_09_30_181131_bd5f17606e.png",
         date: "06.07.2023",
-        title: "Outstanding Flat with Calming View at Nisantasi",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
-        tags: ["lorem", "ipsum", "dolor"]
+        title: t("blog_ada_title"),
+        description: t("blog_ada_subtitle"),
+        tags: ["#" + t("accommodation") + ""],
+        link: "https://www.missafir.com/bozcaada-plajlari/"
       },
       {
         image:
-          "https://i.ibb.co/ZcvGfqT/7088b05eb69889b0f0e2de41d7f3d46d4f3f39ace7e11432c8f8b317f4796119bdeb6542f7ae62ed2121fe5d0bf9b4097f02.jpg",
+          "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/Ekran_goeruentuesue_2023_09_30_181421_190c906cb7.png",
         date: "06.07.2023",
-        title: "Outstanding Flat with Calming View at Nisantasi",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
-        tags: ["lorem", "ipsum", "dolor"]
+        title: t("blog_ist_title"),
+        description: t("blog_ist_subtitle"),
+        tags: ["#" + t("accommodation") + ""],
+        link: "https://www.missafir.com/istanbul-konaklama-rehberi/"
       }
     ]
   };
 
-  const PropertyCardComponent = ({ property }: any) => (
-    <Card className="w-72 lg:w-auto">
-      <div className="shadow-[0px_1px_20px_0px_#00000014] rounded-2xl">
-        <div className="w-full h-60 relative">
-          <Link href="/">
-            <Image
-              src={get(property, "image") || ""}
-              alt="image"
-              fill={true}
-              className="rounded-t-2xl object-cover"
-            />
-          </Link>
-        </div>
-        <div className="px-3 py-4">
-          <div className="text-base text-gray-500">{get(property, "date")}</div>
-          <div className="text-2xl font-mi-sans-semi-bold text-gray-900 my-2">
-            {get(property, "title")}
-          </div>
-          <div className="text-lg text-gray-500">
-            {get(property, "description")}
-          </div>
-          <div className="flex gap-x-5 mt-4">
-            {map(get(property, "tags"), (tag, key) => (
-              <Link href="/" key={key} className="text-primary">
-                {tag}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-    </Card>
-  );
-  const FooterComponent = ({ buttonPosition }: IFooterComponent) => {
-    const footerComponentClass = classNames(
-      "bg-primary-50 text-primary border-primary-25 hover:bg-primary hover:border-primary group",
-      {
-        "h-full w-32 lg:w-40 flex-col":
-          buttonPosition === "left" || buttonPosition === "right",
-        "mt-10": buttonPosition === "bottom"
-      }
-    );
-    return (
-      <div className="text-center">
-        <Button variant="btn-primary" link="/" className={footerComponentClass}>
-          <span className="group-hover:text-white text-xl font-mi-sans-semi-bold">
-            {/*See All Blogs*/}
-            See All
-          </span>
+  const FooterComponent = () => (
+    <div className="flex justify-center">
+      <Button
+        variant="btn-primary"
+        target="_blank"
+        link="https://missafir.com/blog"
+        className="mt-10 bg-primary-50 text-primary border-primary-25 hover:bg-primary hover:border-primary group">
+        <Typography element="h6" variant="h6" className="flex">
+          <span className="group-hover:text-white">{t("go_to_the_blog")}</span>
           <RightArrow className="scale-50 fill-primary group-hover:fill-white" />
-        </Button>
-      </div>
-    );
-  };
+        </Typography>
+      </Button>
+    </div>
+  );
 
   return (
-    <Loading isLoading={!mockNews} loader={<p>Loading feed...</p>}>
-      {/*todo: skeleton eklenecek*/}
+    <Loading isLoading={!mockNews} loader={<NewsSkeleton />}>
       <Section
+        className="px-2 lg:px-8 mt-14"
         title={get(mockNews, "header.title")}
         description={get(mockNews, "header.description")}>
-        <div className={`flex ${newsContentClass} gap-x-5 gap-y-10 py-10`}>
-          <div className={`flex flex-row gap-x-5`}>
-            {map(
-              slice(get(mockNews, "body"), 0, newsPerView),
-              (property, key) => (
-                <PropertyCardComponent key={key} property={property} />
-              )
-            )}
-          </div>
-          <FooterComponent buttonPosition={buttonPosition} />
+        <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-x-5">
+          {map(get(mockNews, "body"), (property, key) => (
+            <Link key={key} href={get(property, "link")} target="_blank">
+              <PropertyCard property={property} />
+            </Link>
+          ))}
         </div>
+        <FooterComponent />
       </Section>
     </Loading>
   );

@@ -32,7 +32,7 @@ const TabContent = ({
               width={268}
               height={545}
               className="m-auto"
-              src={get(attributes, "image")}
+              src={get(attributes, "image") || "/"}
               alt="image"
             />
             <p className="mt-10 text-gray-600 text-sm lg:text-2xl line-clamp-3 text-center">

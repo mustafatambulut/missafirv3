@@ -3,7 +3,13 @@ import { RootState } from "@/redux/store";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { IReservationItemProps } from "@/components/molecules/reservationItem/types";
-import { getProfile, profileEdit, getRecentReservations } from "@/service/api";
+import {
+  getProfile,
+  profileEdit,
+  getRecentReservations,
+  getRecentReservationDetails,
+  getRecentReservationsByPage
+} from "@/service/api";
 
 export const fetchProfileData = createAsyncThunk(
   "profile/fetchProfileData",
@@ -29,8 +35,29 @@ export const fetchRecentReservations = createAsyncThunk(
   }
 );
 
+export const fetchRecentReservationsByPage = createAsyncThunk(
+  "landing/fetchRecentReservationsByPage",
+  async ({ reservationType, page }) => {
+    const { data } = await getRecentReservationsByPage({
+      reservationType,
+      page
+    });
+    return get(data, "data");
+  }
+);
+
+export const fetchRecentReservationDetails = createAsyncThunk(
+  "profile/fetchRecentReservationDetails",
+  async (id) => {
+    const { data } = await getRecentReservationDetails(id);
+    return data;
+  }
+);
+
 interface ProfileState {
   user: any;
+  loading: boolean;
+  reservation: any;
   activeSection:
     | "info"
     | "reservations"
@@ -43,12 +70,17 @@ interface ProfileState {
 }
 
 const initialState = {
-  loading:false,
+  loading: true,
   user: {},
   // todo: test için eklendi düzenlenecek
   reservations: [],
+  reservation: {},
   activeSection: "reservations",
-  selectedReservationId: null
+  selectedReservationId: null,
+  pagination: {
+    total: 0,
+    current: 1
+  }
 } as ProfileState;
 
 const profileSlice = createSlice({
@@ -74,6 +106,9 @@ const profileSlice = createSlice({
       action: PayloadAction<string>
     ) => {
       state.selectedReservationId = action.payload;
+    },
+    updateReservation: (state: ProfileState, action: PayloadAction<any>) => {
+      state.reservation = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -90,9 +125,25 @@ const profileSlice = createSlice({
       state.reservations = action.payload.data.items;
       state.loading = false;
     });
+    builder.addCase(fetchRecentReservationDetails.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(
+      fetchRecentReservationDetails.fulfilled,
+      (state, action) => {
+        state.reservation = action.payload.data;
+        state.loading = false;
+      }
+    );
+    builder.addCase(
+      fetchRecentReservationsByPage.fulfilled,
+      (state, action) => {
+        state.pagination = action.payload.pagination;
+        state.reservations = [...state.reservations, ...action.payload.items];
+      }
+    );
   }
 });
 export const responseData = (state: RootState) => get(state, "profile.value");
-export const { updateActiveSection, updateSelectedReservationId } =
-  profileSlice.actions;
+export const { updateReservation } = profileSlice.actions;
 export default profileSlice.reducer;

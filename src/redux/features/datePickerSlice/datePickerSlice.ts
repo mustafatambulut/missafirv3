@@ -10,7 +10,7 @@ const initialState = {
 } as IDatePickerState;
 
 const datePickerSlice = createSlice({
-  name: "listingDetail",
+  name: "datePicker",
   initialState,
   reducers: {
     setBookingDate: (
