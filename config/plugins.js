@@ -1,16 +1,21 @@
-module.exports = ({env}) => ({
-  "netlify-deployments": {
-    enabled: true,
+module.exports = ({ env }) => ({
+  upload: {
     config: {
-      accessToken: env("NETLIFY_DEPLOYMENTS_PLUGIN_ACCESS_TOKEN"),
-      sites: [
-        {
-          name: env("NETLIFY_DEPLOYMENTS_PLUGIN_SITES_NAME"),
-          id: env("NETLIFY_DEPLOYMENTS_PLUGIN_SITES_ID"),
-          buildHook: env("NETLIFY_DEPLOYMENTS_PLUGIN_SITES_BUILD_HOOK"),
-          branch: 'main' // optional
+      provider: 'aws-s3',
+      providerOptions: {
+        accessKeyId: env('AWS_ACCESS_KEY_ID', 'AKIAQ6QIJJ5NKLV2KEEX'),
+        secretAccessKey: env('AWS_ACCESS_SECRET', '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'),
+        region: env('AWS_REGION', 'eu-central-1'),
+        params: {
+          ACL: 'public-read',
+          Bucket: env('AWS_BUCKET', 'strapi-aws-s3-images-bucket-v1')
         }
-      ]
-    },
-  },
+      },
+      actionOptions: {
+        upload: {},
+        uploadStream: {},
+        delete: {}
+      }
+    }
+  }
 });

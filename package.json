@@ -14,14 +14,14 @@
   },
   "dependencies": {
     "@_sh/strapi-plugin-ckeditor": "2.0.4",
-    "@ckeditor/ckeditor5-markdown-gfm": "^39.0.1",
+    "@ckeditor/ckeditor5-markdown-gfm": "39.0.1",
     "@strapi/plugin-i18n": "4.10.5",
     "@strapi/plugin-users-permissions": "4.10.5",
+    "@strapi/provider-upload-aws-s3": "^4.13.7",
     "@strapi/strapi": "v4.11.2",
-    "mysql": "2.18.1",
     "negotiator": "0.6.3",
+    "pg": "8.5.1",
     "strapi-plugin-menus": "1.4.3",
-    "strapi-plugin-netlify-deployments": "2.0.0",
     "strapi-plugin-populate-deep": "2.0.0",
     "strapi-plugin-website-preview": "1.0.5"
   },
@@ -32,7 +32,7 @@
     "uuid": "4c788fbb-2419-4541-8529-7cc47768f7a4"
   },
   "engines": {
-    "node": "16.20.1",
+    "node": "16.20.2",
     "npm": ">=6.0.0"
   }
 }

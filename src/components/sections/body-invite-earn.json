@@ -16,6 +16,11 @@
       "type": "component",
       "repeatable": false,
       "component": "sections.timeline"
+    },
+    "infoContents": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.info-contents"
     }
   }
 }

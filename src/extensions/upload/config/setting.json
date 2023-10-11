@@ -1,0 +1,13 @@
+{  
+    "provider": "aws-s3",
+    "providerOptions": {
+        "accessKeyId": "AKIAQ6QIJJ5NIMTIFMKT",
+        "secretAccessKey": "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",
+        "region": "eu-central-1",
+        "params": {
+          "ACL": "public-read",
+          "signedUrlExpires": 9990,
+          "Bucket": "strapi-aws-s3-images-bucket-v1"
+        }
+    }
+}
