@@ -19,8 +19,12 @@ const GallerySection = ({ images, className = "" }: IGallerySection) => {
           withPagination={true}
           sliderContainerClassName="lg:hidden"
           sliderIdentifier="gallery-slider"
-          slidesPerView={isMobile ? 1 : 2}
-          spaceBetween={isMobile ? 12 : 20}>
+          desktopSlidesPerView={2}
+          mobileSlidesPerView={1}
+          desktopLargeSlidesPerView={2}
+          desktopLargeSpaceBetween={22}
+          desktopSpaceBetween={20}
+          mobileSpaceBetween={12}>
           {map(images, ({ path, caption }, key) => (
             <div key={key} className="static h-60 lg:h-auto">
               <span className="absolute top-3 right-3">

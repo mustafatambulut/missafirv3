@@ -1,115 +1,110 @@
-import { map } from "lodash";
-import { locationUrls } from "@/utils/locationsMap";
-
 export const Route = {
-  statics: [
+  authPagesRoutes: [
     {
-      en: "login",
-      tr: "login",
-      hr: "login",
-      ru: "login"
-    },
+      en: {
+        login: "login",
+        signup: "signup",
+        profile: "profile",
+        "forgot-password": "forgot-password",
+        "new-password": "new-password"
+      },
+      tr: {
+        "giris-yap": "login",
+        profil: "profile",
+        "uye-ol": "signup",
+        "sifremi-unuttum": "forgot-password",
+        "yeni-sifre": "new-password"
+      }
+    }
+  ],
+  textPagesRoutes: [
     {
-      en: "signup",
-      tr: "signup",
-      hr: "signup",
-      ru: "signup"
-    },
+      en: {
+        terms: 1,
+        "privacy-policy": 2,
+        "kvkk-aydinlatma-metni": 3
+      },
+      tr: {
+        "kullanici-sozlesmesi": 1,
+        "gizlilik-politikasi": 2,
+        "kvkk-aydinlatma-metni": 3
+      }
+    }
+  ],
+  staticPagesRoutes: [
     {
-      en: "become-owner",
-      tr: "become-owner",
-      hr: "become-owner",
-      ru: "become-owner"
-    },
+      en: {
+        list: "list",
+        "about-us": "about-us",
+        "get-an-offer": "get-an-offer",
+        contact: "contact",
+        faq: "faq",
+        "alive-with-missafir": "alive-with-missafir",
+        sustainability: "sustainability",
+        "referral-program": "referral-program",
+        "our-packages": "our-packages"
+      },
+      tr: {
+        list: "list",
+        "biz-kimiz": "about-us",
+        "teklif-al": "get-an-offer",
+        iletisim: "contact",
+        "sikca-sorulan-sorular": "faq",
+        "missafirde-yasam": "alive-with-missafir",
+        surdurulebilirlik: "sustainability",
+        "referans-programi": "referral-program",
+        "hizmet-paketlerimiz": "our-packages"
+      }
+    }
+  ],
+  categoryRoutes: [
     {
-      en: "checkout",
-      tr: "checkout",
-      hr: "checkout",
-      ru: "checkout"
-    },
+      en: {
+        "villa-for-rent": "villa",
+        "furnished-apartments": "apartment",
+        bungalov: "bungalov",
+        hotel: "hotel",
+        unique: "unique"
+      },
+      tr: {
+        "kiralik-villa": "villa",
+        "esyali-kiralik-daire": "apartment",
+        bungalov: "bungalov",
+        otel: "hotel",
+        unique: "unique"
+      }
+    }
+  ],
+  baseListingRoutes: [
     {
-      en: "checkout",
-      tr: "checkout",
-      hr: "checkout",
-      ru: "checkout"
-    },
+      en: {
+        "house-for-rent": "house-for-rent"
+      },
+      tr: {
+        "kiralik-ev": "house-for-rent"
+      }
+    }
+  ],
+  baseListingCountryRoutes: [
     {
-      en: "contact",
-      tr: "contact",
-      hr: "contact",
-      ru: "contact"
-    },
+      en: {
+        turkey: 1,
+        croatia: 2,
+        montenegro: 3,
+        "northean-cyprus": 4
+      },
+      tr: {
+        turkiye: 1,
+        hirvatistan: 2,
+        karadag: 3,
+        "kuzey-kibris": 4
+      }
+    }
+  ],
+  listingDetailSuffix: [
     {
-      en: "faq",
-      tr: "faq",
-      hr: "faq",
-      ru: "faq"
-    },
-    {
-      en: "forgot-password",
-      tr: "forgot-password",
-      hr: "forgot-password",
-      ru: "forgot-password"
-    },
-    {
-      en: "inbox",
-      tr: "inbox",
-      hr: "inbox",
-      ru: "inbox"
-    },
-    {
-      en: "invite-and-earn",
-      tr: "invite-and-earn",
-      hr: "invite-and-earn",
-      ru: "invite-and-earn"
-    },
-    {
-      en: "life-at-missafir",
-      tr: "life-at-missafir",
-      hr: "life-at-missafir",
-      ru: "life-at-missafir"
-    },
-    {
-      en: "new-password",
-      tr: "new-password",
-      hr: "new-password",
-      ru: "new-password"
-    },
-    {
-      en: "profile",
-      tr: "profile",
-      hr: "profile",
-      ru: "profile"
-    },
-    {
-      en: "signup",
-      tr: "signup",
-      hr: "signup",
-      ru: "signup"
-    },
-    {
-      en: "sustainability",
-      tr: "sustainability",
-      hr: "sustainability",
-      ru: "sustainability"
-    },
-    {
-      en: "who-we-are",
-      tr: "who-we-are",
-      hr: "who-we-are",
-      ru: "who-we-are"
-    },
-    {
-      en: "listing",
-      tr: "listing",
-      hr: "listing",
-      ru: "listing"
-    },
-    {
-      en: "reservation",
-      tr: "reservation",
-      hr: "reservation",
-      ru: "reservation"
+      en: "detail",
+      tr: "detay"
     }
   ],
   excludeKeys: [
@@ -117,38 +112,13 @@ export const Route = {
     { en: "detail" },
     { ru: "detal" },
     { hr: "detalj" }
-  ],
-  houseForRent: [
-    {
-      tr: "kiralik-ev",
-      en: "kiralik-ev",
-      ru: "kiralik-ev",
-      hr: "kiralik-ev"
-    }
-  ],
-  villaForRent: [
-    {
-      tr: "kiralik-villa",
-      en: "kiralik-villa",
-      ru: "kiralik-villa",
-      hr: "kiralik-villa"
-    }
-  ],
-  furnishedFlatForRent: [
-    {
-      tr: "esyali-kiralik-daire",
-      en: "esyali-kiralik-daire",
-      ru: "esyali-kiralik-daire",
-      hr: "esyali-kiralik-daire"
-    }
-  ],
-  listing: [
-    {
-      tr: "listing",
-      en: "listing",
-      ru: "listing",
-      hr: "listing"
-    }
-  ],
-  cities: map(locationUrls, "slug")
+  ]
 };
+
+export const allRoutes = [
+  ...Route.authPagesRoutes,
+  ...Route.textPagesRoutes,
+  ...Route.staticPagesRoutes,
+  ...Route.categoryRoutes,
+  ...Route.baseListingRoutes
+];

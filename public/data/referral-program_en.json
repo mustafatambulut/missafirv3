@@ -1,0 +1,144 @@
+{
+  "data": {
+    "id": 1,
+    "attributes": {
+      "createdAt": "2023-09-05T13:14:55.844Z",
+      "updatedAt": "2023-09-29T14:37:24.996Z",
+      "publishedAt": "2023-09-05T13:14:57.247Z",
+      "locale": "en",
+      "header": {
+        "id": 1,
+        "title": "Missafir Referral Program",
+        "description": "Our program lets you earn passive income by referring homeowners to us."
+      },
+      "body": {
+        "id": 1,
+        "Card": [
+          {
+            "id": 1,
+            "title": "Recommend us to a homeowner",
+            "description": "Let them discover professional property management and short-term rentals.",
+            "iconUrl": null
+          },
+          {
+            "id": 2,
+            "title": "Earn 10%* of our commission revenue",
+            "description": "It's a win-win — you benefit, as do your homeowner friends, adding value to their property.",
+            "iconUrl": null
+          }
+        ],
+        "timeline": {
+          "id": 6,
+          "description": "Joining the Missafir referral program is simple. Here are the steps:",
+          "title": "How Does the Referral Program Work?",
+          "timeline_steps": {
+            "data": [
+              {
+                "id": 11,
+                "attributes": {
+                  "title": "Contact",
+                  "description": "Submit your details, and we'll call you.",
+                  "buttonLabel": "Fill out form",
+                  "buttonLink": "/",
+                  "createdAt": "2023-09-26T14:09:25.196Z",
+                  "updatedAt": "2023-09-26T14:09:26.698Z",
+                  "publishedAt": "2023-09-26T14:09:26.694Z"
+                }
+              },
+              {
+                "id": 12,
+                "attributes": {
+                  "title": "Approval",
+                  "description": "Upon your confirmation, we contact the referred homeowner.",
+                  "buttonLabel": "Approval",
+                  "buttonLink": "/",
+                  "createdAt": "2023-09-26T14:09:43.281Z",
+                  "updatedAt": "2023-09-26T14:16:13.201Z",
+                  "publishedAt": "2023-09-26T14:09:45.305Z"
+                }
+              },
+              {
+                "id": 13,
+                "attributes": {
+                  "title": "Presentation",
+                  "description": "We present our professional property management system to them.",
+                  "buttonLabel": "Presentation",
+                  "buttonLink": "/",
+                  "createdAt": "2023-09-26T14:09:59.463Z",
+                  "updatedAt": "2023-09-26T14:16:17.534Z",
+                  "publishedAt": "2023-09-26T14:10:00.442Z"
+                }
+              },
+              {
+                "id": 14,
+                "attributes": {
+                  "title": "Agreement",
+                  "description": "After finalizing the agreement, the commission phase starts.",
+                  "buttonLabel": "Agreement",
+                  "buttonLink": "/",
+                  "createdAt": "2023-09-26T14:10:16.073Z",
+                  "updatedAt": "2023-09-26T14:16:21.867Z",
+                  "publishedAt": "2023-09-26T14:10:19.275Z"
+                }
+              },
+              {
+                "id": 15,
+                "attributes": {
+                  "title": "Payment",
+                  "description": "Maintain the agreement, and earn 10% of our monthly commission!",
+                  "buttonLabel": "Payment",
+                  "buttonLink": "/",
+                  "createdAt": "2023-09-26T14:11:06.252Z",
+                  "updatedAt": "2023-09-26T14:16:25.292Z",
+                  "publishedAt": "2023-09-26T14:11:07.038Z"
+                }
+              }
+            ]
+          }
+        },
+        "infoContents": [
+          {
+            "id": 7,
+            "title": "Terms & Conditions",
+            "description": "- *Referral payments amount to 10% of Missafir's commission revenue, which is 3% of the total income.\n- Referral payments commence after the homeowner you recommended signs an agreement with Missafir. \n- If the homeowner does not renew the contract, your referral payments will cease. \n- MSFR Technology and Consultancy Inc. reserves the right to make changes in the referral campaign. \n- The contract terms are outlined on the [Missafir User Agreement page](https://www.missafir.com/en/terms/)."
+          }
+        ]
+      },
+      "footer": {
+        "id": 13,
+        "bannerHeader": {
+          "id": 68,
+          "title": "Rent your property short-term with Missafir and maximize your income",
+          "description": null,
+          "image": null
+        },
+        "bannerBody": {
+          "id": 69,
+          "title": null,
+          "description": "Tap into our professional property management system and increase your home rental earnings. Contact us today.",
+          "image": "https://svgshare.com/i/voH.svg"
+        },
+        "bannerFooter": {
+          "id": 17,
+          "label": "Get an offer",
+          "image": null,
+          "link": null
+        }
+      },
+      "localizations": {
+        "data": [
+          {
+            "id": 2,
+            "attributes": {
+              "createdAt": "2023-09-28T14:02:15.092Z",
+              "updatedAt": "2023-09-29T14:38:31.993Z",
+              "publishedAt": "2023-09-28T14:02:17.809Z",
+              "locale": "tr"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "meta": {}
+}

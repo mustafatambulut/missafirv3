@@ -1,24 +1,56 @@
 "use client";
+import { useTranslations } from "next-intl";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
+import useFilter from "@/app/hooks/useFilter";
 import { IFilterControlButtons } from "@/components/molecules/filterControlButtons/types";
 
 import Button from "@/components/atoms/button/Button";
-import { useTranslations } from "next-intl";
+import {
+  updateLoading,
+  updateSearchClicked
+} from "@/redux/features/listingSlice/listingSlice";
 
 const FilterControlButtons = ({
   handleClear,
-  applyFilter,
-  handleCancel,
-  filteredCount
+  closeModal = null,
+  closeDropdown = null,
+  isApplyDisabled = false,
+  isClearDisabled = false,
+  isInAllFilters = false
 }: IFilterControlButtons) => {
-  const t = useTranslations()
+  const { handleFilterListings } = useFilter();
+  const t = useTranslations();
+  const dispatch = useAppDispatch();
+  const searchClicked = useAppSelector(
+    (state) => state.listingReducer.searchClicked
+  );
+
+  const handleApplyFilter = () => {
+    handleFilterListings();
+    closeDropdown && closeDropdown();
+    closeModal && closeModal();
+  };
+
+  const handleClickClear = () => {
+    dispatch(updateLoading(true));
+    dispatch(updateSearchClicked(true));
+    handleClear ? handleClear() : null;
+    closeDropdown && closeDropdown();
+    closeModal && closeModal();
+  };
   const renderButtons = () => {
     return (
       <Button
-        onClick={handleClear || handleCancel}
+        disabled={isClearDisabled || searchClicked}
+        onClick={handleClickClear}
         variant="btn-link"
         className="text-primary bg-transparent shadow-none border-none">
-        {handleClear ? "Clear" : "Cancel"}
+        {handleClear
+          ? isInAllFilters
+            ? t("clear_all")
+            : t("clear")
+          : "Cancel"}
       </Button>
     );
   };
@@ -26,8 +58,12 @@ const FilterControlButtons = ({
   return (
     <div className="flex justify-end w-full mt-4">
       {renderButtons()}
-      <Button onClick={applyFilter} className="ml-2" variant="btn-primary">
-        <div>{t("show")} {filteredCount} {t("stays")}</div>
+      <Button
+        disabled={searchClicked || isApplyDisabled}
+        onClick={handleApplyFilter}
+        className="ml-2"
+        variant="btn-primary">
+        <div>{t("show")}</div>
       </Button>
     </div>
   );

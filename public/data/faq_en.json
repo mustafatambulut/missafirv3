@@ -1,0 +1,492 @@
+{
+  "data": {
+    "id": 1,
+    "attributes": {
+      "createdAt": "2023-09-05T11:35:57.917Z",
+      "updatedAt": "2023-10-02T08:24:53.704Z",
+      "publishedAt": "2023-09-05T11:36:00.408Z",
+      "locale": "en",
+      "header": {
+        "id": 39,
+        "title": "Frequently Asked Questions",
+        "description": "For any questions you have in mind, check out our frequently asked questions.",
+        "image": null
+      },
+      "body": [
+        {
+          "id": 1,
+          "title": "Contact",
+          "accordions": {
+            "data": [
+              {
+                "id": 6,
+                "attributes": {
+                  "title": "What are Missafir's contact channels? How can I reach you?",
+                  "description": "You can contact us via phone, Whatsapp, and our email address. For more details, check out our contact page.\n\nAdditionally, if you're a host with Missafir, you can reach us by downloading the Owner App. \niOS \nGoogle\n",
+                  "createdAt": "2023-09-29T14:40:02.798Z",
+                  "updatedAt": "2023-09-29T14:40:05.800Z",
+                  "publishedAt": "2023-09-29T14:40:05.717Z"
+                }
+              },
+              {
+                "id": 7,
+                "attributes": {
+                  "title": "What is Missafir's phone number?",
+                  "description": "You can find our phone numbers on our contact page.\n\nTurkey: +90 212 955 03 45 \nCroatia: +385 91 286 7400 \nMontenegro: +382 67 369 043",
+                  "createdAt": "2023-09-29T14:40:18.824Z",
+                  "updatedAt": "2023-09-29T14:40:36.116Z",
+                  "publishedAt": "2023-09-29T14:40:20.509Z"
+                }
+              },
+              {
+                "id": 8,
+                "attributes": {
+                  "title": "Do you provide support after working hours, on weekends, and on public holidays?",
+                  "description": "Yes. On weekends and public holidays, our homeowners and guests can reach us 24/7 by phone or WhatsApp.\n\nAfter working hours and on weekends, you can contact us directly or via WhatsApp at +90 212 955 03 45.",
+                  "createdAt": "2023-09-29T14:40:51.998Z",
+                  "updatedAt": "2023-09-29T14:40:53.196Z",
+                  "publishedAt": "2023-09-29T14:40:53.191Z"
+                }
+              },
+              {
+                "id": 9,
+                "attributes": {
+                  "title": "How will I communicate with my guests after check-in?",
+                  "description": "At Missafir, we handle guest inquiries from platforms like Airbnb, Booking, Agoda, Expedia, Homeaway, and Tripadvisor through our own system.\n\nIn short, we take on the responsibility of guest communication for you, so you can enjoy your free time.",
+                  "createdAt": "2023-09-29T14:41:05.704Z",
+                  "updatedAt": "2023-09-29T14:41:07.006Z",
+                  "publishedAt": "2023-09-29T14:41:07.000Z"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "title": "Security",
+          "accordions": {
+            "data": [
+              {
+                "id": 10,
+                "attributes": {
+                  "title": "How will the security of my home be ensured?",
+                  "description": "The safety of our guests and your home is our top priority. That's why we start by carefully selecting our guests. We review the profiles of potential guests who send reservation requests and make decisions based on feedback they've received from other homeowners. In necessary situations, we also request a deposit from potential guests before their stay.",
+                  "createdAt": "2023-10-02T07:22:24.588Z",
+                  "updatedAt": "2023-10-02T07:22:25.808Z",
+                  "publishedAt": "2023-10-02T07:22:25.803Z"
+                }
+              },
+              {
+                "id": 11,
+                "attributes": {
+                  "title": "What happens if there's damage to my home? What if my belongings are damaged? Do you cover repairs?",
+                  "description": "Platforms like Airbnb and HomeAway offer a \"Host Guarantee\" feature against potential damages or theft. This guarantee provides up to $1 million in home damage insurance. In such situations as Missafir, we claim the monetary value of your loss from these platforms and cover the damage on your behalf.\n\nIf the guest does not cause the damages in the home, we inform you by creating a host expense report and can address all damages.\n\nHowever, we recommend insuring your home and belongings through a separate company to be better prepared for adverse situations.",
+                  "createdAt": "2023-10-02T07:23:36.118Z",
+                  "updatedAt": "2023-10-02T07:23:40.799Z",
+                  "publishedAt": "2023-10-02T07:23:40.794Z"
+                }
+              },
+              {
+                "id": 12,
+                "attributes": {
+                  "title": "Is there a screening mechanism for those staying in my home? Do you implement the KBS system in Turkey?",
+                  "description": "We register all our guests staying in Turkey through Turkey's KBS (Identity Reporting System - it is legally required). Before their stay, our experts also conduct preliminary checks on guest profiles. This way, we ensure trustworthy and well-informed guests stay in your home.",
+                  "createdAt": "2023-10-02T07:26:25.216Z",
+                  "updatedAt": "2023-10-02T07:26:27.901Z",
+                  "publishedAt": "2023-10-02T07:26:27.896Z"
+                }
+              },
+              {
+                "id": 13,
+                "attributes": {
+                  "title": "Can I choose the people who will stay in my home?",
+                  "description": "No. As Missafir, we handle the reservation approvals. However, if there are specific individuals you would like or would not like to host in your home, you can always communicate with your account manager or reach out to us on WhatsApp.",
+                  "createdAt": "2023-10-02T07:26:43.589Z",
+                  "updatedAt": "2023-10-02T07:26:50.394Z",
+                  "publishedAt": "2023-10-02T07:26:50.387Z"
+                }
+              },
+              {
+                "id": 14,
+                "attributes": {
+                  "title": "Do you conduct a damage assessment after the stay?",
+                  "description": "Yes. After our guests check out, we perform a thorough damage inspection. If any damage is identified, we take the necessary actions. Additionally, we provide you with detailed and transparent information regarding any issues.",
+                  "createdAt": "2023-10-02T07:28:50.805Z",
+                  "updatedAt": "2023-10-02T07:28:53.290Z",
+                  "publishedAt": "2023-10-02T07:28:53.195Z"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 3,
+          "title": "Payment",
+          "accordions": {
+            "data": [
+              {
+                "id": 15,
+                "attributes": {
+                  "title": "How do you determine the prices? On average, how much can I earn?",
+                  "description": "Rental incomes for short and medium-term properties are determined based on various factors, from the property type to location. Thanks to our daily price optimizations at Missafir, you can be assured that you will maximize your earnings from your rental property.",
+                  "createdAt": "2023-10-02T07:32:40.689Z",
+                  "updatedAt": "2023-10-02T07:32:42.894Z",
+                  "publishedAt": "2023-10-02T07:32:42.888Z"
+                }
+              },
+              {
+                "id": 16,
+                "attributes": {
+                  "title": "How will my rental income be paid?",
+                  "description": "Payments from guests are transferred to Missafir through platforms like Airbnb, Booking, HomeAway, etc. Missafir consolidates payments made on different dates from all these platforms within a month.\n\nWe send you the consolidated amount between the 10th and 15th of the following month. For example, for guests hosted between June 1st and June 30th, we provide you with the earnings report between July 10th and July 15th.\nYou can transparently and live track your earnings through a homeowner panel tailored for you and via our mobile application.\n\nOur payments are made via internet banking or mobile banking, through wire transfer or EFT (Electronic Funds Transfer).",
+                  "createdAt": "2023-10-02T07:32:57.701Z",
+                  "updatedAt": "2023-10-02T07:32:58.797Z",
+                  "publishedAt": "2023-10-02T07:32:58.792Z"
+                }
+              },
+              {
+                "id": 17,
+                "attributes": {
+                  "title": "Can I set the daily rental amount for my home?",
+                  "description": "No. Several factors must be considered to achieve the maximum number of reservations, from monitoring daily rents set by comparable homes to seasonal demand. At Missafir, we perform price optimizations and daily industry analyses to ensure your home receives the highest demand. Therefore, you can trust us for the most efficient results.",
+                  "createdAt": "2023-10-02T07:33:18.090Z",
+                  "updatedAt": "2023-10-02T07:33:21.587Z",
+                  "publishedAt": "2023-10-02T07:33:21.508Z"
+                }
+              },
+              {
+                "id": 18,
+                "attributes": {
+                  "title": "How are payments scheduled?",
+                  "description": "Our payments are made every month. We transfer the earnings from the previous month to your account between the 10th and 15th of each month.\n\nYou can monitor your home rental earnings through our panel and mobile app.\n\nIf you haven't transitioned to our mobile app yet, we highly recommend downloading the Owner App.\n\niOS\nGoogle",
+                  "createdAt": "2023-10-02T07:33:35.998Z",
+                  "updatedAt": "2023-10-02T07:33:52.109Z",
+                  "publishedAt": "2023-10-02T07:33:36.908Z"
+                }
+              },
+              {
+                "id": 19,
+                "attributes": {
+                  "title": "Will I incur any costs as the homeowner?",
+                  "description": "For the onboarding cleaning (initial preparation of the home) and the \"deep cleaning,\" which recurs 1-2 times a year, routine maintenance and repairs not caused by guests, as well as any requests you have to enhance the interior design of the home, these expenses will be billed to you.\n\nYou can monitor all your expenses in real time through our panel and mobile app.\n\nIf you haven't transitioned to our mobile app yet, we highly recommend downloading the Owner App.\n\niOS\nGoogle",
+                  "createdAt": "2023-10-02T07:35:21.103Z",
+                  "updatedAt": "2023-10-02T07:35:22.405Z",
+                  "publishedAt": "2023-10-02T07:35:22.400Z"
+                }
+              },
+              {
+                "id": 20,
+                "attributes": {
+                  "title": "Which payment methods can I use for my payments to you?",
+                  "description": "You can offset your payments to Missafir from your rental earnings or pay using a debit or credit card.",
+                  "createdAt": "2023-10-02T07:35:36.490Z",
+                  "updatedAt": "2023-10-02T07:35:38.307Z",
+                  "publishedAt": "2023-10-02T07:35:38.303Z"
+                }
+              },
+              {
+                "id": 21,
+                "attributes": {
+                  "title": "What is your commission rate?",
+                  "description": "Our commission rates vary based on the service package you choose. For detailed information, you can visit our service packages page.",
+                  "createdAt": "2023-10-02T07:35:51.808Z",
+                  "updatedAt": "2023-10-02T07:35:52.890Z",
+                  "publishedAt": "2023-10-02T07:35:52.812Z"
+                }
+              },
+              {
+                "id": 22,
+                "attributes": {
+                  "title": "Will there be any other deductions besides the commission?",
+                  "description": "Apart from our commission rates, there will be no other deductions except for third-party platform fees and special circumstances. These special circumstances include expenses for home maintenance and cleaning.\n\nAdditionally, if you benefit from the special services Missafir offers to homeowners, these might reflect on your account as a deduction.",
+                  "createdAt": "2023-10-02T07:36:13.202Z",
+                  "updatedAt": "2023-10-02T07:36:15.899Z",
+                  "publishedAt": "2023-10-02T07:36:15.892Z"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 4,
+          "title": "Short term rental",
+          "accordions": {
+            "data": [
+              {
+                "id": 23,
+                "attributes": {
+                  "title": "What is home accommodation?",
+                  "description": "Home accommodation refers to travelers staying in private homes or apartments instead of hotels. Offering a more intimate and homey experience, this method is especially preferred for short-term stays.",
+                  "createdAt": "2023-10-02T07:41:59.893Z",
+                  "updatedAt": "2023-10-02T07:42:01.103Z",
+                  "publishedAt": "2023-10-02T07:42:01.096Z"
+                }
+              },
+              {
+                "id": 24,
+                "attributes": {
+                  "title": "What is short-term home rental?",
+                  "description": "Short-term home rental is when individuals rent out their homes or apartments for a brief period, often for vacation or travel purposes. It provides an alternative to hotels, giving travelers a more personal and local experience.",
+                  "createdAt": "2023-10-02T07:43:43.993Z",
+                  "updatedAt": "2023-10-02T07:43:45.191Z",
+                  "publishedAt": "2023-10-02T07:43:45.102Z"
+                }
+              },
+              {
+                "id": 27,
+                "attributes": {
+                  "title": "Can I rent out my home only for the summer season?",
+                  "description": "Unfortunately, with \"Missafir\", you can't choose specific rental periods. However, during the times you rent out with \"Missafir\", you can block off certain days to stay in your own home.\n\nFor more detailed information about the \"Missafir\" system, you can fill out our contact form.",
+                  "createdAt": "2023-10-02T07:44:30.811Z",
+                  "updatedAt": "2023-10-02T07:44:31.899Z",
+                  "publishedAt": "2023-10-02T07:44:31.894Z"
+                }
+              },
+              {
+                "id": 26,
+                "attributes": {
+                  "title": "Does my home need to be furnished?",
+                  "description": "Yes. As \"Missafir\", we offer our guests accommodation in furnished rental homes.\n\nIf your home is not furnished, don't worry! \"Missafir\" is the best property management company that also offers interior design services. Our expert professional interior design team, specialized in creating stylish and enjoyable living spaces for our guests, is ready to enhance the value of your home with careful and aesthetic touches.",
+                  "createdAt": "2023-10-02T07:44:16.117Z",
+                  "updatedAt": "2023-10-02T07:44:17.300Z",
+                  "publishedAt": "2023-10-02T07:44:17.295Z"
+                }
+              },
+              {
+                "id": 25,
+                "attributes": {
+                  "title": "Can I rent out my room?",
+                  "description": "At \"Missafir,\" we do not offer room rental services. To work with us, you need to rent out your entire property.",
+                  "createdAt": "2023-10-02T07:44:02.292Z",
+                  "updatedAt": "2023-10-02T07:44:04.094Z",
+                  "publishedAt": "2023-10-02T07:44:04.089Z"
+                }
+              },
+              {
+                "id": 28,
+                "attributes": {
+                  "title": "For how many days can I rent out my home at the minimum?",
+                  "description": "With \"Missafir\", short-term rentals start at 3 days. So, guests rent your home for at least 3 days.",
+                  "createdAt": "2023-10-02T07:44:41.889Z",
+                  "updatedAt": "2023-10-02T07:44:44.095Z",
+                  "publishedAt": "2023-10-02T07:44:44.090Z"
+                }
+              },
+              {
+                "id": 29,
+                "attributes": {
+                  "title": "Can I track the reservations?",
+                  "description": "Yes. We maintain a fully transparent process. You can access information about your home's reservations, income, and expenses anytime from our desktop panel and mobile app.\n\nIf you haven't downloaded our mobile app yet, we highly recommend getting the Owner App.  \n\niOS\nGoogle ",
+                  "createdAt": "2023-10-02T07:51:01.592Z",
+                  "updatedAt": "2023-10-02T07:51:03.998Z",
+                  "publishedAt": "2023-10-02T07:51:03.994Z"
+                }
+              },
+              {
+                "id": 30,
+                "attributes": {
+                  "title": "Can I stay in my home whenever I want when I rent it out with Missafir?",
+                  "description": "One of the great features of renting with \"Missafir\" is that you can stay in your home whenever you want!\n\nHowever, we have certain criteria to avoid operational issues. For example, you need to notify us 48 hours in advance. For more detailed information about the rules and to explore the short-term rental system with Missafir, you can fill out the get an offer form.",
+                  "createdAt": "2023-10-02T07:51:19.394Z",
+                  "updatedAt": "2023-10-02T07:51:20.599Z",
+                  "publishedAt": "2023-10-02T07:51:20.594Z"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 7,
+          "title": "Property management",
+          "accordions": {
+            "data": [
+              {
+                "id": 31,
+                "attributes": {
+                  "title": "What is property management?",
+                  "description": "Property management refers to all the activities carried out for the maintenance, operation, and maximizing the income from real estate properties.\n\nProperty or real estate management encompasses various tasks, from managing tenants to maintenance work.",
+                  "createdAt": "2023-10-02T07:53:58.512Z",
+                  "updatedAt": "2023-10-02T07:53:59.601Z",
+                  "publishedAt": "2023-10-02T07:53:59.596Z"
+                }
+              },
+              {
+                "id": 32,
+                "attributes": {
+                  "title": "What do I need to become a host with Missafir? What are your requirements?",
+                  "description": "To become a host with Missafir, your property must be suitable for short and medium-term rentals. We have specific criteria for this.\nSuitable neighborhood\nThe house must have certain furnishings\nSigning a contract\nIf the property is in a residential area, necessary permissions must be obtained\nFor more detailed information and to find out the exact requirements to become a host, please fill out our contact form today. Our experts will get back to you promptly.",
+                  "createdAt": "2023-10-02T07:54:28.689Z",
+                  "updatedAt": "2023-10-02T07:54:30.028Z",
+                  "publishedAt": "2023-10-02T07:54:30.020Z"
+                }
+              },
+              {
+                "id": 33,
+                "attributes": {
+                  "title": "Do you have a minimum contract duration?",
+                  "description": "Yes, our minimum contract duration is 6 months.",
+                  "createdAt": "2023-10-02T07:54:45.606Z",
+                  "updatedAt": "2023-10-02T07:54:46.720Z",
+                  "publishedAt": "2023-10-02T07:54:46.712Z"
+                }
+              },
+              {
+                "id": 34,
+                "attributes": {
+                  "title": "On which platforms do you list the properties?",
+                  "description": "We list your property on Airbnb, Booking, VRBO, Expedia, and 50+ globally recognized listing platforms, enhancing its visibility with SEO practices.",
+                  "createdAt": "2023-10-02T07:58:23.097Z",
+                  "updatedAt": "2023-10-02T07:58:24.193Z",
+                  "publishedAt": "2023-10-02T07:58:24.188Z"
+                }
+              },
+              {
+                "id": 35,
+                "attributes": {
+                  "title": "My home is not furnished, but I want to work with you. Can you help with this?",
+                  "description": "Absolutely! At Missafir, we are the first and only short/medium-term rental management company in Turkey that also provides interior design services. Our professional interior design team specializes in creating stylish and comfortable living spaces for our guests. They are ready to enhance the value of your home with meticulous aesthetic touches.",
+                  "createdAt": "2023-10-02T07:58:40.026Z",
+                  "updatedAt": "2023-10-02T08:10:07.890Z",
+                  "publishedAt": "2023-10-02T07:58:41.104Z"
+                }
+              },
+              {
+                "id": 36,
+                "attributes": {
+                  "title": "How long does it take for your listings to be published?",
+                  "description": "Once you, as the homeowner, meet all the necessary requirements (contract, ID, key, etc.), your listing will be posted on Airbnb within 48 hours. If a professional photo shoot has been scheduled for your home, our photographer's final editing may take up to 24 hours. After this process, the listing will be published again within 48 hours.",
+                  "createdAt": "2023-10-02T07:58:54.800Z",
+                  "updatedAt": "2023-10-02T07:58:56.602Z",
+                  "publishedAt": "2023-10-02T07:58:56.598Z"
+                }
+              },
+              {
+                "id": 37,
+                "attributes": {
+                  "title": "How do you optimize my home's occupancy rate?",
+                  "description": "We publish a detailed listing of your home on multiple platforms, such as Airbnb, Booking, and Homeaway. In addition to this, we boost your home's visibility with our artificial intelligence-supported content solutions and SEO practices. This increases the chances of your home being seen by potential guests.\nFurthermore, to ensure that your home maintains a certain level of occupancy, we carry out daily dynamic price optimization.",
+                  "createdAt": "2023-10-02T07:59:08.405Z",
+                  "updatedAt": "2023-10-02T07:59:09.400Z",
+                  "publishedAt": "2023-10-02T07:59:09.395Z"
+                }
+              },
+              {
+                "id": 38,
+                "attributes": {
+                  "title": "When will my earnings peak after becoming a host with Missafir?",
+                  "description": "Your earnings will generally reach higher levels after hosting an average of 3 guests in your home. Of course, this can vary depending on the season and other external factors throughout the year.",
+                  "createdAt": "2023-10-02T07:59:19.705Z",
+                  "updatedAt": "2023-10-02T07:59:20.808Z",
+                  "publishedAt": "2023-10-02T07:59:20.798Z"
+                }
+              },
+              {
+                "id": 39,
+                "attributes": {
+                  "title": "Do homeowners pay taxes? Will I have a tax obligation?",
+                  "description": "Currently, homeowners in Turkey do not have a tax obligation. However, these obligations may change depending on the country's rules.\n\nLegal regulations can also change. In such cases, we will provide you with updated information.",
+                  "createdAt": "2023-10-02T08:03:04.489Z",
+                  "updatedAt": "2023-10-02T08:08:01.996Z",
+                  "publishedAt": "2023-10-02T08:03:08.191Z"
+                }
+              },
+              {
+                "id": 40,
+                "attributes": {
+                  "title": "Will you do the cleaning? Is it free?",
+                  "description": "Yes. As Missafir, we provide cleaning services with our professional teams before check-ins and check-outs.\nCleaning service fees vary depending on the service package you choose. You can ask your account manager for information about our free cleaning service.",
+                  "createdAt": "2023-10-02T08:08:16.116Z",
+                  "updatedAt": "2023-10-02T08:08:17.198Z",
+                  "publishedAt": "2023-10-02T08:08:17.193Z"
+                }
+              },
+              {
+                "id": 41,
+                "attributes": {
+                  "title": "Can I change the settings of my property listings myself?",
+                  "description": "No. Homeowners cannot change the settings on the platforms. This includes minimum stay duration, nightly price, security deposit, reservation request, and check-in/check-out hours. These settings are managed by our team.\n\nHowever, for content changes in the property listings (like title changes, adding photos, etc.), you can always contact your account manager. Your requests will be processed within 24 hours.",
+                  "createdAt": "2023-10-02T08:08:29.807Z",
+                  "updatedAt": "2023-10-02T08:08:30.989Z",
+                  "publishedAt": "2023-10-02T08:08:30.908Z"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 8,
+          "title": "Home rules",
+          "accordions": {
+            "data": [
+              {
+                "id": 42,
+                "attributes": {
+                  "title": "Can I set my own house rules?",
+                  "description": "Of course. As the Missafir team, we include your specific requests and the rules you set in the property listings. Additionally, we communicate them to the guests via email or during check-in.",
+                  "createdAt": "2023-10-02T08:23:29.587Z",
+                  "updatedAt": "2023-10-02T08:23:30.700Z",
+                  "publishedAt": "2023-10-02T08:23:30.696Z"
+                }
+              },
+              {
+                "id": 43,
+                "attributes": {
+                  "title": "Can I leave my pet at home?",
+                  "description": "Unfortunately, no. As much as we love animals, we cannot accept responsibility for homeowners' pets.",
+                  "createdAt": "2023-10-02T08:23:41.704Z",
+                  "updatedAt": "2023-10-02T08:23:42.895Z",
+                  "publishedAt": "2023-10-02T08:23:42.799Z"
+                }
+              },
+              {
+                "id": 44,
+                "attributes": {
+                  "title": "Which personal items can I leave in the house?",
+                  "description": "For mutual trust and peace of mind, we recommend not leaving items of high material and sentimental value in the house. You can safely and securely leave your other items in the house, making sure to leave enough space for the guests' personal belongings.\n\nAdditionally, by leaving various photos and decorative objects, you can create a much more intimate and warm home environment for the guests.\n",
+                  "createdAt": "2023-10-02T08:23:56.716Z",
+                  "updatedAt": "2023-10-02T08:24:14.705Z",
+                  "publishedAt": "2023-10-02T08:23:57.595Z"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "footer": {
+        "id": 9,
+        "bannerHeader": {
+          "id": 40,
+          "title": "Rent your property short-term with Missafir and maximize your income",
+          "description": null,
+          "image": null
+        },
+        "bannerBody": {
+          "id": 41,
+          "title": null,
+          "description": "Tap into our professional property management system and increase your home rental earnings. Contact us today.",
+          "image": "https://svgshare.com/i/voH.svg"
+        },
+        "bannerFooter": {
+          "id": 11,
+          "label": "Get an offer",
+          "image": null,
+          "link": null
+        }
+      },
+      "localizations": {
+        "data": [
+          {
+            "id": 2,
+            "attributes": {
+              "createdAt": "2023-09-21T09:35:22.094Z",
+              "updatedAt": "2023-10-04T10:48:11.637Z",
+              "publishedAt": "2023-09-22T11:10:19.541Z",
+              "locale": "tr"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "meta": {}
+}

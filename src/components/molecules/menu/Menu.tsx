@@ -1,9 +1,14 @@
+import dynamic from "next/dynamic";
 import { get, map, size } from "lodash";
-
 import { ILink, IMenu } from "@/components/molecules/menu/types";
 
-import SubMenu from "@/components/atoms/subMenu/SubMenu";
-import MenuItem from "@/components/atoms/menuItem/MenuItem";
+const SubMenu: any = dynamic(() => import("@/components/atoms/subMenu/SubMenu"), {
+  ssr: false
+});
+
+const MenuItem: any = dynamic(() => import("@/components/atoms/menuItem/MenuItem"), {
+  ssr: false
+});
 
 const Menu = ({
   links,

@@ -1,4 +1,9 @@
-import ReservationDetail from "@/components/molecules/reservationDetail/ReservationDetail";
+import dynamic from "next/dynamic";
+
+const ReservationDetail = dynamic(
+  () => import("@/components/molecules/reservationDetail/ReservationDetail"),
+  { ssr: false }
+);
 
 const Page = ({ params }: any) => {
   const { reservationId } = params;

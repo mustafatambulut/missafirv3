@@ -3,8 +3,21 @@ import classNames from "classnames";
 //todo:icon kullanılınca açılacak
 //import Image from "next/image";
 import { isMobile } from "react-device-detect";
-import { useAppSelector } from "@/redux/hooks";
-import { first, get, includes, isEqual, map, size, toString } from "lodash";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import {
+  first,
+  get,
+  has,
+  includes,
+  isEqual,
+  join,
+  map,
+  omit,
+  pick,
+  size,
+  split,
+  toString
+} from "lodash";
 
 import { IDropdown } from "@/components/molecules/filterItem/types";
 
@@ -13,35 +26,72 @@ import Checkbox from "@/components/atoms/checkbox/Checkbox";
 import PriceRange from "@/components/molecules/priceRange/PriceRange";
 
 import CloseIcon from "../../../../public/images/close.svg";
+import FilterControlButtons from "@/components/molecules/filterControlButtons/FilterControlButtons";
+import { updateFilterData, updateLoading, updateSearchClicked } from "@/redux/features/listingSlice/listingSlice";
+import { usePathname, useRouter } from "next/navigation";
+import useFilter from "@/app/hooks/useFilter";
 
 const FilterItemDropdown = ({
   filterItem,
   handleFilter,
   setIsDropdownOpen,
-  isInAllFilters = false
+  isInAllFilters = false,
+  searchParams
 }: IDropdown) => {
-  const { filterData } = useAppSelector((state) => state.listingReducer);
+  const router = useRouter();
+  const pathName = usePathname();
+  const dispatch = useAppDispatch();
+  const { cleanFilterData,handleFilterListings } = useFilter();
+  const filterData = useAppSelector((state) => state.listingReducer.filterData);
+
+  const getExistedParams = (item, params) => {
+    let slugs = [get(item, "slug")];
+    if (has(item, "items")) {
+      slugs = [...slugs, ...map(get(item, "items"), "slug")];
+    }
+    return { slugs, existedParams: pick(params, slugs) };
+  };
+  const checkIsApplyDisabled = (item) => {
+    const { existedParams, slugs } = getExistedParams(item, searchParams);
+    const existedFilterData = pick(filterData, slugs);
+    return isEqual(existedParams, existedFilterData);
+  };
+
+  const checkIsClearDisabled = (item) => {
+    const { existedParams } = getExistedParams(item, searchParams);
+    return size(existedParams) === 0;
+  };
 
   const renderFilterItems = (item, parentItem = null) => {
     const type = get(item, "type") || get(parentItem, "type");
 
     switch (type) {
-      case "checkbox":
+      case "checkbox": {
+        const checkIsExist = () => {
+          const data = get(filterData, get(parentItem, "slug"), null);
+          if (data) {
+            if (includes(data, "_")) {
+              return includes(split(data, "_"), toString(get(item, "id")));
+            } else {
+              return data === toString(get(item, "id"));
+            }
+          } else {
+            return false;
+          }
+        };
+
         return (
           <Checkbox
             value={false}
             name={get(item, "slug")}
             onChange={() =>
               handleFilter(
-                get(parentItem, "slug"),
+                toString(get(parentItem, "slug")),
                 toString(get(item, "id")),
                 type
               )
             }
-            checked={includes(
-              get(filterData, get(parentItem, "slug")),
-              get(item, "id")
-            )}
+            checked={checkIsExist()}
             label={
               <div
                 className={`flex gap-x-2 ${
@@ -74,22 +124,28 @@ const FilterItemDropdown = ({
             }
           />
         );
-      case "radio":
+      }
+      case "radio": {
         return (
           <Radio
             name={get(parentItem, "slug")}
             checked={isEqual(
-              get(filterData, get(parentItem, "slug")),
-              get(item, "id")
+              toString(get(filterData, get(parentItem, "slug"))),
+              toString(get(item, "id"))
             )}
             onChange={() =>
-              handleFilter(get(parentItem, "slug"), get(item, "id"), type)
+              handleFilter(
+                toString(get(parentItem, "slug")),
+                toString(get(item, "id")),
+                type
+              )
             }
             label={get(item, "title")}
             position="right"
             customFilledRadio
           />
         );
+      }
       case "priceRange":
         return (
           <PriceRange
@@ -101,9 +157,17 @@ const FilterItemDropdown = ({
       default:
         return (
           <div
-            onClick={() =>
-              handleFilter(get(parentItem, "slug"), get(item, "id"), type)
-            }
+            onClick={() => {
+              dispatch(updateLoading(true));
+              dispatch(updateSearchClicked(true));
+
+              handleFilter(get(parentItem, "slug"), get(item, "id"), type);
+              handleFilterListings({
+                ...filterData,
+                [get(parentItem, "slug")]: get(item, "id")
+              });
+              setIsDropdownOpen ? setIsDropdownOpen(false) : null;
+            }}
             className={`w-full text-lg ${
               isEqual(
                 get(filterData, get(parentItem, "slug")),
@@ -165,6 +229,42 @@ const FilterItemDropdown = ({
           );
         })}
       </div>
+      {!isInAllFilters &&
+        get(first(get(filterItem, "items")), "type") !== "dropdown" && (
+          <FilterControlButtons
+            isApplyDisabled={checkIsApplyDisabled(filterItem)}
+            isClearDisabled={checkIsClearDisabled(filterItem)}
+            closeDropdown={() =>
+              setIsDropdownOpen ? setIsDropdownOpen(false) : null
+            }
+            handleClear={() => {
+              dispatch(
+                updateFilterData(
+                  omit(filterData, [
+                    ...map(filterItem?.items, "slug"),
+                    filterItem?.slug
+                  ])
+                )
+              );
+
+              const tempUri = [];
+              const result = cleanFilterData(
+                omit(filterData, [
+                  ...map(filterItem?.items, "slug"),
+                  filterItem?.slug
+                ])
+              );
+              map(result, (value, key) => {
+                if (value) return tempUri.push(`${key}=${value}`);
+              });
+
+              const queryParams = join(tempUri, "&")
+                ? `${join(tempUri, "&")}`
+                : "";
+              router.push(`${pathName}?${queryParams}`);
+            }}
+          />
+        )}
     </div>
   );
 };

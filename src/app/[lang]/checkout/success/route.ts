@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   let _responseData: any;
   let _isFailed: boolean = false;
   const formData = await req.formData();
-  
+
   const isProduction = () => process.env.NODE_ENV === "production";
   const destinationUrl = new URL(
     "/payment/success",
@@ -33,10 +33,10 @@ export async function POST(req: NextRequest) {
     console.log("-----------------------")
     console.log("response", _responseData)
   }
-  
-  const route = _isFailed ? 
+
+  const route = _isFailed ?
       `${destinationFailedUrl}?step=3&message=${encodeURIComponent(_responseData?.message || _responseData?.title)}`
-      : 
+      :
       `${destinationUrl}?thread=${_responseData?.data?.messageThred}`;
 
   return NextResponse.redirect(route, {status: 302});

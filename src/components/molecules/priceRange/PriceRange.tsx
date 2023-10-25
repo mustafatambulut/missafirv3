@@ -27,7 +27,7 @@ const PriceRange = ({
     minPrice,
     maxPrice
   ]);
-  const { filterData } = useAppSelector((state) => state.listingReducer);
+  const filterData  = useAppSelector((state) => state.listingReducer.filterData);
 
   const step = 1;
 

@@ -1,6 +1,17 @@
-import ProfileInfo from "@/components/molecules/profileInfo/ProfileInfo";
-import Settings from "@/components/molecules/settings/Settings";
-import ChangePassword from "@/components/molecules/changePassword/ChangePassword";
+import dynamic from "next/dynamic";
+
+const ProfileInfo = dynamic(
+  () => import("@/components/molecules/profileInfo/ProfileInfo"),
+  { ssr: false }
+);
+const Settings = dynamic(
+  () => import("@/components/molecules/settings/Settings"),
+  { ssr: false }
+);
+const ChangePassword = dynamic(
+  () => import("@/components/molecules/changePassword/ChangePassword"),
+  { ssr: false }
+);
 
 const Page = ({ params }: any) => {
   const { current } = params;

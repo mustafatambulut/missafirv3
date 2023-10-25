@@ -1,3 +1,4 @@
+/*eslint-disable*/
 "use client";
 import { get, includes, map } from "lodash";
 import { isMobile } from "react-device-detect";
@@ -45,25 +46,29 @@ const AvailabilitySection = ({
   return (
     <section className={`flex flex-col gap-y-9 ${className}`}>
       <header>
-        <Typography variant="h5" element="h5" className="text-gray-800">{t("availability")}</Typography>
+        <Typography variant="h5" element="h5" className="text-gray-800">
+          {t("availability")}
+        </Typography>
       </header>
       <article>
-        <DatePicker
-          isOutsideRange={handleUnavailableDates}
-          minimumNights={get(resData, "item.min_nights")}
-          isOpened={true}
-          date={bookingDate}
-          isShowLabel={false}
-          isShowDates={false}
-          noNavButtons={false}
-          isBordered={!isMobile}
-          bookingDate={bookingDate}
-          setDate={handleChangeDate}
-          daySize={isMobile ? 45 : 57}
-          setBookingDate={setBookingDate}
-          setSkipButtonVisibility={false}
-          numberOfMonths={isMobile ? 1 : 2}
-        />
+        {/*todo: geri alınacak*/}
+        {/*<DatePicker*/}
+        {/*  showMinimumDateSelector={true}*/}
+        {/*  isOutsideRange={handleUnavailableDates}*/}
+        {/*  minimumNights={get(resData, "item.min_nights")}*/}
+        {/*  isOpened={true}*/}
+        {/*  date={bookingDate}*/}
+        {/*  isShowLabel={false}*/}
+        {/*  isShowDates={false}*/}
+        {/*  noNavButtons={false}*/}
+        {/*  isBordered={!isMobile}*/}
+        {/*  bookingDate={bookingDate}*/}
+        {/*  setDate={handleChangeDate}*/}
+        {/*  daySize={isMobile ? 45 : 57}*/}
+        {/*  setBookingDate={setBookingDate}*/}
+        {/*  setSkipButtonVisibility={false}*/}
+        {/*  numberOfMonths={isMobile ? 1 : 2}*/}
+        {/*/>*/}
       </article>
     </section>
   );

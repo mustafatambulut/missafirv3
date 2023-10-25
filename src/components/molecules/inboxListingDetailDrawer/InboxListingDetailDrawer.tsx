@@ -1,12 +1,15 @@
 "use client";
 import { useRef } from "react";
+import { get, isEqual } from "lodash";
 import { createPortal } from "react-dom";
 import { isMobile } from "react-device-detect";
-import InboxThreadListing from "@/components/molecules/inboxThreadListing/InboxThreadListing";
-import CloseIcon from "../../../../public/images/variants/close.svg";
-import { get, isEqual } from "lodash";
-import Typography from "@/components/atoms/typography/Typography";
+
 import { useAppSelector } from "@/redux/hooks";
+
+import Typography from "@/components/atoms/typography/Typography";
+import InboxThreadListing from "@/components/molecules/inboxThreadListing/InboxThreadListing";
+
+import CloseIcon from "../../../../public/images/variants/close.svg";
 
 const InboxListingDetailDrawer = () => {
   const drawerCloseRef = useRef<HTMLInputElement>(null);

@@ -3,7 +3,7 @@ import ReactFastMarquee from "react-fast-marquee";
 
 const PartnersSkeleton = () => {
   const firstRow = new Array(8).fill(null);
-  const secondRow = new Array(6).fill(null);
+  const secondRow = new Array(8).fill(null);
 
   const Partner = () => {
     return (

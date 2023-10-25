@@ -5,10 +5,12 @@ export interface IListingDetailState {
     startDate: string;
     endDate: string;
   };
+  isSelectedBookingDate?: boolean;
+  isLoadingDatePicker?: boolean;
+  availabilityModalOpen?: boolean;
   notAvailableModal?: boolean;
   resPayload: ResPayload;
   guestOptions: GuestOption[];
-  isBookingInfoEditing: boolean;
   bookingDate: IBookingDate;
   links: [];
 }

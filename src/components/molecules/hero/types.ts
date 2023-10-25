@@ -1,6 +1,10 @@
+import { ReactNode } from "react";
+
 export interface IHero {
-  id?: number;
-  __component?: string;
-  image?: string;
-  title?: string;
+  hero: any;
+  children: ReactNode;
+}
+
+export interface IHeroSection {
+  title: string;
 }

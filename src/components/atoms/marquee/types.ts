@@ -4,6 +4,10 @@ export interface IMarquee {
   className?: string;
   items: IMarqueeItem[];
   marqueeItemClassName?: string;
+  width?: number;
+  height?: number;
+  marqueeItemInnerClassName?: string;
+  marqueeImageClassName?: string;
 }
 
 export interface IMarqueeItem {

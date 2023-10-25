@@ -1,6 +1,8 @@
 "use client";
 import { useEffect } from "react";
-import { get, isEmpty, toNumber } from "lodash";
+import get from "lodash/get";
+import isEmpty from "lodash/isEmpty";
+import toNumber from "lodash/toNumber";
 import { useSearchParams } from "next/navigation";
 
 import {
@@ -14,12 +16,13 @@ import {
   changeCurrentStep,
   setReservation
 } from "@/redux/features/reservationSlice/reservationSlice";
+import { setResPayload } from "@/redux/features/listingDetailSlice/listingDetailSlice";
+import { PAYLOAD_KEY } from "@/app/constants";
+import { getLocalStorage } from "@/utils/helper";
 
 import PaymentSection from "@/components/organisms/paymentSection/PaymentSection";
 import SuccessSection from "@/components/organisms/successSection/SuccessSection";
 import ConfirmationSection from "@/components/organisms/confirmationSection/ConfirmationSection";
-import { getLocalStorage } from "@/utils/helper";
-import { setResPayload } from "@/redux/features/listingDetailSlice/listingDetailSlice";
 
 const Reservation = () => {
   const dispatch = useAppDispatch();
@@ -36,11 +39,14 @@ const Reservation = () => {
   }
 
   const submitCheckoutPreview = async () => {
-    dispatch(setResPayload(JSON.parse(getLocalStorage("payload"))));
+    dispatch(setResPayload(JSON.parse(getLocalStorage(PAYLOAD_KEY))));
 
-    const resp: any = await checkoutPreview(JSON.parse(getLocalStorage("payload")));
+    const resp: any = await checkoutPreview(
+      JSON.parse(getLocalStorage(PAYLOAD_KEY))
+    );
 
-    if (!resp.data?.error) dispatch(setReservation(get(resp.data, "data.item.reservation")));
+    if (!resp.data?.error)
+      dispatch(setReservation(get(resp.data, "data.item.reservation")));
   };
 
   useEffect(() => {

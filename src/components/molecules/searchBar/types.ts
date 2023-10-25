@@ -16,4 +16,10 @@ export interface IProps {
   handleFilterListings: void;
   setActiveSearchItem?: string;
   setSkipButtonVisibility: boolean;
+  isInCustomSection?: boolean;
+}
+
+export interface DESTINATION {
+  CITY: string;
+  DISTRICT: string;
 }

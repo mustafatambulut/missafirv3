@@ -6,7 +6,7 @@ import { useAppSelector } from "@/redux/hooks";
 import {ISwitch} from "@/components/atoms/switch/types";
 
 const Switch = ({ filterItem, handleFilter }: ISwitch) => {
-  const { filterData } = useAppSelector((state) => state.listingReducer);
+  const  filterData  = useAppSelector((state) => state.listingReducer.filterData);
   const toggleItemClass = (id, item) => {
     return classNames(
       "rounded-[100px] px-3 h-full flex justify-center items-center",

@@ -9,13 +9,28 @@ const Marquee = ({
   speed = 50,
   className = "",
   direction = "left",
-  marqueeItemClassName = ""
+  marqueeItemClassName = "",
+  marqueeItemInnerClassName = "",
+  marqueeImageClassName = ""
 }: IMarquee) => {
   return (
-    <ReactFastMarquee autoFill={true} speed={speed} direction={direction} className={className}>
+    <ReactFastMarquee
+      autoFill={true}
+      speed={speed}
+      direction={direction}
+      className={className}>
       {map(items, (image, key) => (
-        <div className={marqueeItemClassName} key={key}>
-          <Image src={image || "/"} alt="image" width={160} height={50} />
+        <div className={`relative ${marqueeItemClassName}`} key={key}>
+          {image && (
+            <div className={`relative ${marqueeItemInnerClassName}`}>
+              <Image
+                src={image}
+                fill={true}
+                alt="image"
+                className={marqueeImageClassName}
+              />
+            </div>
+          )}
         </div>
       ))}
     </ReactFastMarquee>

@@ -77,7 +77,7 @@ const BecomeOwnerLanding = () => {
   };
 
   return (
-    <div className="px-4 lg:px-8 pt-40">
+    <div className="px-4 lg:px-8 pt-16 lg:pt-40">
       <Section
         title={t("select_your_country")}
         description={t(
@@ -113,7 +113,9 @@ const BecomeOwnerLanding = () => {
       <Banner
         type="primary"
         title={t("not_available_in_your_area")}
-        body={t("become_owner_banner_body")}>
+        body={t("become_owner_banner_body")}
+        className="mt-5 lg:mt-0"
+      >
         <form
           noValidate
           onSubmit={handleSubmit}

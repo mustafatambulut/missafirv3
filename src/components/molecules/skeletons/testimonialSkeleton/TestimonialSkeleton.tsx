@@ -2,7 +2,7 @@ const TestimonialSkeleton = () => {
   const dummyData = new Array(3).fill(null);
 
   const Testimonial = () => {
-    return <div className="bg-gray-100 rounded-lg h-96 w-80"></div>;
+    return <div className="bg-gray-100 rounded-lg h-96 w-80 2xl:w-96"></div>;
   };
 
   return (

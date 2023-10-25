@@ -1,6 +1,29 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { isMobile } from "react-device-detect";
+import dynamic from "next/dynamic";
+
+const SearchDrawer = dynamic(
+  () => import("@/components/atoms/searchDrawer/SearchDrawer"),
+  {
+    ssr: false
+  }
+);
+
+const DateDrawer = dynamic(
+  () => import("@/components/atoms/dateDrawer/DateDrawer"),
+  {
+    ssr: false
+  }
+);
+
+const GuestDrawer = dynamic(
+  () => import("@/components/atoms/guestDrawer/GuestDrawer"),
+  {
+    ssr: false
+  }
+);
 
 import {
   BOOKING_DATE,
@@ -8,13 +31,9 @@ import {
   BOOKING_DESTINATION
 } from "@/components/molecules/searchBar/constants";
 import { IProps } from "@/components/molecules/searchBar/types";
-import withSearchBar from "@/components/molecules/searchBar/withSearchBar";
 
-import DateDrawer from "@/components/atoms/dateDrawer/DateDrawer";
-import GuestDrawer from "@/components/atoms/guestDrawer/GuestDrawer";
-import SearchDrawer from "@/components/atoms/searchDrawer/SearchDrawer";
 import MobileDrawerSide from "@/components/atoms/mobileDrawerSide/MobileDrawerSide";
-import { isMobile } from "react-device-detect";
+import withSearchBar from "@/components/molecules/searchBar/withSearchBar";
 
 const MobileSearchBar = (props: IProps) => {
   const {
@@ -26,11 +45,17 @@ const MobileSearchBar = (props: IProps) => {
     bookingDate
   } = props;
 
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+
   useEffect(() => {
     isDrawerOpen
       ? document.body.classList.add("overflow-hidden")
       : document.body.classList.remove("overflow-hidden");
   }, [isDrawerOpen]);
+
+  useEffect(() => {
+    setIsMobileDevice(isMobile);
+  }, []);
 
   return (
     <>
@@ -55,7 +80,8 @@ const MobileSearchBar = (props: IProps) => {
           isInCustomSection={isInCustomSection}
         />
       </div>
-      {(typeof window !== "undefined" && isMobile) &&
+      {typeof window !== "undefined" &&
+        isMobileDevice &&
         createPortal(
           <div className="drawer z-50">
             <input

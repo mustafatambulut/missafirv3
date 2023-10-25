@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { isMobile } from "react-device-detect";
 
@@ -15,11 +15,23 @@ import InboxThreadHeaderSkeleton from "@/components/molecules/skeletons/inboxThr
 import InboxThreadChatBoxSkeleton from "@/components/molecules/skeletons/inboxThreadChatBoxSekeleton/InboxThreadChatBoxSkeleton";
 import InboxThreadListingSkeleton from "@/components/molecules/skeletons/inboxThreadListingSkeleton/InboxThreadListingSkeleton";
 
-import MobileThreadSection from "@/components/organisms/mobileThreadSection/MobileThreadSection";
 import InboxNotFoundComponent from "@/components/molecules/inboxNotFoundComponent/InboxNotFoundComponent";
 
+import "./inbox.css";
+import dynamic from "next/dynamic";
+
+const MobileThreadSection = dynamic(
+  () =>
+    import("@/components/organisms/mobileThreadSection/MobileThreadSection"),
+  {
+    ssr: false
+  }
+);
+
 const InboxLayout = ({ children }: IMessageLayout) => {
-  const { selectedThreadId, notFound } = useAppSelector(
+  const [isMobileDevice, setIsMobileDevice] = useState<boolean>(false);
+
+  const { selectedThreadId, notFound, threadListLoaded } = useAppSelector(
     (state) => state.inboxReducer,
     isEqual
   );
@@ -30,12 +42,13 @@ const InboxLayout = ({ children }: IMessageLayout) => {
 
   useEffect(() => {
     dispatch(fetchThreadList());
+    setIsMobileDevice(isMobile);
   }, []);
 
-  return isMobile ? (
+  return isMobileDevice ? (
     <MobileThreadSection />
   ) : (
-    <main className={mainClass}>
+    <div className={mainClass}>
       <InboxThreadList />
       {selectedThreadId !== null && notFound === false ? (
         <>
@@ -48,21 +61,24 @@ const InboxLayout = ({ children }: IMessageLayout) => {
       ) : notFound ? (
         <InboxNotFoundComponent />
       ) : (
-        <div className="flex flex-1 justify-between gap-x-5 pl-5">
+        <div
+          className={`flex flex-1 justify-between gap-x-5 ml-5 rounded-xl ${
+            threadListLoaded ? "bg-white" : null
+          }`}>
           <div className="flex-1 flex flex-col gap-y-5 rounded-xl">
             <div className="bg-white p-3 rounded-xl">
-              <InboxThreadHeaderSkeleton />
+              {threadListLoaded ? null : <InboxThreadHeaderSkeleton />}
             </div>
             <div className="bg-white rounded-xl">
-              <InboxThreadChatBoxSkeleton />
+              {threadListLoaded ? null : <InboxThreadChatBoxSkeleton />}
             </div>
           </div>
           <div className="w-[32%]">
-            <InboxThreadListingSkeleton />
+            {threadListLoaded ? null : <InboxThreadListingSkeleton />}
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 };
 

@@ -1,8 +1,9 @@
 "use client";
 import { useEffect } from "react";
 import * as Yup from "yup";
+import Link from "next/link";
 import { useFormik } from "formik";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { filter, get, map, size } from "lodash";
 
 import {
@@ -12,7 +13,8 @@ import {
   updateCurrentStep,
   fetchCorporateTypes,
   updateNeighborhoods,
-  fetchNestedLocations
+  fetchNestedLocations,
+  resetFlow
 } from "@/redux/features/ownerSlice/ownerSlice";
 import { sendBecomeOwnerRequest } from "@/service/api";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -27,6 +29,8 @@ import PhoneInput from "@/components/atoms/phoneInput/PhoneInput";
 import FileUploadField from "@/components/atoms/fileUploadField/FileUploadField";
 
 import DownArrowIcon from "../../../../public/images/down_arrow.svg";
+import ChevronLeft from "../../../../public/images/chevron_left.svg";
+import Typography from "@/components/atoms/typography/Typography";
 
 const BecomeOwnerForm = () => {
   const t = useTranslations();
@@ -44,6 +48,7 @@ const BecomeOwnerForm = () => {
     loadingNeighborHoods
   } = useAppSelector((state) => state.ownerReducer);
   const dispatch = useAppDispatch();
+  const locale = useLocale();
 
   const validationSchema = Yup.object({
     owner_type: Yup.string().required(t("this_field_is_required")),
@@ -58,14 +63,12 @@ const BecomeOwnerForm = () => {
       selectedOwnerType === OWNER_TYPE_2
         ? Yup.string().required(t("this_field_is_required"))
         : Yup.string(),
-    phone: Yup.string().required(t("this_field_is_required")),
+    phone: Yup.string()
+      .min(11, t("phone_number_is_missing_or_invalid"))
+      .required(t("this_field_is_required")),
     rooms: Yup.string().required(t("this_field_is_required")),
     home_type: Yup.string().required(t("this_field_is_required")),
-    check_1: Yup.boolean().oneOf(
-      [true],
-      t("you_need_to_accept_the_terms_and_conditions")
-    ),
-    check_2: Yup.boolean().oneOf(
+    terms_and_privacy: Yup.boolean().oneOf(
       [true],
       t("you_need_to_accept_the_terms_and_conditions")
     )
@@ -84,8 +87,7 @@ const BecomeOwnerForm = () => {
     photos: [],
     rooms: "",
     entire_property: false,
-    check_1: false,
-    check_2: false
+    terms_and_privacy: false
   };
 
   const formik = useFormik({
@@ -157,13 +159,13 @@ const BecomeOwnerForm = () => {
             </div>
           </div>
         </div>
-        <div className="form-control flex flex-col lg:flex-row gap-x-4 w-full justify-between items-center font-mi-sans text-lg">
+        <div className="form-control flex flex-col gap-y-2 lg:gap-y-0 lg:flex-row gap-x-4 w-full justify-between items-center font-mi-sans text-lg mt-3">
           <Select
             isDisabled={size(cities) === 0}
             rotateIconOnShow={true}
             showPlaceholder={true}
             showControlTitle={true}
-            menuClassName="border border-gray-300 lg:border-none w-auto"
+            menuClassName="border border-gray-300 lg:border-none lg:w-auto"
             searchId="owner-city"
             name="city_id"
             value={get(values, "city_id")}
@@ -193,7 +195,7 @@ const BecomeOwnerForm = () => {
             rotateIconOnShow={true}
             showPlaceholder={true}
             showControlTitle={true}
-            menuClassName="border border-gray-300 lg:border-none w-auto"
+            menuClassName="border border-gray-300 lg:border-none lg:w-auto"
             searchId="owner-district"
             name="district_id"
             value={get(values, "district_id")}
@@ -223,7 +225,7 @@ const BecomeOwnerForm = () => {
             rotateIconOnShow={true}
             showPlaceholder={true}
             showControlTitle={true}
-            menuClassName="border border-gray-300 lg:border-none w-auto"
+            menuClassName="border border-gray-300 lg:border-none lg:w-auto"
             searchId="owner-neighborhood"
             name="neighborhood_id"
             value={get(values, "neighborhood_id")}
@@ -312,6 +314,71 @@ const BecomeOwnerForm = () => {
     return size(label) ? get(label, "[0].name") : "";
   };
 
+  const renderTerms = () => {
+    switch (locale) {
+      case "tr":
+        return (
+          <div className="flex gap-x-1">
+            <span className="font-mi-sans-semi-bold flex gap-x-1 text-gray-800">
+              <Link
+                target="_blank"
+                href="https://homes.missafir.com/tr/hizmet-sartlari">
+                {t("terms_of_use")}
+              </Link>
+              <span>{t("and")}</span>
+              <Link
+                target="_blank"
+                href="https://homes.missafir.com/tr/gizlilik-politikasi">
+                {t("privacy_policy")}
+              </Link>
+            </span>
+            <span>{t("i_accept")}</span>
+          </div>
+        );
+      case "en":
+        return (
+          <div className="flex gap-x-1">
+            <span>{t("i_accept")}</span>
+            <span>the</span>
+            <span className="font-mi-sans-semi-bold flex gap-x-1 text-gray-800">
+              <Link
+                target="_blank"
+                href="https://homes.missafir.com/en/terms-of-service">
+                {t("terms_of_use")}
+              </Link>
+              <span>{t("and")}</span>
+              <Link
+                target="_blank"
+                href="https://homes.missafir.com/en/privacy-policy">
+                {t("privacy_policy")}
+              </Link>
+            </span>
+          </div>
+        );
+      case "hr":
+        return (
+          <div className="flex gap-x-1">
+            <span>{t("i_accept")}</span>
+            <span className="font-mi-sans-semi-bold flex gap-x-1 text-gray-800">
+              <Link
+                target="_blank"
+                href="https://homes.missafir.com/tr/hizmet-sartlari">
+                {t("terms_of_use")}
+              </Link>
+              <span>{t("and")}</span>
+              <Link
+                target="_blank"
+                href="https://homes.missafir.com/tr/gizlilik-politikasi">
+                {t("privacy_policy")}
+              </Link>
+            </span>
+          </div>
+        );
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchCorporateTypes());
     dispatch(fetchHomeTypes());
@@ -321,9 +388,19 @@ const BecomeOwnerForm = () => {
     );
   }, []);
   return (
-    <div className="flex flex-col items-center gap-y-14">
-      <div className="flex gap-x-14 flex-col lg:flex-row">
+    <div className="flex flex-col items-center gap-y-14 relative">
+      <div className="flex gap-x-14 flex-col lg:flex-row z-10">
         <div className="flex-1 flex flex-col gap-10 items-center justify-center lg:w-1/2 text-center mb-4">
+          <div className="flex justify-center items-center">
+            <div
+              onClick={() => dispatch(resetFlow())}
+              className="hidden lg:flex cursor-pointer text-primary text-base items-center text-transparent bg-clip-text bg-gradient-to-tr from-[#CF00AD] from-10% via-[#E1004C] via-31% to-[#F8479E] to-92%">
+              <ChevronLeft className="scale-75 fill-primary" />
+              <Typography variant="p1" element="span" className="">
+                {t("back_to_country_selection")}
+              </Typography>
+            </div>
+          </div>
           <h1 className="text-28 text-gray-800">
             {t(
               "discover_your_homes_potential_income_with_our_advanced_rent_calculator"
@@ -452,7 +529,7 @@ const BecomeOwnerForm = () => {
               )}
             </div>
             <div className="shadow-base-blur-20 rounded-20 p-4 lg:p-6 grid grid-cols-1 gap-y-6">
-              <div className="w-full">
+              <div className="w-full order-2 lg:order-1">
                 <Input
                   type="email"
                   name="email"
@@ -470,7 +547,7 @@ const BecomeOwnerForm = () => {
                   <div className="text-primary">{get(errors, "email")}</div>
                 )}
               </div>
-              <div className="w-full">
+              <div className="w-full order-1 lg:order-2">
                 <PhoneInput
                   id="phone"
                   country="tr"
@@ -520,24 +597,13 @@ const BecomeOwnerForm = () => {
             </div>
             <div className="grid grid-cols-1 gap-y-3">
               <Checkbox
-                value="check_1"
-                name="check_1"
+                value="terms_and_privacy"
+                name="terms_and_privacy"
                 checked={get(values, "confirmationForm")}
                 onChange={(e) => {
-                  setFieldValue("check_1", get(e, "target.checked"));
+                  setFieldValue("terms_and_privacy", get(e, "target.checked"));
                 }}
-                label={t("under_personal_data_protection_law")}
-                labelClass="text-sm lg:text-base text-gray-700 items-start lg:items-center p-0"
-                position="right"
-              />
-              <Checkbox
-                value="check_2"
-                name="check_2"
-                checked={get(values, "confirmationForm")}
-                onChange={(e) => {
-                  setFieldValue("check_2", get(e, "target.checked"));
-                }}
-                label={t("read_and_agree_privacy_policy")}
+                label={renderTerms()}
                 labelClass="text-sm lg:text-base text-gray-700 items-start lg:items-center p-0"
                 position="right"
               />
@@ -547,8 +613,10 @@ const BecomeOwnerForm = () => {
               variant="btn-primary"
               disabled={!(get(formik, "isValid") && get(formik, "dirty"))}
               className="border-none text-white w-full">
-              <div>
-                <span>{t("calculate_rent_increase")}</span>
+              <div className="flex justify-center items-center gap-x-2">
+                <Typography variant="p3" element="span">
+                  {t("calculate_rent_increase")}
+                </Typography>
                 {isSubmitting && (
                   <span className="loading loading-spinner"></span>
                 )}

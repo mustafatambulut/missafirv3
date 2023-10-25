@@ -1,64 +1,107 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import moment from "moment";
+import get from "lodash/get";
+import has from "lodash/has";
+import map from "lodash/map";
+import omit from "lodash/omit";
+import first from "lodash/first";
+import compact from "lodash/compact";
+import classNames from "classnames";
 
 import {
   BOOKING_DATE,
-  BOOKING_DESTINATION,
-  BOOKING_GUESTS
+  BOOKING_GUESTS,
+  DESTINATION_TYPE,
+  BOOKING_DESTINATION
 } from "@/components/molecules/searchBar/constants";
 import {
-  compact,
-  difference,
-  first,
-  get,
-  has,
-  isEmpty,
-  keys,
-  map,
-  omit
-} from "lodash";
-import {
-  updateBookingDate,
-  updateBookingDestination,
-  updateBookingGuests,
   updateFilterData,
-  updatePreFilterData,
-  updateSearchClicked
+  updateBookingDate,
+  updateBookingGuests,
+  updateBookingDestination
 } from "@/redux/features/listingSlice/listingSlice";
+import useFilter from "@/app/hooks/useFilter";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { useRouter } from "next/navigation";
-import moment from "moment";
 
 const withSearchBar = (WrappedComponent) => {
   // eslint-disable-next-line react/display-name
   return (props) => {
-    const drawerCloseRef = useRef<HTMLInputElement>(null);
+    const { handleFilterListings } = useFilter();
     const dispatch = useAppDispatch();
-    const {
-      filterData,
-      preFilterData,
-      bookingDestination,
-      bookingGuests,
-      bookingDate
-    } = useAppSelector((state) => state.listingReducer);
-    const { locations } = useAppSelector((state) => state.landingReducer);
-    const router = useRouter();
+    const drawerCloseRef = useRef<HTMLInputElement>(null);
+    const filterData = useAppSelector(
+      (state) => state.listingReducer.filterData
+    );
+    const bookingDate = useAppSelector(
+      (state) => state.listingReducer.bookingDate
+    );
+    const bookingGuests = useAppSelector(
+      (state) => state.listingReducer.bookingGuests
+    );
+    const bookingDestination = useAppSelector(
+      (state) => state.listingReducer.bookingDestination
+    );
+    const locations = useAppSelector((state) => state.landingReducer.locations);
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [activeSearchItem, setActiveSearchItem] = useState<string>("");
     const [skipButtonVisibility, setSkipButtonVisibility] =
       useState<boolean>(true);
-    const preFilterKeys = [
-      "adults",
-      "kids",
-      "pets",
-      "check_in",
-      "check_out",
-      "district_id"
-    ];
+
+    const containerClass = classNames(
+      "flex rounded-2xl lg:bg-white w-full items-center",
+      {
+        "lg:px-2 shadow-bold-blur-20 flex-row": get(props, "isInCustomSection"),
+        "lg:p-2 flex-col lg:flex-row": !get(props, "isInCustomSection")
+      }
+    );
 
     const handleOpenDrawer = (searchItem) => {
       setIsDrawerOpen((v) => !v);
       setActiveSearchItem(searchItem);
+    };
+
+    const getSelectedLocation = (locationId) => {
+      return first(
+        compact(
+          map(
+            locations,
+            ({
+              id,
+              type,
+              slug,
+              city,
+              order,
+              country,
+              city_slug,
+              district,
+              country_id,
+              country_slug
+            }) => {
+              // const countryRoutes = map(
+              //   get(route, "baseListingCountryRoutes"),
+              //   getCurrentLang()
+              // );
+              if (id === locationId) {
+                return {
+                  value: id,
+                  type,
+                  slug,
+                  order,
+                  country,
+                  city_slug,
+                  country_id,
+                  country_slug,
+                  isHistory: false,
+                  isPopularDestinations: false,
+                  label: type === "district" ? district : city,
+                  desc: type === "district" ? `${city} / ${country}` : country
+                };
+              }
+            }
+          )
+        )
+      );
     };
 
     useEffect(() => {
@@ -101,165 +144,126 @@ const withSearchBar = (WrappedComponent) => {
       }
     }, [activeSearchItem, bookingDestination, bookingDate, bookingGuests]);
 
-    const handleFilterListings = () => {
-      dispatch(updateSearchClicked(true));
-      if (isEmpty(preFilterData)) {
-        dispatch(updateFilterData(omit(filterData, preFilterKeys)));
-      } else {
-        const currentPreFilterKeys = keys(preFilterData);
-        const filterDifference = difference(
-          preFilterKeys,
-          currentPreFilterKeys
-        );
-        dispatch(
-          updateFilterData(
-            omit({ ...filterData, ...preFilterData }, filterDifference)
-          )
-        );
-      }
-      router.push("/listing", { shallow: true });
-    };
-
     useEffect(() => {
       if (bookingDestination) {
-        dispatch(
-          updatePreFilterData({
-            ...preFilterData,
-            district_id: bookingDestination.value
-          })
-        );
+        const keyByType =
+          get(bookingDestination, "type") === DESTINATION_TYPE.CITY
+            ? "city_id"
+            : "district_id";
+
+        const data = {
+          ...filterData,
+          ...bookingDestination
+        };
+        data[keyByType] = get(bookingDestination, "value");
+        dispatch(updateFilterData(data));
       } else {
-        dispatch(updatePreFilterData(omit(preFilterData, "district_id")));
+        dispatch(
+          updateFilterData(
+            omit(filterData, ["district_id", "city_id", "value"])
+          )
+        );
       }
     }, [bookingDestination]);
 
     useEffect(() => {
-      const omitFilter = omit(preFilterData, ["check_in", "check_out"]);
-      bookingDate.startDate
-        ? (omitFilter["check_in"] = bookingDate.startDate.format("YYYY-MM-DD"))
+      const omitFilter = omit(filterData, ["check_in", "check_out"]);
+      get(bookingDate, "startDate")
+        ? (omitFilter["check_in"] = bookingDate?.startDate.format("YYYY-MM-DD"))
         : null;
-      bookingDate.endDate
-        ? (omitFilter["check_out"] = bookingDate.endDate.format("YYYY-MM-DD"))
+      get(bookingDate, "endDate")
+        ? (omitFilter["check_out"] = bookingDate?.endDate.format("YYYY-MM-DD"))
         : null;
-      dispatch(updatePreFilterData(omitFilter));
+      dispatch(updateFilterData(omitFilter));
     }, [bookingDate]);
 
     useEffect(() => {
-      if (bookingGuests.adults > 0) {
+      if (get(bookingGuests, "adults") > 0) {
         dispatch(
-          updatePreFilterData({
-            ...preFilterData,
-            adults: bookingGuests.adults
+          updateFilterData({
+            ...filterData,
+            adults: get(bookingGuests, "adults")
           })
         );
       } else {
-        dispatch(updatePreFilterData(omit(preFilterData, ["adults"])));
+        dispatch(updateFilterData(omit(filterData, ["adults"])));
       }
-    }, [bookingGuests.adults]);
+    }, [get(bookingGuests, "adults")]);
 
     useEffect(() => {
-      if (bookingGuests.kids > 0) {
+      if (get(bookingGuests, "kids") > 0) {
         dispatch(
-          updatePreFilterData({
-            ...preFilterData,
-            kids: bookingGuests.kids
+          updateFilterData({
+            ...filterData,
+            kids: get(bookingGuests, "kids")
           })
         );
       } else {
-        dispatch(updatePreFilterData(omit(preFilterData, ["kids"])));
+        dispatch(updateFilterData(omit(filterData, ["kids"])));
       }
-    }, [bookingGuests.kids]);
+    }, [get(bookingGuests, "kids")]);
 
     useEffect(() => {
-      if (bookingGuests.pets > 0) {
+      if (get(bookingGuests, "pets") > 0) {
         dispatch(
-          updatePreFilterData({
-            ...preFilterData,
-            pets: bookingGuests.pets
+          updateFilterData({
+            ...filterData,
+            pets: get(bookingGuests, "pets")
           })
         );
       } else {
-        dispatch(updatePreFilterData(omit(preFilterData, ["pets"])));
+        dispatch(updateFilterData(omit(filterData, ["pets"])));
       }
-    }, [bookingGuests.pets]);
-
-    const getSelectedLocation = (districtId) => {
-      return first(
-        compact(
-          map(keys(locations), (location) => {
-            if (location === districtId) {
-              return {
-                value: location,
-                label: locations[location].district,
-                isPopularDestinations: false,
-                desc: `${locations[location].city} / ${locations[location].country}`,
-                isHistory: false
-              };
-            }
-          })
-        )
-      );
-    };
+    }, [get(bookingGuests, "pets")]);
 
     useEffect(() => {
       let guestsData = { ...bookingGuests };
       let dateData = { ...bookingDate };
-      let destinationData = bookingDestination;
+      let destinationData = { ...bookingDestination };
       has(filterData, "adults")
-        ? (guestsData["adults"] = filterData.adults)
+        ? (guestsData["adults"] = get(filterData, "adults"))
         : (guestsData["adults"] = 1);
       has(filterData, "kids")
-        ? (guestsData["kids"] = filterData.kids)
+        ? (guestsData["kids"] = get(filterData, "kids"))
         : (guestsData["kids"] = 0);
       has(filterData, "pets")
-        ? (guestsData["pets"] = filterData.pets)
+        ? (guestsData["pets"] = get(filterData, "pets"))
         : (guestsData["pets"] = 0);
       dispatch(updateBookingGuests(guestsData));
       has(filterData, "check_in")
-        ? (dateData["startDate"] = moment(filterData.check_in))
+        ? (dateData["startDate"] = moment(get(filterData, "check_in")))
         : (dateData["startDate"] = null);
       has(filterData, "check_out")
-        ? (dateData["endDate"] = moment(filterData.check_out))
+        ? (dateData["endDate"] = moment(get(filterData, "check_out")))
         : (dateData["endDate"] = null);
       dispatch(updateBookingDate(dateData));
-      has(filterData, "district_id")
-        ? (destinationData = getSelectedLocation(filterData.district_id))
-        : (destinationData = null);
+      if (has(filterData, "city_id") && has(filterData, "district_id")) {
+        destinationData = getSelectedLocation(get(filterData, "district_id"));
+      } else if (has(filterData, "city_id")) {
+        destinationData = getSelectedLocation(get(filterData, "city_id"));
+      } else {
+        destinationData = null;
+      }
       dispatch(updateBookingDestination(destinationData));
-      dispatch(
-        updatePreFilterData(
-          omit(filterData, [...keys(omit(filterData, preFilterKeys))])
-        )
-      );
-    }, [filterData]);
+    }, []);
 
     return (
-      <>
-        <div
-          data-tooltip-id="searchbar-tooltip"
-          className={`flex rounded-2xl lg:bg-white w-full items-center ${
-            get(props, "isInCustomSection") ? "lg:px-2" : "lg:p-2"
-          }  ${
-            get(props, "isInCustomSection")
-              ? "shadow-bold-blur-20 flex-row"
-              : "flex-col lg:flex-row"
-          }`}>
-          {
-            <WrappedComponent
-              {...props}
-              drawerCloseRef={drawerCloseRef}
-              isDrawerOpen={isDrawerOpen}
-              activeSearchItem={activeSearchItem}
-              skipButtonVisibility={skipButtonVisibility}
-              setIsDrawerOpen={setIsDrawerOpen}
-              handleOpenDrawer={handleOpenDrawer}
-              setActiveSearchItem={setActiveSearchItem}
-              handleFilterListings={handleFilterListings}
-              setSkipButtonVisibility={setSkipButtonVisibility}
-            />
-          }
-        </div>
-      </>
+      <div data-tooltip-id="searchbar-tooltip" className={containerClass}>
+        {
+          <WrappedComponent
+            {...props}
+            drawerCloseRef={drawerCloseRef}
+            isDrawerOpen={isDrawerOpen}
+            activeSearchItem={activeSearchItem}
+            skipButtonVisibility={skipButtonVisibility}
+            setIsDrawerOpen={setIsDrawerOpen}
+            handleOpenDrawer={handleOpenDrawer}
+            setActiveSearchItem={setActiveSearchItem}
+            handleFilterListings={handleFilterListings}
+            setSkipButtonVisibility={setSkipButtonVisibility}
+          />
+        }
+      </div>
     );
   };
 };

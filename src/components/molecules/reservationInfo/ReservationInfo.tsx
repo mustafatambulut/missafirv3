@@ -2,22 +2,22 @@ import { ReactNode } from "react";
 import Link from "next/link";
 import classNames from "classnames";
 import { useTranslations } from "use-intl";
-import { capitalize, get, map } from "lodash";
+import { capitalize, get, map, size } from "lodash";
 
 import { IReservationInfo } from "@/components/molecules/reservationInfo/types";
 
-import Button from "@/components/atoms/button/Button";
+import Typography from "@/components/atoms/typography/Typography";
 import ReservationDate from "@/components/atoms/reservationDate/ReservationDate";
 import PaymentDetails from "@/components/molecules/paymentDetails/PaymentDetails";
 
 import Key from "../../../../public/images/key.svg";
 import Clock from "../../../../public/images/clock.svg";
+import Wallet from "../../../../public/images/wallet.svg";
 import LetterIcon from "../../../../public/images/letter.svg";
 import UserIcon from "../../../../public/images/user_dark.svg";
 import Confirmed from "../../../../public/images/confirmed.svg";
 import Cancelled from "../../../../public/images/cancelled.svg";
 import BrokenLink from "../../../../public/images/broken_link.svg";
-import Typography from "@/components/atoms/typography/Typography";
 
 const ReservationInfo = ({ reservation }: IReservationInfo) => {
   const t = useTranslations();
@@ -26,7 +26,7 @@ const ReservationInfo = ({ reservation }: IReservationInfo) => {
   );
   const HouseRulesComponent = (): ReactNode => {
     return (
-      <div className="flex flex-col gap-y-6">
+      <div className="flex flex-col gap-y-4">
         <Typography
           variant="h6"
           element="h6"
@@ -54,23 +54,26 @@ const ReservationInfo = ({ reservation }: IReservationInfo) => {
 
   const KeyInfoComponent = (): ReactNode => {
     return (
-      <div className="flex flex-col gap-y-8 text-gray-600 font-normal font-mi-sans text-base lg:text-lg">
+      <div className="flex flex-col gap-y-7 text-gray-600 font-normal font-mi-sans text-base lg:text-lg">
         <Typography
           variant="h6"
           element="h6"
           className=" -mb-3 text-gray-800 font-mi-sans-semi-bold">
           {t("key_info")}
         </Typography>
-        <div className="flex flex-col gap-y-1">
-          <Typography
-            variant="p3"
-            element="span"
-            className="font-mi-sans-semi-bold">
-            {t("confirmation_code")}
-          </Typography>
-          <Typography variant="p3" element="span" className="text-gray-600">
-            {get(reservation, "confirmation_code")}
-          </Typography>
+        <div className="flex gap-x-3">
+          <Wallet />
+          <div className="flex flex-col gap-y-1">
+            <Typography
+              variant="p3"
+              element="span"
+              className="font-mi-sans-semi-bold">
+              {t("confirmation_code")}
+            </Typography>
+            <Typography variant="p3" element="span" className="text-gray-600">
+              {get(reservation, "confirmation_code")}
+            </Typography>
+          </div>
         </div>
         <div className="flex gap-x-3">
           <Clock />
@@ -80,7 +83,7 @@ const ReservationInfo = ({ reservation }: IReservationInfo) => {
                 variant="p3"
                 element="span"
                 className="font-mi-sans-semi-bold">
-                {t("check_in_form")}
+                {t("check_in_from")}
               </Typography>
               <Typography variant="p3" element="span">
                 {get(reservation, "listing.check_in_time")}
@@ -118,13 +121,15 @@ const ReservationInfo = ({ reservation }: IReservationInfo) => {
   };
 
   const ReservationDetailsComponent = () => (
-    <div className="gap-y-6 text-lg">
-      <Typography variant="h5" element="h2" className="mb-6 text-gray-800">
+    <div className="flex flex-col gap-y-8 mt-8">
+      <Typography variant="h5" element="h2" className="text-gray-800">
         {t("reservation_details")}
       </Typography>
-      <div className="flex flex-col lg:flex-row gap-y-5 justify-between">
+      <div className="flex flex-col lg:flex-row gap-y-3 justify-between">
         <KeyInfoComponent />
-        <HouseRulesComponent />
+        {size(get(reservation, "listing.house_rules")) > 0 ? (
+          <HouseRulesComponent />
+        ) : null}
       </div>
     </div>
   );
@@ -137,54 +142,60 @@ const ReservationInfo = ({ reservation }: IReservationInfo) => {
           style={{ backgroundColor: get(reservation, "status.hex") }}>
           {capitalize(get(reservation, "status.title"))}
         </div>
-        <Link
-          href={`/inbox?recent=1&id=${get(reservation, "message_thread_id")}`}>
-          <div className="rounded-lg cursor-pointer border-2 px-2 lg:px-4 py-1 text-primary-500 border-primary-500 flex justify-center items-center gap-3">
-            <LetterIcon className="fill-primary" />{" "}
-            <Typography variant="p3" element="span">
-              {t("inbox")}
-            </Typography>
-          </div>
-        </Link>
+        {get(reservation, "message_thread_id") ? (
+          <Link
+            href={`/inbox?recent=1&id=${get(
+              reservation,
+              "message_thread_id"
+            )}`}>
+            <div className="rounded-lg cursor-pointer border-2 px-2 lg:px-4 py-1 text-primary-500 border-primary-500 flex justify-center items-center gap-3">
+              <LetterIcon className="fill-primary" />{" "}
+              <Typography variant="p3" element="span">
+                {t("inbox")}
+              </Typography>
+            </div>
+          </Link>
+        ) : null}
       </div>
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-3">
-          <Typography variant="h3" element="h3" className="text-gray-800">
+          <Typography variant="h4" element="h3" className="text-gray-800">
             {get(reservation, "listing.title")}
           </Typography>
+          <div className="flex gap-x-4 text:base lg:text-2xl text-gray-600 font-mi-sans-semi-bold">
+            {get(reservation, "listing.rooms_bedrooms_count") && (
+              <Typography variant="p1" element="div">
+                {get(reservation, "listing.rooms_bedrooms_count")}{" "}
+                {t("bedroom")}
+              </Typography>
+            )}
+            {get(reservation, "listing.rooms_bathrooms_count") && (
+              <Typography variant="p1" element="div">
+                {get(reservation, "listing.rooms_bathrooms_count")}{" "}
+                {t("bathroom")}
+              </Typography>
+            )}
+            {get(reservation, "listing.space") && (
+              <Typography variant="p1" element="div">
+                {get(reservation, "listing.space")} <span>{t("m2")}</span>
+              </Typography>
+            )}
+          </div>
           <Typography variant="p2" element="div" className="text-gray-500">
             {get(reservation, "listing.address")}
           </Typography>
         </div>
       </div>
-      <div className="flex gap-x-4 text:base lg:text-2xl text-gray-600 font-mi-sans-semi-bold">
-        {get(reservation, "listing.rooms_bedrooms_count") && (
-          <Typography variant="p1" element="div">
-            {get(reservation, "listing.rooms_bedrooms_count")} {t("bedroom")}
-          </Typography>
-        )}
-        {get(reservation, "listing.rooms_bathrooms_count") && (
-          <Typography variant="p1" element="div">
-            {get(reservation, "listing.rooms_bathrooms_count")} {t("bathroom")}
-          </Typography>
-        )}
-        {get(reservation, "listing.space") && (
-          <Typography variant="p1" element="div">
-            {get(reservation, "listing.space")} <span>{t("m2")}</span>
-          </Typography>
-        )}
-      </div>
       <div className="flex justify-start">
-        <Button
-          variant="btn-ghost"
-          link={`https://www.google.com/maps/search/?api=1&query=${get(
+        <Link
+          href={`https://www.google.com/maps/search/?api=1&query=${get(
             reservation,
             "listing.lat"
           )},${get(reservation, "listing.lng")}`}
           target="_blank"
           className="text-base lg:text-lg text-primary font-mi-sans-semi-bold pl-0">
           {t("get_direction")}
-        </Button>
+        </Link>
       </div>
       <div className="flex gap-3 flex-wrap">
         <ReservationDate
@@ -197,7 +208,7 @@ const ReservationInfo = ({ reservation }: IReservationInfo) => {
           reservationTime={get(reservation, "listing.check_out_time") || ""}
           label={t("check_out")}
         />
-        <div className="rounded-lg bg-gray-50 w-auto lg:flex-1 flex justify-start items-center gap-4 py-2 lg:py-3 px-3 lg:px-5">
+        <div className="rounded-lg bg-gray-50 flex-1 flex justify-center items-center gap-2 py-2 lg:py-3 px-3 lg:px-5 mt-5">
           <div>
             <UserIcon className="fill-gray-800 scale-125 lg:scale-150" />
           </div>

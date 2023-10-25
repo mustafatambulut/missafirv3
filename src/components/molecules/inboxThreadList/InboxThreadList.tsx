@@ -16,17 +16,23 @@ import {
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Loading from "@/components/atoms/loading/Loading";
 import { useRouter, useSearchParams } from "next/navigation";
+import Typography from "@/components/atoms/typography/Typography";
+import { useTranslations } from "next-intl";
+import Button from "@/components/atoms/button/Button";
+
+import EmptyFile from "../../../../public/images/empty_file.svg";
 
 const InboxThreadList = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useTranslations();
   const {
     threadList,
     pagination,
     selectedThreadId,
-    threadDetails,
-    threadListLoading
+    threadListLoading,
+    threadListLoaded
   } = useAppSelector((state) => state.inboxReducer, isEqual);
   const inboxClass = (id: number) => {
     return classNames("my-4 cursor-pointer", {
@@ -70,53 +76,66 @@ const InboxThreadList = () => {
     }
   }, [threadList]);
 
-
   return (
-    <>
-      {(!isMobile || (!threadDetails && isMobile)) && (
-        <aside
-          className="lg:bg-white w-full lg:w-1/4 lg:p-4 rounded-xl lg:h-[35rem] overflow-y-auto"
-          id="thread-list">
-          <Loading
-            isLoading={threadListLoading}
-            loader={<InboxThreadListSkeleton />}>
-            <InfiniteScroll
-              scrollableTarget="thread-list"
-              scrollThreshold={0.6}
-              next={handleLoadNextPage}
-              hasMore={
-                pagination
-                  ? get(pagination, "current") !== get(pagination, "total")
-                  : false
-              }
-              loader={<InboxThreadListSkeleton />}
-              dataLength={size(threadList)}>
-              {map(
-                threadList,
-                ({
-                  created_at,
-                  last_message_at,
-                  last_message,
-                  id,
-                  title,
-                  reservation
-                }) => (
-                  <InboxCard
-                    key={id}
-                    date={last_message_at || created_at}
-                    className={inboxClass(id)}
-                    onClick={() => handleClickInbox(id)}
-                    status={get(reservation, "state")}
-                    subject={title}
-                    message={last_message || ""}
-                  />
-                )
-              )}
-            </InfiniteScroll>
-          </Loading>
-        </aside>
-      )}
-    </>
+    <aside
+      className="lg:bg-white w-full lg:w-1/4 lg:p-4 rounded-xl h-full lg:h-[35rem] overflow-y-auto"
+      id="thread-list">
+      <Loading
+        isLoading={threadListLoading}
+        loader={<InboxThreadListSkeleton />}>
+        {threadListLoaded && size(threadList) === 0 ? (
+          <div className="flex flex-col justify-center items-center w-[90%] h-full m-auto">
+            <EmptyFile />
+            <div className="text-center my-8">
+              <Typography variant="h6" element="h6" className="text-primary">
+                {t("you_have_no_messages")}
+              </Typography>
+              <Typography
+                variant="p3"
+                element="p"
+                className="text-gray-600 text-center">
+                {t("nothing_to_see_here_your_inbox_is_empty")}
+              </Typography>
+            </div>
+            <Button variant="btn-primary">{t("contact_us")}</Button>
+          </div>
+        ) : (
+          <InfiniteScroll
+            scrollableTarget="thread-list"
+            scrollThreshold={0.6}
+            next={handleLoadNextPage}
+            hasMore={
+              pagination
+                ? get(pagination, "current") !== get(pagination, "total")
+                : false
+            }
+            loader={<InboxThreadListSkeleton />}
+            dataLength={size(threadList)}>
+            {map(
+              threadList,
+              ({
+                created_at,
+                last_message_at,
+                last_message,
+                id,
+                title,
+                reservation
+              },key) => (
+                <InboxCard
+                  key={key}
+                  date={last_message_at || created_at}
+                  className={inboxClass(id)}
+                  onClick={() => handleClickInbox(id)}
+                  status={get(reservation, "state")}
+                  subject={title}
+                  message={last_message || ""}
+                />
+              )
+            )}
+          </InfiniteScroll>
+        )}
+      </Loading>
+    </aside>
   );
 };
 

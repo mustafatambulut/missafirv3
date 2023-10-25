@@ -1,0 +1,9 @@
+@media screen and (max-width: 768px) {
+    .inbox-container {
+        height: calc(100dvh - 64px) !important;
+    }
+
+    .chat-container {
+        height: calc(100dvh - 222px) !important;
+    }
+}

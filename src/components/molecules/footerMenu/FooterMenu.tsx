@@ -1,16 +1,31 @@
-import { get, map } from "lodash";
+import dynamic from "next/dynamic";
+import get from "lodash/get";
+import map from "lodash/map";
 
 import { IFooterMenu } from "@/components/molecules/footerMenu/types";
 
-import Menu from "@/components/molecules/menu/Menu";
-import Typography from "@/components/atoms/typography/Typography";
+const Menu: any = dynamic(() => import("@/components/molecules/menu/Menu"), {
+  ssr: false
+});
+
+const Typography: any = dynamic(
+  () => import("@/components/atoms/typography/Typography"),
+  {
+    ssr: false
+  }
+);
 
 const FooterMenu = ({ items, className = "" }: IFooterMenu) => {
   return (
     <>
       {map(items, (menu, key) => (
         <div className={className} key={key}>
-          <Typography variant="p6" element="p" className="uppercase font-gray-800 font-bariol-bold">{get(menu, "title")}</Typography>
+          <Typography
+            variant="p6"
+            element="p"
+            className="uppercase font-gray-800 font-bariol-bold">
+            {get(menu, "title")}
+          </Typography>
           <Menu
             variant="footer"
             isCollapsable={false}

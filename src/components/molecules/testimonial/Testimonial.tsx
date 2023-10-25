@@ -1,40 +1,33 @@
-"use client";
 import Image from "next/image";
 import { get, map } from "lodash";
-import { isMobile } from "react-device-detect";
 
-import {
-  ITestimonial,
-  ICardComponent
-} from "@/components/molecules/testimonial/types";
-import useFetchData from "@/app/hooks/useFetchData";
-import { BODY } from "@/app/constants";
-import { TESTIMONIAL_SECTION } from "@/components/molecules/testimonial/constants";
+import { ICardComponent } from "@/components/molecules/testimonial/types";
 
 import Card from "@/components/atoms/card/Card";
 import Loading from "@/components/atoms/loading/Loading";
+import Typography from "@/components/atoms/typography/Typography";
 import Slider from "@/components/molecules/slider/Slider";
 import Section from "@/components/molecules/section/Section";
+import TestimonialSkeleton from "@/components/molecules/skeletons/testimonialSkeleton/TestimonialSkeleton";
 
 import "swiper/css";
 import "swiper/css/free-mode";
-import TestimonialSkeleton from "@/components/molecules/skeletons/testimonialSkeleton/TestimonialSkeleton";
-import Typography from "@/components/atoms/typography/Typography";
 
-const Testimonial = () => {
-  const testimonials = useFetchData<ITestimonial>(BODY, TESTIMONIAL_SECTION);
-
+const Testimonial = ({ testimonials }: any) => {
   const CardComponent = ({ item }: ICardComponent) => (
     <Card className="bg-primary-25 rounded-2xl p-3 lg:p-5">
       <div className="w-[60px] h-[60px] lg:w-[120px] lg:h-[120px] relative">
-        <Image
-          fill
-          className="mb-2"
-          alt="testimonials"
-          src={get(item, "header_image") || "/"}
-        />
+        {get(item, "header_image") && (
+          <Image
+            fill
+            priority
+            className="mb-2"
+            alt="testimonials"
+            src={get(item, "header_image")}
+          />
+        )}
       </div>
-      <div className="h-28 line-clamp-5">
+      <div className="line-clamp-5 h-28">
         <Typography element="p" variant="p3">
           {get(item, "info")}
         </Typography>
@@ -54,8 +47,12 @@ const Testimonial = () => {
         title={get(testimonials, "header.title")}
         description={get(testimonials, "header.description")}>
         <Slider
-          slidesPerView={isMobile ? 1 : 3}
-          spaceBetween={15}
+          desktopSlidesPerView={3}
+          mobileSlidesPerView={1}
+          desktopSpaceBetween={15}
+          desktopLargeSlidesPerView={3}
+          desktopLargeSpaceBetween={20}
+          mobileSpaceBetween={15}
           sliderIdentifier={"testimonials"}
           sliderWrapperClassName="pr-20 lg:pr-0">
           {map(get(testimonials, "body"), (item, key) => (

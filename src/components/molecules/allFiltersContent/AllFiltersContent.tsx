@@ -5,7 +5,7 @@ import { useAppSelector } from "@/redux/hooks";
 import FilterItem from "@/components/molecules/filterItem/FilterItem";
 
 const AllFiltersContent = () => {
-  const { filterItems } = useAppSelector((state) => state.listingReducer);
+  const  filterItems  = useAppSelector((state) => state.listingReducer.filterItems);
 
   return (
     <div className="mt-3 px-5">

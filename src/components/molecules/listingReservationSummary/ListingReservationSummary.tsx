@@ -1,44 +1,45 @@
 "use client";
 import { useEffect, useState } from "react";
+import get from "lodash/get";
+import isEmpty from "lodash/isEmpty";
 import moment from "moment/moment";
-import { get, isEmpty } from "lodash";
 import { Toaster } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { usePathname, useRouter } from "next/navigation";
 
 import {
   setResPayload,
   setBookingDate,
-  setIsBookingInfoEditing,
   setAvailabilityModalOpen
 } from "@/redux/features/listingDetailSlice/listingDetailSlice";
+import { getSlugOfUrl } from "@/utils/helper";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IListingReservationSummary } from "@/components/molecules/listingReservationSummary/types";
 
 import Modal from "@/components/atoms/modal/Modal";
 import Button from "@/components/atoms/button/Button";
 import Typography from "@/components/atoms/typography/Typography";
-import ReservationSummary from "@/components/atoms/reservationSummary/ReservationSummary";
 import ReservationCheckInCard from "@/components/molecules/reservationCheckInCard/ReservationCheckInCard";
 
 import LoadingIcon from "../../../../public/images/loading.svg";
-import { useTranslations } from "next-intl";
 
 const ListingReservationSummary = ({
-  slug,
   hasQuery,
   resData,
   searchParams
 }: IListingReservationSummary) => {
   const router = useRouter();
+  const t = useTranslations();
+  const pathname = usePathname();
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const t = useTranslations()
-  const { resPayload, availabilityModalOpen, isBookingInfoEditing } =
-    useAppSelector((state) => state.listingDetailReducer);
+  const { resPayload, availabilityModalOpen } = useAppSelector(
+    (state) => state.listingDetailReducer
+  );
 
   const handleBackToSearch = () => {
     setIsLoading(true);
-    router.push("/listing");
+    router.push("/list");
   };
 
   useEffect(() => {
@@ -48,11 +49,12 @@ const ListingReservationSummary = ({
     ) {
       dispatch(setAvailabilityModalOpen(true));
     }
+
     if (hasQuery) {
       dispatch(
         setResPayload({
           ...resPayload,
-          slug: slug || "",
+          slug: getSlugOfUrl(pathname) || "",
           check_in: get(searchParams, "check_in"),
           check_out: get(searchParams, "check_out")
         })
@@ -66,12 +68,8 @@ const ListingReservationSummary = ({
     }
   }, [hasQuery]);
 
-  useEffect(() => {
-    if (!hasQuery) dispatch(setIsBookingInfoEditing(true));
-  }, []);
-
   return (
-    <div>
+    <>
       <Toaster duration={4000} position="top-right" reverseOrder={false} />
       <Modal
         isDisableClose={true}
@@ -85,7 +83,9 @@ const ListingReservationSummary = ({
               {t("oops_something_went_wrong")}
             </Typography>
             <Typography variant="p3" element="p" className="text-gray-600 ">
-              {t("sorry_this_house_is_no_longer_available_for_the_dates_you_selected")}
+              {t(
+                "sorry_this_house_is_no_longer_available_for_the_dates_you_selected"
+              )}
             </Typography>
           </div>
           <Button disabled={isLoading} onClick={handleBackToSearch}>
@@ -94,18 +94,8 @@ const ListingReservationSummary = ({
           </Button>
         </div>
       </Modal>
-
-      {isBookingInfoEditing ? (
-        <ReservationCheckInCard searchParams={searchParams} resData={resData} />
-      ) : (
-        <ReservationSummary
-          slug={slug}
-          hideCouponCode={false}
-          isDateSummary={true}
-          resData={resData}
-        />
-      )}
-    </div>
+      <ReservationCheckInCard searchParams={searchParams} resData={resData} />
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 export interface IHeader {
+  lang?: string;
   id: number;
   logo: Logo;
   userMenu: UserMenu;

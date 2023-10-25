@@ -1,11 +1,13 @@
 "use client";
+import { useTranslations } from "next-intl";
+
 import { useAppDispatch } from "@/redux/hooks";
+import { setIsSelectedBookingDate } from "@/redux/features/listingDetailSlice/listingDetailSlice";
+
+import Typography from "../typography/Typography";
 import { IDateSummary } from "@/components/atoms/dateSummary/types";
-import { setIsBookingInfoEditing } from "@/redux/features/listingDetailSlice/listingDetailSlice";
 
 import PencilIcon from "../../../../public/images/pencil.svg";
-import { useTranslations } from "next-intl";
-import Typography from "../typography/Typography";
 
 const DateSummary = ({
   endDate,
@@ -13,19 +15,28 @@ const DateSummary = ({
   bookingGuests,
   className = ""
 }: IDateSummary) => {
-  const dispatch = useAppDispatch();
   const t = useTranslations();
-  const handleBookingInfo = () => dispatch(setIsBookingInfoEditing(true));
+  const dispatch = useAppDispatch();
+
+  const handleOnClick = () => {
+    dispatch(setIsSelectedBookingDate(false));
+  };
 
   return (
     <div
-      onClick={handleBookingInfo}
+      onClick={handleOnClick}
       className={`flex items-center justify-between text-lg text-gray-600 rounded-lg py-2 px-3 border border-gray-200 cursor-pointer ${className}`}>
       <div className="flex items-center gap-x-2">
-        {startDate}
+        <Typography variant="p3" element="span">
+          {startDate}
+        </Typography>
         <span>-</span>
-        {endDate}
-        <Typography variant="p3" element="span">{`& ${bookingGuests} ${t("guest")}`} </Typography>
+        <Typography variant="p3" element="span">
+          {endDate}
+        </Typography>
+        <Typography variant="p3" element="span">
+          {`& ${bookingGuests} ${t("guest")}`}{" "}
+        </Typography>
       </div>
       <div className="flex justify-end">
         <PencilIcon />

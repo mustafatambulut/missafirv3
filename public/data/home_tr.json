@@ -1,0 +1,728 @@
+{
+  "data": {
+    "id": 5,
+    "attributes": {
+      "createdAt": "2023-09-22T11:14:38.258Z",
+      "updatedAt": "2023-10-01T20:28:44.742Z",
+      "publishedAt": "2023-09-22T11:16:56.722Z",
+      "locale": "tr",
+      "header": {
+        "id": 5,
+        "logo": {
+          "id": 5,
+          "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/missafir_logo_white_cd2032209a.svg",
+          "link": "/"
+        },
+        "userMenu": {
+          "id": 3,
+          "image": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1182.jpg",
+          "user_links": {
+            "data": []
+          }
+        },
+        "buttons": [
+          {
+            "id": 13,
+            "label": "Evimi kirala",
+            "image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/heart-icon.svg",
+            "link": "/tr/teklif-al"
+          }
+        ],
+        "languageMenu": {
+          "id": 3,
+          "languages": {
+            "data": [
+              {
+                "id": 6,
+                "attributes": {
+                  "image": "https://www.missafir.com/wp-content/uploads/2023/06/flag-turkey.svg",
+                  "label": "TR",
+                  "link": "https://www.missafir.com/tr",
+                  "value": "tr",
+                  "createdAt": "2023-09-05T11:25:39.454Z",
+                  "updatedAt": "2023-09-05T11:25:41.675Z",
+                  "publishedAt": "2023-09-05T11:25:41.669Z"
+                }
+              },
+              {
+                "id": 4,
+                "attributes": {
+                  "image": "https://ownerv2.missafir.com/assets/flags/english.svg",
+                  "label": "EN",
+                  "link": "https://www.missafir.com/en",
+                  "value": "en",
+                  "createdAt": "2023-09-05T11:24:55.131Z",
+                  "updatedAt": "2023-09-05T11:24:55.978Z",
+                  "publishedAt": "2023-09-05T11:24:55.972Z"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "body": [
+        {
+          "id": 3,
+          "__component": "sections.hero",
+          "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/hero1440x780_5b4e468c49.jpg",
+          "title": "Your home is everywhere"
+        },
+        {
+          "id": 3,
+          "__component": "sections.benefit-guest",
+          "header": {
+            "id": 45,
+            "title": null,
+            "description": null,
+            "image": null
+          }
+        },
+        {
+          "id": 3,
+          "__component": "sections.cities",
+          "header": {
+            "id": 46,
+            "title": "Ev ve villa kiralama için en iyi lokasyonlar",
+            "description": "Lokal ve eşsiz bir deneyim için merkezi konumlu eşyalı kiralık daireler, denize sıfır havuzlu villalar, kiralık tatil evleri ve daha fazlası, mutlaka görülmesi gereken yerlerde sizi bekliyor.",
+            "image": null
+          },
+          "cities": {
+            "data": [
+              {
+                "id": 19,
+                "attributes": {
+                  "title": "Antalya",
+                  "image": "https://missafir.s3.eu-central-1.amazonaws.com/missafir/media/cache/email_image/041f693dedfa58b1a1a20a0c59b067f41591fc7f06144695e34db2f62e0cc318fe01efe296b6a1d2d82d2516fbbe5d8f9b3e4cf387e5b97cfc889806e0563dcc.jpg",
+                  "description": "Altın gün batımlarının turkuaz kıyılarla buluştuğu Antalya, muhteşem doğası ve tarihiyle büyüleyici bir yer. Antalya’daki kiralık villalara, bungalovlara ve tatil evlerine şimdi göz atın.",
+                  "createdAt": "2023-09-26T09:42:25.194Z",
+                  "updatedAt": "2023-10-01T13:43:22.304Z",
+                  "publishedAt": "2023-09-26T09:42:28.648Z"
+                }
+              },
+              {
+                "id": 20,
+                "attributes": {
+                  "title": "İstanbul",
+                  "image": "https://missafir.s3.eu-central-1.amazonaws.com/missafir/media/cache/email_image/23670fdf80474fe0b9bf4a4c75ed8e84d3e1dab36078e5288114d2986c5a8489ad02c466ccaabfee65744130c61aac4506ed1666273cd33068dc47052aa88a4a.jpg",
+                  "description": "Metropol hayatını antik zamanlarla birleştiren İstanbul, mutlaka görülmesi gereken bir şehir. Eşyalı kiralık daireler, Boğaz manzaralı evler, 3 günlük kiralık evler ile İstanbul'u keşfedin.",
+                  "createdAt": "2023-09-26T09:42:49.555Z",
+                  "updatedAt": "2023-10-01T13:43:02.688Z",
+                  "publishedAt": "2023-09-26T09:42:57.178Z"
+                }
+              },
+              {
+                "id": 21,
+                "attributes": {
+                  "title": "Hırvatistan",
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/Screenshot_2023_10_01_at_16_48_22_5cc20c3f5a.png",
+                  "description": "Adriyatik Denizi'nin görkemli ülkesi Hırvatistan, kusursuz plajları ve denize sıfır lüks villaları ile mükemmel bir tatil rotası. Hırvatistan’daki özel havuzlu, tatil için kiralık villaları şimdi inceleyin.",
+                  "createdAt": "2023-09-26T09:43:23.237Z",
+                  "updatedAt": "2023-10-01T13:53:44.703Z",
+                  "publishedAt": "2023-09-26T09:43:24.074Z"
+                }
+              },
+              {
+                "id": 22,
+                "attributes": {
+                  "title": "Karadağ",
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/Screenshot_2023_10_01_at_16_49_10_204d9a933f.png",
+                  "description": "Adriyatik Denizi'nin bir mücevheri olan Karadağ, vizesiz tatil için mükemmel bir yer! Eşyalı kiralık evler ve havuzlu, denize sıfır kiralık yazlıklar ile lüks bir konaklama deneyimi yaşayın.\n",
+                  "createdAt": "2023-09-26T09:48:02.713Z",
+                  "updatedAt": "2023-10-01T13:52:47.096Z",
+                  "publishedAt": "2023-09-26T09:48:42.337Z"
+                }
+              },
+              {
+                "id": 23,
+                "attributes": {
+                  "title": "Kıbrıs",
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/Screenshot_2023_10_01_at_16_48_45_0fe6281604.png",
+                  "description": "Akdeniz'in eğlence adası Kıbrıs, her zevke uygun lüks konaklama seçenekleri sunar. Zarif kiralık lüks villalar, deniz manzaralı evler ve denize sıfır evler arasından seçiminizi yapın. ",
+                  "createdAt": "2023-09-26T09:48:24.602Z",
+                  "updatedAt": "2023-10-01T13:51:22.592Z",
+                  "publishedAt": "2023-09-26T09:48:26.924Z"
+                }
+              },
+              {
+                "id": 24,
+                "attributes": {
+                  "title": "İzmir",
+                  "image": "https://missafir.s3.eu-central-1.amazonaws.com/missafir/media/cache/email_image/6482c553d8543a7253048b17fa951f8516fdcce7ec5b5b22e38abb1c87e7298fcfc68f7479f7dd03d8683596a2f4f3a4ea72957ec205fe3b7d74ef8faa337c00.jpg",
+                  "description": "Ege'nin incisi İzmir, eğlenceli şehir hayatı ve tatil rotalarıyla sizi ağırlamak için hazır. Lüks bir konaklama için kiralık villalar,  keşif yada iş seyahatleri için kısa dönem eşyalı kiralık evler sizi bekliyor.",
+                  "createdAt": "2023-09-26T09:49:08.586Z",
+                  "updatedAt": "2023-10-01T13:54:48.904Z",
+                  "publishedAt": "2023-09-26T09:49:09.524Z"
+                }
+              },
+              {
+                "id": 14,
+                "attributes": {
+                  "title": "Fethiye",
+                  "image": "https://missafir.s3.eu-central-1.amazonaws.com/missafir/media/cache/email_image/89a7e85b75801f9ff5ecbfd0e6e0d7fc0cf19c1caf507b69add4ed74dab14a6933a897e6aeeb4300b7afbb9a641fb724b1efdc39f9e02e7ad402b65aeccaace2.jpg",
+                  "description": "Fethiye, a Turkish haven on the Aegean Sea, awaits you. Pick from villa rentals for a lavish holiday, experience coastal elegance in seafront villas, or opt for daily rentals for quick getaways.",
+                  "createdAt": "2023-09-22T07:17:20.620Z",
+                  "updatedAt": "2023-10-01T13:44:09.010Z",
+                  "publishedAt": "2023-09-22T07:25:19.167Z"
+                }
+              },
+              {
+                "id": 11,
+                "attributes": {
+                  "title": "Bodrum",
+                  "image": "https://missafir.s3.eu-central-1.amazonaws.com/missafir/media/cache/email_image/b7a4087566c80ab943f8fc31b4ec6266fb70decde48ef6373474725873d48c4091d0a6ae2dcc1167337426ea60657c57d087ae40c12be6df855edf5ae81f1402.jpg",
+                  "description": "Bodrum is a picturesque locale on Turkey's Aegean coast. Delight in luxury with villa rentals, take advantage of flexibility with daily rentals or enjoy a more extended retreat with vacation rentals.",
+                  "createdAt": "2023-09-22T07:19:14.157Z",
+                  "updatedAt": "2023-10-01T13:43:41.111Z",
+                  "publishedAt": "2023-09-22T07:25:08.659Z"
+                }
+              },
+              {
+                "id": 17,
+                "attributes": {
+                  "title": "Sapanca",
+                  "image": "https://missafir.s3.eu-central-1.amazonaws.com/missafir/media/cache/email_image/bf9dc03f8c39f4ccc3f4dda9d088e97f17c3e75f93e2e6f50230d84c212253688df894bc123a58cb15213079335c8bcb0e2a4c411a51518288b53b9eef23189a.jpg",
+                  "description": "Nestled by a serene lake, Sapanca provides a variety of stay options. Opt for vacation rentals for longer stays, villas with pools for luxury, or lakeside spots for peaceful retreats.",
+                  "createdAt": "2023-09-22T07:22:06.656Z",
+                  "updatedAt": "2023-10-01T13:44:34.009Z",
+                  "publishedAt": "2023-09-22T07:25:36.520Z"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 3,
+          "__component": "sections.benefit-owner",
+          "header": {
+            "id": 47,
+            "title": "Evinize değer katıyoruz",
+            "description": "Orta ve kısa dönem ev kiralama modelimizle, uzun dönem kiralık evlere göre daha çok kazanabilirsiniz. Teknoloji destekli mülk yönetimi sistemimizi bugün keşfedin. ",
+            "image": null
+          },
+          "body": [
+            {
+              "id": 7,
+              "image": "https://svgshare.com/i/vHM.svg",
+              "title": "Teknoloji temelli profesyonel mülk yönetimi",
+              "description": "Türkiye’nin öncü profesyonel mülk yönetimi şirketi Missafir, mülkünüzü orta ve kısa dönem ev kiralamada öne çıkaran pratik ve teknolojik çözümler sunuyor. "
+            },
+            {
+              "id": 8,
+              "image": "https://svgshare.com/i/vHM.svg",
+              "title": "Profesyonel iç dekor tasarımı ve fotoğraf çekimi ",
+              "description": "Kısa dönem kiralık villa ve ev sektöründe fotoğraflama ve iç dekor olmazsa olmaz. Missafir’in profesyonel iç mimarlık ve fotoğraf hizmetleriyle evinize değer katabilirsiniz. "
+            },
+            {
+              "id": 9,
+              "image": "https://svgshare.com/i/vHM.svg",
+              "title": "50+ global ev kiralama sitesinde ilan yönetimi",
+              "description": "Airbnb, Booking ve Agoda gibi dünyanın en popüler ev kiralama sitelerinde mülkünüzü öne çıkarıyor, orta/kısa dönem ev kiralamada mülkünüzü daha fazla misafire ulaştırıyoruz. "
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "__component": "sections.premium",
+          "header": {
+            "id": 48,
+            "title": "İlk rezervasyonunuza %10 indirim!",
+            "description": "Missafir üyesi olarak ilk rezervasyonunuzu %10 indirimli yapın, birbirinden güzel eşyalı kiralık evlerde unutulmaz bir deneyim yaşayın! \n",
+            "image": null
+          },
+          "body": {
+            "id": 3,
+            "title": "İlk rezervasyonunuza %10 indirim!",
+            "image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/banner-bg.svg"
+          },
+          "footer": {
+            "id": 14,
+            "label": "Üye ol",
+            "image": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/821.jpg",
+            "link": "https://web-frontend-dev.missafir.com/login"
+          }
+        },
+        {
+          "id": 11,
+          "__component": "sections.banner",
+          "bannerHeader": null,
+          "bannerBody": null,
+          "bannerFooter": null
+        },
+        {
+          "id": 3,
+          "__component": "sections.potential-income",
+          "header": {
+            "id": 49,
+            "title": "Vero repudiandae quo est quas hic corporis optio.",
+            "description": "Molestias repudiandae quisquam deleniti iusto consectetur. Vero delectus debitis impedit. Deserunt deserunt nesciunt.",
+            "image": null
+          },
+          "body": {
+            "id": 54,
+            "title": "Repudiandae eaque exercitationem labore.",
+            "description": "Ipsam dolore autem doloremque dolorum culpa doloribus sint. Perferendis consectetur ducimus ut dolorem repudiandae rerum. Molestiae quisquam optio sit asperiores dolore molestiae repudiandae earum facilis.",
+            "image": null
+          },
+          "footer": {
+            "id": 55,
+            "title": "Autem deleniti nemo perspiciatis debitis quisquam.",
+            "description": "Nam sapiente temporibus iste necessitatibus. Quisquam rerum cupiditate laborum voluptatem maxime quos ad veniam molestiae. Omnis corporis necessitatibus officia quibusdam illum.",
+            "image": null
+          }
+        },
+        {
+          "id": 3,
+          "__component": "sections.summary",
+          "header": {
+            "id": 50,
+            "title": "Beatae tempora pariatur quam unde.",
+            "description": "Autem explicabo veritatis autem consequatur maiores quas facilis incidunt. Quos iusto inventore explicabo esse rerum placeat excepturi. Rerum atque optio odio ut repudiandae quos optio dolorum.",
+            "image": null
+          },
+          "body": {
+            "id": 4,
+            "description": "Aliquam similique voluptatum quam beatae expedita quidem quo iusto quia. Temporibus vero placeat eligendi ut ipsa dignissimos assumenda exercitationem. Eos dicta culpa.",
+            "title": "Minima provident porro esse."
+          }
+        },
+        {
+          "id": 3,
+          "__component": "sections.testemonial",
+          "header": {
+            "id": 51,
+            "title": "Missafir yorumlarına göz atın",
+            "description": "Ev sahiplerimiz ve misafirlerimizin mutluluğu için 7/24 çalışıyoruz. Türkiye’nin öncü gayrimenkul geliştirme ve yönetim şirketi olmanın sorumluluğunu her zaman taşıyoruz. ",
+            "image": null
+          },
+          "body": [
+            {
+              "id": 7,
+              "header_label": "Mehmet Ali Bey",
+              "header_image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/communicate-baloon.svg",
+              "info": "Missafir’in altyapısını incelediğimizde çok hoşumuza gitti. Doğal olarak Missafir’i tercih ettik. Kuşkusuz gönül rahatlığıyla öneriyoruz. İstaiksel olarak bakılırsa doluluk oranı çok iyi.",
+              "title": null,
+              "description": null,
+              "footer_desc": "Mehmet Ali Bey"
+            },
+            {
+              "id": 8,
+              "header_label": "Handan Hanım",
+              "header_image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/communicate-baloon.svg",
+              "info": "İstediğim zaman kapatıp, bloke edip kendim konaklayabiliyorum. Her gittiğimde evimi pırıl pırıl buluyorum. En ufak bir ricada bulunduğumda çok hızlı çözüme kavuşuyor.",
+              "title": null,
+              "description": null,
+              "footer_desc": "Handan Hanım"
+            },
+            {
+              "id": 9,
+              "header_label": "Hakan Bey",
+              "header_image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/communicate-baloon.svg",
+              "info": "Ben zaten kurumsal bir firmayla çalışma taraftarıyım. Missafir’i arkadaş tavsiyesi ve sosyal medyada gördüğüm reklamlar üzerine tercih ettim.",
+              "title": null,
+              "description": null,
+              "footer_desc": "Hakan Bey"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "__component": "sections.tech-experience",
+          "header": {
+            "id": 52,
+            "title": "MissafirTech: Profesyonel Mülk Yönetimi için PropTech",
+            "description": "Türkiye’nin ilk ve en büyük gayrimenkul yönetim markası Missafir’in Tech ekibinin sektöre kattığı yeni uygulamalara göz atın. ",
+            "image": null
+          },
+          "body": [
+            {
+              "id": 7,
+              "title": "Owner App©",
+              "sliders": {
+                "data": [
+                  {
+                    "id": 17,
+                    "attributes": {
+                      "image": "https://svgshare.com/i/vBc.svg",
+                      "description": "Our guests can access all information related to their reservations through our mobile app, and can reach us 24/7 for any issues and requests. ",
+                      "createdAt": "2023-09-05T11:28:54.835Z",
+                      "updatedAt": "2023-09-22T08:12:34.126Z",
+                      "publishedAt": "2023-09-05T11:28:55.542Z"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": 8,
+              "title": "Ge App©",
+              "sliders": {
+                "data": [
+                  {
+                    "id": 17,
+                    "attributes": {
+                      "image": "https://svgshare.com/i/vBc.svg",
+                      "description": "Our guests can access all information related to their reservations through our mobile app, and can reach us 24/7 for any issues and requests. ",
+                      "createdAt": "2023-09-05T11:28:54.835Z",
+                      "updatedAt": "2023-09-22T08:12:34.126Z",
+                      "publishedAt": "2023-09-05T11:28:55.542Z"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": 9,
+              "title": "MISSA©: Property Management System",
+              "sliders": {
+                "data": [
+                  {
+                    "id": 17,
+                    "attributes": {
+                      "image": "https://svgshare.com/i/vBc.svg",
+                      "description": "Our guests can access all information related to their reservations through our mobile app, and can reach us 24/7 for any issues and requests. ",
+                      "createdAt": "2023-09-05T11:28:54.835Z",
+                      "updatedAt": "2023-09-22T08:12:34.126Z",
+                      "publishedAt": "2023-09-05T11:28:55.542Z"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "__component": "sections.partners",
+          "header": {
+            "id": 53,
+            "title": "Kısa Dönem Ev ve Villa Kiralamada İş Birliklerimiz",
+            "description": "Dünyanın dört bir yanındaki iş birliklerimizle, eşyalı kiralık daire ve villa kiralama konusunda popüler 50+ global platformda mülkünüze dijital görünürlük kazandırıyoruz. ",
+            "image": null
+          },
+          "body": [
+            {
+              "id": 7,
+              "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/airbnb_d42f678bec.svg",
+              "link": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/airbnb_d42f678bec.svg",
+              "label": "utilise"
+            },
+            {
+              "id": 8,
+              "image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/booking.svg",
+              "link": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/booking.svg",
+              "label": "rack"
+            },
+            {
+              "id": 9,
+              "image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/expedia.svg",
+              "link": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/expedia.svg",
+              "label": "recap"
+            },
+            {
+              "id": 16,
+              "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/agoda_c36bd0da1c.svg",
+              "link": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/agoda_c36bd0da1c.svg",
+              "label": null
+            },
+            {
+              "id": 17,
+              "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/vrbo_63a5609614.svg",
+              "link": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/vrbo_63a5609614.svg",
+              "label": null
+            },
+            {
+              "id": 18,
+              "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/marriott_437a7ba17d.svg",
+              "link": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/marriott_437a7ba17d.svg",
+              "label": null
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "__component": "sections.info",
+          "infoContents": [
+            {
+              "id": 5,
+              "title": "Kısa Dönem Günlük Kiralık Ev ve Villalar için Profesyonel Mülk Yönetimi",
+              "description": "Kısa dönem ev kiralama, 3 gün ve üzeri olmak üzere evde tatil deneyimi yaşamak isteyenlere, iş seyahatinde ev konforunu tercih edenlere ve yeni keşiflerde lokal gibi yaşamak isteyenlere hitap eden bir konaklama türüdür. \nMissafir, bir kısa dönem ev kiralama uygulaması ve markası olarak bu alanda iki yönlü çalışır. İlk olarak ev sahiplerine profesyonel gayrimenkul yönetimi hizmeti sunar. [Kısa dönem ev kiralama](https://www.missafir.com/kisa-donem-ev-kiralama/) yasası gibi konularda ev sahiplerini bilgilendirir. Misafirlere ise 3 günlük ev kiralama ya da 3 günlük kiralık havuzlu villa gibi aramalarda seçenekler ve mükemmel müşteri deneyimi sunar.\n## Tatil Evi Kiralama Nedir?\nTatil evi kiralama, kısa veya orta süreli tatillerde kullanıcıların konaklama ihtiyaçlarını karşılamak için ev veya daire kiralama işlemidir.\nTatil evleri kiralık mülk sektöründe her zaman profesyonel mülk yönetimine ihtiyaç duyar. Özellikle kısa dönem [kiralık tatil evleri](https://www.missafir.com/kiralik-tatil-evleri/)nde sürdürülebilir bir iş için bu konu elzemdir. Tatil için kiralık ev portfoyünüz varsa, Missafir’e bugün başvurmayı unutmayın.\nKiralık Villada Tatil Nedir?\nKiralık villada tatil, tatilcilerin özel bir villa kiralayarak konakladığı bir tatil seçeneğidir. Lüksün ve özgürlüğün mükemmel bir birleşimi olan bu seçenek, kişiselleştirilmiş ve rahat bir tatil deneyimi sunar.\nPeki, neden bir villa kiralayarak tatil yapmalısınız? Bir kere, villada tatil tamamen size ait bir deneyimdir. Kimseyle alanınızı veya olanaklarınızı paylaşmanız gerekmez. Ayrıca, genellikle geniş aileler veya arkadaş grupları için mükemmel bir seçenektir çünkü birden fazla yatak odası ve geniş yaşam alanları sunarlar.\nMissafir, birçok türde villa kiralama seçeneği sunmaktadır. Tatil villam nerede diye merak ediyorsanız, villa türü kararınızı verdikten sonra Missafir’de arama yapın. Deniz manzaralı bir lüks villa mı arıyorsunuz, yoksa ormanın içinde huzurlu bir sığınak mı? Şehir merkezine yakın mı olmalı, yoksa daha sakin ve izole bir yer mi istiyorsunuz? Sitemizdeki arama ve filtreleme özelliklerimizle, ihtiyaçlarınıza ve beklentilerinize en uygun villayı kolaylıkla bulabilirsiniz.\n### Kiralık Yazlık Villa Tatili için Türkiye’de En İyi Şehirler Hangisi?\nTürkiye’de özellikle yaz aylarında Antalya ve Muğla kiralık yazlık villa aramalarında öne çıkar. Bu noktada talep çoğaldığı için uygun fiyatlı kısa dönem kiralık villalar bulmak zordur. Deniz kıyısına uzak, özel havuzu olan villalar daha uygun fiyatlar sunabilir. \nAradığınız şehirde istediğiniz türde villa kiralık ise, Missafir gibi tatil için kiralık villahizmeti veren markaları tercih etmeniz önemlidir. Böylece olası problemlerde müşteri desteğiyle anında iletişim kurabilirsiniz. Bireysel ve sahibinden villa kiralamalarında ise misafir desteği hizmeti alamazsınız.\n## Evi Kiraya Vermek Hakkında Bilgiler\nEvi kiraya vermek, gayrimenkul sahiplerinin ek gelir elde etmek için mülklerini kullanmanın popüler bir yoludur. Fakat bu süreç, yeterli bilgi ve tecrübe olmadan karmaşık ve zorlayıcı olabilir.\n## Mülk Yönetimi Nedir? Gayrimenkul Yönetimi Nedir?\nMülk yönetimi ya da [gayrimenkul yönetimi](https://www.missafir.com/gayrimenkul-yonetimi/), bir mülk veya gayrimenkul portföyünün işletilmesi, kontrol edilmesi ve denetlenmesi sürecidir. Diğer bir ismi de [emlak yönetimi](https://www.missafir.com/emlak-yonetim/)dir. Bu, mülkün bakımı ve onarımı, kiralama süreci, kiracılarla iletişim ve mülkün yasal yükümlülüklerini içerir. İyi bir mülk yönetimi, hem mülk sahiplerine hem de kiracılara fayda sağlar ve gayrimenkul yatırımlarından en iyi şekilde yararlanmanın anahtarıdır.\nBir mülk yöneticisi, mülk sahibinin yerine bu görevleri yerine getirir. Mülk yöneticileri genellikle kiralık daireler, ticari mülkler, konut kompleksleri ve hatta tekli aile evleri gibi çeşitli mülk türlerini yönetirler. Mülk yönetimi ya da emlak yönetimi, mülk sahiplerinin zaman ve enerji tasarrufu yapmasını sağlar ve mülkün değerini korur ve artırır.\n## Yabancılara Ev Kiralama Sitesi Arayışında Profesyonel Durak: Missafir\nKısa dönem ev kiralama sitesi yabancı kültüründe son dönemlerde sıkça kullanılan bir uygulamadır. Yabancı ülkelerde seyahat etmek veya konaklamak istediğinizde, uluslararası ev kiralama web siteleri size çeşitli seçenekler sunar. Bazı popüler uluslararası ev kiralama web sitelerini sizin için listeliyoruz. \n### Uluslararası Ev Kiralama Sitesi Örnekleri\n- [Airbnb](https://www.missafir.com/airbnb/)\n- VRBO\n- [HomeAway](https://www.missafir.com/homeaway/)\n- [Booking](https://www.missafir.com/booking/)\n- [Expedia](https://www.missafir.com/expedia/)\n\nBu sitelerin bazılarında günlük kiralık tatil evleri ve günlük kiralık villa seçenekleri mevcuttur. Missafir, bu sitelerde yer alan evlerin daha çok ilgi çekici olması için profesyonel hizmet sunar. Böylece kiraya verenlerin daha fazla kazanç elde etmesini sağlar. \n## Araplara Ev Kiralama Sitesi\nArap turistler için seyahat etmek veya tatil yapmak isteyenler için özel ev kiralama platformları da mevcuttur. Bu platformlar, Arap misafirlerin kültürel ihtiyaçlarını karşılamak için tasarlanmıştır. Arap misafirlere özel hizmetler sunan bu platformlar, dil desteği, helal yiyecek seçenekleri ve namaz ihtiyaçları gibi özelliklere odaklanır.\n## Günlük Kiralık Daire Nedir?\nGünlük kiralık daire, otel konaklamalarına alternatif bir seçenek olarak hizmet veren, genellikle tam donanımlı mutfak, banyo, yatak odası ve oturma odası gibi olanakları içeren bir konaklama çeşididir. Bu seçenek, kısa süreli konaklamalar için idealdir ve genellikle iş seyahatleri, turistik geziler veya geçici konaklama ihtiyaçları için tercih edilir. Günlük kiralık daireler, otel odalarına göre daha fazla alan ve özgürlük sunarak, evden uzaktayken bile ev rahatlığını yaşamanıza olanak sağlar.\nMissafir ile profesyonel mülk yönetimine geçerek 3 gün ve üzeri kiralamalarla daha fazla kazanmaya başlayabilirsiniz. \n## Günlük Ev Kiralama Siteleri Nelerdir?\nGünlük ev kiralama siteleri, seyahat ederken ev rahatlığı arayanlar için mükemmel çözümler sunar. Airbnb, Booking.com, HomeAway ve Vrbo gibi siteler, dünya genelinde çeşitli günlük kiralık evler sunar. \nMissafir, tüm günlük ev kiralama sitelerinde size profesyonel mülk yönetimi hizmeti sunar. Evimi kiraya vermek istiyorum diyorsanız, bugün Missafir’e başvurun. Ayrıca evini Missafir ile kiraya vermesini istediğiniz bir tanıdığınız varsa, [davet et kazan](https://www.missafir.com/referans-programi/) modelimizle de siz de ek gelir elde edebilirsiniz. \n## Günlük Ev Kiralama Şartları Nelerdir?\nDetaylı bilgi için [günlük ev kiralama ruhsatı nasıl alınır](https://www.missafir.com/gunluk-kiralik-ev-ruhsati-nasil-alinir/) konulu sayfamıza bakabilirsiniz. “Günlük Ev Kiralama İşi Nasıl Yapılır?” sorusunun cevabını da aynı yazımızda bulabilirsiniz. \n## En İyi Günlük Ev Kiralama Uygulaması Nedir?\nTürkiye’nin ilk ve en büyük mülk yönetimi markası Missafir, 3 gün ve üzeri günlük ev kiralamada kullanabileceğiniz en iyi uygulamayı size sunan markadır. Owner App sayesinde evinizle ilgili gelir, gider ve rezervasyon bilgilerine günlük ve gerçek zamanlı olarak ulaşabilirsiniz."
+            }
+          ]
+        }
+      ],
+      "footer": {
+        "id": 3,
+        "header": {
+          "id": 3,
+          "image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/missafir_logo.svg",
+          "description": "Profesyonel mülk yönetimi ve kısa dönem ev ve villa kiralamada Türkiye’nin öncü markası. ",
+          "buttonImage": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/heart-icon.svg",
+          "buttonLabel": "Evimi kirala",
+          "buttonLink": "/teklif-al"
+        },
+        "body": [
+          {
+            "id": 3,
+            "title": "MİSSAFİR",
+            "menu_links": {
+              "data": [
+                {
+                  "id": 39,
+                  "attributes": {
+                    "label": "Ev Sahipleri",
+                    "link": "/teklif-al",
+                    "createdAt": "2023-09-28T07:55:28.386Z",
+                    "updatedAt": "2023-10-01T11:27:14.103Z",
+                    "publishedAt": "2023-09-28T07:55:38.621Z"
+                  }
+                },
+                {
+                  "id": 40,
+                  "attributes": {
+                    "label": "Misafirler",
+                    "link": "/list",
+                    "createdAt": "2023-09-28T07:55:57.891Z",
+                    "updatedAt": "2023-09-29T14:56:02.699Z",
+                    "publishedAt": "2023-09-28T07:55:59.786Z"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": 9,
+            "title": "BÖLGELER",
+            "menu_links": {
+              "data": [
+                {
+                  "id": 41,
+                  "attributes": {
+                    "label": "Antalya",
+                    "link": "/antalya",
+                    "createdAt": "2023-09-28T07:57:22.017Z",
+                    "updatedAt": "2023-09-29T14:56:13.610Z",
+                    "publishedAt": "2023-09-28T07:57:22.995Z"
+                  }
+                },
+                {
+                  "id": 42,
+                  "attributes": {
+                    "label": "İstanbul",
+                    "link": "/istanbul",
+                    "createdAt": "2023-09-28T07:57:51.693Z",
+                    "updatedAt": "2023-09-29T14:56:19.701Z",
+                    "publishedAt": "2023-09-28T07:57:53.615Z"
+                  }
+                },
+                {
+                  "id": 43,
+                  "attributes": {
+                    "label": "Hırvatistan",
+                    "link": "/kiralik-ev/hirvatistan",
+                    "createdAt": "2023-09-28T07:58:04.997Z",
+                    "updatedAt": "2023-09-29T14:56:28.006Z",
+                    "publishedAt": "2023-09-28T07:58:06.094Z"
+                  }
+                },
+                {
+                  "id": 44,
+                  "attributes": {
+                    "label": "Karadağ",
+                    "link": "/kiralik-ev/karadag",
+                    "createdAt": "2023-09-28T07:58:15.701Z",
+                    "updatedAt": "2023-09-29T14:56:35.619Z",
+                    "publishedAt": "2023-09-28T07:58:16.685Z"
+                  }
+                },
+                {
+                  "id": 32,
+                  "attributes": {
+                    "label": "Bodrum",
+                    "link": "/bodrum",
+                    "createdAt": "2023-09-28T07:21:27.285Z",
+                    "updatedAt": "2023-09-29T14:54:23.124Z",
+                    "publishedAt": "2023-09-28T07:21:28.487Z"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": 10,
+            "title": "HİZMETLER",
+            "menu_links": {
+              "data": [
+                {
+                  "id": 46,
+                  "attributes": {
+                    "label": "Mülk Yönetimi",
+                    "link": "/hizmet-paketlerimiz",
+                    "createdAt": "2023-09-28T08:00:22.294Z",
+                    "updatedAt": "2023-09-29T14:56:48.589Z",
+                    "publishedAt": "2023-09-28T08:00:23.415Z"
+                  }
+                },
+                {
+                  "id": 33,
+                  "attributes": {
+                    "label": "MissafirTech",
+                    "link": "https://missafir.io",
+                    "createdAt": "2023-09-28T07:22:35.119Z",
+                    "updatedAt": "2023-09-29T14:54:30.122Z",
+                    "publishedAt": "2023-09-28T07:22:36.295Z"
+                  }
+                },
+                {
+                  "id": 48,
+                  "attributes": {
+                    "label": "3+ Günlük Kiralık Evler",
+                    "link": "https://missafir.design",
+                    "createdAt": "2023-09-28T08:02:05.200Z",
+                    "updatedAt": "2023-09-29T14:57:03.402Z",
+                    "publishedAt": "2023-09-28T08:02:06.324Z"
+                  }
+                },
+                {
+                  "id": 49,
+                  "attributes": {
+                    "label": "Referans Programı",
+                    "link": "/referans-programi",
+                    "createdAt": "2023-09-28T08:02:19.399Z",
+                    "updatedAt": "2023-09-29T14:57:10.835Z",
+                    "publishedAt": "2023-09-28T08:02:22.194Z"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": 11,
+            "title": "HAKKINDA",
+            "menu_links": {
+              "data": [
+                {
+                  "id": 24,
+                  "attributes": {
+                    "label": "Biz Kimiz?",
+                    "link": "/biz-kimiz",
+                    "createdAt": "2023-09-22T13:59:41.784Z",
+                    "updatedAt": "2023-09-28T08:04:21.526Z",
+                    "publishedAt": "2023-09-22T13:59:42.751Z"
+                  }
+                },
+                {
+                  "id": 50,
+                  "attributes": {
+                    "label": "Missafir'de Yaşam",
+                    "link": "/missafirde-yasam",
+                    "createdAt": "2023-09-28T08:05:59.509Z",
+                    "updatedAt": "2023-09-28T08:06:02.093Z",
+                    "publishedAt": "2023-09-28T08:06:02.088Z"
+                  }
+                },
+                {
+                  "id": 51,
+                  "attributes": {
+                    "label": "Sürdürülebilirlik",
+                    "link": "/surdurulebilirlik",
+                    "createdAt": "2023-09-28T08:06:20.401Z",
+                    "updatedAt": "2023-09-28T08:06:21.767Z",
+                    "publishedAt": "2023-09-28T08:06:21.762Z"
+                  }
+                },
+                {
+                  "id": 25,
+                  "attributes": {
+                    "label": "Blog",
+                    "link": "https://missafir.com/blog",
+                    "createdAt": "2023-09-22T11:42:57.876Z",
+                    "updatedAt": "2023-09-23T10:12:29.080Z",
+                    "publishedAt": "2023-09-22T11:43:26.790Z"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": 12,
+            "title": "DESTEK",
+            "menu_links": {
+              "data": [
+                {
+                  "id": 19,
+                  "attributes": {
+                    "label": "İletişim",
+                    "link": "/iletisim",
+                    "createdAt": "2023-09-22T13:57:26.292Z",
+                    "updatedAt": "2023-09-29T14:51:46.728Z",
+                    "publishedAt": "2023-09-22T13:57:28.266Z"
+                  }
+                },
+                {
+                  "id": 20,
+                  "attributes": {
+                    "label": "SSS",
+                    "link": "/sikca-sorulan-sorular",
+                    "createdAt": "2023-09-22T13:57:45.541Z",
+                    "updatedAt": "2023-09-28T08:07:48.596Z",
+                    "publishedAt": "2023-09-22T13:57:46.414Z"
+                  }
+                },
+                {
+                  "id": 22,
+                  "attributes": {
+                    "label": "Gizlilik Politikası",
+                    "link": "/gizlilik-politikasi",
+                    "createdAt": "2023-09-22T13:57:45.541Z",
+                    "updatedAt": "2023-09-28T08:07:48.596Z",
+                    "publishedAt": "2023-09-22T13:57:46.414Z"
+                  }
+                },
+                {
+                  "id": 23,
+                  "attributes": {
+                    "label": "KVKK",
+                    "link": "/kvkk-aydinlatma-metni",
+                    "createdAt": "2023-09-22T13:57:45.541Z",
+                    "updatedAt": "2023-09-28T08:07:48.596Z",
+                    "publishedAt": "2023-09-22T13:57:46.414Z"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "footer": null
+      },
+      "footerBrand": {
+        "id": 3,
+        "header": {
+          "id": 56,
+          "title": "©2023 MSFR Teknoloji ve Danışmanlık A.Ş.",
+          "description": "Tüm hakları saklıdır.",
+          "image": null
+        },
+        "body": {
+          "id": 3,
+          "brand_links": {
+            "data": []
+          }
+        }
+      },
+      "localizations": {
+        "data": [
+          {
+            "id": 6,
+            "attributes": {
+              "createdAt": "2023-09-05T12:34:00.457Z",
+              "updatedAt": "2023-10-01T20:28:08.487Z",
+              "publishedAt": "2023-09-05T12:40:35.722Z",
+              "locale": "en"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "meta": {}
+}

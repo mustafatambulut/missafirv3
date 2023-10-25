@@ -10,6 +10,7 @@ import GuestsIcon from "../../../../public/images/guests.svg";
 import SearchIconWhite from "../../../../public/images/search_white.svg";
 import { useTranslations } from "next-intl";
 import Typography from "../typography/Typography";
+import classNames from "classnames";
 
 const GuestDrawer = ({
   onClick,
@@ -21,62 +22,89 @@ const GuestDrawer = ({
     (state) => state.listingReducer
   );
   const t = useTranslations();
+
+  const checkHasAnyGuest = () => {
+    const humanCount =
+      get(bookingGuests, "adults") + get(bookingGuests, "kids");
+    return (
+      humanCount > 1 ||
+      (humanCount === 1 && Boolean(get(bookingGuests, "pets")))
+    );
+  };
+
+  const guestSelectorClassName = classNames({
+    "text-xs text-gray-600": isInCustomSection,
+    "text-base": !isInCustomSection,
+    hidden: isInCustomSection && checkHasAnyGuest()
+  });
+
+  const guestCountClass = classNames({
+    flex: checkHasAnyGuest,
+    hidden: !checkHasAnyGuest()
+  });
+
   return (
     <div
-      className={` ${isInCustomSection ? "mb-0" : "mb-3 lg:mb-0 flex-1 w-full"
-        }  ${className}`}>
+      className={` ${
+        isInCustomSection ? "mb-0" : "mb-3 lg:mb-0 flex-1 w-full"
+      }  ${className}`}>
       <div className="flex">
         <label
           htmlFor="msfr-search-drawer"
           onClick={onClick}
-          className={`drawer-button py-1 ${isInCustomSection ? "h-9" : "h-14 px-4"
-            } bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-700`}>
+          className={`drawer-button py-1 ${
+            isInCustomSection ? "h-9" : "h-14 px-4"
+          } bg-white cursor-pointer w-full rounded-2xl flex items-center text-gray-700`}>
           <div className="flex">
             <div className="flex items-center text-base">
               <GuestsIcon
-                className={`${isInCustomSection ? "mr-1 scale-75" : "mr-3"
-                  } fill-gray-700`}
+                className={`${
+                  isInCustomSection ? "mr-1 scale-75" : "mr-3"
+                } fill-gray-700`}
               />
               <div className="flex flex-col items-start">
                 <Typography
                   variant="p3"
                   element="span"
-                  className={`${isInCustomSection ? "text-xs text-gray-600" : "text-base"
-                    }`}>
-                  {isInCustomSection ? t("add_guests") : t("guests")}
+                  className={guestSelectorClassName}>
+                  {checkHasAnyGuest() ? t("guests") : t("add_guests")}
                 </Typography>
-                {get(bookingGuests, "adults") ||
-                  get(bookingGuests, "kids") ||
-                  get(bookingGuests, "pets") ? (
-                  <div
-                    className={`flex font-mi-sans-semi-bold ${isInCustomSection ? "text-sm" : "text-lg"
+                <div
+                  className={`flex font-mi-sans-semi-bold ${
+                    isInCustomSection ? "text-sm" : "text-lg"
+                  } ${guestCountClass}`}>
+                  {get(bookingGuests, "adults") > 0 ||
+                  get(bookingGuests, "kids") > 0 ? (
+                    <Typography
+                      variant="p3"
+                      element="span"
+                      className={`mr-2 whitespace-nowrap ${
+                        isInCustomSection ? "text-sm" : "text-lg"
                       }`}>
-                    {get(bookingGuests, "adults") > 0 ||
-                      get(bookingGuests, "kids") > 0 ? (
-                      <Typography variant="p3" element="span" className="mr-2 whitespace-nowrap">
-                        {get(bookingGuests, "adults") > 0
-                          ? get(bookingGuests, "adults")
-                          : null}
-                        {get(bookingGuests, "kids") > 0
-                          ? ` ${get(bookingGuests, "kids")}`
-                          : null}
-                        <Typography
-                          variant="p3"
-                          element="span"
-                          className="ml-1">{t("guests")}</Typography>
-                      </Typography>
-                    ) : null}
-
-                    {get(bookingGuests, "pets") === 1 ? (
+                      {parseInt(get(bookingGuests, "adults")) +
+                        parseInt(get(bookingGuests, "kids"))}
                       <Typography
                         variant="p3"
                         element="span"
-                        className="mr-2 whitespace-nowrap">
-                        {t("pets")}
+                        className={`ml-1 ${
+                          isInCustomSection ? "text-sm" : "text-lg"
+                        }`}>
+                        {t("guests")}
                       </Typography>
-                    ) : null}
-                  </div>
-                ) : null}
+                      {get(bookingGuests, "pets") === 1 ? ", " : null}
+                      {get(bookingGuests, "pets") === 1 ? (
+                        <Typography
+                          variant="p3"
+                          element="span"
+                          className={`mr-2 whitespace-nowrap ${
+                            isInCustomSection ? "text-sm" : "text-lg"
+                          }`}>
+                          {t("pets")}
+                        </Typography>
+                      ) : null}
+                    </Typography>
+                  ) : null}
+                </div>
               </div>
             </div>
           </div>

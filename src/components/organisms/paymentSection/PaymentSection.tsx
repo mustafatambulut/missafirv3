@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import IMask from "imask";
 import moment from "moment";
 import { IMaskInput } from "react-imask";
-import { get, isNull, size } from "lodash";
+import { get, includes, isBoolean, isNull, pick, size } from "lodash";
 import { useTranslations } from "next-intl";
 
 import {
@@ -19,15 +19,24 @@ import Alert from "@/components/atoms/alert/Alert";
 
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import CancelIcon from "@/../public/images/variants/close.svg";
+import Checkbox from "@/components/atoms/checkbox/Checkbox";
+import Modal from "@/components/atoms/modal/Modal";
+import BrokenLink from "../../../../public/images/broken_link.svg";
+import Typography from "@/components/atoms/typography/Typography";
+import EditPencilIcon from "../../../../public/images/edit_pencil.svg";
 
 const PaymentSection = ({ className = "", message }: IPayment) => {
   useCheckAuth();
   const t = useTranslations();
   const dispatch = useAppDispatch();
+  const { reservation } = useAppSelector((state) => state.reservationReducer);
 
   let flag: boolean = !!size(message);
   const { isValidPayload } = useAppSelector((st) => st.paymentReducer);
   const [showAlert, setShowAlert] = useState<boolean>(flag);
+  const [showAllReviews, setShowAllReviews] = useState(false);
+  const [content, setContent] = useState<any>("");
+  const [selectedKey, setSelectedKey] = useState<any>("");
   const [cardInfo, setCardInfo] = useState({
     number: "",
     expiry: "",
@@ -38,7 +47,14 @@ const PaymentSection = ({ className = "", message }: IPayment) => {
 
   const handleInputChange = ({ target }) => {
     const { name, value } = target;
-    setCardInfo((prev) => ({ ...prev, [name]: value }));
+    let _isBoolean = isBoolean(
+      value == "true" || value == "false" ? true : value
+    );
+
+    setCardInfo((prev) => ({
+      ...prev,
+      [name]: _isBoolean ? !JSON.parse(value) : value
+    }));
   };
 
   const handleInputFocus = ({ target }) => {
@@ -68,6 +84,20 @@ const PaymentSection = ({ className = "", message }: IPayment) => {
     dispatch(updateCardInfo(cardInfo));
   }, [cardInfo]);
 
+  const handleClose = () => setShowAllReviews(false);
+
+  const handleCheckboxText = (e: any) => {
+    setShowAllReviews(true);
+    setSelectedKey(e);
+    setContent(
+      includes(e, "term")
+        ? pick(reservation, [`${e}_content`, `${e}_title`])
+        : {
+            policy_title: reservation?.cancelation_policy?.title,
+            policy_content: reservation?.cancelation_policy?.value
+          }
+    );
+  };
   return (
     <div className={`flex flex-col gap-y-3 lg:gap-y-6 ${className}`}>
       <h1 className="text-28 hidden lg:block">
@@ -163,6 +193,96 @@ const PaymentSection = ({ className = "", message }: IPayment) => {
           />
         </div>
       </div>
+      <div className="flex flex-col w-full">
+        <div className="flex flex-row w-full gap-x-2">
+          <Checkbox
+            name="distance"
+            checked={get(cardInfo, "distance") || false}
+            className="p-0"
+            onChange={handleInputChange}
+            value={get(cardInfo, "distance") || false}
+          />
+          <span className="block items-center flex">
+            I have read and accept the
+            <span
+              className="text-base underline cursor-pointer pl-1"
+              onClick={() => handleCheckboxText("terms0")}>
+              distance sales agreement.
+            </span>
+          </span>
+        </div>
+        <div className="flex flex-row w-full gap-x-2">
+          <Checkbox
+            name="preliminary"
+            checked={get(cardInfo, "preliminary") || false}
+            onChange={handleInputChange}
+            value={get(cardInfo, "preliminary") || false}
+            className="p-0"
+          />
+          <span className="block items-center flex">
+            I have read and accepted the
+            <span
+              className="text-base underline cursor-pointer pl-1"
+              onClick={() => handleCheckboxText("terms1")}>
+              preliminary information.
+            </span>
+          </span>
+        </div>
+      </div>
+      {reservation?.cancelation_policy != null && (
+        <>
+          <hr className="my-3" />
+          <div className="flex flex-col gap-y-3">
+            <div className="text-grey-600 text-base">
+              {content?.policy_title}
+            </div>
+            <div className="flex gap-x-3">
+              <BrokenLink />
+              <div onClick={() => handleCheckboxText("policy")}>
+                <Typography
+                  variant="p3"
+                  element="span"
+                  className="text-grey-600 text-base mb-3 underline">
+                  Cancellation Policy
+                </Typography>
+              </div>
+            </div>
+            <div className="flex flex-col rounded-2xl p-4 border">
+              <Input
+                type="message"
+                name="message"
+                label={"Would you like to leave a message to your host?"}
+                placeholder={"Your message"}
+                onChange={handleInputChange}
+                containerclass="text-lg"
+                inputcontainerclass="pr-4"
+                righticon={<EditPencilIcon />}
+                // value={get(values, "email")}
+                // onChange={handleChange}
+              />
+            </div>
+          </div>
+        </>
+      )}
+
+      <Modal
+        onClose={handleClose}
+        label={
+          <div
+            dangerouslySetInnerHTML={{
+              __html: content[`${selectedKey}_title`]
+            }}></div>
+        }
+        bodyClass="lg:w-11/12 lg:max-w-5xl"
+        headerClass="text-2xl"
+        isOpen={showAllReviews}
+        setIsOpen={setShowAllReviews}>
+        <div
+          className="p-6"
+          dangerouslySetInnerHTML={{
+            __html: content[`${selectedKey}_content`]
+          }}></div>
+      </Modal>
     </div>
   );
 };

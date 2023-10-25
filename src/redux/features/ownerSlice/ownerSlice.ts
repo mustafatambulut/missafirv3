@@ -42,7 +42,6 @@ export const fetchNestedLocations = createAsyncThunk(
   }
 );
 
-// todo: api entegrasyonu sonrası güncellenecek
 const initialState = {
   currentStep: STEP_1,
   selectedOwnerType: OWNER_TYPE_1,
@@ -876,6 +875,20 @@ const ownerSlice = createSlice({
     },
     updateCities: (state, action) => {
       state.cities = action.payload;
+    },
+    resetFlow: (state, action) => {
+      state.currentStep = STEP_1;
+      state.selectedOwnerType = OWNER_TYPE_1;
+      state.corporateTypes = [];
+      state.homeTypes = [];
+      state.roomTypes = [];
+      state.cities = [];
+      state.districts = [];
+      state.neighborhoods = [];
+      state.selectedCountry = null;
+      state.loadingCities = false;
+      state.loadingDistricts = false;
+      state.loadingNeighborHoods = false;
     }
   },
   extraReducers: (builder) => {
@@ -944,7 +957,8 @@ export const {
   updateSelectedOwnerType,
   updateSelectedCountry,
   updateDistricts,
-  updateNeighborhoods
+  updateNeighborhoods,
+  resetFlow
 } = ownerSlice.actions;
 
 export default ownerSlice.reducer;

@@ -13,7 +13,7 @@ const FilterItemTitle = ({
   setIsDropdownOpen,
   isInAllFilters = false
 }: ITitle) => {
-  const { filterData } = useAppSelector((state) => state.listingReducer);
+  const filterData  = useAppSelector((state) => state.listingReducer.filterData);
 
   const labelClass = classNames({
     "border flex items-center justify-center flex-nowrap bg-gray-50 rounded-2xl h-11 whitespace-nowrap cursor-pointer font-mi-sans-semi-bold text-base px-4":
@@ -37,7 +37,10 @@ const FilterItemTitle = ({
     <label
       tabIndex={0}
       className={labelClass}
-      onClick={() => (!isInAllFilters && (setIsDropdownOpen ? setIsDropdownOpen((v) => !v) : null))}>
+      onClick={() =>
+        !isInAllFilters &&
+        (setIsDropdownOpen ? setIsDropdownOpen((v) => !v) : null)
+      }>
       {get(filterItem, "title")}
       {size(get(filterItem, "items")) > 0 && !isInAllFilters && (
         <DownArrowIcon className={dropdownArrowClass} />

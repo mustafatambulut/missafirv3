@@ -1,0 +1,502 @@
+{
+  "data": {
+    "id": 2,
+    "attributes": {
+      "createdAt": "2023-09-21T09:35:22.094Z",
+      "updatedAt": "2023-10-04T10:48:11.637Z",
+      "publishedAt": "2023-09-22T11:10:19.541Z",
+      "locale": "tr",
+      "header": {
+        "id": 42,
+        "title": "Sıkça Sorulan Sorular",
+        "description": "Aklınıza takılan sorular için sıkça sorulan sorular sayfamıza göz atın.",
+        "image": null
+      },
+      "body": [
+        {
+          "id": 5,
+          "title": "İletişim",
+          "accordions": {
+            "data": [
+              {
+                "id": 45,
+                "attributes": {
+                  "title": "Missafir iletişim kanalları nelerdir? Size nasıl ulaşacağım?",
+                  "description": "Bize telefon, Whatsapp ve e-posta adresimiz üzerinden erişebilirsiniz. Detaylar için iletişim sayfamıza göz atın. \n\nAyrıca Missafirli ev sahibi iseniz, Owner App’i indirerek uygulamamız üzerinden de bize ulaşabilirsiniz. \niOS\nGoogle",
+                  "createdAt": "2023-10-04T07:15:21.701Z",
+                  "updatedAt": "2023-10-04T07:15:22.803Z",
+                  "publishedAt": "2023-10-04T07:15:22.795Z"
+                }
+              },
+              {
+                "id": 46,
+                "attributes": {
+                  "title": "Missafir telefon numarası nedir?",
+                  "description": "Telefon numaralarımız için iletişim sayfamızdan bilgi alabilirsiniz. \n\nTürkiye: +90 212 955 03 45\nHırvatistan: +385 91 286 7400\nKaradağ: +382 67 369 043",
+                  "createdAt": "2023-10-04T07:15:36.328Z",
+                  "updatedAt": "2023-10-04T07:15:37.307Z",
+                  "publishedAt": "2023-10-04T07:15:37.294Z"
+                }
+              },
+              {
+                "id": 47,
+                "attributes": {
+                  "title": "Mesai sonrasında, hafta sonları ve resmi tatillerde de iletişim desteği sağlıyor musunuz?",
+                  "description": "Evet. Hafta sonu ve resmi tatillerde de ev sahiplerimiz ve misafirlerimiz bize telefonla ya da WhatsApp üzerinden 7/24 ulaşabiliyor. \n\nMesai saatleri sonrası ve hafta sonlarında bize  +90 212 955 03 45 numarasıyla Whatsapp üzerinden veya direkt olarak ulaşabilirsiniz.",
+                  "createdAt": "2023-10-04T07:15:51.494Z",
+                  "updatedAt": "2023-10-04T07:15:53.501Z",
+                  "publishedAt": "2023-10-04T07:15:53.497Z"
+                }
+              },
+              {
+                "id": 48,
+                "attributes": {
+                  "title": "Misafirlerim ile check-in sonrasında nasıl iletişim kuracağım?",
+                  "description": "Biz Missafir olarak Airbnb, Booking, Agoda, Expedia, Homeaway ve Tripadvisor gibi kanallar üzerinden gelen misafir taleplerini kendi sistemimiz üzerinden cevaplıyoruz. \n\nÖzetle Missafir olarak konuk iletişimi sorumluluğunu sizden alıyoruz, siz de özgür zamanınızın tadını çıkarıyorsunuz.",
+                  "createdAt": "2023-10-04T07:16:10.596Z",
+                  "updatedAt": "2023-10-04T07:16:11.612Z",
+                  "publishedAt": "2023-10-04T07:16:11.603Z"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 6,
+          "title": "Güvenlik",
+          "accordions": {
+            "data": [
+              {
+                "id": 49,
+                "attributes": {
+                  "title": "Evimin güvenliği nasıl sağlanacak?",
+                  "description": "Misafirlerimizin ve evinizin güvenliği bizim en büyük önceliğimiz. Bu yüzden misafirlerimizi özenle seçerek işe başlıyoruz. Rezervasyon isteği gönderen potansiyel misafirlerimizin profillerini inceliyor, diğer ev sahiplerinden aldıkları yorumları göz önünde bulundurarak rezervasyonu kabul edip etmeme kararı alıyoruz. Gerekli durumlarda potansiyel misafirlerden konaklama öncesi depozito da talep ediyoruz.",
+                  "createdAt": "2023-10-04T07:17:29.500Z",
+                  "updatedAt": "2023-10-04T07:17:30.722Z",
+                  "publishedAt": "2023-10-04T07:17:30.705Z"
+                }
+              },
+              {
+                "id": 50,
+                "attributes": {
+                  "title": "Evimde bir hasar oluşması durumunda ne olacak? Eşyalarıma zarar gelirse ne oluyor? Tamiratı karşılıyor musunuz? ",
+                  "description": "Airbnb ve HomeAway gibi platformlar olası bir hasar ya da hırsızlığa karşı “Ev Sahibi Garantisi” imkanı sunuyor. Garanti kapsamında 1 milyon dolara kadar ev hasar sigortası mevcut. Böyle durumlarda Missafir olarak kaybınızın maddi karşılığını bu platformlardan biz talep ediyor ve hasarı sizin adınıza biz karşılıyoruz.\n\nEvdeki hasarlar misafir kaynaklı değilse ev sahibi harcaması oluşturarak size bilgi veriyor ve tüm hasarları giderebiliyoruz. \n\nAncak olumsuz durumlara daha iyi bir şekilde hazırlıklı olmak adına evinizi ve eşyalarınızı farklı bir şirkete de sigortalandırmanızı tavsiye ederiz.",
+                  "createdAt": "2023-10-04T07:17:43.901Z",
+                  "updatedAt": "2023-10-04T07:17:44.996Z",
+                  "publishedAt": "2023-10-04T07:17:44.991Z"
+                }
+              },
+              {
+                "id": 51,
+                "attributes": {
+                  "title": "Evimde konaklayacak kişiler için bir kontrol mekanizması mevcut mu? KBS sistemini uyguluyor musunuz?",
+                  "description": "Tüm misafirlerimizin KBS (Kimlik Bildirim Sistemi) üzerinden girişlerini yapıyoruz. Konaklama öncesinde de ilgili uzmanlarımız misafir profillerini inceleyerek bir ön araştırma yapıyor. Böylece evinizde güvenilir ve bilinçli misafirlerin konaklamasını sağlıyoruz.",
+                  "createdAt": "2023-10-04T07:18:01.197Z",
+                  "updatedAt": "2023-10-04T07:18:03.630Z",
+                  "publishedAt": "2023-10-04T07:18:03.625Z"
+                }
+              },
+              {
+                "id": 52,
+                "attributes": {
+                  "title": "Evimde konaklayacak kişileri ben seçebiliyor muyum? ",
+                  "description": "Hayır. Missafir olarak rezervasyon kabullerini biz gerçekleştiriyoruz. Fakat evinizde konaklamasını istediğiniz kişiler için her zaman hesap yöneticinizle iletişime geçebilir, bize Whapsapp üzerinden ulaşabilirsiniz. ",
+                  "createdAt": "2023-10-04T07:18:15.723Z",
+                  "updatedAt": "2023-10-04T07:18:16.702Z",
+                  "publishedAt": "2023-10-04T07:18:16.698Z"
+                }
+              },
+              {
+                "id": 53,
+                "attributes": {
+                  "title": "Konaklama sonrasında evde hasar tespiti yapıyor musunuz? ",
+                  "description": "Evet. Misafirlerimiz evden çıkış yaptıktan sonra detaylı hasar kontrolü yaparak herhangi bir hasar mevcutsa gerekli aksiyonları gerçekleştiriyoruz. Aynı zamanda size detaylı ve şeffaf şekilde bilgi veriyoruz.",
+                  "createdAt": "2023-10-04T07:18:27.010Z",
+                  "updatedAt": "2023-10-04T07:18:28.107Z",
+                  "publishedAt": "2023-10-04T07:18:28.103Z"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 9,
+          "title": "Ödeme",
+          "accordions": {
+            "data": [
+              {
+                "id": 54,
+                "attributes": {
+                  "title": "Fiyatları nasıl belirliyorsunuz? Ortalama ne kadar kazanırım?",
+                  "description": "Orta ve kısa dönem ev kiralama gelirleri, ev tipinden evin bulunduğu bölgeye kadar birçok etmen üzerinden belirleniyor. Missafir’de yaptığımız günlük fiyat optimizasyonları sayesinde kiralık evinizden maksimum geliri elde edeceğinizden emin olabilirsiniz.",
+                  "createdAt": "2023-10-04T07:19:29.141Z",
+                  "updatedAt": "2023-10-04T07:19:30.204Z",
+                  "publishedAt": "2023-10-04T07:19:30.198Z"
+                }
+              },
+              {
+                "id": 55,
+                "attributes": {
+                  "title": "Kira gelirlerim nasıl ödenecek?",
+                  "description": "Misafirlerden gelecek ödemeler Airbnb, Booking, HomeAway vb platformlar tarafından Missafir’e aktarılır. Bu platformların tamamından bir ay içerisinde farklı tarihlerde yapılan ödemeler Missafir’de toplanır.\n\nToplanan miktarı takip eden ayın 10’u ile 15’i arasında size iletiyoruz. Örneğin, 1-30 Haziran tarihleri arasında ağırladığımız misafirlerle ilgili kazanç raporunuzu 10-15 Temmuz tarihleri arasında tarafınıza ulaştırıyoruz. \n\nKazancınızı size özel oluşturulan ev sahibi panelinden ve mobil uygulama üzerinden şeffaf ve canlı bir şekilde takip edebilirsiniz. \n\nÖdemelerimiz internet bankacılığı ya da mobil bankacılık aracılığıyla havale veya EFT olarak gerçekleştiriyoruz. ",
+                  "createdAt": "2023-10-04T07:19:57.413Z",
+                  "updatedAt": "2023-10-04T07:19:58.413Z",
+                  "publishedAt": "2023-10-04T07:19:58.409Z"
+                }
+              },
+              {
+                "id": 56,
+                "attributes": {
+                  "title": "Günlük ev kiralama tutarını ben belirleyebilir miyim?",
+                  "description": "Hayır. Maksimum rezervasyon sayısına ulaşmak için muadil evlerin belirlediği günlük kiraların takibinden sezonsal talebe kadar birçok öğeyi göz önünde bulundurmak gerekiyor. Missafir olarak evinizin en yüksek talebi görmesi için fiyat optimizasyonları ve günlük sektör analizleri yapıyoruz. O nedenle en verimli sonuçlar için bize güvenebilirsiniz. ",
+                  "createdAt": "2023-10-04T07:20:11.491Z",
+                  "updatedAt": "2023-10-04T07:20:13.703Z",
+                  "publishedAt": "2023-10-04T07:20:13.699Z"
+                }
+              },
+              {
+                "id": 57,
+                "attributes": {
+                  "title": "Ödemeler hangi düzende yapılıyor?",
+                  "description": "Ödemelerimiz aylık düzende gerçekleşiyor. Her ayın 10 ila 15’i arasında geçen ayın gelirlerini hesabınıza iletiyoruz.\n\nEv kiralama gelirlerinizi panel ve mobil uygulamadan gerçek zamanlı olarak takip edebilirsiniz. \n\nHenüz mobil uygulamaya geçmediyseniz Owner App’i mutlaka indirmenizi tavsiye ederiz.\n\niOS\nGoogle",
+                  "createdAt": "2023-10-04T07:20:25.621Z",
+                  "updatedAt": "2023-10-04T07:20:26.701Z",
+                  "publishedAt": "2023-10-04T07:20:26.697Z"
+                }
+              },
+              {
+                "id": 58,
+                "attributes": {
+                  "title": "Ev sahibi olarak benim bir masrafım olacak mı?",
+                  "description": "Onboarding temizliği (evin ilk hazırlanışında) ve yılda 1-2 kez tekrarlanan “deep cleaning”, misafir kaynaklı olmayan rutin bakım ve onarım çalışmaları, ayrıca evin iç tasarımını geliştirme konusunda talepleriniz olursa masraf olarak tarafınıza yansıtılacaktır. \n\nPanel ve mobil uygulama üzerinden tüm giderlerinizi gerçek zamanlı olarak takip edebilirsiniz. \n\nHenüz mobil uygulamaya geçmediyseniz Owner App’i mutlaka indirmenizi tavsiye ederiz.\n\niOS\nGoogle",
+                  "createdAt": "2023-10-04T07:20:39.833Z",
+                  "updatedAt": "2023-10-04T07:20:40.795Z",
+                  "publishedAt": "2023-10-04T07:20:40.791Z"
+                }
+              },
+              {
+                "id": 59,
+                "attributes": {
+                  "title": "Size yapacağım ödemeler için hangi kanalları kullanabilirim?",
+                  "description": "Missafir’e yapacağınız ödemeleri ev gelirlerinizden düşebilir, ayrıca banka kartı ve kredi kartıyla ödeme yapabilirsiniz. \n",
+                  "createdAt": "2023-10-04T07:20:51.251Z",
+                  "updatedAt": "2023-10-04T07:20:52.223Z",
+                  "publishedAt": "2023-10-04T07:20:52.214Z"
+                }
+              },
+              {
+                "id": 60,
+                "attributes": {
+                  "title": "Komisyon oranınız ne kadar?",
+                  "description": "Komisyon oranlarımız tercih ettiğiniz hizmet paketimize göre değişiyor. Detaylı bilgi için hizmet paketlerimiz sayfamızı ziyaret edebilirsiniz. ",
+                  "createdAt": "2023-10-04T07:21:03.104Z",
+                  "updatedAt": "2023-10-04T07:21:04.033Z",
+                  "publishedAt": "2023-10-04T07:21:04.011Z"
+                }
+              },
+              {
+                "id": 61,
+                "attributes": {
+                  "title": "Komisyon dışında başka kesintiler olacak mı?",
+                  "description": "Komisyon oranlarımız, üçüncü parti platform kesintileri ve ekstra durumlar dışında başka kesintiler yapılmayacaktır. Ekstra durumlar, ev bakım ve temizlik giderlerini içerir. \n\nAyrıca Missafir’in ev sahipleri için sunduğu özel hizmetlerden yararlandığınız zaman da bunlar bir kesinti olarak hesabınıza yansıyabilir. ",
+                  "createdAt": "2023-10-04T07:21:18.390Z",
+                  "updatedAt": "2023-10-04T07:21:19.539Z",
+                  "publishedAt": "2023-10-04T07:21:19.533Z"
+                }
+              },
+              {
+                "id": 62,
+                "attributes": {
+                  "title": "Panelde gelirimi euro olarak görüyorum ama ödemeler Türk lirası olarak hesabıma yatıyor. Neden?",
+                  "description": "Missafir olarak, global ilan yayınlama (Airbnb, Booking vb.) platformlarıyla iş birliği yapıyoruz. Bu tür platformlarda ödemeler döviz kurları üzerinden yapıldığı için panelde gelirlerinizi EUR cinsi üzerinden görebilirsiniz.\n\nYasalar gereği ödemeler Türk lirası üzerinden yapılması gerektiği için kazançlarınız TL üzerinden hesabınıza geçiyor. ",
+                  "createdAt": "2023-10-04T07:21:33.624Z",
+                  "updatedAt": "2023-10-04T07:21:34.821Z",
+                  "publishedAt": "2023-10-04T07:21:34.816Z"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 10,
+          "title": "Ev konaklaması",
+          "accordions": {
+            "data": [
+              {
+                "id": 63,
+                "attributes": {
+                  "title": "Ev konaklaması nedir?",
+                  "description": "Ev konaklaması, seyahat edenlerin otel yerine özel evlerde ya da dairelerde konaklama yapmasını ifade ediyor. Daha samimi ve ev rahatlığında bir deneyim sunan bu yöntem, özellikle kısa süreli konaklamalarda tercih ediliyor.",
+                  "createdAt": "2023-10-04T07:23:31.300Z",
+                  "updatedAt": "2023-10-04T07:23:32.716Z",
+                  "publishedAt": "2023-10-04T07:23:32.712Z"
+                }
+              },
+              {
+                "id": 64,
+                "attributes": {
+                  "title": "Kısa süreli ev kiralama yasak mı? ",
+                  "description": "Türkiye’de kısa süreli ev kiralama yasak değil. Fakat belirli kural ve regülasyonlar var. Detaylı bilgi için aşağıdaki blog yazımızlarımızı okumak isteyebilirsiniz.\n\nGünlük kiralık ev ruhsatı\nYazlık evi günlük kiraya vermek yasal mı?",
+                  "createdAt": "2023-10-04T07:23:53.996Z",
+                  "updatedAt": "2023-10-04T07:23:54.993Z",
+                  "publishedAt": "2023-10-04T07:23:54.918Z"
+                }
+              },
+              {
+                "id": 65,
+                "attributes": {
+                  "title": "Odamı kiraya verebilir miyim?",
+                  "description": "Missafir olarak oda kiralaması hizmeti sunmuyoruz. Bizimle çalışmak için mülkünüzün tüm yaşam alanını kiralıyor olmanız gerekiyor. ",
+                  "createdAt": "2023-10-04T07:24:18.006Z",
+                  "updatedAt": "2023-10-04T07:24:40.702Z",
+                  "publishedAt": "2023-10-04T07:24:40.697Z"
+                }
+              },
+              {
+                "id": 66,
+                "attributes": {
+                  "title": "Evimin eşyalı olması gerekiyor mu?",
+                  "description": "Evet. Missafir olarak misafirlerimize eşyalı kiralık evlerde konaklama hizmeti sunuyoruz. \n\nEviniz eşyalı değilse merak etmeyin! Missafir olarak Türkiye’de iç tasarım konusunda da hizmet veren ilk mülk yönetimi şirketiyiz. Konuklarımıza şık ve keyifli yaşam alanları yaratma konusunda uzman profesyonel iç tasarım ekibimiz, özenli ve estetik dokunuşlarla evinizin değerini artırmaya hazır.",
+                  "createdAt": "2023-10-04T07:25:11.609Z",
+                  "updatedAt": "2023-10-04T07:25:13.390Z",
+                  "publishedAt": "2023-10-04T07:25:13.310Z"
+                }
+              },
+              {
+                "id": 67,
+                "attributes": {
+                  "title": "Evimi sadece yaz dönemi için kiralayabilir miyim?",
+                  "description": "Maalesef Missafir ile ev kiralarken dönem seçemiyorsunuz. Fakat Missafir ile evinizi kiraladığınız dönemlerde belirli günlerde evinizi rezervasyonlara kapatarak evinizde konaklayabilirsiniz. \n\nMissafir sistemi hakkında daha detaylı bilgi almak için iletişim formumuzu doldurabilirsiniz.",
+                  "createdAt": "2023-10-04T07:25:27.405Z",
+                  "updatedAt": "2023-10-04T07:25:28.490Z",
+                  "publishedAt": "2023-10-04T07:25:28.410Z"
+                }
+              },
+              {
+                "id": 68,
+                "attributes": {
+                  "title": "Evimi en az kaç gün kiralayabiliyorum?",
+                  "description": "Missafir ile kısa dönem kiralama en az 3 günü içerir. Yani evinizde konaklayacak misafirler en az 3 gün olmak üzere kiralama yapıyor.",
+                  "createdAt": "2023-10-04T07:25:44.191Z",
+                  "updatedAt": "2023-10-04T07:25:45.254Z",
+                  "publishedAt": "2023-10-04T07:25:45.200Z"
+                }
+              },
+              {
+                "id": 69,
+                "attributes": {
+                  "title": "Rezervasyonları takip edebiliyor muyum?",
+                  "description": "Missafir olarak tamamen şeffaf bir süreç ilerletiyoruz. Evinizle ilgili rezervasyon, gelir ve gider bilgilerine masaüstü panelimizden ve mobil uygulamamızdan istediğiniz her zaman ulaşabilirsiniz. \n\nHenüz mobil uygulamamızı indirmediyseniz Owner App’i mutlaka indirmenizi tavsiye ederiz.\n\niOS\nGoogle",
+                  "createdAt": "2023-10-04T07:25:56.807Z",
+                  "updatedAt": "2023-10-04T07:25:57.996Z",
+                  "publishedAt": "2023-10-04T07:25:57.991Z"
+                }
+              },
+              {
+                "id": 70,
+                "attributes": {
+                  "title": "Missafir ile kiraladığım evimde istediğim zaman kalabilir miyim?",
+                  "description": "Missafir ile ev kiralamanın en güzel yönlerinden biri de evinizde istediğiniz zamanlarda kalabiliyor olmanız! \n\nOperasyonel sıkıntılar yaşamamak için bu konuda belli başlı kriterlerimiz var. Örneğin 48 saat önceden haber vermeniz gerekiyor. Kurallar hakkında daha detaylı bilgi almak ve Missafir ile kısa dönem ev kiralama sistemini keşfetmek için teklif formunu doldurabilirsiniz.",
+                  "createdAt": "2023-10-04T07:26:09.863Z",
+                  "updatedAt": "2023-10-04T07:26:12.109Z",
+                  "publishedAt": "2023-10-04T07:26:12.101Z"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 11,
+          "title": "Mülk yönetimi",
+          "accordions": {
+            "data": [
+              {
+                "id": 73,
+                "attributes": {
+                  "title": "Mülk yönetimi nedir?",
+                  "description": "Mülk yönetimi, gayrimenkullerin bakımı, işletilmesi ve bu mülklerden en iyi şekilde gelir elde edilmesi için yapılan faaliyetlerin tümüne deniyor. \n\nMülk yönetimi ya da gayrimenkul yönetimi, kiracıların yönetilmesinden bakım işlerine kadar geniş bir yelpazeyi kapsıyor.",
+                  "createdAt": "2023-10-04T08:29:11.693Z",
+                  "updatedAt": "2023-10-04T08:29:14.016Z",
+                  "publishedAt": "2023-10-04T08:29:14.009Z"
+                }
+              },
+              {
+                "id": 74,
+                "attributes": {
+                  "title": "Missafirli ev sahibi olmak için nelere ihtiyacım var? Şartlarınız nelerdir?",
+                  "description": "Misafirli olmak için mülkünüzün orta ve kısa dönem kiralamaya uygun olması yeterli. Bunun için beli başlı kıstaslarımız var.\n\nMuhitin uygun olması\nEvin belirli eşyaları içermesi\nSözleşme imzalanması\nKonut bir yaşam alanı içerisindeyse gerekli izinlerin alınması\n\nDaha detaylı bilgi ve Missafirli olmak için yerine getirilmesi gereken şartları merak ediyorsanız bugün iletişim formumuzu doldurun. Uzmanlarımız size anında geri dönüş sağlayacaktır.",
+                  "createdAt": "2023-10-04T08:29:30.398Z",
+                  "updatedAt": "2023-10-04T08:29:31.404Z",
+                  "publishedAt": "2023-10-04T08:29:31.399Z"
+                }
+              },
+              {
+                "id": 75,
+                "attributes": {
+                  "title": "Minimum sözleşme süreniz var mı?",
+                  "description": "Evet. Minimum sözleşme süremiz 6 aydır.",
+                  "createdAt": "2023-10-04T08:29:44.006Z",
+                  "updatedAt": "2023-10-04T08:29:44.805Z",
+                  "publishedAt": "2023-10-04T08:29:44.800Z"
+                }
+              },
+              {
+                "id": 76,
+                "attributes": {
+                  "title": "İlanları hangi platformlarda yayınlıyorsunuz?",
+                  "description": "Airbnb, Booking, VRBO, Expedia ve 50+ global üne sahip ilan yayınlama platformlarında evinizi SEO pratikleriyle öne çıkarıyoruz.",
+                  "createdAt": "2023-10-04T08:30:00.145Z",
+                  "updatedAt": "2023-10-04T08:30:01.915Z",
+                  "publishedAt": "2023-10-04T08:30:01.910Z"
+                }
+              },
+              {
+                "id": 77,
+                "attributes": {
+                  "title": "Evim eşyalandırılmadı ama sizinle çalışmak istiyorum. Bu konuda yardımcı olabilir misiniz?",
+                  "description": "Seve seve! Çünkü biz Missafir olarak Türkiye’de iç tasarım konusunda da hizmet veren ilk ve tek kısa/orta vadeli kiralama yönetimi şirketiyiz. Konuklarımıza şık ve keyifli yaşam alanları yaratma konusunda uzman profesyonel iç tasarım ekibimiz, özenli estetik dokunuşlarla evinizin değerini artırmaya hazır.",
+                  "createdAt": "2023-10-04T08:30:18.208Z",
+                  "updatedAt": "2023-10-04T08:30:19.200Z",
+                  "publishedAt": "2023-10-04T08:30:19.191Z"
+                }
+              },
+              {
+                "id": 78,
+                "attributes": {
+                  "title": "İlanlarınız ne kadar süre içinde yayınlanıyor?",
+                  "description": "Siz ev sahibi olarak gerekli tüm ihtiyaçları karşıladığınızda (sözleşme, kimlik, anahtar vb) ilan girişiniz Airbnb’de 48 saat içerisinde gerçekleşir. Eviniz için profesyonel fotoğraf çekimi planlanmışsa fotoğrafçımızın son düzenlemesi 24 saat kadar sürebilir. Bu işlemden sonra ilan yine 48 saat içerisinde yayınlanır.\n\nAirbnb dışındaki platformların bağımsız onay süreçleri sebebiyle ilanı girişi süresi değişiklik gösterebilir.",
+                  "createdAt": "2023-10-04T08:30:31.300Z",
+                  "updatedAt": "2023-10-04T08:30:32.390Z",
+                  "publishedAt": "2023-10-04T08:30:32.308Z"
+                }
+              },
+              {
+                "id": 79,
+                "attributes": {
+                  "title": "Evimin doluluk oranının optimizasyonunu nasıl sağlıyorsunuz?",
+                  "description": "Evinizin detaylı ilanını Airbnb, Booking, Homeaway gibi birçok platformda yayınlıyoruz. Bunun yanı sıra yapay zeka destekli içerik çözümlerimiz ve SEO pratiklerimizle evinizi ön sıralara çıkarıyoruz. Böylece evinizin potansiyel misafirlere görünme şansını artırmış oluyoruz.\n\nAyrıca evinizin belirli bir doluluk seviyesini koruduğundan emin olmak için günlük dinamik fiyat optimizasyonu gerçekleştiriyoruz.",
+                  "createdAt": "2023-10-04T10:37:17.611Z",
+                  "updatedAt": "2023-10-04T10:37:18.707Z",
+                  "publishedAt": "2023-10-04T10:37:18.702Z"
+                }
+              },
+              {
+                "id": 80,
+                "attributes": {
+                  "title": "Missafirli olduktan sonra kazancım ne zaman en yüksek noktaya ulaşır?",
+                  "description": "Evinizde ortalama 3 konuk ağırladıktan sonra kazancınız daha yüksek seviyelere ulaşacaktır. Tabii ki bu durum yıl içinde sezona ve diğer dış etkenlere göre değişiklik gösterebilir.",
+                  "createdAt": "2023-10-04T10:37:28.205Z",
+                  "updatedAt": "2023-10-04T10:37:29.295Z",
+                  "publishedAt": "2023-10-04T10:37:29.291Z"
+                }
+              },
+              {
+                "id": 81,
+                "attributes": {
+                  "title": "Ev sahipleri vergi veriyor mu? Vergi yükümlülüğüm doğacak mı?",
+                  "description": "Günümüzde ev sahiplerinin vergi yükümlülüğü bulunmuyor. \n\nBununla birlikte yasal mevzuatlar değişkenlik gösterebilir. Güncel bilgiler için resmi kurumların mevzuat sayfalarına göz atmanızı tavsiye ederiz. Ayrıca sorularınız için her zaman hesap yöneticinize ulaşabilirsiniz. \n",
+                  "createdAt": "2023-10-04T10:38:52.206Z",
+                  "updatedAt": "2023-10-04T10:38:53.202Z",
+                  "publishedAt": "2023-10-04T10:38:53.198Z"
+                }
+              },
+              {
+                "id": 82,
+                "attributes": {
+                  "title": "Temizlikler sizin tarafınızdan mı yapılacak? Ücretsiz mi?",
+                  "description": "Evet. Missafir olarak profesyonel ekiplerimizle giriş ve çıkışlardan önce temizlik hizmeti sunuyoruz. \n\nTemizlik hizmeti ücretlerimiz aldığınız hizmet paketine göre değişkenlik gösteriyor. Ücretsiz temizlik hizmetimiz için hesap yöneticinizden bilgi alabilirsiniz. \n",
+                  "createdAt": "2023-10-04T10:39:14.090Z",
+                  "updatedAt": "2023-10-04T10:39:15.096Z",
+                  "publishedAt": "2023-10-04T10:39:15.091Z"
+                }
+              },
+              {
+                "id": 83,
+                "attributes": {
+                  "title": "Evimin yer aldığı ilanlardaki ayarları değiştirebilir miyim? ",
+                  "description": "Hayır. Ev sahipleri platformlardaki ayarları değiştiremezler. Bu ayarlara minimum konaklama süresi, gecelik fiyat, güvenlik teminatı, rezervasyon talebi ve check-in/check-out saatleri de dahildir. Bu ayarlar ekibimiz tarafından kontrol edilir. \n\nBununla birlikte ev ilanlarındaki içerik düzenlemeleri (başlık değişimi, foto ekleme vs.) için hesap yöneticinizle her zaman iletişime geçebilirsiniz. Talepleriniz 24 saat içinde işleme konacaktır.",
+                  "createdAt": "2023-10-04T10:39:28.206Z",
+                  "updatedAt": "2023-10-04T10:42:43.303Z",
+                  "publishedAt": "2023-10-04T10:39:30.916Z"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 12,
+          "title": "Ev kuralları",
+          "accordions": {
+            "data": [
+              {
+                "id": 84,
+                "attributes": {
+                  "title": "Kendi ev kurallarımı koyabilir miyim?",
+                  "description": "Tabii ki. Missafir ekibi olarak özel isteklerinizi ve belirlediğiniz kuralları ev ilanlarında yer veriyor, ayrıca konuklara e-posta ile ya da check-in sırasında iletiyoruz.",
+                  "createdAt": "2023-10-04T10:46:56.009Z",
+                  "updatedAt": "2023-10-04T10:46:57.011Z",
+                  "publishedAt": "2023-10-04T10:46:57.007Z"
+                }
+              },
+              {
+                "id": 85,
+                "attributes": {
+                  "title": "Evcil hayvanımı evde bırakabilir miyim?",
+                  "description": "Maalesef ki hayır. Hayvanları ne kadar sevsek de ev sahiplerinin evcil hayvanları için sorumluluk kabul edemiyoruz.",
+                  "createdAt": "2023-10-04T10:47:09.907Z",
+                  "updatedAt": "2023-10-04T10:47:11.399Z",
+                  "publishedAt": "2023-10-04T10:47:11.394Z"
+                }
+              },
+              {
+                "id": 86,
+                "attributes": {
+                  "title": "Evin içinde hangi kişisel eşyalarımı bırakabilirim?",
+                  "description": "Tüm taraflar için karşılıklı güven ve huzur sağlamak adına maddi ve manevi değeri yüksek eşyalarınızı evde bırakmamanızı tavsiye ederiz. Diğer eşyalarınızı (misafirlerin de kişisel eşyaları için yeterli alan bırakacak şekilde) evde güvenli ve saklı bir şekilde bırakabilirsiniz.\n\nAyrıca çeşitli fotoğraflarınızı ve dekoratif objelerinizi bırakarak misafirler için çok daha samimi ve sıcak bir ev ortamı oluşturabileceğinizi de belirtelim.",
+                  "createdAt": "2023-10-04T10:47:23.903Z",
+                  "updatedAt": "2023-10-04T10:47:26.403Z",
+                  "publishedAt": "2023-10-04T10:47:26.392Z"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "footer": {
+        "id": 10,
+        "bannerHeader": {
+          "id": 43,
+          "title": "Missafir ile kısa dönem ev kiralama yapın, gelirinizi maksimuma çıkarın",
+          "description": null,
+          "image": null
+        },
+        "bannerBody": {
+          "id": 44,
+          "title": null,
+          "description": "Profesyonel gayrimenkul yönetim sistemimizi kullanın, daha yüksek kira geliri elde edin. Kısa dönem ev kiralamaya başlamak için bugün bizimle iletişime geçin. ",
+          "image": "https://svgshare.com/i/voH.svg"
+        },
+        "bannerFooter": {
+          "id": 12,
+          "label": "Teklif al",
+          "image": null,
+          "link": null
+        }
+      },
+      "localizations": {
+        "data": [
+          {
+            "id": 1,
+            "attributes": {
+              "createdAt": "2023-09-05T11:35:57.917Z",
+              "updatedAt": "2023-10-02T08:24:53.704Z",
+              "publishedAt": "2023-09-05T11:36:00.408Z",
+              "locale": "en"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "meta": {}
+}

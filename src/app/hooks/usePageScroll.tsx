@@ -14,9 +14,11 @@ const usePageScroll = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", handleScroll);
+      handleScroll();
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
   }, []);
 
   return { handleScroll, isScrolledHeaderActive };

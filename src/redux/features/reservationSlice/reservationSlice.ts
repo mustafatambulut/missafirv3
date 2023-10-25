@@ -9,18 +9,19 @@ import { IDataHandle } from "@/components/atoms/dataHandle/types";
 import { STATUS_CONFIRMATION } from "@/app/[lang]/reservation/constants";
 
 const initialState = {
-  detail: null,
-  reservation: null,
   total: 0,
+  guests: 1,
+  detail: null,
+  dailyPrice: 0,
   couponCode: null,
+  reservation: null,
+  currentStep: STEP_1,
   isShowCouponCode: false,
   isApplyCouponCode: false,
-  currentStep: STEP_1,
-  guests: 1,
-  status: STATUS_CONFIRMATION,
+  minUnavailableDate: null,
   isPressReservButton: false,
-  isPressCheckAvailabilityButton:false,
-  dailyPrice: 0
+  status: STATUS_CONFIRMATION,
+  isPressCheckAvailabilityButton: false
 } as IReservationState;
 
 const reservationSlice = createSlice({
@@ -83,6 +84,12 @@ const reservationSlice = createSlice({
       action: PayloadAction<string>
     ) => {
       state.dailyPrice = action.payload;
+    },
+    setMinUnavailableDate: (
+      state: { minUnavailableDate: IDataHandle },
+      action: PayloadAction<string>
+    ) => {
+      state.minUnavailableDate = action.payload;
     }
   }
 });
@@ -95,6 +102,7 @@ export const {
   changeCouponCode,
   changeCurrentStep,
   changeIsApplyCoupon,
+  setMinUnavailableDate,
   changeIsShowCouponCode,
   changeIsPressReservButton,
   changeIsPressCheckAvailabilityButton

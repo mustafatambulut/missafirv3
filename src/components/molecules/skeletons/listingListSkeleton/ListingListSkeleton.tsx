@@ -1,7 +1,7 @@
 import { isMobile } from "react-device-detect";
 
 const ListingListSkeleton = () => {
-  const dummyData = new Array(8).fill(null);
+  const dummyData = new Array(10).fill(null);
   const mobilDummyData = new Array(3).fill(null);
 
   const iterableData = isMobile ? mobilDummyData : dummyData;
@@ -40,7 +40,7 @@ const ListingListSkeleton = () => {
         <div className="w-32 lg:h-5 h-4 rounded-xl bg-gray-100 lg:mt-4 mt-2" />
       </div>
       <div className="mt-6">
-        <div className="lg:mt-2 grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div className="lg:mt-2 grid grid-cols-1 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
           {iterableData.map((i, key) => (
             <ListingCard key={key} />
           ))}

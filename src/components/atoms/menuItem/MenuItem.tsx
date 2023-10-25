@@ -11,14 +11,14 @@ const MenuItem = ({
   variant = "default"
 }: IMenuItem) => {
   const linkClass = classNames(
-    `p-0 active:bg-white capitalize hover:bg-transparent ${linkClassName}`,
+    `p-0 active:bg-white visited:bg-white capitalize hover:bg-transparent ${linkClassName}`,
     {
       "font-mi-sans-semi-bold": variant === "footer"
     }
   );
   return (
     <li className={`${className}`}>
-      <Link href={get(item, "link") || ""} className={linkClass}>
+      <Link href={get(item, "link")} className={linkClass} shallow>
         {get(item, "label")}
       </Link>
     </li>

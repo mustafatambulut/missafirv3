@@ -4,7 +4,7 @@ import moment from "moment";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { get, map, take } from "lodash";
-import { useTranslations } from "use-intl";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { isMobile } from "react-device-detect";
 
@@ -35,7 +35,7 @@ const ConfirmationSection = ({ className = "" }: IConfirmationSection) => {
   const { detail } = useAppSelector((state) => state.reservationReducer);
   const { resPayload } = useAppSelector((state) => state.listingDetailReducer);
   if (!detail) return router.back();
-// todosx
+  // todosx
   const PropertiesComponent = (): ReactNode => {
     return (
       <article className="text-15 text-gray-600">
@@ -68,17 +68,21 @@ const ConfirmationSection = ({ className = "" }: IConfirmationSection) => {
             withPagination={true}
             sliderContainerClassName="lg:hidden"
             sliderIdentifier="booking-slider"
-            slidesPerView={isMobile ? 1 : 2}
-            spaceBetween={isMobile ? 12 : 20}>
+            sliderWrapperClassName="h-44"
+            desktopSlidesPerView={2}
+            mobileSlidesPerView={1}
+            desktopLargeSlidesPerView={2}
+            desktopLargeSpaceBetween={22}
+            desktopSpaceBetween={20}
+            mobileSpaceBetween={10}>
             {map(get(detail, "item.pictures"), ({ path, caption }, key) => (
               <Image
                 key={key}
                 priority
                 src={path || "/"}
-                width={500}
-                height={300}
-                alt={caption}
-                className="rounded-3xl w-auto"
+                fill={true}
+                alt={caption || "image"}
+                className="rounded-xl object-cover h-full w-full"
               />
             ))}
           </Slider>
@@ -96,7 +100,7 @@ const ConfirmationSection = ({ className = "" }: IConfirmationSection) => {
           src={path || "/"}
           width={440}
           height={248}
-          alt={caption}
+          alt={caption || "image"}
           className="rounded-3xl 2xl:w-full"
         />
       ))}

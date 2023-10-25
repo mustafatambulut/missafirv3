@@ -27,7 +27,7 @@ const ContactSuccess = ({ className = "" }: IContactSuccess) => {
     <div
       className={`flex flex-col mx-auto items-center justify-center gap-y-9 mt-10 lg:mt-24 pt-1.5 ${className}`}>
       <header>
-        <div className="flex w-16 h-16 lg:w-20 lg:h-20 bg-primary-100 items-center justify-center rounded-full">
+        <div className="flex w-16 w-20 h-20 bg-primary-100 items-center justify-center rounded-full">
           <CareIcon className="fill-[#ed2475]" />
         </div>
       </header>

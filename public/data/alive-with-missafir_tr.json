@@ -1,0 +1,144 @@
+{
+  "data": {
+    "id": 2,
+    "attributes": {
+      "createdAt": "2023-09-26T13:58:16.070Z",
+      "updatedAt": "2023-09-28T13:01:20.030Z",
+      "publishedAt": "2023-09-26T13:59:02.628Z",
+      "locale": "tr",
+      "header": {
+        "id": 9,
+        "title": "Missafir'de Yaşam",
+        "description": "Missafirli olmanın ayrıcalıklarına göz atıp şirket değerlerini keşfe çıkıyoruz."
+      },
+      "body": {
+        "id": 2,
+        "sliders": {
+          "data": [
+            {
+              "id": 11,
+              "attributes": {
+                "image": "/images/lifeAt/1.jpg",
+                "description": "Missafirli ev sahipleri, evleriyle ilgili gelir, gider ve rezervasyon bilgilerine gerçek zamanlı olarak hem masaüstünden hem de mobilden erişebiliyor. \n",
+                "createdAt": "2023-09-22T13:46:09.885Z",
+                "updatedAt": "2023-09-25T15:28:15.145Z",
+                "publishedAt": "2023-09-22T13:48:23.411Z"
+              }
+            },
+            {
+              "id": 12,
+              "attributes": {
+                "image": "/images/lifeAt/2.jpg",
+                "description": "Missafir CEO’su Mehmet Yüksel, dünyayı gezerken farklı insanları ve kültürleri keşfetmenin heyecanını keşfetti. Erasmus öğrenci değişimi programı sırasında yaşadığı ev paylaşımı deneyimleri, ona yeni bir vizyon katmıştı. İstanbul’a döndüğünde paylaşım kültürünü devam ettirmek için evinin kapılarını Avrupa’nın farklı ülkelerinden gelen misafirlere açan Yüksel, böylece ev konaklamasının iki tarafını da deneyimledi. Missafir’in fikir tohumu da bu zamanlarda atılmış oldu. ",
+                "createdAt": "2023-09-05T11:29:21.132Z",
+                "updatedAt": "2023-09-28T10:05:59.147Z",
+                "publishedAt": "2023-09-05T11:29:22.155Z"
+              }
+            },
+            {
+              "id": 13,
+              "attributes": {
+                "image": "/images/lifeAt/3.jpg",
+                "description": "Missafir CEO’su Mehmet Yüksel, dünyayı gezerken farklı insanları ve kültürleri keşfetmenin heyecanını keşfetti. Erasmus öğrenci değişimi programı sırasında yaşadığı ev paylaşımı deneyimleri, ona yeni bir vizyon katmıştı. İstanbul’a döndüğünde paylaşım kültürünü devam ettirmek için evinin kapılarını Avrupa’nın farklı ülkelerinden gelen misafirlere açan Yüksel, böylece ev konaklamasının iki tarafını da deneyimledi. Missafir’in fikir tohumu da bu zamanlarda atılmış oldu. ",
+                "createdAt": "2023-09-05T11:29:21.132Z",
+                "updatedAt": "2023-09-28T10:05:59.147Z",
+                "publishedAt": "2023-09-05T11:29:22.155Z"
+              }
+            },
+            {
+              "id": 14,
+              "attributes": {
+                "image": "/images/lifeAt/4.jpg",
+                "description": "Missafir CEO’su Mehmet Yüksel, dünyayı gezerken farklı insanları ve kültürleri keşfetmenin heyecanını keşfetti. Erasmus öğrenci değişimi programı sırasında yaşadığı ev paylaşımı deneyimleri, ona yeni bir vizyon katmıştı. İstanbul’a döndüğünde paylaşım kültürünü devam ettirmek için evinin kapılarını Avrupa’nın farklı ülkelerinden gelen misafirlere açan Yüksel, böylece ev konaklamasının iki tarafını da deneyimledi. Missafir’in fikir tohumu da bu zamanlarda atılmış oldu. ",
+                "createdAt": "2023-09-05T11:29:21.132Z",
+                "updatedAt": "2023-09-28T10:05:59.147Z",
+                "publishedAt": "2023-09-05T11:29:22.155Z"
+              }
+            },
+            {
+              "id": 15,
+              "attributes": {
+                "image": "/images/lifeAt/5.jpg",
+                "description": "Missafir CEO’su Mehmet Yüksel, dünyayı gezerken farklı insanları ve kültürleri keşfetmenin heyecanını keşfetti. Erasmus öğrenci değişimi programı sırasında yaşadığı ev paylaşımı deneyimleri, ona yeni bir vizyon katmıştı. İstanbul’a döndüğünde paylaşım kültürünü devam ettirmek için evinin kapılarını Avrupa’nın farklı ülkelerinden gelen misafirlere açan Yüksel, böylece ev konaklamasının iki tarafını da deneyimledi. Missafir’in fikir tohumu da bu zamanlarda atılmış oldu. ",
+                "createdAt": "2023-09-05T11:29:21.132Z",
+                "updatedAt": "2023-09-28T10:05:59.147Z",
+                "publishedAt": "2023-09-05T11:29:22.155Z"
+              }
+            }
+          ]
+        },
+        "bodyHeader": {
+          "id": 4,
+          "title": "MİSYONUMUZ",
+          "subTitle": "Dünyayı herkes için yaşanabilir bir eve dönüştürmek istiyoruz",
+          "description": "“Your home is everywhere” sloganımızı misyonumuzda bir adım daha ileri taşıyoruz. Dünyayı herkes için daha yaşanabilir bir eve dönüştürmeyi hedefliyor ve Missafir olarak bu doğrultuda sosyal sorumluluk projeleri gerçekleştiriyoruz. Evlerimizle misafirlerimize hayat dolu bir deneyim sunarken sürdürülebilir bir dünyaya katkıda bulunuyoruz. "
+        },
+        "content": [
+          {
+            "id": 21,
+            "title": "Eşitlik",
+            "subTitle": "Fırsat Eşitliği",
+            "description": "Missafir çatısı altında bulunan tüm bireylerin sadece yetenekleri ve potansiyelleri doğrultusunda değerlendirilerek eş imkanlara sahip oldukları bir kariyer yolculuğu yaşamasını amaçlıyoruz. Birleşmiş Milletler Sürdürülebilir Kalkınma Hedefleri kapsamında belirlenen Toplumsal Cinsiyet Eşitliği ilkesini çekirdek değerlerimizden biri olarak konumlandırıyoruz.",
+            "image": "/images/lifeAt/6.jpeg"
+          },
+          {
+            "id": 24,
+            "title": "Hayvan dostu çalışma ortamı",
+            "subTitle": "Missafir kedi evleri",
+            "description": "Missafir olarak Türkiye’nin pek çok noktasında kapılarımızı konforlu bir yuva arayanlara açmayı görev edinmiştik. Bu görevi sokakta yaşam mücadelesi veren patili dostlarımızı da kapsayacak şekilde genişlettik ve Missafir Kedi Evleri projesini İstanbul’un çeşitli noktalarında hayata geçirdik. Sokaktaki dostlarımıza ev sahipliği yapan minik Missafir evlerimize yakın zamanda yenilerini eklemeyi, projemizi daha da genişleterek sosyal sorumluluk anlamında tüm startup’lara ilham veren bir örnek olmayı amaçlıyoruz.",
+            "image": "/images/lifeAt/7.jpeg"
+          },
+          {
+            "id": 25,
+            "title": "Mükemmel bir kariyer",
+            "subTitle": "Online kurslar",
+            "description": "Teknolojinin ilerlemesi her geçen gün hızlanırken her gün öğrenecek yeni bir şeyler ortaya çıkıyor. Missafir’de kişisel gelişimi hayat boyu devam eden bir deneyim olarak görüyor ve kariyerleriyle ilgili konularda kendilerini geliştirmek isteyen çalışma arkadaşlarımıza online kurs desteği sağlıyoruz. ",
+            "image": "/images/lifeAt/8.jpeg"
+          },
+          {
+            "id": 26,
+            "title": "Mükemmel bir kariyer",
+            "subTitle": "Gönüllülük izni",
+            "description": "Missafir ailesinin her üyesi topluma, doğaya ve hayata katkı sağlamayı ve değer katmayı amaçlıyor. Biz de Missafirlilerin gönüllerindeki bu iyiliği karşılıksız bırakmak istemedik ve Gönüllülük İzni uygulamamızı hayata geçirdik. Bu uygulama sayesinde Missafirliler 1 gün ücretli izinden faydalanarak hayal ettikleri bir gönüllülük projesine vakit ayırabiliyor.",
+            "image": "/images/lifeAt/9.jpeg"
+          }
+        ]
+      },
+      "footer": {
+        "id": 17,
+        "bannerHeader": {
+          "id": 76,
+          "title": "Hikayemize katıl",
+          "description": null,
+          "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+        },
+        "bannerBody": {
+          "id": 77,
+          "title": null,
+          "description": "Genç ve inovatif  bir ekibin parçası olmak için Missafir iş ilanlarına göz atmaya ne dersin?\n",
+          "image": "https://svgshare.com/i/voH.svg"
+        },
+        "bannerFooter": {
+          "id": 21,
+          "label": "Göz at",
+          "image": null,
+          "link": "https://missafir.io"
+        }
+      },
+      "localizations": {
+        "data": [
+          {
+            "id": 1,
+            "attributes": {
+              "createdAt": "2023-09-05T13:17:08.567Z",
+              "updatedAt": "2023-09-28T14:50:58.408Z",
+              "publishedAt": "2023-09-05T13:17:10.564Z",
+              "locale": "en"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "meta": {}
+}

@@ -4,11 +4,14 @@ import { notFound } from "next/navigation";
 import { get, keys, size, forEach, includes } from "lodash";
 
 import { listingDetail } from "@/service/api";
-import { decodeParams, removeSuffixOfSlug } from "@/utils/helper";
+import { decodeParams } from "@/utils/helper";
 import { IListingDetail } from "@/components/templates/listingDetail/types";
 
 import DataHandle from "@/components/atoms/dataHandle/DataHandle";
 import ListingDetailDataHandle from "@/components/atoms/listingDetailDataHandle/ListingDetailDataHandle";
+import UpdateSearchBarDataHandle from "@/components/atoms/updateSearchBarDataHandle/updateSearchBarDataHandle";
+import FilterComponentDataHandle from "@/components/atoms/filterComponentDataHandle/FilterComponentDataHandle";
+import UpdateMinifyButtonsDataHandle from "@/components/atoms/updateMinifyButtonsDataHandle/UpdateMinifyButtonsDataHandle";
 import AllDetail from "@/components/molecules/allDetail/AllDetail";
 import MapSection from "@/components/molecules/mapSection/MapSection";
 import ReviewSection from "@/components/molecules/reviewSection/ReviewSection";
@@ -19,8 +22,6 @@ import ListingReservationSummary from "@/components/molecules/listingReservation
 import ListingDetailsSkeleton from "@/components/molecules/skeletons/listingDetailsSkeleton/ListingDetailsSkeleton";
 
 import BodyHeartIcon from "../../../../public/images/variants/big_heart.svg";
-import UpdateSearchBarDataHandle from "@/components/atoms/updateSearchBarDataHandle/updateSearchBarDataHandle";
-import FilterComponentDataHandle from "@/components/atoms/filterComponentDataHandle/FilterComponentDataHandle";
 
 const GallerySection = dynamic(
   () => import("@/components/organisms/gallerySection/GallerySection"),
@@ -49,11 +50,9 @@ const ListingDetail = async ({
     return size(result) === 2;
   };
 
-  const replacedSlug = removeSuffixOfSlug(get(params, "slug"));
-
   const listingDetailResponse = await listingDetail({
     lang: get(params, "lang"),
-    slug: decodeParams(replacedSlug),
+    slug: decodeParams(get(params, "slug")),
     params: queryStringCheck() ? searchParams : false
   });
 
@@ -95,6 +94,7 @@ const ListingDetail = async ({
     <div className={`pt-16 lg:pt-36 ${className}`}>
       <ListingDetailDataHandle data={get(listingDetailResponse, "item")} />
       <UpdateSearchBarDataHandle />
+      <UpdateMinifyButtonsDataHandle />
       <Suspense fallback={<ListingDetailsSkeleton />}>
         <DataHandle
           res={{
@@ -107,7 +107,7 @@ const ListingDetail = async ({
           <GallerySection images={pictures} />
           <BodyHeartIcon className="hidden lg:block absolute lg:bottom-[-5rem] left-0" />
         </header>
-        <main className="flex flex-col lg:flex-row gap-x-10 p-4 pb-0 lg:p-9 lg:pt-0">
+        <main className="flex flex-col lg:flex-row gap-x-10 2xl:gap-x-60 p-4 pb-0 lg:p-9 lg:pt-0">
           <aside className="flex flex-col gap-y-8 lg:gap-y-16 lg:w-2/3">
             <DetailSection
               data={{
@@ -133,11 +133,11 @@ const ListingDetail = async ({
             {/*Other Houses You May Like*/}
             {/*todo: api entegrasyonu sonrası eklenecek*/}
           </aside>
-          <aside className="w-1/3">
+          <aside className="w-1/3 flex justify-end">
+            {/*<aside className="w-1/3">*/}
             <ListingReservationSummary
               resData={listingDetailResponse}
               searchParams={searchParams}
-              slug={removeSuffixOfSlug(get(params, "slug"))}
               hasQuery={queryStringCheck()}
             />
           </aside>

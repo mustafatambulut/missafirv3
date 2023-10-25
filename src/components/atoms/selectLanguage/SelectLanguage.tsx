@@ -1,27 +1,26 @@
 "use client";
 import { useState } from "react";
-import {
-  get,
-  map,
-  find,
-  omit,
-  size,
-  join,
-  clone,
-  split,
-  compact,
-  includes,
-  lowerCase,
-  difference
-} from "lodash";
+import get from "lodash/get";
+import map from "lodash/map";
+import find from "lodash/find";
+import omit from "lodash/omit";
+import size from "lodash/size";
+import clone from "lodash/clone";
+import split from "lodash/split";
+import head from "lodash/head";
+import values from "lodash/values";
+import pullAll from "lodash/pullAll";
+import flatten from "lodash/flatten";
+import compact from "lodash/compact";
+import lowerCase from "lodash/lowerCase";
+
 import classNames from "classnames";
 import Select, { Theme } from "react-select";
 import { usePathname, useRouter } from "next/navigation";
 
-import { Route } from "@/utils/route";
-import { LOCALES } from "@/app/constants";
-import { useAppSelector } from "@/redux/hooks";
-import { addSuffix, getCurrentLang } from "@/utils/helper";
+import { allRoutes } from "@/utils/route";
+import { EN, LOCALES } from "@/app/constants";
+import { getCurrentLang } from "@/utils/helper";
 import { ISelectLanguage } from "@/components/atoms/selectLanguage/types";
 
 import Control from "@/components/atoms/control/Control";
@@ -35,12 +34,12 @@ const SelectLanguage = ({
   variant,
   languages,
   showIndicator,
-  className = ""
+  className = "",
+  isScrolledHeaderActive
 }: ISelectLanguage) => {
   const router = useRouter();
   const pathName = usePathname();
   const [currentLocale] = useState(lowerCase(getCurrentLang()));
-  const { links } = useAppSelector((state) => state.listingDetailReducer);
 
   const langs = map(get(languages, "data"), (language: any) => {
     const cloned = clone(language);
@@ -54,7 +53,7 @@ const SelectLanguage = ({
   });
 
   const selectClass = classNames(`text-sm rounded-xl ${className}`, {
-    "bg-gray-100": variant === "light",
+    "bg-gray-100": variant === "light" && isScrolledHeaderActive,
     "bg-none": variant === "dark"
   });
 
@@ -76,7 +75,7 @@ const SelectLanguage = ({
   const controlClass = classNames(
     "cursor-pointer shadow-none bg-transparent text-xs lg:text-base h-12 rounded-xl",
     {
-      "border-none": variant === "light"
+      "border-none": variant === "light" && isScrolledHeaderActive
     }
   );
 
@@ -101,24 +100,31 @@ const SelectLanguage = ({
   };
 
   const handleOnChange = ({ attributes }) => {
-    const route = Route;
-    const suffix = addSuffix(get(attributes, "value"));
-    const slug = get(
-      find(links, get(attributes, "value")),
-      get(attributes, "value")
-    );
-    const staticRoutes = map(get(route, "statics"), get(attributes, "value"));
-    const path = difference(compact(split(pathName, "/")), LOCALES);
-
-    if (!size(path)) {
-      path.unshift(get(attributes, "value"));
-      return router.push(`/${join(path, "/")}`);
-    } else if (slug && !includes(staticRoutes, path[0])) {
-      return router.push(`/${get(attributes, "value")}/${slug}-${suffix}`);
-    } else {
-      path.unshift(get(attributes, "value"));
-      return router.push(`/${join(path, "/")}`);
+    const currentPath = head(pullAll(compact(split(pathName, "/")), LOCALES));
+    const clonedRoutes = clone(allRoutes);
+    if (!size(currentPath) || !currentPath) {
+      return router.push(`/${get(attributes, "value")}`);
     }
+
+    const test = map(allRoutes, (item) => {
+      const mapped = map(item[get(attributes, "value")], (value, key) => {
+        if (get(attributes, "value") === EN) {
+          const test1 = map(clonedRoutes, (item) => {
+            return map(values(item), (value) => {
+              if (!!value[currentPath]) return value[currentPath];
+            });
+          });
+          return head(compact(flatten(test1)));
+        } else {
+          if (value === currentPath) return key;
+        }
+      });
+      return compact(mapped);
+    });
+
+    return router.push(
+      `/${get(attributes, "value")}/${head(compact(flatten(test)))}`
+    );
   };
 
   return (

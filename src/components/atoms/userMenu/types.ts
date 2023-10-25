@@ -3,6 +3,7 @@ import { Button } from "@/components/molecules/header/types";
 import { IFooterBrand } from "@/components/atoms/footerBrand/types";
 
 export interface IUserMenu {
+  lang?: string;
   id?: number;
   variant?: "dark" | "gray" | "ghost" | "light" | "";
   data: Data;

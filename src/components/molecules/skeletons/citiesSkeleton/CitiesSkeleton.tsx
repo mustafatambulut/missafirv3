@@ -4,7 +4,7 @@ const CitiesSkeleton = () => {
   const CityCard = () => {
     return (
       <div className="bg-white border-gray-100 border-1 h-auto rounded-2xl shadow p-5 lg:mx-3 mx-2">
-        <div className=" bg-gray-100 lg:w-60 w-40 flex min-h-[170px] border-gray-200 border-2 rounded-xl" />
+        <div className=" bg-gray-100 2xl:w-80 lg:w-60 w-40 flex min-h-[170px] border-gray-200 border-2 rounded-xl" />
         <div className="w-24 lg:h-10 h-6 mt-4 bg-gray-200 rounded-xl" />
         <div className="w-16 lg:h-10 h-6 mt-2 bg-gray-100 rounded-xl" />
       </div>
@@ -13,7 +13,7 @@ const CitiesSkeleton = () => {
 
   return (
     <div className="animate-pulse">
-      <div className="container mx-auto py-4 mt-[160px] items-center">
+      <div className="container mx-auto py-4 mt-[60px] items-center">
         <div className="w-60 lg:h-12 h-7 rounded-xl bg-gray-200 mx-auto" />
         <div className="lg:w-[670px] w-3/4 lg:h-8 h-4 rounded-xl bg-gray-200 mx-auto lg:mt-4 mt-2" />
         <div className="lg:w-[466px] w-2/4 lg:h-8 h-4 rounded-xl bg-gray-200 mx-auto lg:mt-4 mt-2" />

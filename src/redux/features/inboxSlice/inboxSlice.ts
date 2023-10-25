@@ -49,6 +49,7 @@ const initialState = {
   threadListLoading: false,
   threadDetailsLoading: false,
   sendMessageLoading: false,
+  threadListLoaded: false,
   isFavored: false,
   notFound: false,
   pagination: {
@@ -84,10 +85,12 @@ const inboxSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchThreadList.pending, (state) => {
       state.threadListLoading = true;
+      state.threadListLoaded = false;
     });
     builder.addCase(fetchThreadList.fulfilled, (state, action) => {
       state.threadList = get(action, "payload.data.items");
       state.threadListLoading = false;
+      state.threadListLoaded = true;
     });
     builder.addCase(fetchThreadListByPage.fulfilled, (state, action) => {
       state.pagination = get(action, "payload.pagination");

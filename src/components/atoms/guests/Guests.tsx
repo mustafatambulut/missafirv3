@@ -28,7 +28,9 @@ const Guests = ({
 }: IGuests) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
-  const { bookingGuests } = useAppSelector((state) => state.listingReducer);
+  const bookingGuests = useAppSelector(
+    (state) => state.listingReducer.bookingGuests
+  );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const bodyClass = classNames(
@@ -72,7 +74,7 @@ const Guests = ({
       dispatch(
         updateBookingGuests({
           ...bookingGuests,
-          adults: bookingGuests.adults + 1
+          adults: toInteger(bookingGuests.adults) + 1
         })
       );
     } else {
@@ -80,7 +82,7 @@ const Guests = ({
         dispatch(
           updateBookingGuests({
             ...bookingGuests,
-            adults: bookingGuests.adults - 1
+            adults: toInteger(bookingGuests.adults) - 1
           })
         );
     }
@@ -89,14 +91,17 @@ const Guests = ({
   const changeKids = (type: string) => {
     if (type === "plus") {
       dispatch(
-        updateBookingGuests({ ...bookingGuests, kids: bookingGuests.kids + 1 })
+        updateBookingGuests({
+          ...bookingGuests,
+          kids: toInteger(bookingGuests.kids) + 1
+        })
       );
     } else {
       get(bookingGuests, "kids") > 0 &&
         dispatch(
           updateBookingGuests({
             ...bookingGuests,
-            kids: bookingGuests.kids - 1
+            kids: toInteger(bookingGuests.kids) - 1
           })
         );
     }
@@ -116,6 +121,23 @@ const Guests = ({
     !isInMobileDrawer && setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const checkHasAnyGuest = () => {
+    const humanCount =
+      get(bookingGuests, "adults") + get(bookingGuests, "kids");
+    return (
+      humanCount > 1 ||
+      (humanCount === 1 && Boolean(get(bookingGuests, "pets")))
+    );
+  };
+
+  const guestCountClass = classNames({
+    flex:
+      isInListingDetail ||
+      isInMobileDrawer ||
+      (!isInListingDetail && !isInMobileDrawer && checkHasAnyGuest()),
+    hidden: !isInListingDetail && !isInMobileDrawer && !checkHasAnyGuest()
+  });
+
   useEffect(() => {
     customOpenStatement && customOpenStatement !== "guests"
       ? setIsDropdownOpen(false)
@@ -132,7 +154,7 @@ const Guests = ({
         {showIcon && <GuestsIcon className="hidden lg:block fill-gray-700" />}
         <div
           className={`flex flex-col ${!isInListingDetail && "lg:ml-3 "} ${
-            isInCustomSection && "w-[6.6rem] truncate"
+            isInCustomSection && "w-[7.3rem] truncate"
           }`}>
           <Typography
             variant="h5.1"
@@ -143,31 +165,25 @@ const Guests = ({
                 : get(bookingGuests, "adults") ||
                   get(bookingGuests, "kids") ||
                   get(bookingGuests, "pets")
-                ? "text-base"
+                ? checkHasAnyGuest()
+                  ? "text-sm"
+                  : "text-21"
                 : "text-21"
             } text-gray-600 ${
-              (isMobile &&
-                (get(bookingGuests, "adults") ||
-                  get(bookingGuests, "kids") ||
-                  get(bookingGuests, "pets"))) ||
-              (((isInCustomSection && get(bookingGuests, "adults")) ||
-                get(bookingGuests, "kids") ||
-                get(bookingGuests, "pets")) &&
-                "hidden")
+              (isInListingDetail || isInCustomSection) && checkHasAnyGuest()
+                ? "hidden"
+                : null
             }`}>
-            {!isInListingDetail
-              ? isInCustomSection
-                ? t("add_guests")
-                : t("guests")
+            {!isInListingDetail && !isInMobileDrawer
+              ? checkHasAnyGuest()
+                ? t("guests")
+                : t("add_guests")
               : null}
           </Typography>
-          <div className="flex">
+          <div className={guestCountClass}>
             {toInteger(get(bookingGuests, "adults")) > 0 ||
             toInteger(get(bookingGuests, "kids")) > 0 ? (
-              <Typography
-                variant="p3"
-                element="span"
-                className="mr-2 whitespace-nowrap">
+              <span className="mr-2 whitespace-nowrap text-sm lg:text-16">
                 {toInteger(get(bookingGuests, "adults")) +
                   toInteger(get(bookingGuests, "kids"))}
                 <span className="ml-1">
@@ -178,16 +194,13 @@ const Guests = ({
                     : t("guests")}
                 </span>
                 {toInteger(get(bookingGuests, "pets")) === 1 ? ", " : null}
-              </Typography>
+              </span>
             ) : null}
 
             {toInteger(get(bookingGuests, "pets")) === 1 ? (
-              <Typography
-                variant="p3"
-                element="span"
-                className="mr-2 whitespace-nowrap">
+              <span className="text-sm lg:text-16 mr-2 whitespace-nowrap">
                 {t("pets")}
-              </Typography>
+              </span>
             ) : null}
           </div>
         </div>
@@ -250,7 +263,9 @@ const Guests = ({
                   onClick={() => changeKids("minus")}>
                   <MinusIcon className="cursor-pointer" />
                 </div>
-                <span className="mx-2">{get(bookingGuests, "kids")}</span>
+                <Typography variant="p3" element="span" className="mx-2">
+                  {get(bookingGuests, "kids")}
+                </Typography>
                 <div
                   className="border border-gray-800 rounded-full flex items-center justify-center"
                   onClick={() => changeKids("plus")}>

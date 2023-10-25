@@ -67,8 +67,12 @@ const InboxThreadListing = () => {
           className="rounded-xl"
           title={<TitleComponent />}
           sliderOptions={{
-            slidesPerView: 1,
-            spaceBetween: 0,
+            mobileSlidesPerView : 1,
+            desktopSlidesPerView : 1,
+            mobileSpaceBetween : 0,
+            desktopSpaceBetween : 0,
+            desktopLargeSlidesPerView:1,
+            desktopLargeSpaceBetween:0,
             withPagination: true,
             sliderIdentifier: "message-detail-images",
             sliderWrapperClassName: "rounded-t-lg w-full h-64 2xl:h-80"
@@ -131,10 +135,9 @@ const InboxThreadListing = () => {
               {get(selectedThread, "reservation.price.final")}
             </div>
           </div>
-          {/*todo: see details eklenecek*/}
           <Button
             variant="btn-link"
-            link={`/listing/kiralik-ev/${get(
+            link={`/${get(
               selectedThread,
               "reservation.listing.slug"
             )}`}

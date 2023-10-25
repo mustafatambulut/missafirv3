@@ -1,11 +1,44 @@
 /** @type {import("next").NextConfig} */
+const path = require("path");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
+
 const withNextIntl = require("next-intl/plugin")(`./src/i18n.ts`);
 const nextConfig = {
-  webpack: (config) => {
+  reactStrictMode: true,
+  swcMinify: true,
+  future: { webpack5: true },
+  webpack: (config, { dev }) => {
+    // The condition is to have the plugin on build time, not to perturb live refresh
+    // fastrefresh true
+    !dev && config.plugins.push(new BundleAnalyzerPlugin());
+    config.plugins.push(new DuplicatePackageCheckerPlugin());
+    config.resolve.alias["fast-deep-equal"] = path.resolve(
+      "node_modules",
+      "fast-deep-equal"
+    );
+
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"]
     });
+
+    config.optimization.minimize = false;
+    config.optimization.concatenateModules = false;
+    config.output.pathinfo = "verbose";
+    if (dev) {
+      config.watchOptions = {
+        poll: true
+      };
+    }
+
+    // if(process.env.NEXT_WEBPACK_USEPOLLING) {
+    //   config.watchOptions = {
+    //     poll: 500,
+    //     aggregateTimeout: 300
+    //   }
+    // }
+
     return config;
   },
   images: {
@@ -27,7 +60,8 @@ const nextConfig = {
       "assets-global.website-files.com",
       "logowik.com",
       "cdnuploads.aa.com.tr",
-      "missafir.s3.eu-central-1.amazonaws.com"
+      "missafir.s3.eu-central-1.amazonaws.com",
+      "missafir-dev.s3.eu-central-1.amazonaws.com"
     ],
     remotePatterns: [
       {
@@ -77,7 +111,8 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com",
+        hostname:
+          "strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com",
         port: ""
       },
       {
@@ -87,9 +122,30 @@ const nextConfig = {
       }
     ]
   },
-  reactStrictMode: true,
+  modularizeImports: {
+    lodash: {
+      transform: "lodash/{{member}}"
+    }
+  },
   experimental: {
-    serverActions: true
+    serverActions: true,
+    optimizePackageImports: ["lodash", "react-leaflet", "moment"],
+    enableUndici: true,
+    turbo: {
+      rules: {
+        // Option format
+        "*.md": [
+          {
+            loader: "@mdx-js/loader",
+            options: {
+              format: "md"
+            }
+          }
+        ],
+        // Option-less format
+        "*.mdx": ["@mdx-js/loader"]
+      }
+    }
   },
   typescript: {
     ignoreBuildErrors: true

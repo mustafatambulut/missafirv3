@@ -6,8 +6,11 @@ import { updateBookingDate } from "@/redux/features/listingSlice/listingSlice";
 
 const FilterComponentDataHandle = () => {
   const dispatch = useAppDispatch();
-  const { showSearchbar, bookingDate } = useAppSelector(
-    (state) => state.listingReducer
+  const  showSearchbar = useAppSelector(
+    (state) => state.listingReducer.showSearchbar
+  );
+  const bookingDate  = useAppSelector(
+    (state) => state.listingReducer.bookingDate
   );
   const handleChangeBookingDate = (date) => {
     dispatch(updateBookingDate(date));

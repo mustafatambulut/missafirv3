@@ -2,18 +2,20 @@ import React, { useRef, useState } from "react";
 import classNames from "classnames";
 import { get, includes } from "lodash";
 import { createPortal } from "react-dom";
-import ArrowLeftIcon from "../../../../public/images/arrow_left.svg";
+import { useTranslations } from "next-intl";
+import { isMobile } from "react-device-detect";
+
 import {
   BOOKING_DATE,
   BOOKING_GUESTS
 } from "@/components/molecules/searchBar/constants";
-import DatePicker from "@/components/atoms/datePicker/DatePicker";
-import Button from "@/components/atoms/button/Button";
 
-import MinusIcon from "../../../../public/images/minus.svg";
+import Button from "@/components/atoms/button/Button";
+import DatePicker from "@/components/atoms/datePicker/DatePicker";
+
 import PlusIcon from "../../../../public/images/plus.svg";
-import { useTranslations } from "next-intl";
-import { isMobile } from "react-device-detect";
+import MinusIcon from "../../../../public/images/minus.svg";
+import ArrowLeftIcon from "../../../../public/images/arrow_left.svg";
 
 const ListingDetailDrawer = ({
   bookingDate,
@@ -21,9 +23,9 @@ const ListingDetailDrawer = ({
   bookingGuests,
   setBookingGuests
 }) => {
+  const t = useTranslations();
   const drawerCloseRef = useRef<HTMLInputElement>(null);
   const [activeSearchItem, setActiveSearchItem] = useState(BOOKING_DATE);
-  const t = useTranslations()
   const showComponentByActivate = (item: string) => {
     return classNames("", {
       "block h-full": activeSearchItem === item,
@@ -126,7 +128,8 @@ const ListingDetailDrawer = ({
   };
 
   return (
-    (typeof window !== "undefined" && isMobile) &&
+    typeof window !== "undefined" &&
+    isMobile &&
     createPortal(
       <div className="drawer z-50">
         <input

@@ -2,11 +2,13 @@ import { get, map } from "lodash";
 import classNames from "classnames";
 import {
   updateCurrentStep,
+  updateSelectedCountry,
   updateSelectedOwnerType
 } from "@/redux/features/ownerSlice/ownerSlice";
 import {
   OWNER_TYPE_1,
   OWNER_TYPE_2,
+  STEP_1,
   STEP_2
 } from "@/redux/features/ownerSlice/enum";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -15,7 +17,11 @@ import CorporationIcon from "../../../../public/images/corporation.svg";
 import { useTranslations } from "next-intl";
 import Typography from "@/components/atoms/typography/Typography";
 
-const BecomeOwnerTypes = () => {
+const BecomeOwnerTypes = ({
+  showCountrySelectOnChange = false
+}: {
+  showCountrySelectOnChange?: boolean;
+}) => {
   const dispatch = useAppDispatch();
   const t = useTranslations();
   const { selectedOwnerType } = useAppSelector((state) => state.ownerReducer);
@@ -38,7 +44,13 @@ const BecomeOwnerTypes = () => {
   ];
 
   const handleChangeOwnerType = (ownerType) => {
-    selectedOwnerType !== STEP_2 && dispatch(updateCurrentStep(STEP_2));
+    if (showCountrySelectOnChange) {
+      dispatch(updateCurrentStep(STEP_1));
+      dispatch(updateSelectedOwnerType(ownerType));
+      dispatch(updateSelectedCountry(null));
+    } else {
+      dispatch(updateCurrentStep(STEP_2));
+    }
     dispatch(updateSelectedOwnerType(ownerType));
   };
 

@@ -11,13 +11,14 @@ const initialState = {
     kids: 0,
     pets: 0
   },
-  isBookingInfoEditing: false,
   bookingDate: {
     startDate: null,
     endDate: null
   },
   availabilityModalOpen: false,
-  links: null
+  links: null,
+  isLoadingDatePicker: false,
+  isSelectedBookingDate: false
 } as IListingDetailState;
 
 const listingDetailSlice = createSlice({
@@ -29,12 +30,6 @@ const listingDetailSlice = createSlice({
       action: PayloadAction<boolean>
     ) => {
       state.bookingDate = action.payload;
-    },
-    setIsBookingInfoEditing: (
-      state: IListingDetailState,
-      action: PayloadAction<boolean>
-    ) => {
-      state.isBookingInfoEditing = action.payload;
     },
     setResPayload: (
       state: IListingDetailState,
@@ -50,6 +45,18 @@ const listingDetailSlice = createSlice({
     },
     setLinks: (state: IListingDetailState, action: PayloadAction<boolean>) => {
       state.links = action.payload;
+    },
+    setIsSelectedBookingDate: (
+      state: IListingDetailState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.isSelectedBookingDate = action.payload;
+    },
+    setIsLoadingDatePicker: (
+      state: IListingDetailState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.isLoadingDatePicker = action.payload;
     }
   }
 });
@@ -58,7 +65,8 @@ export const {
   setLinks,
   setResPayload,
   setBookingDate,
-  setAvailabilityModalOpen,
-  setIsBookingInfoEditing
+  setIsLoadingDatePicker,
+  setIsSelectedBookingDate,
+  setAvailabilityModalOpen
 } = listingDetailSlice.actions;
 export default listingDetailSlice.reducer;

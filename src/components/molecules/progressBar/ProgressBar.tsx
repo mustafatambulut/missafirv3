@@ -98,9 +98,9 @@ const ProgressBar = ({ className = "" }: IProgressBar) => {
 
   return (
     <>
-      {map(steps, ({ id, title }) => (
+      {map(steps, ({ id, title },key) => (
         <div
-          key={id}
+          key={key}
           onClick={() => previousStep(id)}
           className={stepContainerClass(id)}>
           <div className={stepClass(id)}>

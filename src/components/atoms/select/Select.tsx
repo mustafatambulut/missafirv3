@@ -1,18 +1,23 @@
 "use client";
 import { ReactNode, useState } from "react";
+import get from "lodash/get";
+import has from "lodash/has";
+import map from "lodash/map";
+import size from "lodash/size";
+import filter from "lodash/filter";
 import Image from "next/image";
 import classNames from "classnames";
-import { filter, get, map, size } from "lodash";
+import { useTranslations } from "next-intl";
 import { isMobile } from "react-device-detect";
-import ReactSelect, { components } from "react-select";
 import { Swiper, SwiperSlide } from "swiper/react";
+import ReactSelect, { components } from "react-select";
+
+import { ISelect } from "@/components/atoms/select/types";
 
 import ClearIcon from "../../../../public/images/clear.svg";
 import SearchIcon from "../../../../public/images/search.svg";
 import HistoryIcon from "../../../../public/images/history.svg";
 import LocationIcon from "../../../../public/images/location.svg";
-import { ISelect } from "@/components/atoms/select/types";
-import { useTranslations } from "next-intl";
 
 const Select = ({
   items,
@@ -44,19 +49,27 @@ const Select = ({
   valueContainerClassName = null,
   rotateIconOnShow = false,
   menuClassName = null,
-  isDisabled = false
+  isDisabled = false,
+  defaultValue = null,
+  menuPosition = null,
+  singleValueClassName = null,
+  customIconClassName = null
 }: ISelect) => {
   const t = useTranslations();
   //todo: düzenlenecek
   const [isOpen, setIsOpen] = useState(false);
+
   const searchClass = classNames(`w-full ${className}`);
+
   const controlWrapperClass = classNames(
     `rounded-lg border-none shadow-none text-left bg-transparent ${controlWrapperClassName}`
   );
+
   const controlInnerClass = classNames(`w-full ${className}`, {
     "text-gray-800 ": !isDisabled,
     "text-gray-200": isDisabled
   });
+
   const customIconClass = classNames(
     "absolute top-[50%] transform translate-y-[-50%] transition-all transform",
     {
@@ -69,6 +82,7 @@ const Select = ({
         isDisabled
     }
   );
+
   const searchIconClass = classNames(
     "absolute top-[50%] transform translate-y-[-50%]",
     {
@@ -94,33 +108,37 @@ const Select = ({
     "text-gray-200": isDisabled,
     block: showControlTitle,
     hidden: !showControlTitle,
-    "ml-7":
+    "ml-8":
       (customIcon && customIconPosition === "left") ||
       (showSearchIcon && searchIconPosition === "left"),
-    "mr-7":
+    "mr-8":
       showSearchIcon ||
       (customIcon && customIconPosition === "right") ||
       (showSearchIcon && searchIconPosition === "right")
   });
+
   const placeholderClass = classNames("w-full", {
-    "text-base lg:text-lg font-mi-semi-bold":
-      !placeholderClassName,
+    "text-base lg:text-lg font-mi-semi-bold": !placeholderClassName,
     [placeholderClassName]: placeholderClassName,
-    "text-gray-200": !placeholderClassName && isDisabled || placeholderClassName && isDisabled,
+    "text-gray-200":
+      (!placeholderClassName && isDisabled) ||
+      (placeholderClassName && isDisabled),
     "text-gray-600 ": !placeholderClassName && !isDisabled,
     block: showPlaceholder,
     hidden: !showPlaceholder
   });
+
   const valueContainerClass = classNames("px-0", {
     [valueContainerClassName]: valueContainerClassName,
-    "ml-7":
+    "ml-8":
       (customIcon && customIconPosition === "left") ||
       (showSearchIcon && searchIconPosition === "left"),
-    "mr-7":
+    "mr-8":
       showSearchIcon ||
       (customIcon && customIconPosition === "right") ||
       (showSearchIcon && searchIconPosition === "right")
   });
+
   return (
     <ReactSelect
       isDisabled={isDisabled}
@@ -132,7 +150,9 @@ const Select = ({
         value: filter(items, (item) => item.value === value)
       })}
       {...(menuIsOpen && { menuIsOpen: menuIsOpen })}
+      {...(menuPosition && { menuPosition: menuPosition })}
       {...(maxMenuHeight && { menuIsOpen: maxMenuHeight })}
+      {...(defaultValue && { defaultValue: defaultValue })}
       onChange={onChange}
       options={items}
       id={`id-${searchId}`}
@@ -147,7 +167,17 @@ const Select = ({
         DropdownIndicator: () => null,
         IndicatorSeparator: () => null,
         LoadingIndicator: () => null,
+        SingleValue: (props) => (
+          <components.SingleValue
+            className={`m-0 ${
+              singleValueClassName ? singleValueClassName : ""
+            }`}
+            {...props}>
+            {get(props, "children")}
+          </components.SingleValue>
+        ),
         Control: (props) => {
+          const selectedValue = get(props.getValue(), "0");
           return (
             <components.Control className={controlWrapperClass} {...props}>
               <div className={controlInnerClass}>
@@ -157,9 +187,17 @@ const Select = ({
                   </div>
                 )}
                 {customIcon && (
-                  <div className={customIconClass}>{customIcon}</div>
+                  <div
+                    className={`${customIconClass} ${
+                      customIconClassName ? customIconClassName : ""
+                    }`}>
+                    {customIcon}
+                  </div>
                 )}
-                <div className="flex-wrap flex w-full h-full">
+                <div className="flex-wrap flex items-center w-full h-full">
+                  {has(selectedValue, "icon") && (
+                    <div className="mr-2">{get(selectedValue, "icon")}</div>
+                  )}
                   {controlTitle && (
                     <div className={controlTitleClass}>{controlTitle}</div>
                   )}
@@ -259,17 +297,19 @@ const Select = ({
               ),
         Option: (props) => {
           const image = get(props, "data.image");
+          const icon = get(props, "data.icon");
           const isPopularDestinations = get(
             props,
             "data.isPopularDestinations"
           );
           return (
             <components.Option
-              className="bg-transparent text-left cursor-pointer m-0 pt-2 pb-0 px-0 lg:px-3"
+              className="bg-transparent text-left cursor-pointer rounded-lg mx-0.5 p-2 hover:bg-gray-100"
               {...props}>
               <div
-                className={`${isPopularDestinations && "text-center"
-                  } rounded flex items-start p-1`}>
+                className={`${
+                  isPopularDestinations && "text-center"
+                } rounded flex items-start p-1`}>
                 {showOptionIcon && (
                   <>
                     {!isPopularDestinations ? (
@@ -282,8 +322,9 @@ const Select = ({
                   </>
                 )}
                 <div
-                  className={`flex flex-col ${!isPopularDestinations && "ml-2"
-                    }`}>
+                  className={`flex ${
+                    icon ? "flex-row items-center" : "flex-col"
+                  } ${!isPopularDestinations && "ml-2"}`}>
                   {image && (
                     <Image
                       src={`/images/${image}`}
@@ -293,6 +334,7 @@ const Select = ({
                       className="rounded-2xl"
                     />
                   )}
+                  {icon && <div className="mr-2">{icon}</div>}
                   <span className="text-gray-800 lg:text-base text-xs mt-1 font-mi-semi-bold">
                     {get(props, "data.label")}
                   </span>
@@ -309,9 +351,10 @@ const Select = ({
         GroupHeading: (props) => (
           <components.GroupHeading className="px-4" {...props}>
             <div
-              className={`${size(get(props, "selectProps.options")) > 1 &&
+              className={`${
+                size(get(props, "selectProps.options")) > 1 &&
                 "border-t pt-4 mt-3"
-                } text-left normal-case text-gray-500 text-sm font-mi-semi-bold`}>
+              } text-left normal-case text-gray-500 text-sm font-mi-semi-bold`}>
               {get(props, "children")}
             </div>
           </components.GroupHeading>

@@ -1,0 +1,21 @@
+export const SEARCHBAR_KEYS = [
+  "value",
+  "type",
+  "slug",
+  "order",
+  "country",
+  "city_slug",
+  "country_id",
+  "country_slug",
+  "isHistory",
+  "isPopularDestinations",
+  "label",
+  "desc",
+  "district_id",
+  "city_id",
+  "check_in",
+  "check_out",
+  "adults",
+  "kids",
+  "pets"
+];

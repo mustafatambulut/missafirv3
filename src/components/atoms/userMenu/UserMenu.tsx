@@ -1,25 +1,33 @@
 import { ReactNode, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { get, map } from "lodash";
+import get from "lodash/get";
+import map from "lodash/map";
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { isMobile } from "react-device-detect";
 import OutsideClickHandler from "react-outside-click-handler";
 
+import {
+  routeByPath,
+  getLocalStorage,
+  removeLocalStorage,
+  checkIsAuthenticated
+} from "@/utils/helper";
+import { Route } from "@/utils/route";
+import { AUTH_USER_KEY, TOKEN_KEY } from "@/app/constants";
 import { IUserMenu } from "@/components/atoms/userMenu/types";
-import { checkAuth, getLocalStorage, removeLocalStorage } from "@/utils/helper";
 
 import Button from "@/components/atoms/button/Button";
 import DropDown from "@/components/atoms/dropDown/DropDown";
 
 import UserDark from "../../../../public/images/user_dark.svg";
 import UserLight from "../../../../public/images/user_light.svg";
-import Typography from "../typography/Typography";
 
 const UserMenu = ({
   data,
+  lang,
   variant = "",
   isScrolledHeaderActive,
   isInDrawer = false,
@@ -45,26 +53,32 @@ const UserMenu = ({
   };
 
   const handleLogout = () => {
-    removeLocalStorage("token");
+    removeLocalStorage(TOKEN_KEY);
+    removeLocalStorage(AUTH_USER_KEY);
     handleClick();
     router.push("/");
     router.refresh();
   };
 
   const userMenuLabel = () => {
-    const authUser = getLocalStorage("authUser")
-      ? JSON.parse(getLocalStorage("authUser"))
+    const authUser = getLocalStorage(AUTH_USER_KEY)
+      ? JSON.parse(getLocalStorage(AUTH_USER_KEY))
       : null;
-    return checkAuth() ? get(authUser, "fullname", "") : undefined;
+    return checkIsAuthenticated() ? get(authUser, "fullname") : "";
   };
 
   const AuthComponent = (): ReactNode => {
-    return checkAuth() ? (
+    return checkIsAuthenticated() ? (
       <>
         <li>
           <Link
+            shallow={true}
             onClick={handleClick}
-            href="/profile"
+            href={`/${lang}/${routeByPath(
+              lang,
+              "profile",
+              get(Route, "authPagesRoutes")
+            )}`}
             className="justify-start text-lg lg:text-xl pl-0 lg:pl-2 text-gray-500 hover:bg-transparent hover:text-primary">
             {t("profile")}
           </Link>
@@ -81,16 +95,26 @@ const UserMenu = ({
       <>
         <li>
           <Link
+            shallow={true}
             onClick={handleClick}
-            href="/login"
+            href={`/${lang}/${routeByPath(
+              lang,
+              "login",
+              get(Route, "authPagesRoutes")
+            )}`}
             className="justify-start text-lg lg:text-xl pl-0 lg:pl-2 text-gray-500 hover:bg-transparent hover:text-primary">
             {t("login")}
           </Link>
         </li>
         <li>
           <Link
+            shallow={true}
             onClick={handleClick}
-            href="/signup"
+            href={`/${lang}/${routeByPath(
+              lang,
+              "signup",
+              get(Route, "authPagesRoutes")
+            )}`}
             className="justify-start text-lg lg:text-xl pl-0 lg:pl-2 text-gray-500 hover:bg-transparent hover:text-primary">
             {t("sign_up")}
           </Link>
@@ -115,7 +139,7 @@ const UserMenu = ({
             </summary>
             <ul className="before:hidden m-0 p-0 text-gray-700">
               <>
-                {checkAuth() &&
+                {checkIsAuthenticated() &&
                   map(get(data, "links.data"), (menuItem, key) => (
                     <li key={key}>
                       <Link
@@ -172,7 +196,7 @@ const UserMenu = ({
           isScrolledHeaderActive={isScrolledHeaderActive}
           variant={variant}>
           <>
-            {checkAuth() &&
+            {checkIsAuthenticated() &&
               map(get(data, "links.data"), (menuItem, key) => (
                 <div key={key}>
                   {get(menuItem, "attributes.link") && (

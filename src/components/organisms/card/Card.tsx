@@ -20,8 +20,12 @@ const Card = ({
   badgeClass = "",
   images = null,
   sliderOptions = {
-    slidesPerView: 1,
-    spaceBetween: 0,
+    mobileSlidesPerView: 1,
+    desktopSlidesPerView: 4,
+    mobileSpaceBetween: 5,
+    desktopSpaceBetween: 10,
+    desktopLargeSlidesPerView:5,
+    desktopLargeSpaceBetween:10,
     withPagination: false,
     sliderIdentifier: "",
     customPagination: null,
@@ -50,14 +54,14 @@ const Card = ({
     return isArray(images) ? (
       <Slider {...sliderOptions}>
         {map(images, (image, key) => (
-          <section key={key}>
+          <section key={key} className="h-96 relative">
             {image && (
               <Image
+                fill
                 src={image}
                 alt="detail"
-                priority={true}
-                fill={true}
-                className="object-cover h-full w-full"
+                sizes="(max-width: 768px) 50vw 50vh"
+                className="object-cover"
               />
             )}
           </section>
@@ -71,7 +75,6 @@ const Card = ({
             height={1000}
             alt="slide-img"
             src={images}
-            priority={true}
             className="rounded-t-xl"
           />
         )}

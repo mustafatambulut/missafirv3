@@ -1,15 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import {
-  get,
-  map,
-  size,
-  split,
-  compact,
-  isEmpty,
-  includes,
-  capitalize
-} from "lodash";
+import get from "lodash/get";
+import map from "lodash/map";
+import size from "lodash/size";
+import pick from "lodash/pick";
+import split from "lodash/split";
+import assign from "lodash/assign";
+import compact from "lodash/compact";
+import isEmpty from "lodash/isEmpty";
+import includes from "lodash/includes";
+import capitalize from "lodash/capitalize";
 import classNames from "classnames";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
@@ -19,8 +19,9 @@ import {
   changeCurrentStep,
   changeIsPressReservButton
 } from "@/redux/features/reservationSlice/reservationSlice";
+import { PAYLOAD_KEY } from "@/app/constants";
 import { basket, checkoutPreview } from "@/service/api";
-import { checkAuth, setLocalStorage } from "@/utils/helper";
+import { checkIsAuthenticated, setLocalStorage } from "@/utils/helper";
 import { setHtml } from "@/redux/features/bankSlice/bankSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ResPayload } from "@/redux/features/listingDetailSlice/types";
@@ -36,6 +37,7 @@ const ReservationFooter = () => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingSnipper, setIsLoadingSnipper] = useState<boolean>(false);
 
   const { creditCard } = useAppSelector((state) => state.paymentReducer);
   const { resPayload } = useAppSelector((state) => state.listingDetailReducer);
@@ -57,27 +59,36 @@ const ReservationFooter = () => {
     return size(compact(checkParams)) === REQUIRED_PARAM_COUNT;
   };
 
+  useEffect(() => {
+    creditCard?.distance && creditCard?.preliminary
+      ? setIsLoading(false)
+      : setIsLoading(true);
+  }, [creditCard]);
+
   const handleSubmitBtn = async () => {
     dispatch(setIsValidPayload(validateQueryParams(resPayload)));
     if (!validateQueryParams(resPayload)) return;
     setIsLoading(true);
-    const { number, expiry, cvc, name } = creditCard;
+    setIsLoadingSnipper(true);
+    const { number, expiry, cvc, name, message } = creditCard;
     const { data } = await checkoutPreview({
       card_cvc: cvc,
       card_expiry: expiry,
       card_holder_name: name,
       card_number: number,
+      message: message,
       ...resPayload
     });
 
     if (get(data, "code") === 200) {
-      setLocalStorage("payload", JSON.stringify(resPayload));
+      setLocalStorage(PAYLOAD_KEY, JSON.stringify(resPayload));
       if (get(data, "data.redirectUrl")) {
         dispatch(setHtml(get(data, "data.redirectUrl")));
         return router.push("/garanti");
       }
     }
     setIsLoading(false);
+    setIsLoadingSnipper(false);
   };
 
   const handleConfirmationBtn = async () => {
@@ -86,15 +97,26 @@ const ReservationFooter = () => {
     }
 
     setIsLoading(true);
+    setIsLoadingSnipper(true);
     dispatch(changeIsPressReservButton(true));
-    if (checkAuth()) {
+    if (checkIsAuthenticated()) {
       const result = includes(split(path, "/"), "reservation")
         ? await checkoutPreview(resPayload)
         : await basket(resPayload);
       const { data } = result;
 
       get(data, "data.item.reservation") &&
-        dispatch(setReservation(get(data, "data.item.reservation")));
+        (assign(
+          get(data, "data.item.reservation"),
+          pick(get(data, "data.item"), [
+            "terms0_content",
+            "terms0_title",
+            "terms1_content",
+            "terms1_title",
+            "cancelation_policy"
+          ])
+        ),
+        dispatch(setReservation(get(data, "data.item.reservation"))));
 
       get(data, "data") && router.push("/reservation");
 
@@ -110,6 +132,7 @@ const ReservationFooter = () => {
 
   useEffect(() => {
     setIsLoading(false);
+    setIsLoadingSnipper(false);
   }, [currentStep]);
 
   switch (currentStep) {
@@ -148,7 +171,9 @@ const ReservationFooter = () => {
           onClick={handleSubmitBtn}
           disabled={isLoading}>
           {capitalize(t("submit"))}
-          {isLoading && <span className="loading loading-spinner"></span>}
+          {isLoadingSnipper && (
+            <span className="loading loading-spinner"></span>
+          )}
         </Button>
       );
   }

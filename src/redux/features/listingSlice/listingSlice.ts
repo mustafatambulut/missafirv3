@@ -1,4 +1,7 @@
-import { get, has, isNull, size } from "lodash";
+import get from "lodash/get";
+import has from "lodash/has";
+import size from "lodash/size";
+import isNull from "lodash/isNull";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import {
@@ -6,8 +9,9 @@ import {
   IBookingGuest
 } from "@/components/atoms/datePicker/types";
 import { setLocalStorage } from "@/utils/helper";
+import { getFilters, getListings } from "@/service/api";
 import { IListingSlice } from "@/redux/features/listingSlice/types";
-import { getFilters, getListings, getListingsByPage } from "@/service/api";
+import { FILTER_ITEMS_KEY } from "@/app/constants";
 
 export const fetchFilters = createAsyncThunk(
   "listing/fetchFilters",
@@ -19,16 +23,8 @@ export const fetchFilters = createAsyncThunk(
 
 export const fetchListings = createAsyncThunk(
   "listing/fetchListings",
-  async (params) => {
-    const { data } = await getListings(params);
-    return get(data, "data") || null;
-  }
-);
-
-export const fetchListingsByPage = createAsyncThunk(
-  "listing/fetchListingsByPage",
-  async (params) => {
-    const { data } = await getListingsByPage(params);
+  async ({ lang, params }: { lang?: string; params?: any }) => {
+    const { data } = await getListings({ lang, params });
     return get(data, "data") || null;
   }
 );
@@ -37,10 +33,11 @@ const initialState = {
   listingResultsTitle: "",
   filterItems: [],
   listings: [],
+  listingsLoaded: false,
   loading: false,
   showSearchbar: false,
   searchLocation: null,
-  filterData: { price_type: 1 },
+  filterData: {},
   preFilterData: {},
   bookingDestination: null,
   bookingDate: {
@@ -55,7 +52,8 @@ const initialState = {
   pagination: {
     total: 0,
     current: 1
-  }
+  },
+  searchClicked: false
 } as IListingSlice;
 
 const listingSlice = createSlice({
@@ -65,12 +63,14 @@ const listingSlice = createSlice({
     updateSearchClicked: (state: IListingSlice, action: PayloadAction<any>) => {
       state.searchClicked = action.payload;
     },
+    updateLoading: (state: IListingSlice, action: PayloadAction<any>) => {
+      state.loading = action.payload;
+    },
     updateFilterItems: (state: IListingSlice, action: PayloadAction<any>) => {
       state.filterItems = action.payload;
     },
     updateFilterData: (state: IListingSlice, action: PayloadAction<any>) => {
       state.filterData = action.payload;
-      setLocalStorage("filterData", JSON.stringify(action.payload));
     },
     updatePreFilterData: (state: IListingSlice, action: PayloadAction<any>) => {
       state.preFilterData = action.payload;
@@ -100,7 +100,7 @@ const listingSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchFilters.fulfilled, (state: IListingSlice, action) => {
       state.filterItems = action.payload;
-      setLocalStorage("filterItems", JSON.stringify(action.payload));
+      setLocalStorage(FILTER_ITEMS_KEY, JSON.stringify(action.payload));
       state.loading = false;
     });
     builder.addCase(fetchListings.pending, (state: IListingSlice) => {
@@ -118,46 +118,36 @@ const listingSlice = createSlice({
           state.listings = [];
           return;
         }
-        (size(action.payload.filters) &&
-          has(action.payload.filters, "district")) ||
-        has(action.payload.filters, "city")
-          ? (state.searchLocation = {
-              district: get(action.payload.filters, "district", null),
-              city: get(action.payload.filters, "city", null)
-            })
-          : null;
+
+        if (
+          (size(action.payload.filters) &&
+            has(action.payload.filters, "district")) ||
+          has(action.payload.filters, "city")
+        ) {
+          state.searchLocation = {
+            district: get(action.payload.filters, "district", null),
+            city: get(action.payload.filters, "city", null)
+          };
+        }
         state.listingResultsTitle = action.payload.title;
         state.pagination = action.payload.pagination;
+        // state.listings = [...state.listings, ...action.payload.items];
         state.listings = action.payload.items;
         state.loading = false;
         state.searchClicked = false;
-      }
-    );
-    builder.addCase(
-      fetchListingsByPage.fulfilled,
-      (state: IListingSlice, action: any) => {
-        (size(action.payload.filters) &&
-          has(action.payload.filters, "district")) ||
-        has(action.payload.filters, "city")
-          ? (state.searchLocation = {
-              district: get(action.payload.filters, "district", null),
-              city: get(action.payload.filters, "city", null)
-            })
-          : null;
-        state.pagination = action.payload.pagination;
-        state.listings = [...state.listings, ...action.payload.items];
+        state.listingsLoaded = true;
       }
     );
   }
 });
 export const {
   updateFilterData,
-  updateFilterItems,
   updateBookingDate,
   updatePreFilterData,
   updateBookingGuests,
   updateShowSearchbar,
   updateSearchClicked,
-  updateBookingDestination
+  updateBookingDestination,
+  updateLoading
 } = listingSlice.actions;
 export default listingSlice.reducer;

@@ -16,3 +16,10 @@ export interface Param {
 }
 
 export interface AncestorOrigins {}
+
+export interface ICOUNTRY_IDS {
+  TURKEY: number;
+  CROATIA: number;
+  MONTENEGRO: number;
+  NORTHEAN_CYPRUS: number;
+}

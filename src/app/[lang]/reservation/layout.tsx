@@ -11,6 +11,7 @@ import ReservationSummary from "@/components/atoms/reservationSummary/Reservatio
 import ProgressBar from "@/components/molecules/progressBar/ProgressBar";
 
 import "./Reservation.css";
+import UpdateHeaderButtonsDataHandle from "@/components/atoms/updateHeaderButtonsDataHandle/updateSearchBarDataHandle";
 
 const ReservationLayout = ({ children }: IReservationLayout) => {
   const { creditCard } = useAppSelector((state) => state.paymentReducer);
@@ -28,6 +29,7 @@ const ReservationLayout = ({ children }: IReservationLayout) => {
 
   return (
     <section className="mt-20 lg:mt-28 flex flex-col gap-y-10 lg:gap-y-20 relative px-0 lg:px-10">
+      <UpdateHeaderButtonsDataHandle />
       <Toaster position="top-right" reverseOrder={false} />
       {!isSuccess && (
         <nav className="flex justify-center gap-x-10 lg:gap-x-72 px-4 lg:px-10">

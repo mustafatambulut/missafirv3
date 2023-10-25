@@ -53,16 +53,23 @@ const Drawer = ({ data }: IDrawer) => {
           </div>
           <div className="border-b border-gray-100 pb-5 mb-5 flex flex-col">
             {map(get(data, "userMenuData.footerMenu.body"), (items, key) => (
-              <DropDownLinkMenu className="" items={items} key={key} />
+              <DropDownLinkMenu
+                handleDrawerClose={handleDrawerClose}
+                className=""
+                items={items}
+                key={key}
+              />
             ))}
           </div>
           <div className="w-28 mb-5">
-            <SelectLanguage
-              className="gap-x-2 flex items-center justify-start"
-              variant="light"
-              showIndicator={true}
-              languages={get(data, "languages")}
-            />
+            {get(data, "languages") ? (
+              <SelectLanguage
+                className="gap-x-2 flex items-center justify-start"
+                variant="light"
+                showIndicator={true}
+                languages={get(data, "languages")}
+              />
+            ) : null}
           </div>
           <div className="mt-auto flex flex-col text-gray-500">
             <Menu

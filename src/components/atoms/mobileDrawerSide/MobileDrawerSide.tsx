@@ -1,3 +1,4 @@
+"use client";
 import { includes } from "lodash";
 import classNames from "classnames";
 
@@ -59,9 +60,14 @@ const MobileDrawerSide = (props: IProps) => {
           <div onClick={handleClickBackButton}>
             <ChevronLeft className="fill-gray-500 scale-75" />
           </div>
-          <Typography variant="p2" element="div" className="text-primary mr-2" onClick={handleClickSkipButton}>
-            {t("skip")}
-          </Typography>
+          <div onClick={handleClickSkipButton}>
+            <Typography
+              variant="p2"
+              element="div"
+              className="text-primary mr-2">
+              {t("skip")}
+            </Typography>
+          </div>
         </div>
         <div className={showComponentByActivate(BOOKING_DESTINATION)}>
           <DestinationSelect

@@ -1,9 +1,10 @@
 "use client";
 import { useEffect } from "react";
+import classNames from "classnames";
 import { useTranslations } from "next-intl";
 import { isMobile } from "react-device-detect";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IProps } from "@/components/molecules/searchBar/types";
 import withSearchBar from "@/components/molecules/searchBar/withSearchBar";
 import { updateBookingDate } from "@/redux/features/listingSlice/listingSlice";
@@ -25,9 +26,39 @@ const SearchBar = (props: IProps) => {
   } = props;
   const t = useTranslations();
   const dispatch = useAppDispatch();
-  const { bookingDate, loading, searchClicked } = useAppSelector(
-    (state) => state.listingReducer
+  const bookingDate = useAppSelector(
+    (state) => state.listingReducer.bookingDate
   );
+  const loading = useAppSelector((state) => state.listingReducer.loading);
+  const searchClicked = useAppSelector(
+    (state) => state.listingReducer.searchClicked
+  );
+
+  const btnClass = classNames(
+    "disabled:bg-primary disabled:text-white disabled:cursor-not-allowed ml-3",
+    {
+      "h-10 w-10 p-0 min-h-0 rounded-xl": isInCustomSection,
+      "h-14 w-[72px] lg:w-[5rem] rounded-2xl": !isInCustomSection
+    }
+  );
+
+  const handleChangeDate = (date: any) => dispatch(updateBookingDate(date));
+
+  const contentByIsMobile = () => {
+    if (isMobile || isInCustomSection) {
+      return (isInCustomSection && loading) || searchClicked ? (
+        <span className="loading loading-spinner scale-75" />
+      ) : (
+        <SearchIcon className="fill-white scale-75" />
+      );
+    }
+
+    return (isInCustomSection && loading) || searchClicked ? (
+      <span className="loading loading-spinner" />
+    ) : (
+      <span>{t("search")}</span>
+    );
+  };
 
   useEffect(() => {
     if (typeof document !== "undefined") {
@@ -36,8 +67,6 @@ const SearchBar = (props: IProps) => {
         : document.body.classList.remove("overflow-hidden");
     }
   }, [isDrawerOpen]);
-
-  const handleChangeDate = (date: any) => dispatch(updateBookingDate(date));
 
   return (
     <>
@@ -54,7 +83,6 @@ const SearchBar = (props: IProps) => {
           daySize={48}
           date={bookingDate}
           setDate={handleChangeDate}
-          isInCustomSection={isInCustomSection}
           setSkipButtonVisibility={setSkipButtonVisibility}
         />
       </div>
@@ -66,30 +94,10 @@ const SearchBar = (props: IProps) => {
           />
           <Button
             variant="btn-primary"
-            disabled={(isInCustomSection && loading) || searchClicked}
-            onClick={handleFilterListings}
-            className={`disabled:bg-primary disabled:text-white disabled:cursor-not-allowed ${
-              isInCustomSection
-                ? "h-10 w-10 p-0 min-h-0 rounded-xl"
-                : "h-14 w-[72px] lg:w-[5rem] rounded-2xl"
-            } ml-3`}>
-            {isMobile || isInCustomSection ? (
-              <>
-                {(isInCustomSection && loading) || searchClicked ? (
-                  <span className="loading loading-spinner scale-75"></span>
-                ) : (
-                  <SearchIcon className="fill-white scale-75" />
-                )}
-              </>
-            ) : (
-              <>
-                {(isInCustomSection && loading) || searchClicked ? (
-                  <span className="loading loading-spinner"></span>
-                ) : (
-                  <span>{t("search")}</span>
-                )}
-              </>
-            )}
+            disabled={searchClicked}
+            onClick={() => handleFilterListings()}
+            className={btnClass}>
+            {contentByIsMobile()}
           </Button>
         </div>
       </div>

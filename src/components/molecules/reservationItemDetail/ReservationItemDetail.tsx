@@ -2,6 +2,7 @@ import Card from "@/components/atoms/card/Card";
 import Link from "next/link";
 import { get, map } from "lodash";
 import Image from "next/image";
+import { v4 as uuidv4 } from "uuid";
 import Draggable from "react-draggable";
 
 // todo:badge verisi gelince düzenlenecek
@@ -25,7 +26,7 @@ const ReservationItemDetail = ({
   //isInWishlist,
   isMobileDevice
 }: //handleClickWishlist
-  IReservationItemDetail) => {
+IReservationItemDetail) => {
   // const renderWishlistHeart = () => {
   //   return isInWishlist ? (
   //     <HeartIconFilled className="scale-75" />
@@ -33,22 +34,17 @@ const ReservationItemDetail = ({
   //     <HeartIcon className="scale-75" />
   //   );
   // };
+  const sliderIdentifier = uuidv4();
 
   const CustomNavigation = () => {
     return (
       <>
         <div
-          className={`swiper-button-prev after:hidden reservations-image-${get(
-            reservation,
-            "uuid"
-          )} scale-50 left-0`}>
+          className={`swiper-button-prev after:hidden reservations-image-${sliderIdentifier} scale-50 left-0`}>
           <ChevronLeft />
         </div>
         <div
-          className={`swiper-button-next after:hidden reservations-image-${get(
-            reservation,
-            "uuid"
-          )} scale-50 right-0`}>
+          className={`swiper-button-next after:hidden reservations-image-${sliderIdentifier} scale-50 right-0`}>
           <ChevronRight />
         </div>
       </>
@@ -83,12 +79,13 @@ const ReservationItemDetail = ({
                 <div className="w-40 lg:w-72 h-48 lg:h-64 relative">
                   <Slider
                     customNavigation={<CustomNavigation />}
-                    sliderIdentifier={`reservations-image-${get(
-                      reservation,
-                      "uuid"
-                    )}`}
-                    slidesPerView={1}
-                    spaceBetween={0}
+                    sliderIdentifier={`reservations-image-${sliderIdentifier}`}
+                    desktopSlidesPerView={1}
+                    mobileSlidesPerView={1}
+                    desktopLargeSlidesPerView={1}
+                    desktopLargeSpaceBetween={0}
+                    desktopSpaceBetween={0}
+                    mobileSpaceBetween={0}
                     withPagination={true}>
                     {map(get(reservation, "listing.pictures"), (image, key) => (
                       <div key={key} className="lg:w-72 h-48 lg:h-64">

@@ -10,12 +10,12 @@ import "swiper/css";
 import "./Slider.css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { isMobile } from "react-device-detect";
+import { useState } from "react";
 
 const Slider = ({
   onSwiper,
   initialSlide,
-  spaceBetween,
-  slidesPerView,
   withPagination = false,
   withNavigation = false,
   customNavigation = null,
@@ -24,15 +24,41 @@ const Slider = ({
   sliderContainerClassName = "",
   sliderWrapperClassName = "",
   sliderIdentifier,
-  autoHiddenNavigation = true
+  autoHiddenNavigation = true,
+  mobileSlidesPerView = 1,
+  desktopSlidesPerView = 4,
+  mobileSpaceBetween = 5,
+  desktopSpaceBetween = 10,
+  desktopLargeSlidesPerView = 5,
+  desktopLargeSpaceBetween = 10
 }: ISlider) => {
+  const [showNavigation, setShowNavigation] = useState(false);
   const swiperSlideClass = classNames({
-    "w-auto": slidesPerView === "auto"
+    "w-auto": mobileSlidesPerView === "auto" || desktopSlidesPerView === "auto"
   });
 
+  const breakPoints = {
+    0: {
+      slidesPerView: mobileSlidesPerView,
+      spaceBetween: mobileSpaceBetween
+    },
+    768: {
+      slidesPerView: desktopSlidesPerView,
+      spaceBetween: desktopSpaceBetween
+    },
+    1536: {
+      slidesPerView: desktopLargeSlidesPerView,
+      spaceBetween: desktopLargeSpaceBetween
+    }
+  };
+
   return (
-    <div className={`relative group ${sliderContainerClassName}`}>
+    <div
+      onMouseEnter={() => setShowNavigation(true)}
+      onMouseLeave={() => setShowNavigation(false)}
+      className={`relative ${sliderContainerClassName}`}>
       <Swiper
+        breakpoints={breakPoints}
         onSwiper={onSwiper}
         watchSlidesProgress
         initialSlide={initialSlide}
@@ -45,8 +71,8 @@ const Slider = ({
           "--swiper-pagination-bullet-inactive-opacity": "1"
         }}
         className={`${sliderWrapperClassName} ${sliderIdentifier}`}
-        spaceBetween={spaceBetween}
-        slidesPerView={slidesPerView}
+        spaceBetween={isMobile ? mobileSpaceBetween : desktopSpaceBetween}
+        slidesPerView={isMobile ? mobileSlidesPerView : desktopSlidesPerView}
         modules={[Navigation, Pagination, Keyboard]}
         {...(customPagination
           ? {
@@ -74,7 +100,9 @@ const Slider = ({
         {isArray(children)
           ? map(children, (item, key) => {
               return (
-                <SwiperSlide key={key} className={swiperSlideClass}>
+                <SwiperSlide
+                  key={key}
+                  className={`relative ${swiperSlideClass}`}>
                   {item}
                 </SwiperSlide>
               );
@@ -84,7 +112,11 @@ const Slider = ({
       {customNavigation && (
         <div
           className={`${
-            autoHiddenNavigation ? "hidden lg:group-hover:block" : "lg:block"
+            autoHiddenNavigation
+              ? showNavigation
+                ? "lg:block"
+                : "hidden"
+              : "lg:block"
           }`}>
           {customNavigation}
         </div>

@@ -1,0 +1,731 @@
+{
+  "data": {
+    "id": 6,
+    "attributes": {
+      "createdAt": "2023-09-05T12:34:00.457Z",
+      "updatedAt": "2023-10-23T11:29:10.404Z",
+      "publishedAt": "2023-09-05T12:40:35.722Z",
+      "locale": "en",
+      "header": {
+        "id": 6,
+        "logo": {
+          "id": 6,
+          "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/missafir_logo_white_cd2032209a.svg",
+          "link": "/"
+        },
+        "userMenu": {
+          "id": 4,
+          "image": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1182.jpg",
+          "user_links": { "data": [] }
+        },
+        "buttons": [
+          {
+            "id": 15,
+            "label": "Rent my home",
+            "image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/heart-icon.svg",
+            "link": "/en/get-an-offer"
+          }
+        ],
+        "languageMenu": {
+          "id": 4,
+          "languages": {
+            "data": [
+              {
+                "id": 4,
+                "attributes": {
+                  "image": "https://ownerv2.missafir.com/assets/flags/english.svg",
+                  "label": "EN",
+                  "link": "https://www.missafir.com/en",
+                  "value": "en",
+                  "createdAt": "2023-09-05T11:24:55.131Z",
+                  "updatedAt": "2023-09-05T11:24:55.978Z",
+                  "publishedAt": "2023-09-05T11:24:55.972Z"
+                }
+              },
+              {
+                "id": 6,
+                "attributes": {
+                  "image": "https://www.missafir.com/wp-content/uploads/2023/06/flag-turkey.svg",
+                  "label": "TR",
+                  "link": "https://www.missafir.com/tr",
+                  "value": "tr",
+                  "createdAt": "2023-09-05T11:25:39.454Z",
+                  "updatedAt": "2023-09-05T11:25:41.675Z",
+                  "publishedAt": "2023-09-05T11:25:41.669Z"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "body": [
+        {
+          "id": 4,
+          "__component": "sections.hero",
+          "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/hero1440x780_5b4e468c49.jpg",
+          "title": "Your home is everywhere"
+        },
+        {
+          "id": 4,
+          "__component": "sections.benefit-guest",
+          "header": {
+            "id": 57,
+            "title": "Earum quidem recusandae odit explicabo culpa cupiditate.",
+            "description": null,
+            "image": null
+          }
+        },
+        {
+          "id": 4,
+          "__component": "sections.cities",
+          "header": {
+            "id": 345342,
+            "title": "Best locations for villa and house rentals",
+            "description": "Experience the charm of local living with our selection of furnished apartments, luxury villas with pools, and vacation rentals. Discover these must-visit places for a unforgettable stay.",
+            "image": null
+          },
+          "cities": {
+            "data": [
+              {
+                "id": 10,
+                "attributes": {
+                  "title": "Antalya",
+                  "image": "https://missafir.s3.eu-central-1.amazonaws.com/missafir/media/cache/email_image/041f693dedfa58b1a1a20a0c59b067f41591fc7f06144695e34db2f62e0cc318fe01efe296b6a1d2d82d2516fbbe5d8f9b3e4cf387e5b97cfc889806e0563dcc.jpg",
+                  "description": "Antalya, where golden sunsets kiss the turquoise coast, is a symphony of ancient history and modern charm. Discover Antalya with furnished apartments, villas,  bungalows, and vacation rentals. ",
+                  "createdAt": "2023-09-05T11:23:34.062Z",
+                  "updatedAt": "2023-10-01T13:43:27.303Z",
+                  "publishedAt": "2023-09-05T11:23:34.940Z"
+                }
+              },
+              {
+                "id": 18,
+                "attributes": {
+                  "title": "Istanbul",
+                  "image": "https://missafir.s3.eu-central-1.amazonaws.com/missafir/media/cache/email_image/23670fdf80474fe0b9bf4a4c75ed8e84d3e1dab36078e5288114d2986c5a8489ad02c466ccaabfee65744130c61aac4506ed1666273cd33068dc47052aa88a4a.jpg",
+                  "description": "Istanbul, where the Bosphorus meets a blend of cultures, combines age-old traditions with modern allure. Discover it with furnished flats boasting Bosphorus views and diverse short-term rentals.",
+                  "createdAt": "2023-09-05T11:23:52.236Z",
+                  "updatedAt": "2023-10-01T13:42:57.809Z",
+                  "publishedAt": "2023-09-05T11:23:53.034Z"
+                }
+              },
+              {
+                "id": 12,
+                "attributes": {
+                  "title": "Croatia",
+                  "image": "https://avatars.githubusercontent.com/u/22642102",
+                  "description": "Croatia, where the Adriatic Sea meets centuries of culture, showcases luxury seafront villas. Dive deeper into its allure with villas adorned with pools and premium, enchanting amenities.",
+                  "createdAt": "2023-09-05T11:24:11.003Z",
+                  "updatedAt": "2023-09-20T11:45:18.061Z",
+                  "publishedAt": "2023-09-05T11:24:11.718Z"
+                }
+              },
+              {
+                "id": 16,
+                "attributes": {
+                  "title": "Montenegro",
+                  "image": "https://avatars.githubusercontent.com/u/92165733",
+                  "description": "Montenegro, a gem on the Adriatic Sea, offers luxurious villa rentals amidst scenic beauty. Experience a premium stay in furnished and vacation rentals featuring pools and seafront views.",
+                  "createdAt": "2023-09-22T07:08:16.954Z",
+                  "updatedAt": "2023-09-22T07:25:33.795Z",
+                  "publishedAt": "2023-09-22T07:25:33.791Z"
+                }
+              },
+              {
+                "id": 13,
+                "attributes": {
+                  "title": "Cyprus",
+                  "image": "https://avatars.githubusercontent.com/u/92165733",
+                  "description": "Nestled in the Mediterranean, Cyprus offers an array of luxurious accommodations to suit every taste. Choose from elegant luxury villas, sea-view apartments, and seafront villas.",
+                  "createdAt": "2023-09-22T07:15:23.914Z",
+                  "updatedAt": "2023-09-22T07:25:16.124Z",
+                  "publishedAt": "2023-09-22T07:25:16.114Z"
+                }
+              },
+              {
+                "id": 15,
+                "attributes": {
+                  "title": "Izmir",
+                  "image": "https://missafir.s3.eu-central-1.amazonaws.com/missafir/media/cache/email_image/6482c553d8543a7253048b17fa951f8516fdcce7ec5b5b22e38abb1c87e7298fcfc68f7479f7dd03d8683596a2f4f3a4ea72957ec205fe3b7d74ef8faa337c00.jpg",
+                  "description": "Izmir, a vibrant city on Turkey's Aegean coast, welcomes you. Choose from villa rentals for a luxurious stay, for daily rentals for short-term escapes, or to settle into the comfort of furnished rentals.",
+                  "createdAt": "2023-09-22T07:13:31.749Z",
+                  "updatedAt": "2023-10-01T13:54:44.499Z",
+                  "publishedAt": "2023-09-22T07:25:29.577Z"
+                }
+              },
+              {
+                "id": 14,
+                "attributes": {
+                  "title": "Fethiye",
+                  "image": "https://missafir.s3.eu-central-1.amazonaws.com/missafir/media/cache/email_image/89a7e85b75801f9ff5ecbfd0e6e0d7fc0cf19c1caf507b69add4ed74dab14a6933a897e6aeeb4300b7afbb9a641fb724b1efdc39f9e02e7ad402b65aeccaace2.jpg",
+                  "description": "Fethiye, a Turkish haven on the Aegean Sea, awaits you. Pick from villa rentals for a lavish holiday, experience coastal elegance in seafront villas, or opt for daily rentals for quick getaways.",
+                  "createdAt": "2023-09-22T07:17:20.620Z",
+                  "updatedAt": "2023-10-01T13:44:09.010Z",
+                  "publishedAt": "2023-09-22T07:25:19.167Z"
+                }
+              },
+              {
+                "id": 11,
+                "attributes": {
+                  "title": "Bodrum",
+                  "image": "https://missafir.s3.eu-central-1.amazonaws.com/missafir/media/cache/email_image/b7a4087566c80ab943f8fc31b4ec6266fb70decde48ef6373474725873d48c4091d0a6ae2dcc1167337426ea60657c57d087ae40c12be6df855edf5ae81f1402.jpg",
+                  "description": "Bodrum is a picturesque locale on Turkey's Aegean coast. Delight in luxury with villa rentals, take advantage of flexibility with daily rentals or enjoy a more extended retreat with vacation rentals.",
+                  "createdAt": "2023-09-22T07:19:14.157Z",
+                  "updatedAt": "2023-10-01T13:43:41.111Z",
+                  "publishedAt": "2023-09-22T07:25:08.659Z"
+                }
+              },
+              {
+                "id": 17,
+                "attributes": {
+                  "title": "Sapanca",
+                  "image": "https://missafir.s3.eu-central-1.amazonaws.com/missafir/media/cache/email_image/bf9dc03f8c39f4ccc3f4dda9d088e97f17c3e75f93e2e6f50230d84c212253688df894bc123a58cb15213079335c8bcb0e2a4c411a51518288b53b9eef23189a.jpg",
+                  "description": "Nestled by a serene lake, Sapanca provides a variety of stay options. Opt for vacation rentals for longer stays, villas with pools for luxury, or lakeside spots for peaceful retreats.",
+                  "createdAt": "2023-09-22T07:22:06.656Z",
+                  "updatedAt": "2023-10-01T13:44:34.009Z",
+                  "publishedAt": "2023-09-22T07:25:36.520Z"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 4,
+          "__component": "sections.benefit-owner",
+          "header": {
+            "id": 58,
+            "title": "Maximize your rental income",
+            "description": "With our mid and short-term rentals model, you can earn more compared to long-term rentals. Discover our technology-supported property management system today.",
+            "image": null
+          },
+          "body": [
+            {
+              "id": 10,
+              "image": "https://svgshare.com/i/vHM.svg",
+              "title": "Tech-driven professional property management",
+              "description": "One of the leading property management companies, Missafir, offers tech-based solutions to make your property ready for short term rentals.  "
+            },
+            {
+              "id": 11,
+              "image": "https://svgshare.com/i/vHM.svg",
+              "title": " Premium interior design and exquisite photography",
+              "description": "Photos and interior design are crucial in the short-term and vacation rental industry. We offer professional property managers, designers, and photographers. "
+            },
+            {
+              "id": 12,
+              "image": "https://svgshare.com/i/vHM.svg",
+              "title": "Profile management on 50+ short term rental platforms",
+              "description": "We offer property management software for the world's most popular home rental websites like Airbnb, Booking, and Agoda, expanding its reach to more guests for short-term rentals."
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "__component": "sections.premium",
+          "header": {
+            "id": 59,
+            "title": "Get 10% off your first rental!",
+            "description": null,
+            "image": null
+          },
+          "body": {
+            "id": 4,
+            "title": "Make your first reservation as a Missafir member with a 10% discount, and have an unforgettable experience in our beautifully furnished rental homes!",
+            "image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/banner-bg.svg"
+          },
+          "footer": {
+            "id": 16,
+            "label": "Be a member",
+            "image": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/821.jpg",
+            "link": "https://web-frontend-dev.missafir.com/login"
+          }
+        },
+        {
+          "id": 12,
+          "__component": "sections.banner",
+          "bannerHeader": null,
+          "bannerBody": null,
+          "bannerFooter": null
+        },
+        {
+          "id": 4,
+          "__component": "sections.potential-income",
+          "header": {
+            "id": 60,
+            "title": "Vero repudiandae quo est quas hic corporis optio.",
+            "description": "Molestias repudiandae quisquam deleniti iusto consectetur. Vero delectus debitis impedit. Deserunt deserunt nesciunt.",
+            "image": null
+          },
+          "body": {
+            "id": 65,
+            "title": "Repudiandae eaque exercitationem labore.",
+            "description": "Ipsam dolore autem doloremque dolorum culpa doloribus sint. Perferendis consectetur ducimus ut dolorem repudiandae rerum. Molestiae quisquam optio sit asperiores dolore molestiae repudiandae earum facilis.",
+            "image": null
+          },
+          "footer": {
+            "id": 66,
+            "title": "Autem deleniti nemo perspiciatis debitis quisquam.",
+            "description": "Nam sapiente temporibus iste necessitatibus. Quisquam rerum cupiditate laborum voluptatem maxime quos ad veniam molestiae. Omnis corporis necessitatibus officia quibusdam illum.",
+            "image": null
+          }
+        },
+        {
+          "id": 4,
+          "__component": "sections.summary",
+          "header": {
+            "id": 61,
+            "title": "Beatae tempora pariatur quam unde.",
+            "description": "Autem explicabo veritatis autem consequatur maiores quas facilis incidunt. Quos iusto inventore explicabo esse rerum placeat excepturi. Rerum atque optio odio ut repudiandae quos optio dolorum.",
+            "image": null
+          },
+          "body": {
+            "id": 5,
+            "description": "Aliquam similique voluptatum quam beatae expedita quidem quo iusto quia. Temporibus vero placeat eligendi ut ipsa dignissimos assumenda exercitationem. Eos dicta culpa.",
+            "title": "Minima provident porro esse."
+          }
+        },
+        {
+          "id": 4,
+          "__component": "sections.testemonial",
+          "header": {
+            "id": 62,
+            "title": "See reviews for Missafir",
+            "description": "We work tirelessly to ensure the happiness of our homeowners and guests. We proudly bear the responsibility of being the leading property management company.",
+            "image": null
+          },
+          "body": [
+            {
+              "id": 10,
+              "header_label": " Mr. Mehmet Ali",
+              "header_image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/communicate-baloon.svg",
+              "info": "When we looked into Missafir's infrastructure, we were very impressed. Naturally, we chose Missafir. We wholeheartedly recommend it without hesitation. Statistically speaking, the occupancy rate is excellent.",
+              "title": " Mr. Mehmet Ali",
+              "description": "Porro quos temporibus pariatur molestias tempore ducimus et officia quibusdam. In iste hic omnis. Dolores sequi tempore placeat quaerat dolores laborum voluptate maiores impedit.",
+              "footer_desc": " Mr. Mehmet Ali"
+            },
+            {
+              "id": 11,
+              "header_label": "Mrs. Handan",
+              "header_image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/communicate-baloon.svg",
+              "info": "I can close reservations and block for myself any time I want, allowing me to stay at my rental property. Every time I visit, I find my home spotless. If I have even the smallest request, it's resolved very quickly.",
+              "title": "Eveniet suscipit a non.",
+              "description": "Ab dolorem exercitationem cupiditate maiores asperiores. Earum hic numquam dolor voluptatum. Suscipit adipisci temporibus.",
+              "footer_desc": "Mrs. Handan"
+            },
+            {
+              "id": 12,
+              "header_label": "Mr. Hakan",
+              "header_image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/communicate-baloon.svg",
+              "info": "I'm already inclined to work with a corporate firm. I chose Missafir based on a friend's recommendation and the advertisements I saw on social media.",
+              "title": "Aut non in.",
+              "description": "Assumenda possimus error alias culpa consequuntur veniam. Maxime animi deleniti ipsum quae. Sapiente facilis exercitationem excepturi nihil optio quis.",
+              "footer_desc": "Mr. Hakan"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "__component": "sections.tech-experience",
+          "header": {
+            "id": 63,
+            "title": "MissafirTech: PropTech for Property Management ",
+            "description": "Take a look at the new applications by the Tech team of Missafir, Turkey's first and largest property management brand.",
+            "image": null
+          },
+          "body": [
+            {
+              "id": 10,
+              "title": "Owner App©",
+              "sliders": {
+                "data": [
+                  {
+                    "id": 16,
+                    "attributes": {
+                      "image": "https://svgshare.com/i/vBc.svg",
+                      "description": "Missafir hosts can access real-time income, expense, and reservation information related to their homes, both from their desktop and mobile devices.\n\nOwner App (iOS)\nOwner App (Android)",
+                      "createdAt": "2023-09-05T11:28:38.881Z",
+                      "updatedAt": "2023-09-22T08:10:46.473Z",
+                      "publishedAt": "2023-09-05T11:28:39.745Z"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": 11,
+              "title": "Ge App©",
+              "sliders": {
+                "data": [
+                  {
+                    "id": 17,
+                    "attributes": {
+                      "image": "https://svgshare.com/i/vBc.svg",
+                      "description": "Our guests can access all information related to their reservations through our mobile app, and can reach us 24/7 for any issues and requests. ",
+                      "createdAt": "2023-09-05T11:28:54.835Z",
+                      "updatedAt": "2023-09-22T08:12:34.126Z",
+                      "publishedAt": "2023-09-05T11:28:55.542Z"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": 12,
+              "title": "MISSA©: Property Management System",
+              "sliders": {
+                "data": [
+                  {
+                    "id": 18,
+                    "attributes": {
+                      "image": "https://img.freepik.com/premium-photo/girl-is-taking-photo-with-camera_727939-5369.jpg",
+                      "description": "Thanks to our AI-supported property management system MISSA©, we manage listings on 50+ global platforms and home rental applications.\n\nListing management\nDynamic pricing\nPersonalized experience\nCommunication support",
+                      "createdAt": "2023-09-05T11:29:06.849Z",
+                      "updatedAt": "2023-09-22T08:13:01.029Z",
+                      "publishedAt": "2023-09-05T11:29:07.554Z"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "__component": "sections.partners",
+          "header": {
+            "id": 64,
+            "title": "Our Partnerships in Short Term Rentals",
+            "description": "With our partnerships around the world, we provide digital visibility for your property on 50+ popular global platforms specializing in short term rentals and vacation rentals. ",
+            "image": null
+          },
+          "body": [
+            {
+              "id": 10,
+              "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/airbnb_d42f678bec.svg",
+              "link": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/airbnb_d42f678bec.svg",
+              "label": "utilise"
+            },
+            {
+              "id": 11,
+              "image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/booking.svg",
+              "link": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/booking.svg",
+              "label": "rack"
+            },
+            {
+              "id": 12,
+              "image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/expedia.svg",
+              "link": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/expedia.svg",
+              "label": "recap"
+            },
+            {
+              "id": 13,
+              "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/agoda_c36bd0da1c.svg",
+              "link": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/agoda_c36bd0da1c.svg",
+              "label": null
+            },
+            {
+              "id": 14,
+              "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/vrbo_63a5609614.svg",
+              "link": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/vrbo_63a5609614.svg",
+              "label": null
+            },
+            {
+              "id": 15,
+              "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/marriott_437a7ba17d.svg",
+              "link": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/marriott_437a7ba17d.svg",
+              "label": null
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "__component": "sections.info",
+          "infoContents": [
+            {
+              "id": 3,
+              "title": "Property Management for Short Term Rentals and Vacation Rentals",
+              "description": "We specialize in providing top-notch customer service for landlords and renters alike. If you are searching for [property management](https://www.missafir.com/en/property-management-turkey/) tools for [short term rentals](https://www.missafir.com/en/short-term-rental-turkey/), house rental websites, or luxury villa rentals, you have come to the right place.\n\n## Short Term Rental Companies & Short Term Rental Sites\nWhen finding temporary accommodations, short-term rental companies and short-term rental sites have taken the world by storm. Offering a home-away-from-home experience, they have carved a niche in the hospitality industry. Let's delve deep into the intricate world of these leading platforms.\n## Understanding the Concept of Short Term Rentals\nShort-term rentals refer to fully furnished self-contained apartments or homes rented out for short periods. Depending on the tenant's needs, the period can range from one week to a few months. These rentals offer privacy, flexibility, and convenience, making them popular among travelers, businesspersons, and even locals needing temporary lodging.\n## Players in the Market\nCertain short-term rental companies have led this industry, setting the standard for others to follow. Some notable names include:\n- **[Airbnb](https://www.missafir.com/en/airbnb/)**: A trailblazer in the short-term rental industry, Airbnb offers over 7 million accommodations in more than 220 countries worldwide.\n- **Booking**: Initially focused on hotel bookings, this platform expanded its portfolio to include short-term rentals.\nFor short-term rental villas and houses, you can choose Missafir to increase the visibility of your property across all popular brands in the market. \n## Discover the Ease of Property Management\nOur focus is not only on daily house rentals but also on furnished apartment rentals. With our management tools, property management has never been easier. We handle everything from the initial guest and tenant screening process to dealing with day-to-day work orders.\n## Investment Property: Our Priority\nWe know how important your investment property is to you. We offer various services, including lease management and rental listing. With our platform, you can calculate “how much rent income can I gain?” thanks to our rent calculator. \n### Our Unique Features\nOur unique features include a dedicated tenant portal app and property management system, where tenants can send requests to the property management team. This level of transparency and customer service sets us apart from other short-term rental companies.\n## Real Estate Brokers and Property Managers\nAre you a real estate broker? Do you struggle with villa [vacation rentals](https://www.missafir.com/en/turkey-vacation-rental/)? Hiring a [property management company](https://www.missafir.com/en/property-management-company/) and property managers from our team will help ease your burdens. We guarantee quality, and our competitive management fee offers the best value for your money."
+            }
+          ]
+        }
+      ],
+      "footer": {
+        "id": 4,
+        "header": {
+          "id": 4,
+          "image": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/missafir_logo.svg",
+          "description": "Turkey\u2019s leading brand in professional property management and short-term rentals.",
+          "buttonImage": "https://missafir-dev.s3.eu-central-1.amazonaws.com/missafir/missafirv3/heart-icon.svg",
+          "buttonLabel": "Rent my home",
+          "buttonLink": "/en/get-an-offer"
+        },
+        "body": [
+          {
+            "id": 4,
+            "title": "MISSAFIR",
+            "menu_links": {
+              "data": [
+                {
+                  "id": 27,
+                  "attributes": {
+                    "label": "For Owners",
+                    "link": "/en/get-an-offer",
+                    "createdAt": "2023-09-28T07:19:42.098Z",
+                    "updatedAt": "2023-09-29T14:52:59.004Z",
+                    "publishedAt": "2023-09-28T07:19:43.192Z"
+                  }
+                },
+                {
+                  "id": 26,
+                  "attributes": {
+                    "label": "For Guests",
+                    "link": "/en/list",
+                    "createdAt": "2023-09-28T07:19:25.885Z",
+                    "updatedAt": "2023-09-29T14:52:36.808Z",
+                    "publishedAt": "2023-09-28T07:19:27.185Z"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": 6,
+            "title": "DESTINATIONS",
+            "menu_links": {
+              "data": [
+                {
+                  "id": 28,
+                  "attributes": {
+                    "label": "Antalya",
+                    "link": "/en/antalya",
+                    "createdAt": "2023-09-28T07:20:27.905Z",
+                    "updatedAt": "2023-09-28T08:23:01.113Z",
+                    "publishedAt": "2023-09-28T07:20:29.092Z"
+                  }
+                },
+                {
+                  "id": 29,
+                  "attributes": {
+                    "label": "Istanbul",
+                    "link": "/en/istanbul",
+                    "createdAt": "2023-09-28T07:20:39.296Z",
+                    "updatedAt": "2023-09-29T14:54:01.205Z",
+                    "publishedAt": "2023-09-28T07:20:40.388Z"
+                  }
+                },
+                {
+                  "id": 30,
+                  "attributes": {
+                    "label": "Croatia",
+                    "link": "/en/house-for-rent/croatia",
+                    "createdAt": "2023-09-28T07:21:02.702Z",
+                    "updatedAt": "2023-09-29T14:54:08.297Z",
+                    "publishedAt": "2023-09-28T07:21:04.000Z"
+                  }
+                },
+                {
+                  "id": 31,
+                  "attributes": {
+                    "label": "Montenegro",
+                    "link": "/en/house-for-rent/montenegro",
+                    "createdAt": "2023-09-28T07:21:10.597Z",
+                    "updatedAt": "2023-09-29T14:54:16.510Z",
+                    "publishedAt": "2023-09-28T07:21:11.691Z"
+                  }
+                },
+                {
+                  "id": 32,
+                  "attributes": {
+                    "label": "Bodrum",
+                    "link": "/en/mugla/bodrum",
+                    "createdAt": "2023-09-28T07:21:27.285Z",
+                    "updatedAt": "2023-09-29T14:54:23.124Z",
+                    "publishedAt": "2023-09-28T07:21:28.487Z"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": 5,
+            "title": "SERVICES",
+            "menu_links": {
+              "data": [
+                {
+                  "id": 36,
+                  "attributes": {
+                    "label": "Property Management",
+                    "link": "/en/our-packages",
+                    "createdAt": "2023-09-28T07:25:14.391Z",
+                    "updatedAt": "2023-09-29T14:54:58.702Z",
+                    "publishedAt": "2023-09-28T07:25:15.406Z"
+                  }
+                },
+                {
+                  "id": 33,
+                  "attributes": {
+                    "label": "MissafirTech",
+                    "link": "https://missafir.io",
+                    "createdAt": "2023-09-28T07:22:35.119Z",
+                    "updatedAt": "2023-09-29T14:54:30.122Z",
+                    "publishedAt": "2023-09-28T07:22:36.295Z"
+                  }
+                },
+                {
+                  "id": 34,
+                  "attributes": {
+                    "label": "Short Term Rentals",
+                    "link": "https://missafir.design",
+                    "createdAt": "2023-09-28T07:22:49.017Z",
+                    "updatedAt": "2023-10-04T10:57:21.215Z",
+                    "publishedAt": "2023-09-28T07:22:49.992Z"
+                  }
+                },
+                {
+                  "id": 15,
+                  "attributes": {
+                    "label": "Referral program",
+                    "link": "/en/referral-program",
+                    "createdAt": "2023-09-05T11:28:20.759Z",
+                    "updatedAt": "2023-09-29T14:50:39.804Z",
+                    "publishedAt": "2023-09-05T11:28:21.472Z"
+                  }
+                },
+                {
+                  "id": 52,
+                  "attributes": {
+                    "label": "Advisor",
+                    "link": "https://advisor.missafir.com",
+                    "createdAt": "2023-09-28T08:21:31.005Z",
+                    "updatedAt": "2023-09-28T08:22:10.516Z",
+                    "publishedAt": "2023-09-28T08:21:36.608Z"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": 7,
+            "title": "COMPANY",
+            "menu_links": {
+              "data": [
+                {
+                  "id": 16,
+                  "attributes": {
+                    "label": "Meet the Team",
+                    "link": "/en/about-us",
+                    "createdAt": "2023-09-05T11:27:49.741Z",
+                    "updatedAt": "2023-09-29T14:50:36.332Z",
+                    "publishedAt": "2023-09-05T11:27:50.572Z"
+                  }
+                },
+                {
+                  "id": 37,
+                  "attributes": {
+                    "label": "Life at Missafir",
+                    "link": "/en/alive-with-missafir",
+                    "createdAt": "2023-09-28T07:27:11.998Z",
+                    "updatedAt": "2023-09-29T14:55:06.794Z",
+                    "publishedAt": "2023-09-28T07:27:12.912Z"
+                  }
+                },
+                {
+                  "id": 38,
+                  "attributes": {
+                    "label": "Sustainability",
+                    "link": "/en/sustainability",
+                    "createdAt": "2023-09-28T07:27:36.202Z",
+                    "updatedAt": "2023-09-29T14:55:15.116Z",
+                    "publishedAt": "2023-09-28T07:27:37.104Z"
+                  }
+                },
+                {
+                  "id": 25,
+                  "attributes": {
+                    "label": "Blog",
+                    "link": "https://missafir.com/en/blog",
+                    "createdAt": "2023-09-22T11:42:57.876Z",
+                    "updatedAt": "2023-09-23T10:12:29.080Z",
+                    "publishedAt": "2023-09-22T11:43:26.790Z"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": 8,
+            "title": "SUPPORT",
+            "menu_links": {
+              "data": [
+                {
+                  "id": 17,
+                  "attributes": {
+                    "label": "Contact",
+                    "link": "/en/contact",
+                    "createdAt": "2023-09-22T11:32:45.820Z",
+                    "updatedAt": "2023-09-29T14:51:16.495Z",
+                    "publishedAt": "2023-09-22T11:43:24.697Z"
+                  }
+                },
+                {
+                  "id": 23,
+                  "attributes": {
+                    "label": "FAQ",
+                    "link": "/en/faq",
+                    "createdAt": "2023-09-22T11:43:16.171Z",
+                    "updatedAt": "2023-09-23T10:08:42.890Z",
+                    "publishedAt": "2023-09-22T11:43:22.278Z"
+                  }
+                },
+                {
+                  "id": 22,
+                  "attributes": {
+                    "label": "Privacy Policy",
+                    "link": "/en/privacy-policy",
+                    "createdAt": "2023-09-22T13:57:45.541Z",
+                    "updatedAt": "2023-09-28T08:07:48.596Z",
+                    "publishedAt": "2023-09-22T13:57:46.414Z"
+                  }
+                },
+                {
+                  "id": 23,
+                  "attributes": {
+                    "label": "KVKK",
+                    "link": "/en/kvkk-aydinlatma-metni",
+                    "createdAt": "2023-09-22T13:57:45.541Z",
+                    "updatedAt": "2023-09-28T08:07:48.596Z",
+                    "publishedAt": "2023-09-22T13:57:46.414Z"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "footer": { "id": 1, "footer_links": { "data": [] } }
+      },
+      "footerBrand": {
+        "id": 4,
+        "header": {
+          "id": 67,
+          "title": "©2023 MSFR Technology and Consulting Inc. ",
+          "description": "All rights reserved.",
+          "image": null
+        },
+        "body": { "id": 4, "brand_links": { "data": [] } }
+      },
+      "localizations": {
+        "data": [
+          {
+            "id": 5,
+            "attributes": {
+              "createdAt": "2023-09-22T11:14:38.258Z",
+              "updatedAt": "2023-10-23T11:29:42.895Z",
+              "publishedAt": "2023-09-22T11:16:56.722Z",
+              "locale": "tr"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "meta": {}
+}

@@ -1,4 +1,9 @@
-import ReservationList from "@/components/molecules/reservationList/ReservationList";
+import dynamic from "next/dynamic";
+
+const ReservationList = dynamic(
+  () => import("@/components/molecules/reservationList/ReservationList"),
+  { ssr: false }
+);
 
 const Reservations = () => {
   return <ReservationList />;

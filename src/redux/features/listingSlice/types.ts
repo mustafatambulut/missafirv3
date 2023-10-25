@@ -17,6 +17,7 @@ export interface IListingSlice {
   preFilterData: any;
   bookingDestination: any;
   bookingDate: IBookingDate;
+  listingsLoaded: boolean;
 }
 
 export interface IListingProps {

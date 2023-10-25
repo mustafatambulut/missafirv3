@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
+import find from "lodash/find";
+import get from "lodash/get";
+import head from "lodash/head";
+import forEach from "lodash/forEach";
+import isArray from "lodash/isArray";
 import { useSelector } from "react-redux";
-import { find, forEach, get, head, isArray } from "lodash";
 
 const useFetchData = (sections: string | [], component?: string) => {
   const [data, setData] = useState(null);

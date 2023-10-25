@@ -1,11 +1,16 @@
 "use client";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import Link from "next/link";
+import get from "lodash/get";
+import has from "lodash/has";
+import map from "lodash/map";
+import lowerCase from "lodash/lowerCase";
+import { v4 as uuidv4 } from "uuid";
 import { useTranslations } from "next-intl";
-import { get, has, lowerCase, map } from "lodash";
 
-import { useAppSelector } from "@/redux/hooks";
-import { addSuffix, getCurrentLang } from "@/utils/helper";
+import useFilter from "@/app/hooks/useFilter";
+import { useSearchParams } from "next/navigation";
+import { addSuffix, queryStringForClientSide } from "@/utils/helper";
 import { IListing } from "@/components/molecules/listingListItem/types";
 
 import Typography from "@/components/atoms/typography/Typography";
@@ -15,40 +20,15 @@ import ChevronLeft from "../../../../public/images/chevron_left.svg";
 import CloseIcon from "../../../../public/images/variants/close.svg";
 import ChevronRight from "../../../../public/images/chevron_right.svg";
 
-const ListingListItem = ({
-  listing,
-  filterData,
-  inListingResults = false
-}: IListing) => {
+const ListingListItem = ({ lang, listing }: IListing) => {
   const t = useTranslations();
-  const suffix = addSuffix(getCurrentLang());
+  const suffix = addSuffix(lang);
+  const { replaceValue } = useFilter();
+  const searchParams = useSearchParams();
+  // eslint-disable-next-line no-unused-vars
   const [isFav, setIsFav] = useState<boolean>(false);
   const [showBreakdown, setShowBreakdown] = useState<boolean>(false);
-  const { bookingDate } = useAppSelector((state) => state.listingReducer);
-
-  const generateLink = () => {
-    let uri = `/${getCurrentLang()}/${get(listing, "slug")}-${suffix}`;
-
-    const checkIn = get(bookingDate, "startDate");
-    const checkOut = get(bookingDate, "endDate");
-
-    if (inListingResults) {
-      if (checkIn && checkOut) {
-        return `${uri}?check_in=${checkIn.format(
-          "YYYY-MM-DD"
-        )}&check_out=${checkOut.format("YYYY-MM-DD")}`;
-      } else if (get(filterData, "check_in") && get(filterData, "check_out")) {
-        return `${uri}?check_in=${get(filterData, "check_in")}&check_out=${get(
-          filterData,
-          "check_out"
-        )} `;
-      } else {
-        return uri;
-      }
-    } else {
-      return uri;
-    }
-  };
+  const sliderIdentifier = uuidv4();
 
   const toggleBreakdown = (e) => {
     e.preventDefault();
@@ -87,6 +67,7 @@ const ListingListItem = ({
       })}
     </div>
   );
+
   const renderPrice = (price) => {
     return (
       <div className="flex flex-col items-start justify-end leading-7 h-[4.3rem]">
@@ -159,43 +140,44 @@ const ListingListItem = ({
       <>
         <div
           onClick={(e) => e.stopPropagation()}
-          className={`swiper-button-prev after:hidden listing-images-${get(
-            listing,
-            "slug"
-          )} scale-50 left-0`}>
+          className={`swiper-button-prev after:hidden listing-images-${sliderIdentifier} scale-50 left-0`}>
           <ChevronLeft />
         </div>
         <div
           onClick={(e) => e.stopPropagation()}
-          className={`swiper-button-next after:hidden listing-images-${get(
-            listing,
-            "slug"
-          )} scale-50 right-0`}>
+          className={`swiper-button-next after:hidden listing-images-${sliderIdentifier} scale-50 right-0`}>
           <ChevronRight />
         </div>
       </>
     );
   };
 
-  useEffect(() => {
-    //todo: favoriye ekleme işlemi gelecek
-  }, [isFav]);
+  //todo: favoriye ekleme işlemi gelecek
+
   return (
-    <Link href={generateLink()}>
+    <Link
+      href={`/${get(listing, "slug")}-${suffix}${replaceValue(
+        queryStringForClientSide(searchParams),
+        "?"
+      )}`}>
       <Card
         setIsFav={setIsFav}
-        className="rounded-2xl shadow-base-blur-5 relative"
+        className="rounded-20 shadow-base-blur-5 relative"
         titleClass="px-4 pt-4 mt-0"
         bodyClass="px-4 pt-0 pb-4"
         title={<TitleComponent />}
         sliderOptions={{
-          slidesPerView: 1,
-          spaceBetween: 0,
+          mobileSlidesPerView: 1,
+          desktopSlidesPerView: 1,
+          desktopLargeSlidesPerView: 1,
+          desktopLargeSpaceBetween: 0,
+          mobileSpaceBetween: 0,
+          desktopSpaceBetween: 0,
           withPagination: true,
-          withNavigation: true,
+          withNavigation: false,
           customNavigation: <CustomNavigation />,
-          sliderIdentifier: `listing-images-${get(listing, "slug")}`,
-          sliderWrapperClassName: "rounded-t-lg w-full h-64 2xl:h-80"
+          sliderIdentifier: `listing-images-${sliderIdentifier}`,
+          sliderWrapperClassName: "rounded-t-20 w-full h-64 2xl:h-80"
         }}
         badgeClass="bg-primary-100 text-primary"
         images={map(get(listing, "pictures"), "path")}>

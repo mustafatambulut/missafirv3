@@ -9,7 +9,7 @@ const InboxButton = ({ variant }:{variant:string}) => {
     "scale-150": !isMobile,
     "scale-125": isMobile,
     "fill-white": variant === "dark",
-    "fill-darkblue-300": variant === "light"
+    "fill-gray-800": variant === "light"
   });
 
   return (

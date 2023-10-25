@@ -37,9 +37,13 @@ const ReservationDetail = ({ reservationId }: IReservationDetail) => {
       <>
         <Slider
           sliderIdentifier="reservation-detail"
-          slidesPerView={isMobile ? 1 : 2}
           withPagination={isMobile}
-          spaceBetween={10}>
+          desktopSlidesPerView={2}
+          mobileSlidesPerView={1}
+          desktopLargeSlidesPerView={2}
+          desktopLargeSpaceBetween={10}
+          desktopSpaceBetween={10}
+          mobileSpaceBetween={10}>
           {map(get(reservation, "listing.pictures"), (image, key) => {
             return (
               <div className="w-full h-60" key={key}>

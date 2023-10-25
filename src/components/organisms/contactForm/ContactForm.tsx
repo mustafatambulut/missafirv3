@@ -29,6 +29,7 @@ const ContactForm = ({ className = "" }: IContactForm) => {
       .max(50, t("email_is_too_long"))
       .required(t("this_field_is_required")),
     phone: Yup.string()
+      .min(11, t("phone_number_is_missing_or_invalid"))
       .matches(phoneRegExp, t("phone_number_is_not_valid"))
       .required(t("this_field_is_required")),
     subject: Yup.string().required(t("this_field_is_required")),
@@ -69,7 +70,7 @@ const ContactForm = ({ className = "" }: IContactForm) => {
         noValidate
         onSubmit={handleSubmit}>
         <Toaster duration={4000} position="top-right" reverseOrder={false} />
-        <div className="flex flex-col lg:w-1/2 gap-y-4">
+        <div className="flex flex-col w-full lg:w-1/2 gap-y-4">
           <div className="w-full lg:h-24">
             <Input
               type="text"
@@ -107,10 +108,7 @@ const ContactForm = ({ className = "" }: IContactForm) => {
             country="tr"
             name="phone"
             label={t("phone")}
-            buttonClass="border border-r-0"
-            inputClass="font-mi-sans h-12 w-full"
-            containerclass="flex bg-white"
-            dropdownClass="rounded-lg shadow-md"
+            labelClass="text-lg"
             placeholder={t("phone")}
             alwaysDefaultMask={true}
             value={get(values, "phone")}
@@ -157,7 +155,10 @@ const ContactForm = ({ className = "" }: IContactForm) => {
             )}
           </div>
           <div className="flex justify-end">
-            <Button type="submit" disabled={isSubmitting} className="text-xl">
+            <Button
+              type="submit"
+              disabled={(!(get(formik, "isValid") && get(formik, "dirty") || isSubmitting))}
+              className="text-xl">
               {t("send")}
               {isSubmitting && (
                 <span className="loading loading-spinner"></span>

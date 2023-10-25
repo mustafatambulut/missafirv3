@@ -30,9 +30,9 @@ const Collapse = ({
   );
   const IconComponent = () => {
     return collapsable ? (
-      <UpArrow className={arrowColor} />
-    ) : (
       <DownArrow className={arrowColor} />
+    ) : (
+      <UpArrow className={arrowColor} />
     );
   };
 

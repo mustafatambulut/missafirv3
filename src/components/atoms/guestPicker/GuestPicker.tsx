@@ -21,7 +21,7 @@ const GuestPicker = ({
 }: IGuestPicker) => {
   const dispatch = useAppDispatch();
   const t = useTranslations();
-  const { bookingGuests } = useAppSelector((state) => state.listingReducer);
+  const bookingGuests  = useAppSelector((state) => state.listingReducer.bookingGuests);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const changeAdults = (type: string) => {

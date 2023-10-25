@@ -1,0 +1,214 @@
+{
+  "data": {
+    "id": 1,
+    "attributes": {
+      "createdAt": "2023-09-05T13:17:08.567Z",
+      "updatedAt": "2023-09-28T14:50:58.408Z",
+      "publishedAt": "2023-09-05T13:17:10.564Z",
+      "locale": "en",
+      "header": {
+        "id": 2,
+        "title": "Life at Missafir",
+        "description": "Let's explore the benefits of being a Missafir employee and what life on the job is like."
+      },
+      "body": {
+        "id": 1,
+        "sliders": {
+          "data": [
+            {
+              "id": 11,
+              "attributes": {
+                "image": "/images/lifeAt/1.jpg",
+                "description": "Missafirli ev sahipleri, evleriyle ilgili gelir, gider ve rezervasyon bilgilerine gerçek zamanlı olarak hem masaüstünden hem de mobilden erişebiliyor. \n",
+                "createdAt": "2023-09-22T13:46:09.885Z",
+                "updatedAt": "2023-09-25T15:28:15.145Z",
+                "publishedAt": "2023-09-22T13:48:23.411Z"
+              }
+            },
+            {
+              "id": 12,
+              "attributes": {
+                "image": "/images/lifeAt/2.jpg",
+                "description": "Missafir CEO’su Mehmet Yüksel, dünyayı gezerken farklı insanları ve kültürleri keşfetmenin heyecanını keşfetti. Erasmus öğrenci değişimi programı sırasında yaşadığı ev paylaşımı deneyimleri, ona yeni bir vizyon katmıştı. İstanbul’a döndüğünde paylaşım kültürünü devam ettirmek için evinin kapılarını Avrupa’nın farklı ülkelerinden gelen misafirlere açan Yüksel, böylece ev konaklamasının iki tarafını da deneyimledi. Missafir’in fikir tohumu da bu zamanlarda atılmış oldu. ",
+                "createdAt": "2023-09-05T11:29:21.132Z",
+                "updatedAt": "2023-09-28T10:05:59.147Z",
+                "publishedAt": "2023-09-05T11:29:22.155Z"
+              }
+            },
+            {
+              "id": 13,
+              "attributes": {
+                "image": "/images/lifeAt/3.jpg",
+                "description": "Missafir CEO’su Mehmet Yüksel, dünyayı gezerken farklı insanları ve kültürleri keşfetmenin heyecanını keşfetti. Erasmus öğrenci değişimi programı sırasında yaşadığı ev paylaşımı deneyimleri, ona yeni bir vizyon katmıştı. İstanbul’a döndüğünde paylaşım kültürünü devam ettirmek için evinin kapılarını Avrupa’nın farklı ülkelerinden gelen misafirlere açan Yüksel, böylece ev konaklamasının iki tarafını da deneyimledi. Missafir’in fikir tohumu da bu zamanlarda atılmış oldu. ",
+                "createdAt": "2023-09-05T11:29:21.132Z",
+                "updatedAt": "2023-09-28T10:05:59.147Z",
+                "publishedAt": "2023-09-05T11:29:22.155Z"
+              }
+            },
+            {
+              "id": 14,
+              "attributes": {
+                "image": "/images/lifeAt/4.jpg",
+                "description": "Missafir CEO’su Mehmet Yüksel, dünyayı gezerken farklı insanları ve kültürleri keşfetmenin heyecanını keşfetti. Erasmus öğrenci değişimi programı sırasında yaşadığı ev paylaşımı deneyimleri, ona yeni bir vizyon katmıştı. İstanbul’a döndüğünde paylaşım kültürünü devam ettirmek için evinin kapılarını Avrupa’nın farklı ülkelerinden gelen misafirlere açan Yüksel, böylece ev konaklamasının iki tarafını da deneyimledi. Missafir’in fikir tohumu da bu zamanlarda atılmış oldu. ",
+                "createdAt": "2023-09-05T11:29:21.132Z",
+                "updatedAt": "2023-09-28T10:05:59.147Z",
+                "publishedAt": "2023-09-05T11:29:22.155Z"
+              }
+            },
+            {
+              "id": 15,
+              "attributes": {
+                "image": "/images/lifeAt/5.jpg",
+                "description": "Missafir CEO’su Mehmet Yüksel, dünyayı gezerken farklı insanları ve kültürleri keşfetmenin heyecanını keşfetti. Erasmus öğrenci değişimi programı sırasında yaşadığı ev paylaşımı deneyimleri, ona yeni bir vizyon katmıştı. İstanbul’a döndüğünde paylaşım kültürünü devam ettirmek için evinin kapılarını Avrupa’nın farklı ülkelerinden gelen misafirlere açan Yüksel, böylece ev konaklamasının iki tarafını da deneyimledi. Missafir’in fikir tohumu da bu zamanlarda atılmış oldu. ",
+                "createdAt": "2023-09-05T11:29:21.132Z",
+                "updatedAt": "2023-09-28T10:05:59.147Z",
+                "publishedAt": "2023-09-05T11:29:22.155Z"
+              }
+            }
+          ]
+        },
+        "bodyHeader": {
+          "id": 1,
+          "title": "OUR MISSION",
+          "subTitle": "We want to make the world a more livable home for everyone",
+          "description": "At Missafir, we are building on our mission with the slogan ‘Your home is everywhere.’ Our goal is to make the world a more livable place for everyone, and we are actively working towards this through our social responsibility projects. Our homes offer our guests a lively and unique experience, and in doing so, we are playing our part in creating a sustainable world."
+        },
+        "content": [
+          {
+            "id": 4,
+            "title": "Equality",
+            "subTitle": "Equal opportunity",
+            "description": "At Missafir, we aim for all individuals to have a career journey where they are evaluated solely on their abilities and potential, ensuring equal opportunities. We position the principle of Gender Equality, as defined by the United Nations Sustainable Development Goals, as one of our core values.",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          },
+          {
+            "id": 5,
+            "title": "Equality",
+            "subTitle": "Menstrual leave",
+            "description": "We at Missafir recognize the challenges associated with the menstrual cycle in the workplace. That's why we've implemented a menstrual leave policy, allowing our team members to work from home for one day each month. We see this practice as vital in promoting equal opportunity in our working environment. \n",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          },
+          {
+            "id": 6,
+            "title": "Equality",
+            "subTitle": "Women Entrepreneurs support program",
+            "description": "We understand the importance of having people and institutions believe in you and your dreams in the challenging entrepreneurial ecosystem. In line with our Equal Opportunity principle, we aim to purchase decorative elements for our M-homes from women entrepreneurs and showcase their handcrafted work. We also plan to encourage our guests staying in these homes to buy the locally produced items on display and for sale.",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          },
+          {
+            "id": 7,
+            "title": "Equality",
+            "subTitle": "Parental leave",
+            "description": "We know how much dedication, labor, and time it takes to welcome new family members. Accordingly, we implement a comprehensive parental leave policy. New mothers are entitled to 12 weeks of paid leave, while new fathers can take four weeks. We also support them with a newborn gift package.",
+            "image": "/"
+          },
+          {
+            "id": 8,
+            "title": "Pet-friendly environment",
+            "subTitle": "Pawternity leave",
+            "description": "Every member of the Missafir family is essential to us. Recognizing this, we've pioneered a new initiative in Turkey to celebrate our teammates who adopt animals in need. To support their journey in building a bond with their new furry companions, we're introducing \"Pawternity Leave.\" Under this program, Missafir adopters are entitled to 3 days of paid leave, ensuring ample time to help their new pets settle into their homes.",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          },
+          {
+            "id": 9,
+            "title": "Pet-friendly environment",
+            "subTitle": "Paw Homes",
+            "description": "At Missafir, our mission extends beyond just serving humans. We've always opened our doors to those seeking a comfortable home, and now, we've broadened our horizons to address the needs of our four-legged friends living on the streets. Our 'Missafir Homes for Paws' initiative, launched at various locations in Istanbul, has provided shelter to these animals. Our vision is to increase the number of these cozy Missafir homes, expand the reach of our project, and set a precedent for startups worldwide regarding social responsibility.",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          },
+          {
+            "id": 10,
+            "title": "Pet-friendly environment",
+            "subTitle": "Petopy Partnership",
+            "description": "At Missafir, our commitment to kindness and community extends to our four-legged members. We've partnered with Petopy, a home healthcare service for cats and dogs. Thanks to this collaboration, our teammates can now avail themselves of discounted services from seasoned veterinarians right in the comfort of their homes, along with complimentary video consultations.",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          },
+          {
+            "id": 11,
+            "title": "A perfect career",
+            "subTitle": "Flexible & Hybrid working model",
+            "description": "With our flexible working system, we allow transitions to different departments within the company, supporting our colleagues in discovering their interests and finding their career goals. Additionally, we adopt a hybrid working model. On certain days, we work from the office, and on others, we work from home, breaking the monotony of the usual work routine.",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          },
+          {
+            "id": 12,
+            "title": "A perfect career",
+            "subTitle": "Education leave",
+            "description": "Learning is a never-ending adventure for us. At Missafir, our culture centered on continuous learning extends beyond our work, thanks to our implemented Education Leave policy. Missafir team members who wish to continue their education while fulfilling their weekly work hours can take advantage of this leave, effectively balancing their work and educational pursuits.",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          },
+          {
+            "id": 13,
+            "title": "A perfect career",
+            "subTitle": "Online courses",
+            "description": "As technology advances ever-increasingly, there's something new to learn daily. At Missafir, we view personal development as a lifelong journey and offer support to our colleagues through online courses to help them advance in their careers.",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          },
+          {
+            "id": 14,
+            "title": "A perfect career",
+            "subTitle": "In-house activities and courses",
+            "description": "At Missafir, passion for work and personal interests permeates our team. Our members are always keen to share this enthusiasm with others. To foster this spirit of sharing, we offer in-house activities and courses. Here, our knowledgeable colleagues lead training sessions on various topics, providing an exciting opportunity for the wider Missafir community to delve into new areas of learning.",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          },
+          {
+            "id": 15,
+            "title": "A perfect career",
+            "subTitle": "Accommodation Scholarship",
+            "description": "At Missafir, we've established the \"accommodation scholarship\" to support the education of tomorrow's leaders. This initiative is designed to aid students relocating to pursue outstanding educational opportunities and an eventual flourishing career. We ensure they can concentrate on their academic endeavors in a comfortable and nurturing environment by catering to their housing requirements.",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          },
+          {
+            "id": 17,
+            "title": "A perfect career",
+            "subTitle": "Volunteering leave",
+            "description": "Every member of the Missafir family is driven by a desire to give back and enrich society, nature, and life as a whole. We recognized our team's generosity and goodwill and introduced the “volunteering leave” benefit. With this provision, our team members can avail themselves of a day's paid leave to dedicate their time and energy to a volunteer project close to their hearts.",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          },
+          {
+            "id": 16,
+            "title": "A perfect career",
+            "subTitle": "Sabbatical Leave",
+            "description": "At Missafir, we believe in creating opportunities for each member to chase their dreams and foster self-improvement. With this ethos, we've introduced the Sabbatical Leave benefit, a rarity in the startup domain. Long-standing team members who meet the requisite criteria can utilize this leave, taking a well-deserved break from their professional commitments. This time off allows them to embark on the next phase of their personal journey and allocate time for personal and professional growth.",
+            "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+          }
+        ]
+      },
+      "footer": {
+        "id": 14,
+        "bannerHeader": {
+          "id": 70,
+          "title": "Become a part of our story",
+          "description": null,
+          "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg"
+        },
+        "bannerBody": {
+          "id": 71,
+          "title": null,
+          "description": "Interested in joining Missafir's young and innovative team? Take a look at our job opportunities!",
+          "image": "https://svgshare.com/i/voH.svg"
+        },
+        "bannerFooter": {
+          "id": 18,
+          "label": "Take a look",
+          "image": null,
+          "link": "https://missafir.io/"
+        }
+      },
+      "localizations": {
+        "data": [
+          {
+            "id": 2,
+            "attributes": {
+              "createdAt": "2023-09-26T13:58:16.070Z",
+              "updatedAt": "2023-09-28T13:01:20.030Z",
+              "publishedAt": "2023-09-26T13:59:02.628Z",
+              "locale": "tr"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "meta": {}
+}

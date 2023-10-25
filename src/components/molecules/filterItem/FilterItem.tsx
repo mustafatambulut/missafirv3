@@ -1,10 +1,20 @@
+"use client";
 import { useEffect, useState } from "react";
+import {
+  get,
+  has,
+  join,
+  pull,
+  size,
+  split,
+  first,
+  replace,
+  includes
+} from "lodash";
 import classNames from "classnames";
-import { isMobile } from "react-device-detect";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { first, get, has, includes, replace, size } from "lodash";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IFilterItem } from "@/components/molecules/filterItem/types";
 import { updateFilterData } from "@/redux/features/listingSlice/listingSlice";
 
@@ -15,10 +25,11 @@ import FilterItemDropdown from "@/components/atoms/filterItemDropdown/FilterItem
 const FilterItem = ({
   filterItem,
   setIsOverlayActive,
-  isInAllFilters = false
+  isInAllFilters = false,
+  searchParams
 }: IFilterItem) => {
   const dispatch = useAppDispatch();
-  const { filterData } = useAppSelector((state) => state.listingReducer);
+  const filterData = useAppSelector((state) => state.listingReducer.filterData);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const outsideRef = useDetectClickOutside({
     onTriggered: () => !isInAllFilters && setIsDropdownOpen(false)
@@ -32,19 +43,26 @@ const FilterItem = ({
 
   const handleFilter = (filterName, filterValue, filterType) => {
     const isHasKey = has(filterData, filterName);
+
     if (isHasKey) {
       const isHasValue = includes(filterData[filterName], filterValue);
       if (isHasValue) {
         if (filterType === "checkbox") {
           const newFilterValue = replace(
             filterData[filterName],
-            size(filterData[filterName]) > 1 ? `_${filterValue}` : filterValue,
+            size(split(filterData[filterName], "_")) > 1
+              ? `_${filterValue}`
+              : filterValue,
             ""
           );
+
+          const filteredValues = pull(split(newFilterValue, "_"), filterValue);
+
           const newFilterData = {
             ...filterData,
-            [filterName]: newFilterValue
+            [filterName]: join(filteredValues, "_")
           };
+
           if (size(newFilterData[filterName]) === 0)
             delete newFilterData[filterName];
           dispatch(updateFilterData(newFilterData));
@@ -61,6 +79,7 @@ const FilterItem = ({
             ...filterData,
             [filterName]: `${filterData[filterName]}_${filterValue}`
           };
+
           dispatch(updateFilterData(newFilterData));
         } else {
           const newFilterData = {
@@ -73,7 +92,6 @@ const FilterItem = ({
     } else {
       dispatch(updateFilterData({ ...filterData, [filterName]: filterValue }));
     }
-    isMobile && !isInAllFilters && setIsDropdownOpen(false);
   };
 
   useEffect(() => {
@@ -102,6 +120,7 @@ const FilterItem = ({
               />
               {isDropdownOpen && (
                 <FilterItemDropdown
+                  searchParams={searchParams}
                   filterItem={filterItem}
                   handleFilter={handleFilter}
                   isInAllFilters={isInAllFilters}

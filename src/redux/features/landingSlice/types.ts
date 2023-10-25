@@ -5,4 +5,6 @@ export interface ILandingState {
   activePath?: string;
   loading: boolean;
   locations: ILocationData;
+  isMinifyButtons: boolean;
+  isShowHeaderButtons: boolean;
 }

@@ -23,7 +23,7 @@ const SelectedFilters = ({
     ISelectedFiltersData[]
   >([]);
 
-  const t = useTranslations()
+  const t = useTranslations();
 
   const handleClearAllFilters = () => {
     const [min, max] = calculateMinMaxListingPrice();
@@ -116,7 +116,7 @@ const SelectedFilters = ({
           case "price":
             if (
               allFiltersData[key].min !==
-              allFiltersData.defaultPriceRange.min ||
+                allFiltersData.defaultPriceRange.min ||
               allFiltersData[key].max !== allFiltersData.defaultPriceRange.max
             )
               selectedFilters.push({
@@ -192,8 +192,12 @@ const SelectedFilters = ({
       </div>
       {size(selectedFilters) > 0 && (
         <Slider
-          spaceBetween={10}
-          slidesPerView="auto"
+          desktopSlidesPerView="auto"
+          mobileSlidesPerView="auto"
+          desktopLargeSlidesPerView="auto"
+          desktopLargeSpaceBetween={10}
+          desktopSpaceBetween={10}
+          mobileSpaceBetween={10}
           sliderContainerClassName="w-full"
           sliderIdentifier="all_filters_slider">
           {map(selectedFilters, (filter, index) => (

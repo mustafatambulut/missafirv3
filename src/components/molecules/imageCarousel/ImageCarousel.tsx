@@ -16,6 +16,7 @@ import Slider from "@/components/molecules/slider/Slider";
 
 import PadIcon from "../../../../public/images/pad.svg";
 import LeftIcon from "../../../../public/images/variants/left_arrow.svg";
+import { useTranslations } from "next-intl";
 
 const ImageCarousel = ({
   images,
@@ -24,6 +25,7 @@ const ImageCarousel = ({
   className = "",
   imageClass = ""
 }: IImageCarousel) => {
+  const t = useTranslations();
   const [swiper, setSwiper] = useState<any>(null);
   const [isOpenModal, setIsOpenModal] = useState<null | boolean>(null);
   const [sliderImages, setSliderImages] = useState<[]>([]);
@@ -66,7 +68,7 @@ const ImageCarousel = ({
         {map(images, ({ path, path_extra, caption }, key) => {
           return (
             path && (
-              <div className={`${imageClassName(key, isModal)}`}>
+              <div key={key} className={`${imageClassName(key, isModal)}`}>
                 <Image
                   onClick={(e) => handleImage(e, isModal, path_extra)}
                   key={key}
@@ -101,11 +103,12 @@ const ImageCarousel = ({
         {`All ${size(images)} Photos`}
       </Button>
       <Modal
-        label="All Photos"
+        label={t("all_photos")}
         isOpen={isOpenModal}
         headerClass="text-2xl"
         bodyClass="lg:w-11/12 lg:max-w-5xl"
-        setIsOpen={setIsOpenModal}>
+        setIsOpen={setIsOpenModal}
+        waitOherModals={showCarouselModal}>
         <PhotosComponent isModal={true} images={images} />
       </Modal>
       <Modal
@@ -115,11 +118,16 @@ const ImageCarousel = ({
         headerClass="text-2xl"
         bodyClass="max-w-full max-h-full"
         isOpen={showCarouselModal}
-        setIsOpen={setShowCarouselModal}>
+        setIsOpen={setShowCarouselModal}
+        waitOherModals={false}>
         <Slider
           onSwiper={setSwiper}
-          spaceBetween={0}
-          slidesPerView={1}
+          desktopSlidesPerView={1}
+          mobileSlidesPerView={1}
+          desktopLargeSlidesPerView={1}
+          desktopLargeSpaceBetween={0}
+          desktopSpaceBetween={0}
+          mobileSpaceBetween={0}
           withPagination={false}
           withNavigation={true}
           sliderIdentifier="carousel-image"
@@ -128,7 +136,7 @@ const ImageCarousel = ({
             <Image
               key={key}
               fill={true}
-              alt={caption}
+              alt={caption || "image"}
               src={path_extra || "/"}
               className="rounded-xl object-cover"
             />

@@ -44,9 +44,9 @@ const PhoneInput = ({
       <BasePhoneInput
         id={id}
         name={name}
+        country={country}
         value={value}
         label={label}
-        country={country}
         onChange={onChange}
         isDisable={isDisable}
         placeholder={placeholder}
@@ -55,9 +55,8 @@ const PhoneInput = ({
         inputClass={inputClassName}
         buttonClass={buttonClassName}
         className={baseClassName}
-        alwaysDefaultMask={true}
         countryCodeEditable={false}
-        defaultMask={"(...) ... .. .."}
+        autoFormat={true}
       />
     </div>
   );

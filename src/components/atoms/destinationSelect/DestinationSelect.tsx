@@ -1,13 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { isMobile } from "react-device-detect";
-import { compact, get, has, lowerCase, map, sortBy } from "lodash";
+import { get, has, map, sortBy, isNull, compact, lowerCase } from "lodash";
 
+import { updateBookingDestination } from "@/redux/features/listingSlice/listingSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { BOOKING_DATE } from "@/components/molecules/searchBar/constants";
 import { IDestinationSelect } from "@/components/atoms/destinationSelect/types";
-import { updateBookingDestination } from "@/redux/features/listingSlice/listingSlice";
 
 import Select from "@/components/atoms/select/Select";
 
@@ -20,88 +20,12 @@ const DestinationSelect = ({
 }: IDestinationSelect) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
-  const { filterData, preFilterData } = useAppSelector(
-    (state) => state.listingReducer
+  const locations = useAppSelector((state) => state.landingReducer.locations);
+  const filterData = useAppSelector((state) => state.listingReducer.filterData);
+  const bookingDestination = useAppSelector(
+    (state) => state.listingReducer.bookingDestination
   );
-  const { locations } = useAppSelector((state) => state.landingReducer);
   const [formattedDestinations, setFormattedDestinations] = useState([]);
-  //todo : örnek location datası. popular Destinations için kullanılacak
-
-  // const destinationOptions = [
-  //   {
-  //     label: "Popular Destinations",
-  //     isPopularDestinations: true,
-  //     options: [
-  //       {
-  //         value: "london",
-  //         label: "London",
-  //         desc: "United Kingdom",
-  //         image: "destination.jpg",
-  //         isPopularDestinations: true,
-  //         isHistory: false
-  //       },
-  //       {
-  //         value: "newyork",
-  //         label: "New York",
-  //         desc: "United States",
-  //         image: "destination.jpg",
-  //         isPopularDestinations: true,
-  //         isHistory: false
-  //       },
-  //       {
-  //         value: "istanbul",
-  //         label: "Istanbul",
-  //         desc: "Turkey",
-  //         image: "destination.jpg",
-  //         isPopularDestinations: true,
-  //         isHistory: false
-  //       },
-  //       {
-  //         value: "antalya",
-  //         label: "Antalya",
-  //         desc: "Turkey",
-  //         image: "destination.jpg",
-  //         isPopularDestinations: true,
-  //         isHistory: false
-  //       },
-  //       {
-  //         value: "stockholm",
-  //         label: "Stockholm",
-  //         desc: "Sweden",
-  //         image: "destination.jpg",
-  //         isPopularDestinations: true,
-  //         isHistory: false
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     value: "icmeler",
-  //     label: "İçmeler",
-  //     isPopularDestinations: false,
-  //     desc: "Marmaris/Muğla, Türkiye",
-  //     isHistory: false
-  //   },
-  //   {
-  //     value: "uzungol",
-  //     label: "Uzungöl",
-  //     isPopularDestinations: false,
-  //     desc: "Çaykara/Trabzon, Türkiye",
-  //     isHistory: false
-  //   },
-  //   {
-  //     label: "En Son Bakılanlar",
-  //     isPopularDestinations: false,
-  //     options: [
-  //       {
-  //         value: "uzungol",
-  //         label: "Uzungöl",
-  //         desc: "Çaykara/Trabzon, Türkiye",
-  //         isPopularDestinations: false,
-  //         isHistory: true
-  //       }
-  //     ]
-  //   }
-  // ];
 
   const destinationFilterOption = (option, inputValue) => {
     const { label, value, data } = option;
@@ -112,33 +36,71 @@ const DestinationSelect = ({
     );
   };
 
-  const handleOnChange = (e: any) => {
-    dispatch(updateBookingDestination(e));
-    setActiveSearchItem(BOOKING_DATE);
+  const handleOnChange = (locationData: any) => {
+    if (isNull(get(locationData, "value"))) {
+      dispatch(updateBookingDestination(null));
+    } else {
+      dispatch(updateBookingDestination(locationData));
+      setActiveSearchItem(BOOKING_DATE);
+    }
+  };
+
+  const handleControlTitle = () => {
+    if (isInCustomSection) return "";
+    if (
+      !isNull(bookingDestination) ||
+      has(filterData, "district_id") ||
+      has(filterData, "city_id")
+    ) {
+      return t("where");
+    }
+  };
+
+  const handleValue = () => {
+    if (isInCustomSection) {
+      if (has(filterData, "value")) {
+        return get(filterData, "value");
+      } else {
+        if (has(filterData, "city_id") && has(filterData, "district_id")) {
+          return get(filterData, "district_id");
+        } else if (has(filterData, "city_id")) {
+          return get(filterData, "city_id");
+        }
+      }
+    }
   };
 
   useEffect(() => {
     const formattedDestinations = compact(
-      map(locations, (location) => {
-        return {
-          value: get(location, "id"),
-          label:
-            get(location, "type") === "district"
-              ? get(location, "district")
-              : get(location, "city"),
-          isPopularDestinations: false,
-          desc:
-            get(location, "type") === "district"
-              ? `${get(location, "city")} / ${get(location, "country")}`
-              : get(location, "country"),
+      map(
+        locations,
+        ({
+          id,
+          type,
+          slug,
+          city,
+          order,
+          country,
+          city_slug,
+          district,
+          country_id,
+          country_slug
+        }) => ({
+          value: id,
+          type,
+          slug,
+          order,
+          country,
+          city_slug,
+          country_id,
+          country_slug,
           isHistory: false,
-          order: get(location, "order"),
-          slug: get(location, "slug"),
-          country: get(location, "country")
-        };
-      })
+          isPopularDestinations: false,
+          label: type === "district" ? district : city,
+          desc: type === "district" ? `${city} / ${country}` : country
+        })
+      )
     );
-
     setFormattedDestinations(sortBy(formattedDestinations, ["order"]));
   }, [locations]);
 
@@ -153,23 +115,13 @@ const DestinationSelect = ({
         showSearchIcon={true}
         searchIconPosition="left"
         searchId="booking-location"
-        placeHolder={
-          isMobile
-            ? t("where_do_you_want_to_go")
-            : isInCustomSection
-            ? t("any_where")
-            : t("search_destinations")
-        }
-        {...(isInCustomSection &&
-          has(filterData, "district_id") && {
-            value: get(preFilterData, "district_id")
-          })}
-        {...(!isInCustomSection && {
-          controlTitle: t("where")
-        })}
+        placeHolder={t("any_where")}
+        placeholderClassName="text-21 text-gray-600"
+        controlTitle={handleControlTitle()}
+        value={handleValue()}
         {...(isInCustomSection && {
           placeholderClassName: "lg:text-base text-gray-600 font-mi-semi-bold",
-          valueContainerClassName: "w-[6.3rem]"
+          valueContainerClassName: "w-[7.3rem] text-sm lg:text-16"
         })}
         {...(isMobile && !isInCustomSection && { menuIsOpen: true })}
       />

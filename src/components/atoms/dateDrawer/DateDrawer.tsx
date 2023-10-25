@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { IDateDrawer } from "@/components/atoms/dateDrawer/types";
 
 import CalendarIcon from "../../../../public/images/calendar.svg";
+import classNames from "classnames";
 
 const DateDrawer = ({
   onClick,
@@ -14,6 +15,12 @@ const DateDrawer = ({
 }: IDateDrawer) => {
   const hasDate = get(booking, "startDate") || get(booking, "endDate");
   const t = useTranslations();
+
+  const guestSelectorClassName = classNames({
+    "text-xs text-gray-600": isInCustomSection,
+    "text-base": !isInCustomSection,
+    hidden: isInCustomSection && hasDate
+  });
 
   const ShowDateComponent = () => {
     return (
@@ -58,11 +65,12 @@ const DateDrawer = ({
             } fill-gray-800`}
           />
           <div className="flex flex-col items-start">
-            <span
-              className={`${
-                isInCustomSection ? "text-xs text-gray-600" : "text-base"
-              }`}>
-              {isInCustomSection ? t("any_week") : t("dates")}
+            <span className={guestSelectorClassName}>
+              {isInCustomSection
+                ? t("any_week")
+                : hasDate
+                ? t("dates")
+                : t("any_week")}
             </span>
             <ShowDateComponent />
           </div>

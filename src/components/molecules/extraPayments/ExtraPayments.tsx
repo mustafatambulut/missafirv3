@@ -51,8 +51,12 @@ const ExtraPayments = ({ reservation }: IExtraPayments) => {
           sliderIdentifier="reservation-extra"
           sliderContainerClassName=""
           sliderWrapperClassName="py-2 px-1"
-          slidesPerView={isMobile ? 1 : 2}
-          spaceBetween={18}>
+          desktopSlidesPerView={2}
+          mobileSlidesPerView={1}
+          desktopLargeSlidesPerView={3}
+          desktopLargeSpaceBetween={20}
+          desktopSpaceBetween={18}
+          mobileSpaceBetween={18}>
           {map(get(reservation, "extraPayments"), (extraPayment, key) => {
             return (
               <Card key={key} className="rounded-xl shadow-base-blur-5">

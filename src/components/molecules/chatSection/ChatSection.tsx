@@ -1,24 +1,23 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { get, isEqual, map, size } from "lodash";
 import classNames from "classnames";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useTranslations } from "next-intl";
+import { get, isEqual, map, size } from "lodash";
+import { useSearchParams } from "next/navigation";
+
 import {
   fetchThreadDetails,
   postMessageToThread
 } from "@/redux/features/inboxSlice/inboxSlice";
-
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IChatSection } from "@/components/molecules/chatSection/types";
-import { useTranslations } from "next-intl";
-
-import "./ChatSection.css";
 
 import Input from "@/components/atoms/input/Input";
 import Loading from "@/components/atoms/loading/Loading";
 import InboxThreadChatBoxSkeleton from "@/components/molecules/skeletons/inboxThreadChatBoxSekeleton/InboxThreadChatBoxSkeleton";
 
+import "./ChatSection.css";
 import SendIcon from "../../../../public/images/send.svg";
-import { useSearchParams } from "next/navigation";
 
 const ChatSection = ({ className = "" }: IChatSection) => {
   const chatBoxRef = useRef(null);
@@ -26,13 +25,14 @@ const ChatSection = ({ className = "" }: IChatSection) => {
   const searchParams = useSearchParams();
   const [message, setMessage] = useState("");
   const {
-    threadDetailsLoading,
-    selectedThreadId,
+    notFound,
     threadDetails,
+    selectedThreadId,
     sendMessageLoading,
-    notFound
+    threadDetailsLoading
   } = useAppSelector((state) => state.inboxReducer, isEqual);
   const t = useTranslations();
+
   const chatWrapperClass = (isIncoming) => {
     return classNames("chat", {
       "chat-start": isIncoming,
@@ -78,10 +78,11 @@ const ChatSection = ({ className = "" }: IChatSection) => {
   useEffect(() => {
     let threadInterval = null;
     if (selectedThreadId) {
-      window !== undefined &&
-        window.threadInterval &&
-        window.clearInterval(window.threadInterval);
-      if (notFound === false) {
+      if (typeof window !== "undefined") {
+        window.threadInterval && window.clearInterval(window.threadInterval);
+      }
+
+      if (!notFound) {
         threadInterval = setInterval(() => {
           selectedThreadId &&
             dispatch(
@@ -91,7 +92,7 @@ const ChatSection = ({ className = "" }: IChatSection) => {
       }
     }
     return () => {
-      window !== undefined && window.clearInterval(threadInterval);
+      typeof window !== "undefined" && window.clearInterval(threadInterval);
     };
   }, [selectedThreadId]);
 
@@ -118,7 +119,7 @@ const ChatSection = ({ className = "" }: IChatSection) => {
   return (
     <div className={`font-mi-sans text-sm ${className}`}>
       <div
-        className="overflow-y-auto h-[34rem] lg:h-[22.3rem]"
+        className="overflow-y-auto chat-container lg:h-[22.3rem]"
         ref={chatBoxRef}>
         <Loading
           isLoading={threadDetailsLoading}

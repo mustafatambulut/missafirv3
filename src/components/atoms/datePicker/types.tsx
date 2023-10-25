@@ -5,14 +5,19 @@ export interface IDatePicker {
   isInCustomSection?: boolean;
   unavailableDates?: string[];
   datePickerClass?: string;
+  showDateFormat?: string;
   className?: string;
   isShowLabel?: boolean;
+  isShimmer?: boolean;
   orientation?: "verticalScrollable" | "horizontal";
   isOpenedStyle?: boolean;
   noNavButtons?: boolean;
   numberOfMonths?: number;
   // eslint-disable-next-line no-unused-vars
   isOutsideRange?: (day: Moment) => boolean;
+
+  initialVisibleMonth?: void;
+  showMinimumDateSelector?: boolean;
 }
 
 export interface IBookingDate {

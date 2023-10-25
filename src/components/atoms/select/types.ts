@@ -12,8 +12,8 @@ export interface ISelect {
   isClearable?: boolean;
   isSearchable?: boolean;
   filterOption?: any;
-  showPlaceholder: boolean,
-  showControlTitle: boolean,
+  showPlaceholder: boolean;
+  showControlTitle: boolean;
   showSearchIcon?: boolean;
   showOptionIcon?: boolean;
   noResultsMessage?: string;
@@ -30,6 +30,11 @@ export interface ISelect {
   controlTitleClassName?: string | null;
   menuClassName?: string | null;
   placeholderClassName?: string | null;
-  valueContainerClassName?: string | null,
-  rotateIconOnShow?: boolean
+  valueContainerClassName?: string | null;
+  rotateIconOnShow?: boolean;
+  defaultValue?: any;
+  isDisabled?: boolean;
+  singleValueClassName?: string | null;
+  menuPosition?: any;
+  customIconClassName?: string | null;
 }

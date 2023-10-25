@@ -1,0 +1,442 @@
+{
+  "data": {
+    "id": 1,
+    "attributes": {
+      "createdAt": "2023-09-05T13:22:42.473Z",
+      "updatedAt": "2023-10-02T14:22:50.314Z",
+      "publishedAt": "2023-09-05T13:22:45.683Z",
+      "locale": "en",
+      "header": {
+        "id": 4,
+        "title": "Behind Missafir",
+        "description": "Discover Missafir and what lies behind its journey. "
+      },
+      "body": {
+        "id": 1,
+        "sliders": {
+          "data": [
+            {
+              "id": 11,
+              "attributes": {
+                "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/04_team_9dafe8d1ce.jpg",
+                "description": "Missafirli ev sahipleri, evleriyle ilgili gelir, gider ve rezervasyon bilgilerine gerçek zamanlı olarak hem masaüstünden hem de mobilden erişebiliyor. \n",
+                "createdAt": "2023-09-22T13:46:09.885Z",
+                "updatedAt": "2023-10-02T15:00:40.286Z",
+                "publishedAt": "2023-09-22T13:48:23.411Z"
+              }
+            },
+            {
+              "id": 12,
+              "attributes": {
+                "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/03_technology_9e5a0d37a4.jpg",
+                "description": "Missafir CEO’su Mehmet Yüksel, dünyayı gezerken farklı insanları ve kültürleri keşfetmenin heyecanını keşfetti. Erasmus öğrenci değişimi programı sırasında yaşadığı ev paylaşımı deneyimleri, ona yeni bir vizyon katmıştı. İstanbul’a döndüğünde paylaşım kültürünü devam ettirmek için evinin kapılarını Avrupa’nın farklı ülkelerinden gelen misafirlere açan Yüksel, böylece ev konaklamasının iki tarafını da deneyimledi. Missafir’in fikir tohumu da bu zamanlarda atılmış oldu. ",
+                "createdAt": "2023-09-05T11:29:21.132Z",
+                "updatedAt": "2023-10-02T15:01:00.158Z",
+                "publishedAt": "2023-09-05T11:29:22.155Z"
+              }
+            },
+            {
+              "id": 13,
+              "attributes": {
+                "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/05_interior_b2c0101926.jpg",
+                "description": "Ne kadar keyifli bir süreç olsa da ev paylaşımında bazı problemler vardı. Bu dönemde Yüksel sürecin ev sahibi ve misafir tarafında ne gibi sorunlar olabileceğini görmüştü. Anahtar teslimi, giriş çıkış zamanları, evin temizliği, doğru fiyatlandırma ve misafir iletişimi gibi iş akışları, Yüksel için yaratıcı ve yenilikçi bir çözüm bulma ihtiyacı doğurdu. Bu çözüm, ev sahipleri için bu işleri kolaylaştıracak teknoloji destekli operasyon ve profesyonel mülk yönetimiydi. Mehmet Yüksel, uzun süre kurguladığı iş modelini pazar analizleriyle daha gerçekçi bir temele oturttuktan sonra İstanbul’un böyle bir proje için mükemmel bir pilot lokasyon olduğuna karar verdi. \n\nMissafir hayaliyle Türkiye’ye dönen Yüksel, Aleksandra ve Cem ile birlikte Missafir’in ilk adımlarını attı. Missafir, o günden beri ev sahipleri ve misafirlere kusursuz bir deneyim sunmak için 3 kişi başladığı yolculuğuna, günümüzde 250’den fazla tutkulu ve yaratıcı çalışanla devam ediyor. ",
+                "createdAt": "2023-09-05T11:29:36.442Z",
+                "updatedAt": "2023-10-02T15:01:17.689Z",
+                "publishedAt": "2023-09-05T11:29:37.173Z"
+              }
+            }
+          ]
+        },
+        "content": {
+          "id": 3,
+          "title": "OUR JOURNEY",
+          "subTitle": "The journey that starts with the hospitality culture",
+          "description": "People in our country are renowned for their hospitality. Missafir’s journey starts with this concept. Growing up in a culture that values open-mindedness, many of us welcome others into our homes, eager to learn about different cultures. Missafir builds on this value by turning it into a rewarding partnership solution, ensuring your home stays vibrant and full of life."
+        },
+        "aboutUs": {
+          "id": 1,
+          "title": "OUR STORY",
+          "sliders": {
+            "data": [
+              {
+                "id": 21,
+                "attributes": {
+                  "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg",
+                  "description": "Meet Mehmet Yüksel, Missafir's CEO. While traveling the world during his Erasmus student exchange program, he stumbled upon the joy of home-sharing, learning about different people and their cultures. Back in Istanbul, he couldn't shake his love for this unique way of connecting, so he opened his home to guests from all over Europe. Mehmet didn't just host; he experienced both sides of home hospitality. During these adventures, the idea for Missafir began to take root.",
+                  "createdAt": "2023-09-25T14:21:41.935Z",
+                  "updatedAt": "2023-09-25T15:28:39.288Z",
+                  "publishedAt": "2023-09-25T14:22:03.342Z"
+                }
+              },
+              {
+                "id": 22,
+                "attributes": {
+                  "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg",
+                  "description": "As much fun as home-sharing was, it wasn't without its challenges. During this time, Yüksel saw the potential problems for hosts and guests firsthand. Issues like key handovers, check-in and check-out timings, cleaning, proper pricing, and guest communication all pointed to a need for a creative and innovative solution. Yüksel envisioned a technology-driven operation supported by professional property management to simplify these tasks for homeowners. After carefully crafting his business model and grounding it with market analysis, Yüksel decided Istanbul was the perfect pilot location. \n\nReturning to Turkey with the dream of Missafir, Yüksel, Aleksandra, and Cem took the first steps to make Missafir a reality. Since then, Missafir has grown from a 3-person operation committed to delivering a flawless experience to homeowners and guests to a thriving team of over 250 passionate and creative employees.",
+                  "createdAt": "2023-09-25T14:22:49.971Z",
+                  "updatedAt": "2023-09-25T15:28:42.018Z",
+                  "publishedAt": "2023-09-25T14:22:51.509Z"
+                }
+              }
+            ]
+          }
+        },
+        "brands": {
+          "id": 1,
+          "sliders": {
+            "data": [
+              {
+                "id": 14,
+                "attributes": {
+                  "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg",
+                  "description": "Mehmet Yüksel specialized in hosting on Airbnb, earning the 'Airbnb Superhost' award 10 times.",
+                  "createdAt": "2023-09-05T11:29:53.664Z",
+                  "updatedAt": "2023-09-26T12:14:05.644Z",
+                  "publishedAt": "2023-09-05T11:29:54.474Z"
+                }
+              },
+              {
+                "id": 15,
+                "attributes": {
+                  "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg",
+                  "description": "Our Booking Genius partnership boosts visibility and reservations on the platform.",
+                  "createdAt": "2023-09-05T11:30:07.858Z",
+                  "updatedAt": "2023-09-26T12:14:53.795Z",
+                  "publishedAt": "2023-09-05T11:30:08.735Z"
+                }
+              },
+              {
+                "id": 23,
+                "attributes": {
+                  "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg",
+                  "description": "Our services are 5-star rated by over 1000 users on Google.",
+                  "createdAt": "2023-09-26T12:16:28.327Z",
+                  "updatedAt": "2023-09-26T12:24:26.105Z",
+                  "publishedAt": "2023-09-26T12:16:29.992Z"
+                }
+              },
+              {
+                "id": 24,
+                "attributes": {
+                  "image": "https://img.freepik.com/premium-photo/hand-camera-photographer-forest-his-love-photography-his-camera_24883-1429.jpg",
+                  "description": "Missafir has been recognized as a 'Great Place To Work' more than twice.",
+                  "createdAt": "2023-09-26T12:19:30.052Z",
+                  "updatedAt": "2023-09-26T12:20:37.962Z",
+                  "publishedAt": "2023-09-26T12:19:31.988Z"
+                }
+              }
+            ]
+          }
+        },
+        "firstTeam": {
+          "id": 1,
+          "title": "EXECUTIVE TEAM",
+          "description": "Meet the visionaries behind Missafir",
+          "members": {
+            "data": [
+              {
+                "id": 2,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/yueksel_a3d62e53d3.jpg",
+                  "fullname": "Mehmet Yüksel",
+                  "position": "CEO, Founder",
+                  "description": "Enterpreneur and explorer",
+                  "createdAt": "2023-09-05T11:27:25.773Z",
+                  "updatedAt": "2023-10-02T14:20:02.285Z",
+                  "publishedAt": "2023-09-05T11:27:26.579Z",
+                  "socialLinks": [
+                    {
+                      "id": 2
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 1,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/mehmet_onarcan_png_1f0eee26b3.webp",
+                  "fullname": "Mehmet Onarcan",
+                  "position": "Investor, Advisor",
+                  "description": "Accredited angel investor",
+                  "createdAt": "2023-09-05T11:26:49.961Z",
+                  "updatedAt": "2023-10-02T14:19:09.589Z",
+                  "publishedAt": "2023-09-05T11:26:51.746Z",
+                  "socialLinks": [
+                    {
+                      "id": 1
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 3,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/mete_varas_png_99d4c59a0e.webp",
+                  "fullname": "Mete Varas",
+                  "position": "Investor, Advisor",
+                  "description": "Leading entrepreneur and thinker in the PropTech field",
+                  "createdAt": "2023-09-28T10:37:35.487Z",
+                  "updatedAt": "2023-10-02T14:19:28.608Z",
+                  "publishedAt": "2023-09-28T10:37:36.685Z",
+                  "socialLinks": [
+                    {
+                      "id": 3
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "allTeam": {
+          "id": 2,
+          "title": "TEAM",
+          "description": "A Dynamic, Passionate, and Ever-Growing Crew",
+          "members": {
+            "data": [
+              {
+                "id": 5,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/cem_08a1a3df2b.jpg",
+                  "fullname": "Ali Cem Oktay",
+                  "position": "Co-Founder & Business Development Director",
+                  "description": null,
+                  "createdAt": "2023-09-28T10:40:43.824Z",
+                  "updatedAt": "2023-10-02T14:01:00.707Z",
+                  "publishedAt": "2023-09-28T10:41:07.288Z",
+                  "socialLinks": [
+                    {
+                      "id": 5
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 6,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/aleksandra_0b3384bba0.jpg",
+                  "fullname": "Aleksandra Glinka",
+                  "position": "Co-Founder & Guest Relations Director",
+                  "description": null,
+                  "createdAt": "2023-09-28T10:42:57.489Z",
+                  "updatedAt": "2023-10-02T10:50:03.600Z",
+                  "publishedAt": "2023-09-28T10:43:05.386Z",
+                  "socialLinks": [
+                    {
+                      "id": 6
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 7,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/yunus_yuksel_jpg_d343c814cb.webp",
+                  "fullname": "Yunus Emre Yüksel",
+                  "position": "CEO Office",
+                  "description": null,
+                  "createdAt": "2023-09-28T10:43:56.194Z",
+                  "updatedAt": "2023-10-02T14:20:56.590Z",
+                  "publishedAt": "2023-09-28T10:43:58.115Z",
+                  "socialLinks": [
+                    {
+                      "id": 7
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 8,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/mesut_274550f7a9.jpg",
+                  "fullname": "Mesut Çilingir",
+                  "position": "Head of Technology",
+                  "description": null,
+                  "createdAt": "2023-09-28T10:45:14.980Z",
+                  "updatedAt": "2023-10-02T14:25:25.516Z",
+                  "publishedAt": "2023-09-28T10:45:16.590Z",
+                  "socialLinks": [
+                    {
+                      "id": 8
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 16,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/pinar_08b66242e6.jpg",
+                  "fullname": "Pınar Peker",
+                  "position": "People & Culture Manager",
+                  "description": null,
+                  "createdAt": "2023-09-28T11:04:05.488Z",
+                  "updatedAt": "2023-10-02T14:05:39.413Z",
+                  "publishedAt": "2023-09-28T11:04:06.885Z",
+                  "socialLinks": [
+                    {
+                      "id": 16
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 10,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/deniziskar_fc0643f4cb.jpg",
+                  "fullname": "Deniz İşkar",
+                  "position": "Head of Operations",
+                  "description": null,
+                  "createdAt": "2023-09-28T10:57:53.693Z",
+                  "updatedAt": "2023-10-02T14:01:32.282Z",
+                  "publishedAt": "2023-09-28T10:57:54.786Z",
+                  "socialLinks": [
+                    {
+                      "id": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 11,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/nezih_70e9ee41d7.jpg",
+                  "fullname": "Nezih Üzümcüoğlu",
+                  "position": "Head of New Markets",
+                  "description": null,
+                  "createdAt": "2023-09-28T10:58:21.985Z",
+                  "updatedAt": "2023-10-02T14:05:25.812Z",
+                  "publishedAt": "2023-09-28T10:58:23.191Z",
+                  "socialLinks": [
+                    {
+                      "id": 11
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 12,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/zeynep_4e259fd1d7.jpg",
+                  "fullname": "Zeynep Özdoğan",
+                  "position": "Brand & Creative Strategy Manager",
+                  "description": null,
+                  "createdAt": "2023-09-28T10:59:31.056Z",
+                  "updatedAt": "2023-10-02T14:07:01.499Z",
+                  "publishedAt": "2023-09-28T10:59:33.197Z",
+                  "socialLinks": [
+                    {
+                      "id": 12
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 13,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/1626272659704_360_e1691655159900_jpg_84a097f868.webp",
+                  "fullname": "Cansu Keser",
+                  "position": "CEO Office",
+                  "description": null,
+                  "createdAt": "2023-09-28T11:00:14.370Z",
+                  "updatedAt": "2023-10-02T14:19:58.187Z",
+                  "publishedAt": "2023-09-28T11:00:16.125Z",
+                  "socialLinks": [
+                    {
+                      "id": 13
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 14,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/anil_08339b6607.jpg",
+                  "fullname": "Suat Anıl Andaç",
+                  "position": "Head Of Business Development",
+                  "description": null,
+                  "createdAt": "2023-09-28T11:01:17.490Z",
+                  "updatedAt": "2023-10-02T14:06:34.327Z",
+                  "publishedAt": "2023-09-28T11:01:18.810Z",
+                  "socialLinks": [
+                    {
+                      "id": 14
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 15,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/ebru_caglayan_e1691656044155_jpg_c99f637e5e.webp",
+                  "fullname": "Ebru Çağlayan",
+                  "position": "Business Development Manager",
+                  "description": null,
+                  "createdAt": "2023-09-28T11:01:45.624Z",
+                  "updatedAt": "2023-10-02T14:20:34.825Z",
+                  "publishedAt": "2023-09-28T11:01:47.203Z",
+                  "socialLinks": [
+                    {
+                      "id": 15
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 9,
+                "attributes": {
+                  "image": "https://strapi-aws-s3-images-bucket-v1.s3.eu-central-1.amazonaws.com/sarper_f8c7f10a87.jpg",
+                  "fullname": "Sarper Evren",
+                  "position": "CFO & CRO",
+                  "description": null,
+                  "createdAt": "2023-09-28T10:55:58.959Z",
+                  "updatedAt": "2023-10-02T14:06:13.995Z",
+                  "publishedAt": "2023-09-28T10:56:01.131Z",
+                  "socialLinks": [
+                    {
+                      "id": 9
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "Footer": {
+        "id": 16,
+        "bannerHeader": {
+          "id": 74,
+          "title": "Become a part of our story",
+          "description": null,
+          "image": null
+        },
+        "bannerBody": {
+          "id": 75,
+          "title": null,
+          "description": "Interested in joining Missafir's young and innovative team? Take a look at our job opportunities!",
+          "image": "https://svgshare.com/i/voH.svg"
+        },
+        "bannerFooter": {
+          "id": 20,
+          "label": "Take a look",
+          "image": null,
+          "link": "https://www.linkedin.com/company/missafir/jobs/"
+        }
+      },
+      "localizations": {
+        "data": [
+          {
+            "id": 2,
+            "attributes": {
+              "createdAt": "2023-09-28T10:25:06.605Z",
+              "updatedAt": "2023-10-02T14:23:53.624Z",
+              "publishedAt": "2023-09-28T11:32:21.998Z",
+              "locale": "tr"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "meta": {}
+}

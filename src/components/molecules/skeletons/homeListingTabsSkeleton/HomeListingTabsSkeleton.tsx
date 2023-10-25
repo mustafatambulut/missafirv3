@@ -10,8 +10,8 @@ const HomeListingTabsSkeleton = () => {
     return (
       <>
         <div className="flex w-full mx-5 lg:mx-0 flex-col justify-center items-center">
-          <div className="w-8 h-8 bg-gray-200 rounded-xl" />
-          <div className="w-12 h-6 bg-gray-100 rounded-xl mt-2" />
+          <div className="2xl:w-10 2xl:h-10 w-8 h-8 bg-gray-200 rounded-xl" />
+          <div className="2xl:w-14 2xl:h-8 w-12 h-6 bg-gray-100 rounded-xl mt-2" />
         </div>
       </>
     );

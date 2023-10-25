@@ -8,7 +8,7 @@ const ReservationDate = ({
   label
 }: IReservationDate) => {
   return (
-    <div className="rounded-lg bg-gray-50 lg:flex-1 flex justify-start items-center gap-2 py-2 lg:py-3 px-3 lg:px-5">
+    <div className="rounded-lg bg-gray-50 lg:flex-1 flex justify-start items-center gap-2 py-2 lg:py-3 px-3 lg:px-5 mt-5">
       <div>
         <CalendarIcon className="fill-gray-800 lg:scale-125" />
       </div>

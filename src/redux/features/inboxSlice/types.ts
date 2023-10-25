@@ -9,6 +9,7 @@ export interface IMessageState {
   notFound: boolean;
   selectedThread: any;
   pagination: any;
+  threadListLoaded: boolean;
 }
 
 export interface Chats {

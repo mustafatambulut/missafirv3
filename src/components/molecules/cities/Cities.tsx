@@ -1,27 +1,22 @@
-"use client";
 import Image from "next/image";
 import { get, map } from "lodash";
-import { isMobile } from "react-device-detect";
 
-import { BODY } from "@/app/constants";
-import { CITY_SECTION } from "@/components/molecules/cities/constants";
-import useFetchData from "@/app/hooks/useFetchData";
 import {
   IAttributes,
-  ICity,
   ICityAttributes
 } from "@/components/molecules/cities/types";
 
 import Card from "@/components/atoms/card/Card";
 import Loading from "@/components/atoms/loading/Loading";
+import Typography from "@/components/atoms/typography/Typography";
 import Slider from "@/components/molecules/slider/Slider";
 import Section from "@/components/molecules/section/Section";
+import CitiesSkeleton from "../skeletons/citiesSkeleton/CitiesSkeleton";
 
 import "./Cities.css";
 import NextIcon from "../../../../public/images/arrow_right.svg";
 import PreviousIcon from "../../../../public/images/arrow_left.svg";
-import CitiesSkeleton from "../skeletons/citiesSkeleton/CitiesSkeleton";
-import Typography from "@/components/atoms/typography/Typography";
+import { Suspense } from "react";
 
 const CustomNavigation = () => {
   return (
@@ -36,18 +31,19 @@ const CustomNavigation = () => {
   );
 };
 
-const Cities = () => {
-  const cities = useFetchData<ICity>(BODY, CITY_SECTION);
+const Cities = ({ cities }: any) => {
   const CardComponent = ({ city }: ICityAttributes) => {
     return (
       <Card className="p-4 border border-[#EEEEEE] rounded-2xl">
         <div className="w-full h-40 lg:h-60 relative">
           {get(city, "attributes.image") && (
             <Image
-              src={get(city, "attributes.image") || "/"}
               alt="image"
-              className="object-cover rounded-2xl"
               fill={true}
+              priority={true}
+              src={get(city, "attributes.image")}
+              className="object-cover rounded-2xl"
+              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 50vw, 33vw"
             />
           )}
         </div>
@@ -55,33 +51,41 @@ const Cities = () => {
           <Typography element="h6" variant="h6" className="text-gray-800">
             {get(city, "attributes.title")}
           </Typography>
-          <Typography element="p" variant="p4" className="text-gray-500 mt-2">
-            {get(city, "attributes.description")}
-          </Typography>
+          <div className="min-h-[7rem] lg:min-h-auto">
+            <Typography element="p" variant="p4" className="text-gray-500 mt-2">
+              {get(city, "attributes.description")}
+            </Typography>
+          </div>
         </div>
       </Card>
     );
   };
 
   return (
-    <Loading isLoading={!cities} loader={<CitiesSkeleton />}>
-      <Section
-        className="px-2 lg:px-8 mt-14"
-        title={get(cities, "header.title")}
-        description={get(cities, "header.description")}>
-        <Slider
-          sliderIdentifier="cities"
-          autoHiddenNavigation={false}
-          slidesPerView={isMobile ? 1 : 3}
-          spaceBetween={isMobile ? 12 : 14}
-          customNavigation={<CustomNavigation />}
-          sliderWrapperClassName={isMobile ? "pr-20" : "pr-40"}>
-          {map(get(cities, "cities.data"), (city: IAttributes, key) => (
-            <CardComponent key={key} city={city} />
-          ))}
-        </Slider>
-      </Section>
-    </Loading>
+    <Suspense fallback={<CitiesSkeleton />}>
+      <Loading isLoading={!cities} loader={<CitiesSkeleton />}>
+        <Section
+          className="px-2 lg:px-8 mt-14"
+          title={get(cities, "header.title")}
+          description={get(cities, "header.description")}>
+          <Slider
+            sliderIdentifier="cities"
+            autoHiddenNavigation={false}
+            mobileSlidesPerView={1}
+            desktopSlidesPerView={3}
+            desktopLargeSlidesPerView={5}
+            mobileSpaceBetween={12}
+            desktopSpaceBetween={14}
+            desktopLargeSpaceBetween={16}
+            customNavigation={<CustomNavigation />}
+            sliderWrapperClassName="pr-20 lg:pr-40">
+            {map(get(cities, "cities.data"), (city: IAttributes, key) => (
+              <CardComponent key={key} city={city} />
+            ))}
+          </Slider>
+        </Section>
+      </Loading>
+    </Suspense>
   );
 };
 

@@ -16,7 +16,8 @@ const DropDown = ({
   label,
   children,
   className = "",
-  menuClass = ""
+  menuClass = "",
+  isScrolledHeaderActive
 }: IDropDown) => {
   const [isShow, setIsShow] = useState<boolean>(false);
   const menuClassName = classNames(
@@ -48,12 +49,14 @@ const DropDown = ({
               {/*  src={`${imageSrc || "/images/user_light.svg"}`}*/}
               {/*  className="rounded-full bg-gray-100 p-1 lg:bg-transparent lg:p-0"*/}
               {/*/>*/}
-              {variant === "light" ? (
+              {variant === "light" && isScrolledHeaderActive ? (
                 <div className="rounded-full w-6 h-6 bg-gray-50 flex justify-center items-center">
                   <UserDark className="fill-gray-400" />
                 </div>
               ) : (
-                <UserLight />
+                <div className="rounded-full w-6 h-6 flex justify-center items-center border border-gray-800">
+                  <UserDark className="fill-gray-800" />
+                </div>
               )}
             </div>
           </label>
@@ -72,11 +75,13 @@ const DropDown = ({
             />
           )}
         </div>
-        <ul className={menuClassName}>
-          <Typography element="span" variant="p3">
-            {children}
-          </Typography>
-        </ul>
+        {isShow ? (
+          <ul className={menuClassName} onClick={handleOutsideClick}>
+            <Typography element="span" variant="p3">
+              {children}
+            </Typography>
+          </ul>
+        ) : null}
       </div>
     </OutsideClickHandler>
   );

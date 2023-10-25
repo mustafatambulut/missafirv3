@@ -1,15 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
-import classNames from "classnames";
+import get from "lodash/get";
+import split from "lodash/split";
 import moment from "moment/moment";
-import { useLocale } from "next-intl";
-import turkish from "moment/locale/tr";
-import english from "moment/locale/en-gb";
-import montenegro from "moment/locale/hr";
-import { get, isNull, split } from "lodash";
+import isNull from "lodash/isNull";
+import classNames from "classnames";
+import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { isMobile } from "react-device-detect";
+
+import turkish from "moment/locale/tr";
+import montenegro from "moment/locale/hr";
+import english from "moment/locale/en-gb";
 
 import {
   checkSameItem,
@@ -19,9 +21,10 @@ import {
 import {
   fetchLocations,
   fetchDataByPage,
+  updateLocations,
   updateActivePath
 } from "@/redux/features/landingSlice/landingSlice";
-import { HOME } from "@/app/constants";
+import { HOME, LANG_KEY, LOCATIONS_KEY } from "@/app/constants";
 import useFetchData from "@/app/hooks/useFetchData";
 import usePageScroll from "@/app/hooks/usePageScroll";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -38,8 +41,7 @@ import Drawer from "@/components/molecules/drawer/Drawer";
 import Navbar from "@/components/molecules/navbar/Navbar";
 import HeaderSkeleton from "@/components/molecules/skeletons/headerSkeleton/HeaderSkeleton";
 
-const Header = ({ lang }: string) => {
-  const locale = useLocale();
+const Header = ({ lang }: IHeader) => {
   const pathName = usePathname();
   const dispatch = useAppDispatch();
   const { isScrolledHeaderActive } = usePageScroll();
@@ -51,6 +53,11 @@ const Header = ({ lang }: string) => {
 
   const { isShowDrawer, activePath } = useAppSelector(
     (state) => state.landingReducer
+  );
+  const headerData = useAppSelector((state) => state.landingReducer.headerData);
+  const footerData = useAppSelector((state) => state.landingReducer.footerData);
+  const footerBrandData = useAppSelector(
+    (state) => state.landingReducer.footerBrandData
   );
 
   const headerClass = classNames("fixed top-0 w-full z-40", {
@@ -80,31 +87,34 @@ const Header = ({ lang }: string) => {
     userMenuData
   };
 
-  const getVariant = () => {
-    if (activePath === `/${locale}` || activePath === "/") {
-      return isScrolledHeaderActive ? "light" : "dark";
-    } else {
-      return "light";
-    }
-  };
+  // todo: kullanılmayacaksa kaldırılması gerek
+  // const getVariant = () => {
+  //   if (activePath === `/${locale}` || activePath === "/") {
+  //     return isScrolledHeaderActive ? "light" : "dark";
+  //   } else {
+  //     return "light";
+  //   }
+  // };
 
   useEffect(() => {
-    if (!entities) return;
+    //if (!entities) return;
 
-    setHeader(get(entities, "header"));
-    setFooterMenu(get(entities, "footer"));
-    setFooterBrand(get(entities, "footerBrand"));
-  }, [entities]);
+    // setHeader(get(entities, "header"));
+    // setFooterMenu(get(entities, "footer"));
+    // setFooterBrand(get(entities, "footerBrand"));
+    setHeader(get(headerData, lang));
+    setFooterMenu(get(footerData, lang));
+    setFooterBrand(get(footerBrandData, lang));
+  }, []);
 
   useEffect(() => {
-    setLocalStorage("lang", lang);
+    setLocalStorage(LANG_KEY, lang);
     dispatch(fetchDataByPage(HOME));
-    // todo: tüm clientlerde localstorage güncellemek için yorum satırına alındı, geri alınacak
-    // const locations = getLocalStorage("locations");
-    // locations
-    //   ? dispatch(updateLocations(JSON.parse(locations)))
-    //   : dispatch(fetchLocations());
-    dispatch(fetchLocations());
+    const locations = getLocalStorage(LOCATIONS_KEY);
+
+    locations
+      ? dispatch(updateLocations(JSON.parse(locations)))
+      : dispatch(fetchLocations());
   }, []);
 
   useEffect(() => {
@@ -121,7 +131,7 @@ const Header = ({ lang }: string) => {
   }, [pathName]);
 
   useEffect(() => {
-    const lang = getLocalStorage("lang");
+    const lang = getLocalStorage(LANG_KEY);
     if (lang) {
       switch (lang) {
         case "tr":
@@ -146,9 +156,10 @@ const Header = ({ lang }: string) => {
         <div className={drawerClass}>
           {header && userMenuData && (
             <Navbar
-              activePath={activePath}
-              variant={getVariant()}
+              lang={lang}
+              variant="light"
               data={navbarData}
+              activePath={activePath}
               isScrolledHeaderActive={isScrolledHeaderActive}
             />
           )}

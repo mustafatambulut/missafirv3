@@ -1,24 +1,20 @@
-"use client";
 import Link from "next/link";
 import { get, map } from "lodash";
-import dynamic from "next/dynamic";
-import { useTranslations } from "next-intl";
+import { getTranslator } from "next-intl/server";
+
+import { INews } from "@/components/molecules/news/types";
 
 import Button from "@/components/atoms/button/Button";
 import Loading from "@/components/atoms/loading/Loading";
 import Typography from "@/components/atoms/typography/Typography";
 import Section from "@/components/molecules/section/Section";
+import PropertyCard from "@/components/molecules/propertyCard/PropertyCard";
 import NewsSkeleton from "@/components/molecules/skeletons/newsSkeleton/NewsSkeleton";
 
 import RightArrow from "../../../../public/images/chevron_right.svg";
 
-const PropertyCard = dynamic(
-  () => import("@/components/molecules/propertyCard/PropertyCard"),
-  { ssr: false }
-);
-
-const News = () => {
-  const t = useTranslations();
+const News = async ({ lang }: INews) => {
+  const t = await getTranslator(lang);
 
   //todo: api entregrasyonu yapılınca kaldırılacak
   const mockNews = {
@@ -73,7 +69,7 @@ const News = () => {
         target="_blank"
         link="https://missafir.com/blog"
         className="mt-10 bg-primary-50 text-primary border-primary-25 hover:bg-primary hover:border-primary group">
-        <Typography element="h6" variant="h6" className="flex">
+        <Typography element="h6" variant="h6" className="flex items-center">
           <span className="group-hover:text-white">{t("go_to_the_blog")}</span>
           <RightArrow className="scale-50 fill-primary group-hover:fill-white" />
         </Typography>

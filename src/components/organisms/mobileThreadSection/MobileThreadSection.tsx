@@ -15,18 +15,18 @@ const MobileThreadSection = () => {
   );
 
   const mainClass = classNames(
-    "flex flex-col lg:flex-row lg:mt-28 bg-gray-50 px-4 pt-0 lg:p-10 mt-20 relative",
+    "flex flex-col lg:flex-row lg:mt-28 bg-gray-50 px-4 pt-0 lg:p-10 mt-20 inbox-container lg:h-auto relative",
     { "h-screen": notFound }
   );
 
   return (
-    <main className={mainClass}>
+    <div className={mainClass}>
       {notFound ? (
         <InboxNotFoundComponent />
       ) : selectedThreadId === null ? (
         <InboxThreadList />
       ) : (
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-1">
           <InboxHeader />
           <InboxListingDetailDrawer />
           <div className="mt-20">
@@ -34,7 +34,7 @@ const MobileThreadSection = () => {
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 };
 

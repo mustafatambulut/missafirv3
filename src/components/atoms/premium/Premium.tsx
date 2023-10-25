@@ -1,21 +1,13 @@
-"use client";
 import { get } from "lodash";
-import { checkAuth } from "@/utils/helper";
-
-import { BODY } from "@/app/constants";
-import { PREMIUM_SECTION } from "@/components/atoms/premium/constants";
-import useFetchData from "@/app/hooks/useFetchData";
-import { IPremium } from "@/components/atoms/premium/types";
+import { checkIsAuthenticated } from "@/utils/helper";
 
 import Button from "@/components/atoms/button/Button";
 import Loading from "@/components/atoms/loading/Loading";
-import BannerSkeleton from "@/components/molecules/skeletons/bannerSkeleton/BannerSkeleton";
 import Typography from "@/components/atoms/typography/Typography";
 import Banner from "@/components/molecules/banner/Banner";
+import BannerSkeleton from "@/components/molecules/skeletons/bannerSkeleton/BannerSkeleton";
 
-const Premium = () => {
-  const premium = useFetchData<IPremium>(BODY, PREMIUM_SECTION);
-
+const Premium = ({ premium }: any) => {
   return (
     <Loading isLoading={!premium} loader={<BannerSkeleton />}>
       <div className="px-2 lg:px-8 mt-14">
@@ -32,7 +24,7 @@ const Premium = () => {
           <Typography element="p" variant="p2" className="my-5 text-white">
             {get(premium, "body.title")}
           </Typography>
-          {checkAuth() ? null : (
+          {checkIsAuthenticated() ? null : (
             <Button
               variant="btn-white"
               className="w-40 text-2xl"

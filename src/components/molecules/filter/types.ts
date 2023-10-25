@@ -8,12 +8,8 @@ import { IAmenitiesData } from "@/components/molecules/amenities/types";
 import { IListingData } from "@/components/molecules/listingListItem/types";
 
 export interface IFilter {
-  filterData: IFilterData;
-  // eslint-disable-next-line no-unused-vars
-  filterListings: (type: string, filterData: IFilterData) => void;
-  tempFilteredListings: IListingData[];
-  calculateMinMaxListingPrice: () => number[];
-  setFilterData: React.Dispatch<React.SetStateAction<IFilterData>>;
+  lang?: string;
+  searchParams: URLSearchParams;
 }
 
 export interface IFilterData {

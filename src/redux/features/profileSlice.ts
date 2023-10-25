@@ -10,6 +10,7 @@ import {
   getRecentReservationDetails,
   getRecentReservationsByPage
 } from "@/service/api";
+import axios from "axios";
 
 export const fetchProfileData = createAsyncThunk(
   "profile/fetchProfileData",
@@ -29,8 +30,12 @@ export const updateProfile = createAsyncThunk(
 
 export const fetchRecentReservations = createAsyncThunk(
   "profile/fetchRecentReservations",
-  async (reservationType?: string) => {
-    const { data } = await getRecentReservations(reservationType);
+  async (reservationType?: string,{signal}) => {
+    const source = axios.CancelToken.source()
+    signal.addEventListener('abort', () => {
+      source.cancel()
+    })
+    const { data } = await getRecentReservations(reservationType,source.token);
     return data;
   }
 );
@@ -67,6 +72,7 @@ interface ProfileState {
     | "settings";
   reservations: IReservationItemProps[];
   selectedReservationId: null | string;
+  reservationsLoaded: boolean;
 }
 
 const initialState = {
@@ -75,6 +81,7 @@ const initialState = {
   // todo: test için eklendi düzenlenecek
   reservations: [],
   reservation: {},
+  reservationsLoaded: false,
   activeSection: "reservations",
   selectedReservationId: null,
   pagination: {
@@ -120,10 +127,12 @@ const profileSlice = createSlice({
     });
     builder.addCase(fetchRecentReservations.pending, (state) => {
       state.loading = true;
+      state.reservationsLoaded = false;
     });
     builder.addCase(fetchRecentReservations.fulfilled, (state, action) => {
       state.reservations = action.payload.data.items;
       state.loading = false;
+      state.reservationsLoaded = true;
     });
     builder.addCase(fetchRecentReservationDetails.pending, (state) => {
       state.loading = true;

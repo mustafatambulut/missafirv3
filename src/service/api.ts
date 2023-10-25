@@ -1,25 +1,13 @@
-import { get } from "lodash";
-
-import { strapi, pmsApi } from "./axiosInstances";
+import get from "lodash/get";
+import { pmsApi } from "./axiosInstances";
+import { TOKEN_KEY } from "@/app/constants";
 import { getCurrentLang, getLocalStorage } from "@/utils/helper";
 
-export const getPage = async (page: string) => {
-  const { data } = await strapi.get(
-    `/api/${page}?populate=deep&locale=${getCurrentLang() || "en"}`
-  );
-  return get(data, "data");
+export const getPageLocal = async (page: string, lang: any) => {
+  // @ts-ignore
+  const result = await import(`/public/data/${page}_${lang}.json`, {next: { revalidate: 3600 }});
+  return result && get(JSON.parse(JSON.stringify(result)), "data");
 };
-
-// export const getPage = async (page: string) => {
-//   try {
-//     return await strapi.get(
-//       `/api/${page}?populate=deep&locale=${getCurrentLang() || "en"}`
-//     );
-//   } catch (err) {
-//     return get(err, "response");
-//   }
-// };
-
 
 export const sendDealRequest = async (payload) => {
   try {
@@ -92,7 +80,7 @@ export const getRecentReservationDetails = async (id) => {
   try {
     return await pmsApi.get(`/profile/reservationsDetail/${id}`, {
       headers: {
-        Authorization: `Bearer ${getLocalStorage("token")}`
+        Authorization: `Bearer ${getLocalStorage(TOKEN_KEY)}`
       }
     });
   } catch (err) {
@@ -105,7 +93,7 @@ export const getThreadList = async () => {
   try {
     return await pmsApi.get(`/inbox`, {
       headers: {
-        Authorization: `Bearer ${getLocalStorage("token")}`
+        Authorization: `Bearer ${getLocalStorage(TOKEN_KEY)}`
       }
     });
   } catch (err) {
@@ -118,7 +106,7 @@ export const getThreadListByPage = async (page) => {
   try {
     return await pmsApi.get(`/inbox`, {
       headers: {
-        Authorization: `Bearer ${getLocalStorage("token")}`
+        Authorization: `Bearer ${getLocalStorage(TOKEN_KEY)}`
       },
       params: { page }
     });
@@ -132,7 +120,7 @@ export const getThreadDetails = async (id) => {
   try {
     return await pmsApi.get(`/inbox/${id}`, {
       headers: {
-        Authorization: `Bearer ${getLocalStorage("token")}`
+        Authorization: `Bearer ${getLocalStorage(TOKEN_KEY)}`
       }
     });
   } catch (err) {
@@ -148,7 +136,7 @@ export const sendMessageToThread = async (id, message) => {
       { body: message },
       {
         headers: {
-          Authorization: `Bearer ${getLocalStorage("token")}`
+          Authorization: `Bearer ${getLocalStorage(TOKEN_KEY)}`
         }
       }
     );
@@ -166,21 +154,18 @@ export const getFilters = async () => {
   }
 };
 
-export const getListings = async (params) => {
-  pmsApi.defaults.headers.common["lang"] = getCurrentLang() || "en";
-  try {
-    const config = params ? { params: params } : {};
-    return await pmsApi.get("/search/results", config);
-  } catch (err) {
-    return get(err, "response");
-  }
-};
+export const getListings = async ({
+  lang,
+  params
+}: {
+  lang?: string;
+  params?: any;
+}) => {
+  pmsApi.defaults.headers.common["lang"] = lang || "en";
 
-export const getListingsByPage = async (params) => {
-  pmsApi.defaults.headers.common["lang"] = getCurrentLang() || "en";
   try {
-    const config = params ? { params: params } : {};
-    return await pmsApi.get("/search/results", config);
+    const payload = params ? { params: params } : {};
+    return await pmsApi.get("/search/results", payload);
   } catch (err) {
     return get(err, "response");
   }
@@ -204,14 +189,18 @@ export const getLandingListingTabDetails = async (id) => {
   }
 };
 
-export const getRecentReservations = async (reservationType?: string) => {
+export const getRecentReservations = async (
+  reservationType?: string,
+  cancelToken?: string
+) => {
   pmsApi.defaults.headers.common["lang"] = getCurrentLang() || "en";
   try {
     const param = reservationType ? `/${reservationType}` : "";
     return await pmsApi.get(`/profile/reservations${param}`, {
       headers: {
-        Authorization: `Bearer ${getLocalStorage("token")}`
-      }
+        Authorization: `Bearer ${getLocalStorage(TOKEN_KEY)}`
+      },
+      cancelToken
     });
   } catch (err) {
     return get(err, "response");
@@ -230,7 +219,7 @@ export const getRecentReservationsByPage = async ({
     const type = reservationType ? `/${reservationType}` : "";
     return await pmsApi.get(`/profile/reservations${type}`, {
       headers: {
-        Authorization: `Bearer ${getLocalStorage("token")}`
+        Authorization: `Bearer ${getLocalStorage(TOKEN_KEY)}`
       },
       params: { page }
     });
@@ -270,7 +259,20 @@ export const profileEdit = async (payload) => {
   try {
     return await pmsApi.post("/profile/edit", payload, {
       headers: {
-        Authorization: `Bearer ${getLocalStorage("token")}`
+        Authorization: `Bearer ${getLocalStorage(TOKEN_KEY)}`
+      }
+    });
+  } catch (err) {
+    return err;
+  }
+};
+
+export const changePassword = async (payload) => {
+  pmsApi.defaults.headers.common["lang"] = getCurrentLang() || "en";
+  try {
+    return await pmsApi.post("/profile/passwordChange", payload, {
+      headers: {
+        Authorization: `Bearer ${getLocalStorage(TOKEN_KEY)}`
       }
     });
   } catch (err) {
@@ -283,7 +285,7 @@ export const getProfile = async () => {
   try {
     return await pmsApi.get("/profile/edit", {
       headers: {
-        Authorization: `Bearer ${getLocalStorage("token")}`
+        Authorization: `Bearer ${getLocalStorage(TOKEN_KEY)}`
       }
     });
   } catch (err) {
@@ -326,7 +328,7 @@ export const basket = async (payload) => {
   try {
     return await pmsApi.post("/basket", payload, {
       headers: {
-        Authorization: `Bearer ${getLocalStorage("token")}`
+        Authorization: `Bearer ${getLocalStorage(TOKEN_KEY)}`
       }
     });
   } catch (err) {
@@ -339,10 +341,24 @@ export const checkoutPreview = async (payload) => {
   try {
     return await pmsApi.post("/basket/checkout", payload, {
       headers: {
-        Authorization: `Bearer ${getLocalStorage("token")}`
+        Authorization: `Bearer ${getLocalStorage(TOKEN_KEY)}`
       }
     });
   } catch (err) {
     return err;
+  }
+};
+
+export const minimumNights = async ({ lang, slug, checkIn }: {}) => {
+  pmsApi.defaults.headers.common["lang"] = lang || getCurrentLang();
+
+  try {
+    const { data } = await pmsApi.get(
+      `/listing/${slug}/minNights${checkIn ? `?check_in=${checkIn}` : ""}`
+    );
+
+    return get(data, "data");
+  } catch (err) {
+    return get(err, "data");
   }
 };

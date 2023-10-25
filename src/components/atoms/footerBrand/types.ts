@@ -35,4 +35,5 @@ export interface Attributes {
 
 export type FooterBrandProps = {
   className?: string;
+  lang: string;
 };

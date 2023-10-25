@@ -26,9 +26,9 @@ import Typography from "@/components/atoms/typography/Typography";
 const ReservationList = () => {
   const dispatch = useAppDispatch();
   const t = useTranslations();
-  const { reservations, loading, pagination } = useAppSelector(
-    (state) => state.profileReducer
-  );
+  const [recentReservationsPromise, setRecentReservationsPromise] = useState();
+  const { reservations, loading, pagination, reservationsLoaded } =
+    useAppSelector((state) => state.profileReducer);
   const [activeFilter, setActiveFilter] = useState<string>("");
   const filterOptionIconClass = (type: string): string => {
     return classNames("fill-gray", {
@@ -101,14 +101,26 @@ const ReservationList = () => {
       );
   };
 
+  const handleGetRecentReservations = (filter: string) => {
+    setActiveFilter(filter);
+    if (recentReservationsPromise) {
+      recentReservationsPromise?.abort();
+    }
+    const promise = dispatch(fetchRecentReservations(activeFilter));
+    setRecentReservationsPromise(promise);
+  };
+
   useEffect(() => {
-    dispatch(fetchRecentReservations(activeFilter));
-  }, [activeFilter]);
+    handleGetRecentReservations(activeFilter);
+  }, []);
 
   return (
     <div className="flex flex-col gap-y-3">
       <div className="hidden lg:flex justify-between items-center">
-        <Typography variant="h4" element="h4" className="text-gray-800 font-mi-sans-semi-bold">
+        <Typography
+          variant="h4"
+          element="h4"
+          className="text-gray-800 font-mi-sans-semi-bold">
           {t("past_reservations")}
         </Typography>
       </div>
@@ -120,9 +132,13 @@ const ReservationList = () => {
                 key={key}
                 className={filterOptionButtonClass(filter.attributes.value)}
                 variant="btn-ghost"
-                onClick={() => setActiveFilter(filter.attributes.value)}>
+                onClick={() =>
+                  handleGetRecentReservations(filter.attributes.value)
+                }>
                 {get(filter, "attributes.icon")}
-                <Typography variant="p3" element="span">{get(filter, "attributes.label")}</Typography>
+                <Typography variant="p3" element="span">
+                  {get(filter, "attributes.label")}
+                </Typography>
                 <div
                   className={tabMenuBorderClass(
                     get(filter, "attributes.value")
@@ -130,8 +146,7 @@ const ReservationList = () => {
               </Button>
             ))}
           </div>
-          <div className="lg:hidden flex justify-between">
-            {/*todo: select düzenlenecek*/}
+          <div className="lg:hidden w-[60%] border border-gray-400 rounded-lg">
             <SelectFilter onChange={setActiveFilter} />
           </div>
         </div>
@@ -144,9 +159,15 @@ const ReservationList = () => {
           loader={<ReservationListSkeleton />}
           dataLength={size(reservations)}
           className="relative gap-y-5 py-2 pr-1 flex flex-col">
-          {map(reservations, (reservation, key) => (
-            <ReservationItem reservation={reservation} key={key} />
-          ))}
+          {size(reservations) === 0 && reservationsLoaded ? (
+            <div className="text-sm lg:text-lg h-screen">
+              {t("no_reservation_found")}
+            </div>
+          ) : (
+            map(reservations, (reservation, key) => (
+              <ReservationItem reservation={reservation} key={key} />
+            ))
+          )}
         </InfiniteScroll>
       </Loading>
     </div>

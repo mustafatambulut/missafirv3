@@ -9,4 +9,7 @@ export interface ICard {
   cvc: string;
   name: string;
   focus?: string;
+  preliminary?: boolean;
+  distance?: boolean;
+  message?: string;
 }

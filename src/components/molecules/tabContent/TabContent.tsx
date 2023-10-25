@@ -22,7 +22,7 @@ const TabContent = ({
     <div key={id} className={tabClass}>
       <Slider
         sliderIdentifier="experience-slider"
-        customNavigation={<CustomNavigation />}>
+        customNavigation={<CustomNavigation sliderIdentifier="experience-slider" />}>
         {map(get(content, "data"), ({ attributes }, key) => (
           <Card
             key={key}

@@ -1,33 +1,36 @@
 "use client";
+import { useEffect } from "react";
 import * as Yup from "yup";
 import moment from "moment";
-import { get } from "lodash";
-import { useEffect } from "react";
+import get from "lodash/get";
 import { useFormik } from "formik";
-import PhoneInput from "@/components/atoms/phoneInput/PhoneInput";
+import { useTranslations } from "next-intl";
 import { IMaskInput, IMask } from "react-imask";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { toast, Toaster } from "react-hot-toast";
 
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { fetchProfileData, updateProfile } from "@/redux/features/profileSlice";
 
 import Input from "@/components/atoms/input/Input";
 import Button from "@/components/atoms/button/Button";
 import Checkbox from "@/components/atoms/checkbox/Checkbox";
+import PhoneInput from "@/components/atoms/phoneInput/PhoneInput";
+import Typography from "@/components/atoms/typography/Typography";
+import ToastMessage from "@/components/atoms/toastMessage/ToastMessage";
 
 import "react-phone-input-2/lib/style.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { useTranslations } from "next-intl";
-import Typography from "@/components/atoms/typography/Typography";
 
 const ProfileInfo = () => {
+  const t = useTranslations();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.profileReducer);
-  const t = useTranslations();
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   //todo: dil dosyaları düzenlenecek
   const validationSchema = Yup.object({
     phone: Yup.string()
+      .min(11, t("phone_number_is_missing_or_invalid"))
       .matches(phoneRegExp, "phone_number_is_not_valid")
       .required(t("required_field")),
     gender: Yup.string().required(t("required_field")),
@@ -56,7 +59,32 @@ const ProfileInfo = () => {
         ...values,
         birthday: moment(values.birthday, "DD-MM-YYYY").format("YYYY-MM-DD")
       };
-      dispatch(updateProfile(editedValues));
+      const res = await dispatch(updateProfile(editedValues));
+      if (get(res, "payload.status") || get(res, "payload.code") === 200) {
+        toast.custom((item) => (
+          <ToastMessage
+            toast={toast}
+            item={item}
+            title={t("toast_success")}
+            status="success">
+            <p className="text-md lg:text-xl text-black">
+              {t("your_information_has_been_updated")}
+            </p>
+          </ToastMessage>
+        ));
+      } else {
+        toast.custom((item) => (
+          <ToastMessage
+            toast={toast}
+            item={item}
+            title={t("toast_error")}
+            status="error">
+            <p className="text-md lg:text-xl text-black">
+              {t("oops_something_went_wrong")}
+            </p>
+          </ToastMessage>
+        ));
+      }
     }
   });
 
@@ -99,8 +127,12 @@ const ProfileInfo = () => {
 
   return (
     <form noValidate onSubmit={handleSubmit}>
+      <Toaster duration={4000} position="top-right" reverseOrder={false} />
       <div className="flex w-full flex-col gap-y-8">
-        <Typography variant="h4" element="h4" className="font-semibold text-gray-900">
+        <Typography
+          variant="h4"
+          element="h4"
+          className="font-semibold text-gray-900">
           {t("basic_knowledge")}
         </Typography>
         <div className="flex flex-col">
@@ -268,6 +300,7 @@ const ProfileInfo = () => {
             className="btn btn-primary text-base lg:text-22"
             disabled={isSubmitting || !dirty}>
             {t("save")}
+            {isSubmitting && <span className="loading loading-spinner"></span>}
           </Button>
         </div>
       </div>

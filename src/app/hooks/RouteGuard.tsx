@@ -1,14 +1,16 @@
 "use client";
 import { useEffect } from "react";
-import { includes, split } from "lodash";
+import split from "lodash/split";
+import includes from "lodash/includes";
 import { usePathname, useRouter } from "next/navigation";
 
 import {
+  checkIsAuthenticated,
   checkSameItem,
   getCurrentLang,
   getLocalStorage
 } from "@/utils/helper";
-import { LOCALES, PROTECTED } from "@/app/constants";
+import { LOCALES, PROTECTED, TOKEN_KEY } from "@/app/constants";
 
 const RouteGuard = ({ children }) => {
   const router = useRouter();
@@ -16,7 +18,7 @@ const RouteGuard = ({ children }) => {
 
   const authCheck = () => {
     const lang = getCurrentLang();
-    if (!getLocalStorage("token")) {
+    if (!checkIsAuthenticated()) {
       const isProtected = checkSameItem(PROTECTED, split(pathname, "/"));
 
       if (isProtected) {
@@ -31,7 +33,7 @@ const RouteGuard = ({ children }) => {
 
   useEffect(() => {
     authCheck();
-  }, [getLocalStorage("token")]);
+  }, [getLocalStorage(TOKEN_KEY)]);
 
   return children;
 };

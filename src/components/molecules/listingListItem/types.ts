@@ -1,8 +1,6 @@
 import { IListingData } from "@/redux/features/listingSlice/types";
-import { IFilterData } from "@/components/molecules/filter/types";
 
 export interface IListing {
+  lang?: string;
   listing: IListingData;
-  filterData: IFilterData;
-  inListingResults?: boolean;
 }

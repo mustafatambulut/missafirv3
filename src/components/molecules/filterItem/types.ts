@@ -2,9 +2,10 @@ import React, { JSX } from "react";
 import { IFilterData } from "@/components/molecules/filter/types";
 
 export interface IFilterItem {
-  filterItem:any;
+  filterItem: any;
   setIsOverlayActive: React.Dispatch<React.SetStateAction<boolean>>;
   isInAllFilters?: boolean;
+  searchParams: any;
 }
 
 export interface ITitle {
